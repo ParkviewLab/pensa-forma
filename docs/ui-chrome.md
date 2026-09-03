@@ -76,8 +76,7 @@ Where the host provides a native menu bar, provide:
    disabled when the undo slot is empty; there is no Redo item. When a text
    field or the note source pane has focus, the platform's text undo applies
    instead, as the toolkit provides.
-3. A Help menu: on platforms without an application menu, first `About Yucca
-   Basing` and a separator; then `Open Source Licenses…`; then `Source Code`,
+3. A Help menu: on platforms without an application menu, first `About PensaForma` and a separator; then `Open Source Licenses…`; then `Source Code`,
    opening the project's source-hosting page externally.
 
 On platforms with no native menu bar, surface About, Licenses, and Undo
