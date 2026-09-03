@@ -70,7 +70,7 @@ looking is part of the acceptance.
 
 `app`, second half: hit regions, the context menus with their inventories,
 the dialogs with their exact strings, the glyph clicks, the flag double-click,
-and drag-and-drop with trial-application legality, the two indicators, the
+and drag-and-drop with trial-application legality, the drop indicator, the
 ghost, auto-pan, and the stale-drop dialog. Undo through the Edit menu.
 
 Proves: the drop-target enumeration test against the command layer; the
