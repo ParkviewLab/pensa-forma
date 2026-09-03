@@ -572,15 +572,16 @@ CROSSED_HALF = { riser:1.5, lateral:1.15 }
 ### 9. The junction diamond
 
 A branch point or return point with at least one branch attached is marked
-by a small diamond centred on the junction point: an 8-pixel square rotated
-45 degrees, filled in `--line`, turning to `--ink` when the pointer hovers
-it. Every junction carries a transparent circular hit halo of radius 13
-centred on the same point (8 pixels of ink is no target for a pointer),
-which the interaction layer uses as the drop region for a return-point
-target and the hover region for the diamond.
+by a diamond centred on the junction point: a 12-pixel square rotated 45
+degrees, filled in `--line`, turning to `--ink` when the pointer hovers it.
+It is the only mark a line carries, so it is sized to read as a junction at
+the map's ordinary zoom without reading as a node. Every junction carries a
+transparent circular hit halo of radius 13 centred on the same point, which
+the interaction layer uses as the drop region for a return-point target and
+the hover region for the diamond.
 
 ```
-diamond: square  centre=(cx,cy)  side=8  rotate 45° about (cx,cy)  fill=--line
+diamond: square  centre=(cx,cy)  side=12  rotate 45° about (cx,cy)  fill=--line
 halo:    circle  centre=(cx,cy)  r=13  fill=transparent
 ```
 
@@ -694,7 +695,7 @@ Burst (optional decoration):  four full spokes: vertical and horizontal to ±26,
 Tracks:          riser 3; departure 2.3; return 2.3; round cap and join; colour --line
 Underpass:       TUNE perpClear 3, breakMax 12, capLength 9.2, stripLength 30;
                  CROSSED_HALF riser 1.5, lateral 1.15; cap stroke 1.6
-Junction:        diamond side 8, rotate 45; halo r 13
+Junction:        diamond side 12, rotate 45; halo r 13
 Note glyph:      design box 16 rendered at 14; body rect (3,3,10,11) corner radius 1.5 stroke 1.2; rings stroke 1.2; rules stroke 1.0;
                  placement: inset 11 right / 8 bottom on the axis-aligned silhouettes; the inner ellipse's
                  inscribed corner on the start ellipse (rotating with it); centred on the inner shape of the finish keystone

@@ -431,7 +431,10 @@ measured, and `anchorGap` is 8, enough that a junction diamond never touches
 a card's edge; it had been sized to hold a dot. The air rule's arrival case
 loses its dot-radius term, and a riser is drawn from card to card, an open
 branch's ending at its finish keystone. Decided on the northstar's tenth
-axiom: the dot clarified nothing the card and the diamonds do not.
+axiom: the dot clarified nothing the card and the diamonds do not. With the
+dot gone the diamond is the only mark on a line, and it grows from 8 to 12
+pixels on a side, chosen from renders at 8, 10, 12, and 14: at 12 it reads
+as a junction at the ordinary zoom without reading as a node.
 
 ### D22. A new application, in Rust, in its own repository
 

@@ -475,7 +475,7 @@ the departure and return laterals (width 2.3). No mark sits where a card meets i
   <div class="ground azure"><span class="tag">azure &middot; a departure fan of three</span>
     <svg width="300" height="120" viewBox="0 0 300 120" aria-label="tracks on azure">
       <path class="track riser" d="M40,110 L40,10"/>
-      <rect class="fork" x="36" y="56" width="8" height="8" transform="rotate(45 40 60)"/>
+      <rect class="fork" x="34" y="54" width="12" height="12" transform="rotate(45 40 60)"/>
       <!-- three siblings from one branch point, one, two, and three lanes out (lanes compressed for the figure);
            the junction-side ramp is longest for the innermost, so the flats sit at distinct heights -->
       <path class="track branch" d="M40,60 L120,43"/>
@@ -486,7 +486,7 @@ the departure and return laterals (width 2.3). No mark sits where a card meets i
   <div class="ground navy"><span class="tag">navy &middot; a departure fan of three</span>
     <svg width="300" height="120" viewBox="0 0 300 120" aria-label="tracks on navy">
       <path class="track riser" d="M40,110 L40,10"/>
-      <rect class="fork" x="36" y="56" width="8" height="8" transform="rotate(45 40 60)"/>
+      <rect class="fork" x="34" y="54" width="12" height="12" transform="rotate(45 40 60)"/>
       <path class="track branch" d="M40,60 L120,43"/>
       <path class="track branch" d="M40,60 L92,49 L160,49 L200,43"/>
       <path class="track branch" d="M40,60 L64,55 L216,55 L280,43"/>
@@ -536,20 +536,21 @@ explicit mitred ribbon quad; see the implementation notes.</p>
 <!-- ============================================================ -->
 <h2><span class="n">9</span>The junction diamond</h2>
 <p class="desc">A branch point or return point with a branch attached is marked by an
-8-pixel square turned 45&deg; into a diamond, in <code>--line</code> (turning to
-<code>--ink</code> on hover); every junction carries a transparent 13-pixel hit halo,
-shown faint, which is the return-point drop region and the hover region.</p>
+12-pixel square turned 45&deg; into a diamond, in <code>--line</code> (turning to
+<code>--ink</code> on hover), the only mark a line carries; every junction carries a
+transparent 13-pixel hit halo, shown faint, which is the return-point drop region and
+the hover region.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
     <svg width="70" height="70" viewBox="0 0 70 70" aria-label="junction on azure">
       <circle class="halo" cx="35" cy="35" r="13"/>
-      <rect class="fork" x="31" y="31" width="8" height="8" transform="rotate(45 35 35)"/>
+      <rect class="fork" x="29" y="29" width="12" height="12" transform="rotate(45 35 35)"/>
     </svg>
   </div>
   <div class="ground navy"><span class="tag">navy</span>
     <svg width="70" height="70" viewBox="0 0 70 70" aria-label="junction on navy">
       <circle class="halo" cx="35" cy="35" r="13"/>
-      <rect class="fork" x="31" y="31" width="8" height="8" transform="rotate(45 35 35)"/>
+      <rect class="fork" x="29" y="29" width="12" height="12" transform="rotate(45 35 35)"/>
     </svg>
   </div>
 </div>
