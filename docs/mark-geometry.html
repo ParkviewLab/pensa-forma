@@ -199,8 +199,8 @@ layout supplies.</div>
 
 <!-- ============================================================ -->
 <h2><span class="n">3</span>The card silhouettes</h2>
-<p class="desc">Six shapes: four for tasks and project boundaries, and two tilted conics for
-workflow boundaries. Each is an outer silhouette in the node colour with the
+<p class="desc">Six shapes: four for tasks and project boundaries, and two tilted shapes for
+workflow boundaries, an ellipse and a narrow keystone. Each is an outer silhouette in the node colour with the
 same path inset per edge and refilled in the panel colour; the band between the two
 fills is the outline, thin on one edge and heavy on another (the mid-century tell). Every
 figure below is the outer path and its <code>innerT</code>-transformed copy, drawn on
@@ -268,59 +268,62 @@ same hull turned a half turn, so a folded pair reads as one shape and its reflec
 
 <h3>ellipse &mdash; a start node, tilted (w=188, h=58, &theta;=&minus;3&deg;)</h3>
 <p class="small">The largest ellipse of the box's proportions that fits once rotated by the
-card's tilt: semi-axes (91.22, 27.12) about (94, 29). The inner ellipse is the
-per-edge inset in the card frame, and both turn together about the centre, so the
-heavy side of the band tilts with the shape. The tilt is derived from the node's id,
-between 2 and 6 degrees either way. The note glyph, shown, anchors to the inner
-ellipse's inscribed corner and rotates with the mark.</p>
+card's tilt, its major axis then held to seven tenths of that: semi-axes (63.85,
+27.12) about (94, 29). The inner ellipse is the per-edge inset in the card frame, and
+both turn together about the centre, so the heavy side of the band tilts with the
+shape. The tilt is derived from the node's id, between 2 and 6 degrees either way. The
+note glyph, shown, anchors to the inner ellipse's inscribed corner and rotates with the
+mark. The label wraps to the inner ellipse's inscribed width, 84.5 px, whatever the
+card's height.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
     <svg width="188" height="58" viewBox="0 0 188 58" aria-label="ellipse on azure">
       <g transform="rotate(-3 94 29)">
-        <ellipse class="outer workflow" cx="94" cy="29" rx="91.22" ry="27.12"/>
-        <ellipse class="inner" cx="94" cy="26.5" rx="85.40" ry="21.98"/>
-        <g class="note" transform="translate(140.4 28.0) scale(0.875)"><rect class="body" x="3" y="3" width="10" height="11" rx="1.5"/><line class="ring" x1="6" y1="1.5" x2="6" y2="4.5"/><line class="ring" x1="10" y1="1.5" x2="10" y2="4.5"/><line class="rule" x1="5.5" y1="7.5" x2="10.5" y2="7.5"/><line class="rule" x1="5.5" y1="10" x2="10.5" y2="10"/><line class="rule" x1="5.5" y1="12.5" x2="8.5" y2="12.5"/></g>
+        <ellipse class="outer workflow" cx="94" cy="29" rx="63.85" ry="27.12"/>
+        <ellipse class="inner" cx="94" cy="26.5" rx="59.78" ry="21.98"/>
+        <g class="note" transform="translate(122.3 28.0) scale(0.875)"><rect class="body" x="3" y="3" width="10" height="11" rx="1.5"/><line class="ring" x1="6" y1="1.5" x2="6" y2="4.5"/><line class="ring" x1="10" y1="1.5" x2="10" y2="4.5"/><line class="rule" x1="5.5" y1="7.5" x2="10.5" y2="7.5"/><line class="rule" x1="5.5" y1="10" x2="10.5" y2="10"/><line class="rule" x1="5.5" y1="12.5" x2="8.5" y2="12.5"/></g>
       </g>
     </svg>
   </div>
   <div class="ground navy"><span class="tag">navy</span>
     <svg width="188" height="58" viewBox="0 0 188 58" aria-label="ellipse on navy">
       <g transform="rotate(-3 94 29)">
-        <ellipse class="outer workflow" cx="94" cy="29" rx="91.22" ry="27.12"/>
-        <ellipse class="inner" cx="94" cy="26.5" rx="85.40" ry="21.98"/>
-        <g class="note" transform="translate(140.4 28.0) scale(0.875)"><rect class="body" x="3" y="3" width="10" height="11" rx="1.5"/><line class="ring" x1="6" y1="1.5" x2="6" y2="4.5"/><line class="ring" x1="10" y1="1.5" x2="10" y2="4.5"/><line class="rule" x1="5.5" y1="7.5" x2="10.5" y2="7.5"/><line class="rule" x1="5.5" y1="10" x2="10.5" y2="10"/><line class="rule" x1="5.5" y1="12.5" x2="8.5" y2="12.5"/></g>
+        <ellipse class="outer workflow" cx="94" cy="29" rx="63.85" ry="27.12"/>
+        <ellipse class="inner" cx="94" cy="26.5" rx="59.78" ry="21.98"/>
+        <g class="note" transform="translate(122.3 28.0) scale(0.875)"><rect class="body" x="3" y="3" width="10" height="11" rx="1.5"/><line class="ring" x1="6" y1="1.5" x2="6" y2="4.5"/><line class="ring" x1="10" y1="1.5" x2="10" y2="4.5"/><line class="rule" x1="5.5" y1="7.5" x2="10.5" y2="7.5"/><line class="rule" x1="5.5" y1="10" x2="10.5" y2="10"/><line class="rule" x1="5.5" y1="12.5" x2="8.5" y2="12.5"/></g>
       </g>
     </svg>
   </div>
 </div>
 
-<h3>circle &mdash; a finish node, unlabelled (w=188, h=44, &theta;=&minus;3&deg;)</h3>
-<p class="small">Radius 20.5 in a finish card of the minimum height. A circle shows no
-tilt, but its outline's weight does: the inset inner shape is an ellipse, 3 thick at the
-top of the band and 8 at the bottom, turned with the card's tilt. The note glyph sits
-beside the circle, 6 to its right and centred on it, not in it.</p>
+<h3>keystone &mdash; a finish node, unlabelled (box 100 by 52 in a card 188 by 52, &theta;=+2&deg;)</h3>
+<p class="small">The keystone construction built at 100 by 50, its box then grown 2 at the
+top with the top-right corner at the new top, so the top edge still climbs to the right
+once tilted; corners (6.5, 9.5), (98.5, 1.5), (86.5, 50.5), (21.5, 47.5), radius 11;
+centred in the card at an offset of 44. The tilt is a fixed +2 on every finish card. The
+note glyph, shown, is centred on the inner shape.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
-    <svg width="188" height="44" viewBox="0 0 188 44" aria-label="circle on azure">
-      <g transform="rotate(-3 94 22)">
-        <circle class="outer workflow" cx="94" cy="22" r="20.5"/>
-        <ellipse class="inner" cx="94" cy="19.5" rx="19.19" ry="15.38"/>
+    <svg width="188" height="52" viewBox="0 0 188 52" aria-label="finish keystone on azure">
+      <g transform="rotate(2 94 26) translate(44 0)">
+        <path class="outer workflow" d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>
+        <path class="inner" transform="translate(7 3) scale(0.8800 0.7692)" d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>
+        <g class="note" transform="translate(44.0 16.0) scale(0.875)"><rect class="body" x="3" y="3" width="10" height="11" rx="1.5"/><line class="ring" x1="6" y1="1.5" x2="6" y2="4.5"/><line class="ring" x1="10" y1="1.5" x2="10" y2="4.5"/><line class="rule" x1="5.5" y1="7.5" x2="10.5" y2="7.5"/><line class="rule" x1="5.5" y1="10" x2="10.5" y2="10"/><line class="rule" x1="5.5" y1="12.5" x2="8.5" y2="12.5"/></g>
       </g>
-      <g class="note" transform="translate(120.5 15.0) scale(0.875)"><rect class="body" x="3" y="3" width="10" height="11" rx="1.5"/><line class="ring" x1="6" y1="1.5" x2="6" y2="4.5"/><line class="ring" x1="10" y1="1.5" x2="10" y2="4.5"/><line class="rule" x1="5.5" y1="7.5" x2="10.5" y2="7.5"/><line class="rule" x1="5.5" y1="10" x2="10.5" y2="10"/><line class="rule" x1="5.5" y1="12.5" x2="8.5" y2="12.5"/></g>
     </svg>
   </div>
   <div class="ground navy"><span class="tag">navy</span>
-    <svg width="188" height="44" viewBox="0 0 188 44" aria-label="circle on navy">
-      <g transform="rotate(-3 94 22)">
-        <circle class="outer workflow" cx="94" cy="22" r="20.5"/>
-        <ellipse class="inner" cx="94" cy="19.5" rx="19.19" ry="15.38"/>
+    <svg width="188" height="52" viewBox="0 0 188 52" aria-label="finish keystone on navy">
+      <g transform="rotate(2 94 26) translate(44 0)">
+        <path class="outer workflow" d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>
+        <path class="inner" transform="translate(7 3) scale(0.8800 0.7692)" d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>
+        <g class="note" transform="translate(44.0 16.0) scale(0.875)"><rect class="body" x="3" y="3" width="10" height="11" rx="1.5"/><line class="ring" x1="6" y1="1.5" x2="6" y2="4.5"/><line class="ring" x1="10" y1="1.5" x2="10" y2="4.5"/><line class="rule" x1="5.5" y1="7.5" x2="10.5" y2="7.5"/><line class="rule" x1="5.5" y1="10" x2="10.5" y2="10"/><line class="rule" x1="5.5" y1="12.5" x2="8.5" y2="12.5"/></g>
       </g>
-      <g class="note" transform="translate(120.5 15.0) scale(0.875)"><rect class="body" x="3" y="3" width="10" height="11" rx="1.5"/><line class="ring" x1="6" y1="1.5" x2="6" y2="4.5"/><line class="ring" x1="10" y1="1.5" x2="10" y2="4.5"/><line class="rule" x1="5.5" y1="7.5" x2="10.5" y2="7.5"/><line class="rule" x1="5.5" y1="10" x2="10.5" y2="10"/><line class="rule" x1="5.5" y1="12.5" x2="8.5" y2="12.5"/></g>
     </svg>
   </div>
 </div>
 
-<h3>keystone &mdash; a rounded asymmetric quadrilateral, reserved, unassigned (w=188, h=56)</h3>
+<h3>the keystone construction, at full card width for reference (w=188, h=56)</h3>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
     <svg width="188" height="56" viewBox="0 0 188 56" aria-label="keystone on azure">
@@ -338,7 +341,7 @@ beside the circle, 6 to its right and centred on it, not in it.</p>
 
 <p class="small">The <code>BORDERS</code> four-tuples (top, right, bottom, left) that
 set the outline weight: screen (3.5,&nbsp;8,&nbsp;3.5,&nbsp;7); marquee
-(6,&nbsp;8,&nbsp;4,&nbsp;5); hull (4,&nbsp;5,&nbsp;8,&nbsp;8); ellipse and circle
+(6,&nbsp;8,&nbsp;4,&nbsp;5); hull (4,&nbsp;5,&nbsp;8,&nbsp;8); ellipse
 (3,&nbsp;6,&nbsp;8,&nbsp;6); keystone (3,&nbsp;5,&nbsp;9,&nbsp;7). The inner transform is
 <code>translate(l, t) scale((w&minus;l&minus;r)/w, (h&minus;t&minus;b)/h)</code>.</p>
 
@@ -579,7 +582,8 @@ a 16&times;16 design box, in <code>--muted</code> (turning to <code>--ink</code>
 hover): a rounded body, two ring ticks over the top, three ruled lines. Shown at 4&times;.
 On the axis-aligned silhouettes it sits inset 11 from the card's right edge and 8 from
 its bottom; on the start ellipse it anchors to the inner ellipse's inscribed corner and
-turns with the mark; on the finish circle it sits beside the mark (both shown above).</p>
+turns with the mark; on the finish keystone it is centred on the inner shape (both shown
+above).</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
     <svg width="64" height="64" viewBox="0 0 16 16" aria-label="note glyph on azure">
@@ -666,7 +670,7 @@ task that is done. Every mark names its tokens; the two-theme values are below.<
     <tr><td><code>--c-cancel</code></td><td>cancelled</td><td><span class="swatch" style="background:#8aa0ab"></span>#8aa0ab</td><td><span class="swatch" style="background:#7590a0"></span>#7590a0</td></tr>
     <tr><td><code>--c-project</code></td><td>begin and end hulls (= <code>--accent-teal</code>)</td><td><span class="swatch" style="background:#1f8f8a"></span>#1f8f8a</td><td><span class="swatch" style="background:#37c2ba"></span>#37c2ba</td></tr>
     <tr><td><code>--c-project-tint</code></td><td>begin and end panel</td><td><span class="swatch" style="background:#cbe6e4"></span>#cbe6e4</td><td><span class="swatch" style="background:#356e69"></span>#356e69</td></tr>
-    <tr><td><code>--c-workflow</code></td><td>start ellipse and finish circle (= <code>--line</code>)</td><td><span class="swatch" style="background:#365b6c"></span>#365b6c</td><td><span class="swatch" style="background:#6fb6c9"></span>#6fb6c9</td></tr>
+    <tr><td><code>--c-workflow</code></td><td>start ellipse and finish keystone (= <code>--line</code>)</td><td><span class="swatch" style="background:#365b6c"></span>#365b6c</td><td><span class="swatch" style="background:#6fb6c9"></span>#6fb6c9</td></tr>
     <tr><td><code>--cursor</code></td><td>HERE pill, drop indicators</td><td><span class="swatch" style="background:#d75f2e"></span>#d75f2e</td><td><span class="swatch" style="background:#f27a44"></span>#f27a44</td></tr>
     <tr><td><code>--burst-a</code></td><td>atmosphere burst</td><td><span class="swatch" style="background:#1f8f8a"></span>#1f8f8a</td><td><span class="swatch" style="background:#37c2ba"></span>#37c2ba</td></tr>
     <tr><td><code>--burst-b</code></td><td>atmosphere burst (variant)</td><td><span class="swatch" style="background:#d9a53a"></span>#d9a53a</td><td><span class="swatch" style="background:#f0bd55"></span>#f0bd55</td></tr>
@@ -687,7 +691,7 @@ assignment is ever exchanged.</p>
     <tr><td>task</td><td>screen</td><td>its status colour</td><td><code>--panel</code></td><td>status glyph; status tag</td></tr>
     <tr><td>task, marked "here"</td><td>marquee</td><td>its status colour</td><td><code>--panel</code></td><td>sputnik beside it; HERE pill</td></tr>
     <tr><td>start node</td><td>ellipse, tilted</td><td><code>--c-workflow</code></td><td><code>--panel</code></td><td>workflow glyph; centred label</td></tr>
-    <tr><td>finish node</td><td>circle, tilted</td><td><code>--c-workflow</code></td><td><code>--panel</code></td><td>no label, glyph, or tag</td></tr>
+    <tr><td>finish node</td><td>keystone 100 by 52, tilted +2</td><td><code>--c-workflow</code></td><td><code>--panel</code></td><td>no label or tag; the note glyph centred when noted</td></tr>
     <tr><td>begin node</td><td>hull</td><td><code>--c-project</code></td><td><code>--c-project-tint</code></td><td>project glyph; centred label</td></tr>
     <tr><td>end node</td><td>hull, half-turned</td><td><code>--c-project</code></td><td><code>--c-project-tint</code></td><td>no label, glyph, or tag</td></tr>
     <tr><td>any flagged node</td><td>(its shape)</td><td>(unchanged)</td><td>(unchanged)</td><td>orbits behind, in the node's colour</td></tr>
