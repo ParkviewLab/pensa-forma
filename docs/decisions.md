@@ -1,0 +1,499 @@
+<!--
+SPDX-FileCopyrightText: 2026 Gary Frattarola <garyf@parkviewlab.ai>
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
+# Decisions record
+
+Settled design decisions for Yucca Basing, with the reasoning that produced
+them, so that neither a later session nor a later reader re-litigates a
+question that has already been answered. A decision listed under "Settled" is
+closed. A proposal listed under "Proposed" has been written into the
+specification as if it held, so that the documents read whole, but awaits the
+author's ruling; each names the document that depends on it. Open questions
+are listed last and are neither.
+
+Dates are the date of settlement.
+
+---
+
+## Settled
+
+### D1. Document precedence
+
+*2026-08-30.*
+
+Where documents in this set disagree, the northstar is the authority for
+intent and the structural model is the authority for structure; the
+interaction, layout, geometry, and chrome documents are rewritten toward them
+rather than the reverse. The glossary fixes the vocabulary every document
+speaks.
+
+### D2. Five node kinds
+
+*2026-08-30.*
+
+The model has five node kinds: `start` and `finish`, which bound a workflow;
+`begin` and `end`, which bound a project; and `task`.
+
+The alternative considered was three kinds, unifying the workflow boundary
+with the project boundary, on the evidence that the drag-and-drop rules
+convert one into the other while preserving identity. That unification was
+rejected: a workflow and a project are different things in this model, and
+collapsing them would lose the distinction that lets a branch be a workflow
+rather than a displaced project.
+
+**Consequence.** The mark geometry draws a silhouette for each of the two
+workflow boundaries (D7) as well as for the project boundaries and the task.
+
+### D3. An open branch is legal
+
+*2026-08-30.*
+
+A branch workflow need not return to its parent. A branch with a departure and
+no return is a legal, persisted state, not merely a transient one during a
+gesture.
+
+**Consequence.** Every validity rule needs an open-branch case, the layout
+must render a branch that terminates in air, and no operation may refuse
+merely because it would leave a branch open. It also means the branch
+relation, not the return, is what carries acyclicity.
+
+### D4. The model stores each branch's side and its order on that side
+
+*2026-08-30.*
+
+A branch point and a return point each have two sides, left and right. Each
+side holds an explicit inner-to-outer ordering of the branch workflows
+connected on it, and that ordering is model state, not a layout decision.
+
+The alternative was to record only that a branch departs at one point and
+returns at another, leaving side and order to a layout engine minimising
+crossings. That was rejected because a branch's position would then move when
+an unrelated edit changed the layout, and the user could not place a branch
+deliberately.
+
+**Consequence.** The drop-target inventory doubles (both sides of every
+point), and the layout engine obeys the stored order rather than choosing one.
+
+### D5. The "here" cursor is scoped one per workflow
+
+*2026-08-30.*
+
+Each workflow, main or branch, carries at most one "here" cursor, which marks
+the current task within it. A parent and its branch each hold their own, so
+parallel threads of work each have a position. Only a task may carry it.
+
+### D6. The activity log is editable, and is therefore a worklog
+
+*2026-08-30.*
+
+Every node carries a time-stamped activity log. The chrome provides both a
+viewer and an editor for it, and both users and AI agents may add entries and
+modify existing ones, for any reason.
+
+**Consequence, stated plainly because it is easy to lose.** An editable log
+cannot answer "what actually happened"; it answers "what has been recorded".
+It is a worklog, not an audit trail. If an audit trail is ever wanted, it is a
+second and immutable record, not a mode of this one. The entry schema must
+therefore carry an author, a distinction between system-written and
+hand-written entries, and a marker for a later revision, or a revised entry
+becomes indistinguishable from an original.
+
+### D7. Start and finish nodes wear mid-century shapes of their own
+
+*2026-08-30.*
+
+The start node wears a jaunty ellipse; the finish node wears a circle and
+carries no label. Both follow three rules of the style, stated in full in the
+mark geometry: no outline is a constant-width stroke, every line being a
+variable-width filled ribbon whose weight pools along one nominated side; every
+such mark is rotated to a jaunty angle of roughly four to sixteen degrees; and
+shapes are authored splayed, with no parallel edges.
+
+Two notes carried forward to the geometry work.
+
+The variable-width outline needs no new machinery. The geometry already draws
+every outline as two fills, an outer path and an affinely inset inner one,
+rather than as a stroke. Applied to an ellipse or a circle, that inset yields a
+band varying smoothly around the perimeter, heavy on one side and fine on the
+other, which is exactly the calligraphic weight the style asks for. The
+alternative, a second outline technique with per-vertex control, buys that
+control at the cost of two ways to draw one thing.
+
+The tilt is genuinely new, since every other mark is axis-aligned, and it
+touches hit-testing, the station anchor, layout bounding boxes, and label
+placement. Each node's tilt is derived deterministically from its id, so the
+map is varied but a given card never changes shape when it is reordered; a
+tilt drawn from a running index would suit a static grid of decorative icons,
+not a diagram the user rearranges.
+
+### D8. A gap is the stored record; its two points are addressed within it
+
+*2026-08-30.*
+
+Branch points and return points have stored identity rather than being derived
+from the node below them. The stored record, however, is the *gap*: one record
+sitting between two consecutive nodes, owning both its branch point and its
+return point, which are addressed as `(gap id, branch|return)`.
+
+Stored identity was chosen because it makes every attachment a single
+reference rather than a compound key of host node, which point, side, and
+index; because undo becomes a record swap rather than a recomputation against
+a since-mutated sequence, which is where undo faults live; and because an
+agent can hold a reference across calls, whereas "the branch point above node
+X" changes meaning the instant anything is inserted above X.
+
+Two pieces of work are *not* simplified by it, and were excluded from the
+case: the repair rules, since both schemes must rewrite the attachments on
+whichever point disappears when two gaps merge; and insertion, since both must
+decide which resulting point inherits the existing branches, and that
+decision is the outgoing/middle/incoming distinction needed regardless.
+
+The gap, rather than the point, is the record because it halves the record
+count and yields an invariant a validator states in one line: the node list
+and the gap list interleave exactly, n nodes to n−1 gaps. That makes an
+orphaned point unrepresentable rather than merely detectable. The choice
+rests on one assumption: that a branch point and its paired return point
+always share a lifetime, which holds throughout the model as written.
+
+### D9. Undo reverses the last human operation only
+
+*2026-08-30.*
+
+One slot, not a stack. It holds the most recent structural or state operation
+originating from the local user interface, and reversing it also removes the
+activity-log entry that operation created. There is no redo.
+
+An operation arriving from the automation server never fills the slot and is
+never undone. Such a write *invalidates* the pending slot rather than being
+reversed through, because reversing across another writer's change is how one
+silently destroys their work, and the check costs a revision comparison.
+Switching or deleting the domain also clears it, as does quitting.
+
+Note text is out of scope: the note editor keeps its own text undo.
+
+### D10. Orderings are ordered arrays of ids on the parent
+
+*2026-08-30.*
+
+The three explicit orderings (main workflows within a domain, branch workflows
+on each side of a branch point, branch workflows on each side of a return
+point) are stored as ordered arrays of ids on the containing record.
+
+Fractional sort keys were considered, since they let two writers insert in
+different places without conflicting, which matters given an automation server
+writing alongside a user. They were rejected for the first version as harder
+to read off the stored record and as requiring a rebalancing rule. If
+concurrent reordering proves painful in practice, the migration is understood.
+
+### D11. Titles on openers; status on tasks only
+
+*2026-08-30.*
+
+A `start` node and a `begin` node carry a title. A `finish` node and an `end`
+node carry none, so a boundary pair is named by the node that opens it. Only a
+task carries a status and only a task may hold the "here" cursor. Any node may
+be flagged, and every node has a note reference and an activity log.
+
+The rejected alternatives were a rolled-up status on boundaries, showing
+aggregate progress on a collapsed project, and an independently settable
+status on every node. The latter is the one arrangement in which the map can
+display a contradiction, a project marked done above unfinished contents.
+
+### D12. A node's prose is its note; there is one field, not two
+
+*2026-08-30.*
+
+A node has one field of prose, and its name is **note**. "Description" is not
+in the vocabulary, so that no reader infers a second field.
+
+The note is a markdown file in the domain's `notes/` directory; the node
+record holds only the filename. That the prose lives outside the node record
+has four consequences, set out in the structural model: the reference alone
+answers whether a node has prose, so the canvas need not open files to decide
+whether to draw a note glyph; a note write is not part of a domain operation
+and does not pass through the domain's atomicity, the sole crossing point being
+the first save of a new note, which must be ordered file first; an unreferenced
+note file is a legal orphan rather than an integrity fault; and a reference to
+an empty file is legal, since emptying a note is not deleting it.
+
+### D13. Sibling branches fan from the junction; they do not chain
+
+*2026-08-30.*
+
+Where several branches share one branch point, each connects directly to the
+junction, and where several returns share one return point, each connects
+directly to that junction. One clearance rule serves every lateral, a branch's
+connector is independent of its siblings, so reordering one does not redraw
+another, and the height constraints need no second case.
+
+**This supersedes the chain first proposed for the branch and return edges**,
+under which the junction reached only the innermost branch and each further
+branch connected to the previous branch's boundary node. That form is
+withdrawn and must not be carried into any document.
+
+The cost is accepted knowingly: an outer branch's lateral crosses the inner
+branches on its side, and each crossing is drawn as an underpass. The
+underpass construction exists in the mark geometry, and crossings are
+unavoidable in this model regardless (D14's note on spans).
+
+### D14. Every node occupies the same fixed 188-wide box
+
+*2026-08-30.*
+
+The ellipse and circle of D7 are drawn within the standard card box, centred,
+so that only height varies between nodes and the circle simply does not fill
+its box.
+
+The reason is the packer. Because card width is fixed, a subtree's contour
+reduces from a real outline to an integer count of lanes, and placing a
+sibling reduces to pushing a whole subtree out by a whole number of lanes.
+Variable widths would require the full non-layered contour form, which is a
+known and documented replacement rather than a gamble, but it is a replacement
+bought for nothing here: no node needs its own width.
+
+The lane step is the card width plus a horizontal gutter.
+
+### D15. Folding applies to projects only
+
+*2026-08-30.*
+
+A `begin`/`end` pair can be collapsed onto one card, the seam drawn as the two
+hull silhouettes crossing into a lens. A workflow's `start`/`finish` pair never
+folds, and a branch is hidden only by folding a project that contains it.
+
+Folding a branch workflow was considered as the natural way to quieten a busy
+map. It was deferred because it needs a second seam construction for the
+ellipse-and-circle pair and a rule for where a folded branch's return lateral
+arrives, which it must still do. Recorded here as a candidate rather than
+dismissed.
+
+Fold state is client-local view state keyed by the `begin` node's id, never a
+field of the stored record.
+
+### D16. On a cursor collision, the receiving workflow's cursor survives
+
+*2026-08-30.*
+
+Two edits can bring two "here" cursors into one workflow: a branch becoming a
+project inside its parent, and a task carrying the cursor moving into a
+workflow that already has one. In both, the cursor already in the receiving
+workflow stays and the incoming one is cleared. A structural edit never moves
+where the author was working on the line they dropped into.
+
+### D17. An emptied scope and an emptied workflow both persist
+
+*2026-08-30.*
+
+Nothing is deleted automatically for being empty. A project left with only its
+begin and end nodes stays; so does a workflow left with only its start and
+finish nodes, whether or not branches remain attached to it. The author
+removes either through the ordinary delete flow, which confirms first.
+
+This removes two rules, including the special case for an emptied workflow
+that still has branches, and one class of silent loss: a start node carries a
+title, possibly a note, and an activity log, and automatic deletion would
+destroy all three without a dialog.
+
+### D18. `Detach return` lives on the finish node's menu
+
+*2026-08-30.*
+
+A menu item detaches a branch's return in place, leaving the branch open. It
+sits on the finish node's menu and appears only when the branch returns.
+
+The placement mirrors the drag handles exactly: the finish node owns the
+return in both gestures and menu, whilst the start node owns attachment, side,
+and order. Keeping the two handles disjoint everywhere is what makes either
+predictable. It also closes an asymmetry, the menus otherwise being able to
+attach a return but never to detach one.
+
+### D19. The note glyph means a note exists, not that it has text
+
+*2026-08-30.*
+
+Emptying a note in the editor is not deleting it: the file and the node's
+reference both remain, and only the explicit delete flow removes them. A card
+can therefore show the note glyph and open to nothing.
+
+The reason is not tidiness but drawing cost. The glyph is a function of the
+node's reference alone, which is what lets the canvas decide whether to draw
+it across several hundred cards without opening a single file. Making it track
+content would need either a read per card at draw time or a has-text flag in
+the record, and derived data in the record is data that can disagree with
+itself.
+
+### D20. The id scheme
+
+*2026-08-30.*
+
+Twelve characters, fixed width: a two-character kind prefix, a base-36
+millisecond timestamp of exactly eight characters, and a two-character base-36
+counter that resets each millisecond. So `n_mrtwgppt01`. Prefixes are `d_`,
+`w_`, `n_`, and `g_`, and the counter is shared across all four.
+
+Entirely lowercase, because an id is part of a note's filename and a
+case-normalising filesystem must not conflate two. Fixed width, so a column of
+ids lines up in a diff. A counter rather than a random suffix, because
+randomness only lowers the chance of a collision whilst a counter removes it,
+and pasting two hundred nodes inside one millisecond is exactly the case a
+short random suffix does not cover. Monotonic against a clock that steps
+backwards. Opaque and never parsed, which is also the upgrade path: ids are
+unique by construction within an installation, and a device discriminator can
+be added to newly minted ids on the day a second writer exists without
+touching a single old one.
+
+### D21. The standard trunk-edge length, and the middle-edge quantisation
+
+*2026-08-30.*
+
+One length, `L`, serves as the outgoing edge, the incoming edge, and the least
+separation of two junction diamonds sharing a gap; a departure clearance, an
+arrival clearance, and a junction gap held as three numbers would collapse
+into it. A middle edge is either zero or at least `L`, never between.
+
+The rule exists to make drop targets hittable by construction rather than by
+tolerance. Every position within a gap is then at least `L` tall: an
+unoccupied gap is one zone of `2L`, a gap occupied at one point splits into
+`L` and at least `L`, and a gap occupied at both splits into three, each at
+least `L`. No screen-pixel floor, no apportioning, no proportional fallback.
+
+The cost is a quantisation confined to the open band between `2L` and `3L`;
+above `3L` the air is continuous, so a gap that needs more takes exactly what
+it needs. With the constants in the layout document the raised airs already
+land at or near `3L`, which is some evidence the length is right rather than
+imposed.
+
+### D22. A new application, in Rust, in its own repository
+
+*2026-09-02.*
+
+Yucca Basing is built from the ground up, in Rust, in the public repository
+`ParkviewLab/yucca-basing`, following the ParkviewLab handbook's conventions.
+The product is named Yucca Basing; the repository, binary, and bundle
+identifier use `yucca-basing`.
+
+### D23. The specification stands alone
+
+*2026-09-02.*
+
+No document in this set names, cites, compares with, or alludes to any other
+application. Every rule is stated positively with its own reasoning, so that an
+implementer who has read nothing but this set and the ParkviewLab handbook can
+build the application. Scholarship (the tidy-tree literature, the protocol
+specifications) is cited; software is not.
+
+### D24. No import from other file formats
+
+*2026-09-02.*
+
+The application reads and writes its own domain format and nothing else. It
+has no import path for other applications' files, and its data directory and
+domain-directory prefix are its own, so it never opens a library it does not
+own.
+
+### D25. The toolkit is egui with eframe
+
+*2026-09-02.*
+
+The user interface is an immediate-mode Rust GUI built on egui, hosted by
+eframe. The application's interface is not document layout but a bespoke
+vector scene with pan, zoom, custom silhouettes, and per-frame interaction
+state, which is what an immediate-mode painter under a camera transform is
+built for; the toolkit also supplies pan and zoom, a text editor with undo,
+accessibility through AccessKit, and a markdown preview widget without further
+dependencies. The two places its painter needs help, filling concave
+silhouettes and cutting the underpass, are answered by a tessellator and by
+drawing the lateral as an explicit ribbon; both are recorded in the mark
+geometry's implementation notes.
+
+---
+
+## Proposed
+
+Each of these is written into the specification as if it held, so that the
+documents read whole. They await the author's ruling, and each names the
+document that depends on it.
+
+### P1. "Plan" leaves the vocabulary; the domain orders its main workflows in `mains`
+
+*Proposed 2026-09-02; glossary, structural model, chrome.*
+
+A domain holds workflows, some main and some branch. The ordered list of main
+workflows is the domain's `mains` field, and the menus say "workflow" where a
+person creates or pastes one. No second noun stands for a main workflow.
+
+### P2. The automation server's port is 35901
+
+*Proposed 2026-09-02; automation server, chrome.*
+
+Loopback only, fixed, and never roaming; it sits below the ephemeral ranges of
+macOS and Windows.
+
+### P3. Status values and labels
+
+*Proposed 2026-09-02; structural model, chrome, geometry.*
+
+Stored values `todo`, `doing`, `done`, `cancelled`; on screen To do, Doing,
+Done, Cancelled. The glyph click cycles them in that order.
+
+### P4. The activity log's automatic entries
+
+*Proposed 2026-09-02; structural model, command catalogue. Resolves the open
+questions listed at the end.*
+
+The application writes one `system` entry to exactly one node per command,
+the node the command names as its subject, and only for a structural change:
+creating a node, moving a node or an extent, converting a project to a branch
+or a branch to a project, attaching or detaching a departure or a return, and
+reordering a branch or a main workflow. A rename, a status, flag, or cursor
+change, and a note edit write none; they are state, not structure. Deletion
+writes nothing, the deleted node's log dying with it. An entry holds frozen
+prose in `text` and a machine-readable `event` code, so it reads at a glance
+and filters by kind. A `system` entry is editable on the same terms as any
+other and carries `editedAt` and `editedBy` once edited. The log is
+unbounded; the viewer shows the newest entries first and pages.
+
+### P5. Bookmarks hold a node set, not a camera
+
+*Proposed 2026-09-02; persistence, chrome.*
+
+A bookmark is `{name, folded, nodes}`: the folded begin ids and the ids of
+every node drawn wholly inside the viewport when it was saved. A client frames
+those nodes under its own maximum scale and minimum padding, so a bookmark
+survives a layout change and another window size by construction and degrades
+only when every node it names is gone.
+
+### P6. The Cargo workspace
+
+*Proposed 2026-09-02; architecture.*
+
+Six crates: `model`, `store`, `command`, `layout`, `server`, and `app`, with
+the binary in `app`. The version is `[workspace.package].version`, inherited
+by every member.
+
+### P7. Data locations
+
+*Proposed 2026-09-02; persistence.*
+
+The application's data directory is the platform's per-user application-data
+directory for `ai.parkviewlab.yucca-basing`; the default library is its
+`domains/` subdirectory; a domain directory is named `yucca_domain_<slug>_<id>`.
+
+### P8. Two drop indicators
+
+*Proposed 2026-09-02; mark geometry, interaction.*
+
+A chevron pair for a trunk-edge, branch-edge, or return-point target, and a
+vertical bar for a main-workflow target; both in the `--cursor` token.
+
+---
+
+## Open questions
+
+None outstanding beyond the proposals above. The six sub-questions on the
+activity log's automatic entries (where the boundary of "structural" falls,
+which nodes receive an entry, whether a deletion is recorded, frozen prose or
+a structured payload, whether a system entry is editable, and whether a log is
+bounded) are answered by P4 pending its ruling.
