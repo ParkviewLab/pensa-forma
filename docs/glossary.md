@@ -63,8 +63,11 @@ on its own.
 **Title.** The name of a workflow (on its start node), a project (on its begin
 node), or a task. A title may be empty.
 
-**Status.** A task's state, one of `todo`, `doing`, `done`, `cancelled`, shown
-on screen as To do, Doing, Done, Cancelled. Only a task has a status. Status is
+**Status.** A task's state, one of `todo`, `in-progress`, `completed`,
+`cancelled`, shown under a card as to do, in progress, done, cancelled and in
+the status menu as To do, In progress, Completed, Cancelled (D30). Only a
+task has a status. A completed task also carries `completedAt`, the time it
+became completed, present exactly while it is. Status is
 shown, not inferred: a done or cancelled task stays on the map, recoloured;
 only deletion removes it.
 

@@ -70,9 +70,12 @@ this set, and a frozen prose `text` in the form the command specifies:
 | `attached` | a command that gives a branch a return |
 | `detached` | a command that removes a branch's return |
 | `wrapped` | a command that closes a run of nodes into a new project |
+| `status` | a command that sets or cycles a task's status |
 
-State commands (title, status, flag, cursor, note text, log entries) write no
-`system` entry; they are not structural (decisions, P4).
+State commands (title, flag, cursor, note text, log entries) write no
+`system` entry; they are not structural. A status change is the one
+exception (decisions, D31): when a task was started, completed, or cancelled
+is worth a line in its own log.
 
 **Refusal text.** Each command lists its refusals as the message a caller
 receives, with the code from the command layer's closed set. A message names
@@ -242,10 +245,13 @@ project or a workflow." `refused`: the no-op message.
 ### `set_status(task, status)` and `cycle_status(task)`
 
 Tier read-write. Undoable. Subject: the task. Sets, or advances in the order
-todo, doing, done, cancelled, todo, the task's status. State, no log entry.
+todo, in-progress, completed, cancelled, todo, the task's status. Entering
+`completed` stamps `completedAt` with the time of the change and leaving it
+clears the field (I18). Log (D31): `status`, "Status set to <label>." with
+the menu label.
 
 Refusal `bad_arguments`: "Only a task has a status." `bad_arguments`: "A
-status is todo, doing, done, or cancelled."
+status is todo, in-progress, completed, or cancelled."
 
 ### `set_here(task)` and `clear_here(task)`
 
@@ -306,7 +312,7 @@ identity.
 ### `convert_task_to_project(task)`
 
 Tier read-write. Undoable. Subject: the task, which becomes the begin node.
-The task's `kind` becomes `begin`; its `status` and `here` are dropped; a new
+The task's `kind` becomes `begin`; its `status`, `completedAt`, and `here` are dropped; a new
 end node is inserted immediately above it and paired with it, so the result is
 an empty project bearing the task's title, note, log, and flag. Log:
 `converted`, "Became a project."
@@ -448,7 +454,7 @@ project's on its begin node."
 
 Tier read-write. Undoable. Subject: the node. Replaces the entry's `text` and
 sets `editedAt` to now and `editedBy` to the command's actor. A `system` entry
-is edited on the same terms as a manual one (P4); its `event` code is kept.
+is edited on the same terms as a manual one (D31); its `event` code is kept.
 
 Refusal `not_found`: "No entry <id> on <title>."
 

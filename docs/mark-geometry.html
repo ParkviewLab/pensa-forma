@@ -73,20 +73,20 @@ code{ font-family:var(--mono); font-size:.86em; background:var(--paper-2); paddi
 .ground.azure{
   --ground:#d3e6ef; --panel:#f8f3e8; --ink:#173242; --line:#365b6c; --muted:#5f7d8b;
   --grid:rgba(23,50,66,.10);
-  --c-todo:#d9a53a; --c-doing:#d75f2e; --c-done:#7d54a6; --c-cancel:#8aa0ab; --c-workflow:#365b6c;
+  --c-todo:#d9a53a; --c-progress:#d75f2e; --c-done:#7d54a6; --c-cancel:#8aa0ab; --c-workflow:#365b6c;
   --c-project:#1f8f8a; --c-project-tint:#cbe6e4; --cursor:#d75f2e;
   --burst-a:#1f8f8a; --burst-b:#d9a53a;
 }
 .ground.navy{
   --ground:#0f2334; --panel:#1a3a54; --ink:#e8f1f6; --line:#6fb6c9; --muted:#93b3c2;
   --grid:rgba(111,182,201,.13);
-  --c-todo:#f0bd55; --c-doing:#f27a44; --c-done:#bd93e6; --c-cancel:#7590a0; --c-workflow:#6fb6c9;
+  --c-todo:#f0bd55; --c-progress:#f27a44; --c-done:#bd93e6; --c-cancel:#7590a0; --c-workflow:#6fb6c9;
   --c-project:#37c2ba; --c-project-tint:#356e69; --cursor:#f27a44;
   --burst-a:#37c2ba; --burst-b:#f0bd55;
 }
 
 /* SVG element roles, driven by the ground tokens above */
-.outer.todo{ fill:var(--c-todo); } .outer.doing{ fill:var(--c-doing); }
+.outer.todo{ fill:var(--c-todo); } .outer.progress{ fill:var(--c-progress); }
 .outer.done{ fill:var(--c-done); } .outer.cancel{ fill:var(--c-cancel); }
 .outer.project{ fill:var(--c-project); } .outer.workflow{ fill:var(--c-workflow); }
 .inner{ fill:var(--panel); } .inner.tint{ fill:var(--c-project-tint); }
@@ -96,7 +96,7 @@ code{ font-family:var(--mono); font-size:.86em; background:var(--paper-2); paddi
 .cap{ stroke:var(--line); stroke-width:1.6; stroke-linecap:round; }
 .dot,.fork{ fill:var(--line); } .drop{ fill:none; stroke:var(--cursor); stroke-linecap:round; stroke-linejoin:round; } .halo{ fill:var(--line); opacity:.12; }
 
-.glyph.done{ fill:var(--c-done); } .glyph.doing{ fill:var(--c-doing); }
+.glyph.done{ fill:var(--c-done); } .glyph.progress{ fill:var(--c-progress); }
 .glyph.project{ fill:var(--c-project); } .glyph.workflow{ fill:var(--c-workflow); }
 .glyph.todo{ fill:none; stroke:var(--c-todo); stroke-width:2; }
 .glyph.cancel{ fill:none; stroke:var(--c-cancel); stroke-width:1.5; stroke-dasharray:2.4 2.2; }
@@ -220,13 +220,13 @@ both themes. Width is a fixed 188; the height is stated per shape.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
     <svg width="188" height="72" viewBox="0 0 188 72" aria-label="marquee on azure">
-      <path class="outer doing" d="M1.5,1.5 Q94,11.6 186.5,1.5 Q177.1,36 186.5,70.5 Q94,60.4 1.5,70.5 Q10.9,36 1.5,1.5 Z"/>
+      <path class="outer progress" d="M1.5,1.5 Q94,11.6 186.5,1.5 Q177.1,36 186.5,70.5 Q94,60.4 1.5,70.5 Q10.9,36 1.5,1.5 Z"/>
       <path class="inner" transform="translate(5 6) scale(0.9309 0.8611)" d="M1.5,1.5 Q94,11.6 186.5,1.5 Q177.1,36 186.5,70.5 Q94,60.4 1.5,70.5 Q10.9,36 1.5,1.5 Z"/>
     </svg>
   </div>
   <div class="ground navy"><span class="tag">navy</span>
     <svg width="188" height="72" viewBox="0 0 188 72" aria-label="marquee on navy">
-      <path class="outer doing" d="M1.5,1.5 Q94,11.6 186.5,1.5 Q177.1,36 186.5,70.5 Q94,60.4 1.5,70.5 Q10.9,36 1.5,1.5 Z"/>
+      <path class="outer progress" d="M1.5,1.5 Q94,11.6 186.5,1.5 Q177.1,36 186.5,70.5 Q94,60.4 1.5,70.5 Q10.9,36 1.5,1.5 Z"/>
       <path class="inner" transform="translate(5 6) scale(0.9309 0.8611)" d="M1.5,1.5 Q94,11.6 186.5,1.5 Q177.1,36 186.5,70.5 Q94,60.4 1.5,70.5 Q10.9,36 1.5,1.5 Z"/>
     </svg>
   </div>
@@ -398,14 +398,14 @@ set the outline weight: screen (3.5,&nbsp;8,&nbsp;3.5,&nbsp;7); marquee
 
 <!-- ============================================================ -->
 <h2><span class="n">4</span>The status glyphs</h2>
-<p class="desc">An 11-pixel circle (radius 5.5) beside the label. Filled for done and
-doing; a 2px solid ring for to-do; a 1.5px dashed ring for cancelled; a filled teal
+<p class="desc">An 11-pixel circle (radius 5.5) beside the label. Filled for completed and
+in progress; a 2px solid ring for to do; a 1.5px dashed ring for cancelled; a filled teal
 circle for a begin node; a filled circle in the line colour for a start node.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
     <svg width="288" height="30" viewBox="0 0 288 30" aria-label="glyphs on azure">
       <circle class="glyph done" cx="18" cy="15" r="5.5"/>
-      <circle class="glyph doing" cx="66" cy="15" r="5.5"/>
+      <circle class="glyph progress" cx="66" cy="15" r="5.5"/>
       <circle class="glyph todo" cx="114" cy="15" r="4.5"/>
       <circle class="glyph cancel" cx="162" cy="15" r="4.75"/>
       <circle class="glyph project" cx="210" cy="15" r="5.5"/>
@@ -415,7 +415,7 @@ circle for a begin node; a filled circle in the line colour for a start node.</p
   <div class="ground navy"><span class="tag">navy</span>
     <svg width="288" height="30" viewBox="0 0 288 30" aria-label="glyphs on navy">
       <circle class="glyph done" cx="18" cy="15" r="5.5"/>
-      <circle class="glyph doing" cx="66" cy="15" r="5.5"/>
+      <circle class="glyph progress" cx="66" cy="15" r="5.5"/>
       <circle class="glyph todo" cx="114" cy="15" r="4.5"/>
       <circle class="glyph cancel" cx="162" cy="15" r="4.75"/>
       <circle class="glyph project" cx="210" cy="15" r="5.5"/>
@@ -423,7 +423,7 @@ circle for a begin node; a filled circle in the line colour for a start node.</p
     </svg>
   </div>
 </div>
-<p class="small">Left to right: done, doing, to-do, cancelled, project, workflow. The ring
+<p class="small">Left to right: completed, in progress, to do, cancelled, project, workflow. The ring
 variants draw at a smaller radius so their stroke sits inside the 11-pixel envelope.</p>
 
 <!-- ============================================================ -->
@@ -654,29 +654,35 @@ it.</p>
 <!-- ============================================================ -->
 <h2><span class="n">11</span>The drop indicators</h2>
 <p class="desc">During a drag, over a legal target only, in <code>--cursor</code>: a
-chevron pair for a trunk-edge, branch-edge, or return-point target, centred on the point
-the drop would occupy; a bar the height of the drawing for a main-workflow target, in the
-gutter it would occupy. The dragged card's ghost follows the pointer at 40 % opacity.</p>
+chevron pair, centred on the point the drop would occupy; for a main-workflow target
+that point is the centre of the gutter or margin the drop would occupy, at the pointer's
+height. The dragged card's ghost follows the pointer at 40 % opacity.</p>
 <div class="pair">
-  <div class="ground azure"><span class="tag">azure &middot; chevrons on a trunk edge; the bar in a gutter</span>
+  <div class="ground azure"><span class="tag">azure &middot; chevrons on a trunk edge, and in a gutter</span>
     <svg width="300" height="120" viewBox="0 0 300 120" aria-label="drop indicators on azure">
       <path class="track riser" d="M70,110 L70,10"/>
       <g transform="translate(70 60)">
         <path class="drop" stroke-width="2.4" d="M-13,-6 L-7,0 L-13,6"/>
         <path class="drop" stroke-width="2.4" d="M13,-6 L7,0 L13,6"/>
       </g>
-      <path class="drop" stroke-width="3" d="M200,8 L200,112"/>
+      <g transform="translate(200 60)">
+        <path class="drop" stroke-width="2.4" d="M-13,-6 L-7,0 L-13,6"/>
+        <path class="drop" stroke-width="2.4" d="M13,-6 L7,0 L13,6"/>
+      </g>
       <path class="track riser" d="M260,110 L260,10"/>
     </svg>
   </div>
-  <div class="ground navy"><span class="tag">navy &middot; chevrons on a trunk edge; the bar in a gutter</span>
+  <div class="ground navy"><span class="tag">navy &middot; chevrons on a trunk edge, and in a gutter</span>
     <svg width="300" height="120" viewBox="0 0 300 120" aria-label="drop indicators on navy">
       <path class="track riser" d="M70,110 L70,10"/>
       <g transform="translate(70 60)">
         <path class="drop" stroke-width="2.4" d="M-13,-6 L-7,0 L-13,6"/>
         <path class="drop" stroke-width="2.4" d="M13,-6 L7,0 L13,6"/>
       </g>
-      <path class="drop" stroke-width="3" d="M200,8 L200,112"/>
+      <g transform="translate(200 60)">
+        <path class="drop" stroke-width="2.4" d="M-13,-6 L-7,0 L-13,6"/>
+        <path class="drop" stroke-width="2.4" d="M13,-6 L7,0 L13,6"/>
+      </g>
       <path class="track riser" d="M260,110 L260,10"/>
     </svg>
   </div>
@@ -697,7 +703,7 @@ task that is done. Every mark names its tokens; the two-theme values are below.<
     <tr><td><code>--muted</code></td><td>tags, note glyph</td><td><span class="swatch" style="background:#5f7d8b"></span>#5f7d8b</td><td><span class="swatch" style="background:#93b3c2"></span>#93b3c2</td></tr>
     <tr><td><code>--grid</code></td><td>ground dots</td><td><span class="swatch" style="background:#173242"></span>#173242 at 10 %</td><td><span class="swatch" style="background:#6fb6c9"></span>#6fb6c9 at 13 %</td></tr>
     <tr><td><code>--c-todo</code></td><td>to-do glyph and screen</td><td><span class="swatch" style="background:#d9a53a"></span>#d9a53a</td><td><span class="swatch" style="background:#f0bd55"></span>#f0bd55</td></tr>
-    <tr><td><code>--c-doing</code></td><td>doing</td><td><span class="swatch" style="background:#d75f2e"></span>#d75f2e</td><td><span class="swatch" style="background:#f27a44"></span>#f27a44</td></tr>
+    <tr><td><code>--c-progress</code></td><td>in progress</td><td><span class="swatch" style="background:#d75f2e"></span>#d75f2e</td><td><span class="swatch" style="background:#f27a44"></span>#f27a44</td></tr>
     <tr><td><code>--c-done</code></td><td>done (= <code>--accent-violet</code>)</td><td><span class="swatch" style="background:#7d54a6"></span>#7d54a6</td><td><span class="swatch" style="background:#bd93e6"></span>#bd93e6</td></tr>
     <tr><td><code>--c-cancel</code></td><td>cancelled</td><td><span class="swatch" style="background:#8aa0ab"></span>#8aa0ab</td><td><span class="swatch" style="background:#7590a0"></span>#7590a0</td></tr>
     <tr><td><code>--c-project</code></td><td>begin and end hulls (= <code>--accent-teal</code>)</td><td><span class="swatch" style="background:#1f8f8a"></span>#1f8f8a</td><td><span class="swatch" style="background:#37c2ba"></span>#37c2ba</td></tr>

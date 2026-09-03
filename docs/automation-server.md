@@ -52,7 +52,7 @@ check, where `revisionOf` maps each open domain's id to its revision.
 
 - Bind to `127.0.0.1` only, never to every interface. The endpoint is
   reachable by local clients and by nothing on the network.
-- Fixed default port `35901`, settable in `settings.json` (P2). It sits
+- Fixed default port `35899`, settable in `settings.json` (D29). It sits
   below the ephemeral port ranges of macOS and Windows; on Linux it falls
   inside the default ephemeral range, where a transient outbound socket could
   hold it at the moment the application starts, a low-probability case the
@@ -66,7 +66,7 @@ check, where `revisionOf` maps each open domain's id to its revision.
 - A single-instance lock, so only one process runs and therefore only one
   binds the port; a second launch focuses the existing window and exits.
 - Starts when the application is ready, if enabled; stops on quit; reachable
-  at `http://127.0.0.1:35901/mcp` while running.
+  at `http://127.0.0.1:35899/mcp` while running.
 - Enabled by default, with the pill in the header showing the URL, copying
   it, and switching the server off and on.
 
@@ -297,7 +297,7 @@ without authentication can use the server. Registration is a one-time step in
 the client; for Claude Code it is
 
 ```bash
-claude mcp add --transport http pensa-forma http://127.0.0.1:35901/mcp
+claude mcp add --transport http pensa-forma http://127.0.0.1:35899/mcp
 ```
 
 A client that reconnects with backoff when the endpoint is down will attach

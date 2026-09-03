@@ -166,9 +166,10 @@ expressed as `{main: index}`. Geometrically these are the gutters between
 main workflows' bounding boxes and the margins beyond the outermost, each the
 full height of the drawing.
 
-These targets carry a distinct indicator, because a drop here does something
-categorically different from the others: it makes the dragged object a main
-workflow of its own, or moves an existing one in the order.
+A drop here does something categorically different from the others: it
+makes the dragged object a main workflow of its own, or moves an existing one
+in the order. The indicator is the same chevron pair as everywhere else
+(D35); its place in a gutter or margin rather than on a line is what says so.
 
 ## 5. How legality is decided
 
@@ -203,12 +204,11 @@ author was looking at.
 ## 6. Feedback and cancellation
 
 While an object is dragged, the pointer over a legal target shows an
-indicator; over anything else it shows none. Two indicators exist, specified
-in the [mark geometry](mark-geometry.md): the chevron pair, for a trunk-edge,
-branch-edge, or return-point target, drawn at the point the drop would
-occupy; and the bar, for a main-workflow target, drawn the height of the
-drawing in the gutter it would occupy. Both are drawn in the `--cursor` token
-and read at any zoom.
+indicator; over anything else it shows none. One indicator exists (D35),
+specified in the [mark geometry](mark-geometry.md): the chevron pair, drawn
+at the point the drop would occupy, which for a main-workflow target is the
+centre of the gutter or margin the drop would occupy, at the pointer's
+height. It is drawn in the `--cursor` token and reads at any zoom.
 
 The dragged object is shown by a ghost: its card at 40 percent opacity
 following the pointer, the original staying in place at 40 percent opacity

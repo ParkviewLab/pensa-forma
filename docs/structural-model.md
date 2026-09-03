@@ -122,7 +122,8 @@ in the arrays that name it. See section 2.6 for why.
 | `title` | string | `start`, `begin`, and `task` only; may be empty |
 | `pair` | node id | `begin` and `end` only; each names the other |
 | `note` | filename or null | `start`, `begin`, and `task` only; the reference to the node's note file, which holds its prose |
-| `status` | `todo` \| `doing` \| `done` \| `cancelled` | `task` only |
+| `status` | `todo` \| `in-progress` \| `completed` \| `cancelled` | `task` only |
+| `completedAt` | timestamp or null | `task` only; present exactly while `status` is `completed` (I18) |
 | `flagged` | boolean | `start`, `begin`, and `task` only |
 | `here` | boolean | `task` only; at most one true per workflow |
 | `log` | list of log entries | `start`, `begin`, and `task` only; section 5 |
@@ -286,8 +287,10 @@ not renumber.
 
 - **I14.** Only a `start`, a `begin`, or a `task` node has a `title`, a
   `note`, a `flagged`, or a `log`; only a `begin` or an `end` node has a
-  `pair`; only a `task` has a `status` or a `here`.
+  `pair`; only a `task` has a `status`, a `completedAt`, or a `here`.
 - **I15.** At most one node in a workflow has `here` true.
+- **I18.** A task's `completedAt` is present if and only if its `status` is
+  `completed`.
 
 **References**
 
@@ -305,8 +308,11 @@ needed on the gesture.
 
 ## 5. Node state and the activity log
 
-`status` takes one of four values, `todo`, `doing`, `done`, `cancelled`, and
-cycles in that order when the status glyph is clicked. `flagged` drives the
+`status` takes one of four values, `todo`, `in-progress`, `completed`,
+`cancelled`, and cycles in that order when the status glyph is clicked. A
+task entering `completed` is stamped with `completedAt`, the UTC RFC 3339
+time of the change, and leaving `completed` clears it, so the field is
+present exactly while the status is (I18). `flagged` drives the
 flagged-only review mode and may be set on any opener or task. `here` marks the current
 task within its workflow, at most one per workflow (I15), and is shared with
 other writers rather than being a local view state.
@@ -363,8 +369,8 @@ happened.
 
 Which commands write a `system` entry, to which node, and with which `event`
 code, is specified with each command in the [catalogue](command-catalogue.md),
-under the rule of P4 in the decisions record: one entry, to the command's
-subject node, for a structural change only.
+under the rule of D31 in the decisions record: one entry, to the command's
+subject node, for a structural change or a status change.
 
 ---
 
@@ -434,9 +440,9 @@ w_main  nodes [n_s1, n_t1, n_b1, n_t2, n_t3, n_e1, n_t4, n_f1]
         gaps  [g_0,  g_1,  g_2,  g_3,  g_4,  g_5,  g_6]
 
   n_s1  start  title "Ship v1"
-  n_t1  task   "Draft spec"      status done
+  n_t1  task   "Draft spec"      status completed  completedAt 2026-09-01T16:20:00Z
   n_b1  begin  title "Build"     pair n_e1
-  n_t2  task   "Backend"         status doing   here
+  n_t2  task   "Backend"         status in-progress   here
   n_t3  task   "Frontend"        status todo
   n_e1  end    pair n_b1
   n_t4  task   "Announce"        status todo    flagged
@@ -449,7 +455,7 @@ w_main  nodes [n_s1, n_t1, n_b1, n_t2, n_t3, n_e1, n_t4, n_f1]
 
 w_qa    nodes [n_s2, n_t5, n_f2]   gaps [g_7, g_8]
   n_s2  start  title "QA pass"
-  n_t5  task   "Write tests"     status doing   here
+  n_t5  task   "Write tests"     status in-progress   here
   n_f2  finish
 
 w_docs  nodes [n_s3, n_t6, n_f3]  gaps [g_9, g_10]

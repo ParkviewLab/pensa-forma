@@ -538,7 +538,7 @@ and stroke:
 | glyph | meaning | fill | stroke |
 | --- | --- | --- | --- |
 | done | done | `--c-done` (violet) | none |
-| doing | doing | `--c-doing` | none |
+| progress | in progress | `--c-progress` | none |
 | todo | to do | none | 2px solid `--c-todo` |
 | cancel | cancelled | none | 1.5px dashed `--c-cancel` (dash 2.4, gap 2.2) |
 | project | a begin node | `--c-project` (teal) | none |
@@ -733,28 +733,20 @@ ever wears the glyph.
 
 ### 11. The drop indicators
 
-Two indicators exist (P8), both in the `--cursor` token, drawn on the
-topmost layer during a drag and only over a legal target.
-
-The **chevron pair** marks a trunk-edge, branch-edge, or return-point
-target: two chevrons facing each other across the point the drop would
-occupy, centred on that point. For a trunk-edge target the point is on the
-line at the middle of the zone; for a branch-edge target it is at the base of
-the lane the branch would take, level with the branch point's arrival
-height; for a return-point target it is the junction centre.
+One indicator exists (D35), the **chevron pair**, in the `--cursor` token,
+drawn on the topmost layer during a drag and only over a legal target: two
+chevrons facing each other across the point the drop would occupy, centred
+on that point. For a trunk-edge target the point is on the line at the
+middle of the zone; for a branch-edge target it is at the base of the lane
+the branch would take, level with the branch point's arrival height; for a
+return-point target it is the junction centre; for a main-workflow target it
+is at the centre x of the gutter or margin the drop would occupy, at the
+pointer's height.
 
 ```
 left:  M -13,-6  L -7,0  L -13,6      stroke 2.4  round cap and join  no fill
 right: M  13,-6  L  7,0  L  13,6
 both translated to the target point
-```
-
-The **bar** marks a main-workflow target: a vertical line the full height of
-the drawing's bounds plus the margin, at the centre x of the gutter or margin
-the drop would occupy, stroked at width 3 with round caps.
-
-```
-line from (x, bounds.top - margin) to (x, bounds.bottom + margin)   stroke 3  round cap
 ```
 
 The **ghost** is the dragged card's own marks at 40 percent opacity, drawn
@@ -809,7 +801,7 @@ Junction:        diamond side 12, rotate 45, at every branch and return point; h
 Note glyph:      design box 16 rendered at 14; body rect (3,3,10,11) corner radius 1.5 stroke 1.2; rings stroke 1.2; rules stroke 1.0;
                  placement: inset 11 right / 8 bottom on the axis-aligned silhouettes; the inner ellipse's
                  inscribed corner on the start ellipse (rotating with it); never on a finish or an end node
-Drop indicators: chevrons ±13 wide, ±6 tall, tips 7 from centre, stroke 2.4; bar stroke 3
+Drop indicator:  chevrons ±13 wide, ±6 tall, tips 7 from centre, stroke 2.4
 Ghost:           opacity 0.4 (ghost and original alike)
 Ground:          dot lattice pitch 40; dot radius ~1.2 (full --grid at 1px, transparent by 1.4px)
 ```
@@ -827,7 +819,7 @@ Each token by role, and where relevant by hue, for both themes.
 | `--muted` | tags, note glyph | `#5f7d8b` | `#93b3c2` |
 | `--grid` | ground dots | `#173242` at 10 % | `#6fb6c9` at 13 % |
 | `--c-todo` | to-do glyph and screen | `#d9a53a` | `#f0bd55` |
-| `--c-doing` | doing | `#d75f2e` | `#f27a44` |
+| `--c-progress` | in progress | `#d75f2e` | `#f27a44` |
 | `--c-done` | done (= `--accent-violet`) | `#7d54a6` | `#bd93e6` |
 | `--c-cancel` | cancelled | `#8aa0ab` | `#7590a0` |
 | `--c-project` | begin and end hulls (= `--accent-teal`) | `#1f8f8a` | `#37c2ba` |

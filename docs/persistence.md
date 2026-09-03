@@ -127,7 +127,7 @@ gaps        { g_…: Gap }
 ```
 
 A workflow: `id`, `nodes` (list), `gaps` (list). A node: `id`, `kind`, then
-the fields its kind carries in the order `title`, `pair`, `status`, `here`,
+the fields its kind carries in the order `title`, `pair`, `status`, `completedAt`, `here`,
 `flagged`, `note`, `log`; a log entry: `id`, `at`, `author`, `origin`,
 `event`, `text`, `editedAt`, `editedBy`, with the last three omitted when
 null. A gap: `id`, then whichever of `branchLeft`, `branchRight`,
@@ -160,8 +160,8 @@ The worked instance of the structural model, section 8, in canonical form:
     "n_s1": { "id": "n_s1", "kind": "start", "title": "Ship v1", "log": [] },
     "n_s2": { "id": "n_s2", "kind": "start", "title": "QA pass", "log": [] },
     "n_s3": { "id": "n_s3", "kind": "start", "title": "Write docs", "log": [] },
-    "n_t1": { "id": "n_t1", "kind": "task", "title": "Draft spec", "status": "done", "log": [] },
-    "n_t2": { "id": "n_t2", "kind": "task", "title": "Backend", "status": "doing", "here": true, "log": [] },
+    "n_t1": { "id": "n_t1", "kind": "task", "title": "Draft spec", "status": "completed", "completedAt": "2026-09-01T16:20:00.000Z", "log": [] },
+    "n_t2": { "id": "n_t2", "kind": "task", "title": "Backend", "status": "in-progress", "here": true, "log": [] },
     "n_t3": { "id": "n_t3", "kind": "task", "title": "Frontend", "status": "todo", "log": [] },
     "n_t4": {
       "id": "n_t4", "kind": "task", "title": "Announce", "status": "todo", "flagged": true,
@@ -174,7 +174,7 @@ The worked instance of the structural model, section 8, in canonical form:
         }
       ]
     },
-    "n_t5": { "id": "n_t5", "kind": "task", "title": "Write tests", "status": "doing", "here": true, "log": [] },
+    "n_t5": { "id": "n_t5", "kind": "task", "title": "Write tests", "status": "in-progress", "here": true, "log": [] },
     "n_t6": { "id": "n_t6", "kind": "task", "title": "API reference", "status": "todo", "log": [] }
   },
   "gaps": {
@@ -237,7 +237,7 @@ because a name makes it shareable.
 ```
 
 A bookmark is a name, the opener ids (begin or start) folded when it was saved, and the ids of
-every node drawn wholly inside the viewport when it was saved (P5). It holds
+every node drawn wholly inside the viewport when it was saved (D32). It holds
 no zoom and no camera coordinate, because a field that travels must mean the
 same thing on every client, and a pixel-anchored camera is one screen's
 framing. Restoring a bookmark applies the fold set, drops ids that no longer
@@ -261,7 +261,7 @@ writes are refused with a message until it is repaired.
 {
   "libraryRoot": "/Users/gary/Library/Application Support/ai.parkviewlab.pensa-forma/domains",
   "lastDomain": "d_mrtwgppt01",
-  "server": { "enabled": true, "port": 35901, "scope": "read-write" },
+  "server": { "enabled": true, "port": 35899, "scope": "read-write" },
   "theme": "azure",
   "note": { "split": 0.5, "wrap": true, "fontSize": 16 }
 }
@@ -272,7 +272,7 @@ writes are refused with a message until it is repaired.
 | `libraryRoot` | the data directory's `domains/` | where the domain directories live |
 | `lastDomain` | none | the domain to reopen at launch, by id |
 | `server.enabled` | `true` | whether the automation server starts with the application |
-| `server.port` | `35901` | its loopback port; never roams |
+| `server.port` | `35899` | its loopback port; never roams |
 | `server.scope` | `read-write` | `read-only`, `read-write`, or `destructive` |
 | `theme` | `azure` | `azure` or `navy` |
 | `note.split` | `0.5` | the note editor's divider fraction |

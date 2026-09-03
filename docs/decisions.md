@@ -561,91 +561,99 @@ branch, or a branch a project, by a conversion of kind rather than by a move.
 brought with it are taken on their own terms instead: a workflow folds (D15
 as amended), and a closer carries no note, flag, or log (D11 as amended).
 
-## Proposed
+### D28. "Plan" leaves the vocabulary; the domain orders its main workflows in `mains`
 
-Each of these is written into the specification as if it held, so that the
-documents read whole. They await the author's ruling, and each names the
-document that depends on it.
-
-### P1. "Plan" leaves the vocabulary; the domain orders its main workflows in `mains`
-
-*Proposed 2026-09-02; glossary, structural model, chrome.*
+*Proposed 2026-09-02; settled 2026-09-03.*
 
 A domain holds workflows, some main and some branch. The ordered list of main
 workflows is the domain's `mains` field, and the menus say "workflow" where a
 person creates or pastes one. No second noun stands for a main workflow.
 
-### P2. The automation server's port is 35901
+### D29. The automation server's port is 35899
 
-*Proposed 2026-09-02; automation server, chrome.*
+*Proposed 2026-09-02 as 35901; settled 2026-09-03 at 35899.*
 
 Loopback only, fixed, and never roaming; it sits below the ephemeral ranges of
-macOS and Windows.
+macOS and Windows. If the port is taken the server does not start and the
+pill says so; it never picks another port on its own.
 
-### P3. Status values and labels
+### D30. Status values, labels, and `completedAt`
 
-*Proposed 2026-09-02; structural model, chrome, geometry.*
+*Proposed 2026-09-02; settled 2026-09-03 with different values.*
 
-Stored values `todo`, `doing`, `done`, `cancelled`; on screen To do, Doing,
-Done, Cancelled. The glyph click cycles them in that order.
+Stored values `todo`, `in-progress`, `completed`, `cancelled`. The tag under
+a task card reads to do, in progress, done, cancelled; the status submenu
+reads To do, In progress, Completed, Cancelled; the glyph click cycles the
+stored values in that order. A task entering `completed` is stamped with
+`completedAt`, the time of the change, and leaving `completed` clears it
+(I18). The stored value `todo` never appears on screen.
 
-### P4. The activity log's automatic entries
+The proposal's `doing` and `done`, shown as Doing and Done, were rejected:
+these are the author's established words, and the specification is not to
+coin alternatives where an established vocabulary exists.
 
-*Proposed 2026-09-02; structural model, command catalogue. Resolves the open
-questions listed at the end.*
+### D31. The activity log's automatic entries
+
+*Proposed 2026-09-02; settled 2026-09-03 with status changes added.*
 
 The application writes one `system` entry to exactly one node per command,
-the node the command names as its subject, and only for a structural change:
-creating a node, moving a node or an extent, converting a project to a branch
-or a branch to a project, attaching or detaching a departure or a return, and
-reordering a branch or a main workflow. A rename, a status, flag, or cursor
-change, and a note edit write none; they are state, not structure. Deletion
-writes nothing, the deleted node's log dying with it. An entry holds frozen
-prose in `text` and a machine-readable `event` code, so it reads at a glance
-and filters by kind. A `system` entry is editable on the same terms as any
-other and carries `editedAt` and `editedBy` once edited. The log is
-unbounded; the viewer shows the newest entries first and pages.
+the node the command names as its subject, for a structural change and for a
+status change: creating a node, moving a node or an extent, converting a
+project to a branch or a branch to a project, attaching or detaching a
+departure or a return, reordering a branch or a main workflow, and setting or
+cycling a task's status (event `status`, naming the new status). A rename, a
+flag or cursor change, and a note edit write none; they are state that the
+record itself shows. Deletion writes nothing, the deleted node's log dying
+with it. An entry holds frozen prose in `text` and a machine-readable
+`event` code, so it reads at a glance and filters by kind. A `system` entry
+is editable on the same terms as any other and carries `editedAt` and
+`editedBy` once edited. The log is unbounded; the viewer shows the newest
+entries first and pages.
 
-### P5. Bookmarks hold a node set, not a camera
+### D32. Bookmarks hold a node set, not a camera
 
-*Proposed 2026-09-02; persistence, chrome.*
+*Proposed 2026-09-02; settled 2026-09-03.*
 
 A bookmark is `{name, folded, nodes}`: the folded opener ids, start or
 begin, and the ids of every node drawn wholly inside the viewport when it
-was saved. A client frames
-those nodes under its own maximum scale and minimum padding, so a bookmark
-survives a layout change and another window size by construction and degrades
-only when every node it names is gone.
+was saved. A client frames those nodes under its own maximum scale and
+minimum padding, so a bookmark survives a layout change and another window
+size by construction and degrades only when every node it names is gone.
 
-### P6. The Cargo workspace
+### D33. The Cargo workspace
 
-*Proposed 2026-09-02; architecture.*
+*Proposed 2026-09-02; settled 2026-09-03.*
 
 Six crates: `model`, `store`, `command`, `layout`, `server`, and `app`, with
 the binary in `app`. The version is `[workspace.package].version`, inherited
 by every member.
 
-### P7. Data locations
+### D34. Data locations
 
-*Proposed 2026-09-02; persistence.*
+*Proposed 2026-09-02; settled 2026-09-03.*
 
 The application's data directory is the platform's per-user application-data
 directory for `ai.parkviewlab.pensa-forma`; the default library is its
-`domains/` subdirectory; a domain directory is named `pensaforma_domain_<slug>_<id>`.
+`domains/` subdirectory; a domain directory is named
+`pensaforma_domain_<slug>_<id>`.
 
-### P8. Two drop indicators
+### D35. One drop indicator
 
-*Proposed 2026-09-02; mark geometry, interaction.*
+*Proposed 2026-09-02 as two; settled 2026-09-03 as one.*
 
-A chevron pair for a trunk-edge, branch-edge, or return-point target, and a
-vertical bar for a main-workflow target; both in the `--cursor` token.
+The chevron pair, in the `--cursor` token, marks every legal target, a
+main-workflow target included, where it sits at the centre of the gutter or
+margin the drop would occupy at the pointer's height. The vertical bar
+proposed for main-workflow targets is withdrawn: one mark that says "here"
+serves every target, and its place in a gutter rather than on a line already
+says what the drop will do.
+
+## Proposed
+
+None at present.
 
 ---
 
 ## Open questions
 
-None outstanding beyond the proposals above. The six sub-questions on the
-activity log's automatic entries (where the boundary of "structural" falls,
-which nodes receive an entry, whether a deletion is recorded, frozen prose or
-a structured payload, whether a system entry is editable, and whether a log is
-bounded) are answered by P4 pending its ruling.
+None outstanding.

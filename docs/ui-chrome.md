@@ -119,8 +119,8 @@ fill, text `--ink`; pointer cursor. On hover the fill becomes `--line` at 16
 hover fill. Variants: an icon button is 30px wide with centred 14px text and
 no horizontal padding; a primary button fills `--ink` with `--ground` text
 and an `--ink` edge; a danger button keeps the transparent fill but takes
-`--c-doing` text and an edge of the danger blend (Appendix A), and its hover
-fill is `--c-doing` at 16 %; a toggle button in its pressed state takes the
+`--c-progress` text and an edge of the danger blend (Appendix A), and its hover
+fill is `--c-progress` at 16 %; a toggle button in its pressed state takes the
 primary look (filled `--ink`, `--ground` text).
 
 ### 2.1 Empty-state overlay
@@ -208,7 +208,7 @@ point of visibility in the chrome.
 
 A button labelled `MCP` with an 8 × 8 status dot before the text, 7px between
 dot and text. The dot: a circle, default fill `--c-cancel` (muted, off);
-`--accent-teal` when the server runs; `--c-doing` on error; an inward ring of
+`--accent-teal` when the server runs; `--c-progress` on error; an inward ring of
 `--ink` at 25 % opacity, 1px, keeps the dot legible on both grounds.
 Precedence: error beats running beats off.
 
@@ -216,7 +216,7 @@ Tooltip, rebuilt on each refresh from segments joined with ` · ` (space,
 interpunct, space): `MCP server`, then `running at <url>` or `starting…` or
 `off`, then `scope: <scope>` when known, then `error: <error>` when present;
 assembled, for instance: `MCP server · running at
-http://127.0.0.1:35901/mcp · scope: read-write`.
+http://127.0.0.1:35899/mcp · scope: read-write`.
 
 Activating the pill refreshes the status, then opens the shared menu widget
 (section 6's visual spec) anchored at the button's bottom-left corner plus
@@ -233,7 +233,7 @@ Activating the pill refreshes the status, then opens the shared menu widget
 
 Status is polled only at application start and on activation; a server that
 dies in between shows a stale dot until the next press. The endpoint has the
-form `http://127.0.0.1:<port>/mcp` (default port 35901), loopback only.
+form `http://127.0.0.1:<port>/mcp` (default port 35899), loopback only.
 
 ### 3.5 Mode label and theme toggle
 
@@ -295,8 +295,8 @@ and must be honoured as triggers:
   mode, right-click does nothing.
 - Single click on a card's note glyph (the small memo-pad in its
   bottom-right corner) opens the note editor on that node.
-- Single click on a task card's status glyph cycles its status (todo → doing
-  → done → cancelled → todo), issuing `cycle_status`. A begin card's and a
+- Single click on a task card's status glyph cycles its status (todo →
+  in-progress → completed → cancelled → todo), issuing `cycle_status`. A begin card's and a
   start card's glyphs carry no status and ignore the click.
 - Double-click on a card's body toggles the node's flag, issuing `set_flag`;
   the glyph and note-glyph sub-regions are excluded. An opener or a task may
@@ -378,7 +378,7 @@ item; the inventories in section 6 give the items' order and conditions.
 
 | Item | Command |
 | --- | --- |
-| Status ▸ To do / Doing / Done / Cancelled | `set_status` |
+| Status ▸ To do / In progress / Completed / Cancelled | `set_status` |
 | Make here / Clear here | `set_here` / `clear_here` |
 | Make project | `convert_task_to_project` |
 | Make task | `convert_project_to_task` |
@@ -415,7 +415,7 @@ clicked opener's extent as a nested outline, two spaces per level. A
 workflow's start node is a plain bullet (`- <title>`) nesting everything in
 the workflow one level in; a begin node likewise nests its scope. A run of
 tasks along one line stays flat. A task is a checkbox item, `[x]` done, `[ ]`
-to do or doing, with a cancelled task's title struck through (`~~title~~`)
+to do or in progress, with a cancelled task's title struck through (`~~title~~`)
 and no checkbox change. A branch opens a nested sub-list one level in beneath
 the lower node of the gap it departs from, headed by its start node's bullet
 and ending with an italic line: `*returns above “<title>”*` when it returns,
@@ -474,7 +474,7 @@ always present:
 
 | Item | Condition |
 | --- | --- |
-| `Status` ▸ `To do` / `Doing` / `Done` / `Cancelled` | the current status row is checked |
+| `Status` ▸ `To do` / `In progress` / `Completed` / `Cancelled` | the current status row is checked |
 | `Clear here` or `Make here` | `Clear here` when this task carries the cursor |
 | `Make project` | |
 | `Wrap as project` ▸ | legal runs exist; first entry `Just this one`, then `Up to “<title>”` per node further up (an end node shown as `the close of “<project>”`) |
@@ -576,7 +576,7 @@ line height 1.5, 4px below it); then a right-aligned row of buttons 8px
 apart, 16px above them. A dialog button: 12px text, 1px `--line` edge,
 transparent fill, `--ink` text, radius 6, inner spacing 7px vertical and 14px
 horizontal; hover fills `--line` at 16 %; a primary button fills `--ink` with
-`--ground` text; a danger button fills `--c-doing` with `--ground` text and
+`--ground` text; a danger button fills `--c-progress` with `--ground` text and
 matching edge.
 
 Text prompt: title, optional label, the input (focused with its value
@@ -708,7 +708,7 @@ setting, default on).
 Syntax colours (all tokens, so they follow the theme): headings
 `--accent-violet` bold; strong `--ink` bold; emphasis `--ink` italic;
 strikethrough `--muted` struck; inline code `--accent-teal`; link text
-`--accent-teal` underlined; URLs `--c-doing`; blockquote `--muted` italic;
+`--accent-teal` underlined; URLs `--c-progress`; blockquote `--muted` italic;
 list markers and link labels `--c-todo`; horizontal rules and every markup
 marker (`#`, `**`, `>`, `-`, `1.`, backticks) dimmed `--muted`.
 
@@ -892,7 +892,7 @@ Bookmarks appear only in the canvas menu (6.7): add, jump (by name), delete
 (by name, confirmed). A bookmark is a named saved view stored with the
 domain in its bookmarks file: its name, the set of folded openers (projects
 and workflows alike), and the set of nodes drawn wholly inside the viewport
-when it was saved (P5). It
+when it was saved (D32). It
 holds no zoom and no camera coordinate.
 
 Jumping applies the fold set (stale entries silently dropped) both to the
@@ -946,7 +946,7 @@ several.
 | `--muted` | `#5f7d8b` | `#93b3c2` | secondary text, readouts, menu glyphs |
 | `--grid` | `#173242` at 10 % | `#6fb6c9` at 13 % | the viewport dot grid |
 | `--cursor` | `#d75f2e` | `#f27a44` | focus rings, divider hover |
-| `--c-doing` | `#d75f2e` | `#f27a44` | danger buttons, error dot, URL syntax colour |
+| `--c-progress` | `#d75f2e` | `#f27a44` | danger buttons, error dot, URL syntax colour |
 | `--c-todo` | `#d9a53a` | `#f0bd55` | list-marker syntax colour |
 | `--c-cancel` | `#8aa0ab` | `#7590a0` | the automation dot's off state |
 | `--accent-teal` | `#1f8f8a` | `#37c2ba` | automation dot on; preview links; code/link syntax |
@@ -962,13 +962,13 @@ chrome:
 | Derived colour | Meaning |
 | --- | --- |
 | button/menu-item hover tints | `--line` at 16 % (buttons, dialog and note-editor buttons), 20 % (menu items), 12 % (the caret's line in the editor) |
-| danger-button hover tint | `--c-doing` at 16 % (the delete-domain button) |
+| danger-button hover tint | `--c-progress` at 16 % (the delete-domain button) |
 | inline-code and code-block grounds | `--line` at 16 % and 14 % |
 | editor selection | `--cursor` at 24 % |
 | automation-dot inward ring | `--ink` at 25 % |
 
 One value blends two opaque colours, the danger button's edge, 55 %
-`--c-doing` with 45 % `--line`; resolved it is `#8f5d4a` on azure and
+`--c-progress` with 45 % `--line`; resolved it is `#8f5d4a` on azure and
 `#b79580` on navy. The dialog backdrop is black at 35 % opacity; the shadows
 are black at 28 % (menus) and 40 % (dialogs), literal values with no token
 behind them.

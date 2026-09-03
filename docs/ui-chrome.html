@@ -341,7 +341,7 @@ segmented Mode pill, the pressed Flagged toggle inverted ink-on-ground.</p>
 <p class="small">The navy mock shows the MCP dot's error state (orange) and the
 Flagged toggle pressed; the azure mock shows the dot running (teal). Dot
 states: off <code>--c-cancel</code>, running <code>--accent-teal</code>, error
-<code>--c-doing</code>; error beats running beats off.</p>
+<code>--c-progress</code>; error beats running beats off.</p>
 
 <h3>The widgets, left to right</h3>
 <table>
@@ -367,7 +367,7 @@ states: off <code>--c-cancel</code>, running <code>--accent-teal</code>, error
       4px): a disabled <code>●/○ url-or-unavailable</code> row, separator,
       <code>Copy endpoint URL</code> (URL only; clipboard, dialog fallback),
       <code>Turn on/off</code>. Status polls only at start and on click. URL
-      form <code>http://127.0.0.1:35901/mcp</code></td></tr>
+      form <code>http://127.0.0.1:35899/mcp</code></td></tr>
   <tr><td>Mode toggle</td><td><code>Mode</code> label 10px uppercase; a pill of
       two segments, active inverted</td>
       <td>sets the theme state to azure or navy; persists as the
@@ -389,7 +389,7 @@ states: off <code>--c-cancel</code>, running <code>--accent-teal</code>, error
 <p class="small">Four canvas gestures reach the chrome: right-click opens a
 context menu (a card's own, else the canvas menu; nothing with no domain or in
 flagged-only mode); clicking a card's note glyph opens the note editor;
-clicking a task's status glyph cycles todo → doing → done → cancelled;
+clicking a task's status glyph cycles todo → in-progress → completed → cancelled;
 double-clicking a card body toggles its flag, on any kind. External
 automation edits re-render in place at most once per displayed frame, camera
 held, and clear the undo slot; external domain create/delete refreshes the
@@ -448,12 +448,12 @@ main workflow.</p>
     <div style="display:flex; gap:14px; flex-wrap:wrap;">
       <div class="mock-menu">
         <div class="mm-item"><span class="mm-check"></span><span class="mm-label">To do</span></div>
-        <div class="mm-item"><span class="mm-check">✓</span><span class="mm-label">Doing</span></div>
-        <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Done</span></div>
+        <div class="mm-item"><span class="mm-check">✓</span><span class="mm-label">In progress</span></div>
+        <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Completed</span></div>
         <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Cancelled</span></div>
       </div>
       <div class="mock-menu">
-        <div class="mm-item disabled"><span class="mm-check"></span><span class="mm-label">● http://127.0.0.1:35901/mcp</span></div>
+        <div class="mm-item disabled"><span class="mm-check"></span><span class="mm-label">● http://127.0.0.1:35899/mcp</span></div>
         <div class="mm-sep"></div>
         <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Copy endpoint URL</span></div>
         <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Turn off</span></div>
@@ -466,7 +466,7 @@ main workflow.</p>
 <table>
   <thead><tr><th>Item</th><th>Present when</th></tr></thead>
   <tbody>
-  <tr><td><code>Status</code> ▸ To do / Doing / Done / Cancelled</td><td>always (current status checked)</td></tr>
+  <tr><td><code>Status</code> ▸ To do / In progress / Completed / Cancelled</td><td>always (current status checked)</td></tr>
   <tr><td><code>Clear here</code> / <code>Make here</code></td><td>by cursor state</td></tr>
   <tr><td><code>Make project</code></td><td>always</td></tr>
   <tr><td><code>Wrap as project</code> ▸ (<code>Just this one</code>, then <code>Up to “…”</code>)</td><td>legal runs exist</td></tr>
@@ -644,7 +644,7 @@ is fixed at 13px monospace.</p>
 <p class="small">The source pane is a plain-text editing area with markdown
 syntax highlighting and soft wrap toggled live by the <code>Wrap</code>
 button (persisted, default on). Syntax colours are tokens: headings violet bold, inline code and links teal, URLs
-<code>--c-doing</code>, list markers <code>--c-todo</code>, every markup marker
+<code>--c-progress</code>, list markers <code>--c-todo</code>, every markup marker
 dimmed <code>--muted</code>; caret <code>--cursor</code>; selection a 24%
 cursor mix. Toolbar buttons act on press without stealing the editor's focus or selection:
 B/I/S/&lt;/&gt; wrap with <code>**</code>, <code>*</code>, <code>~~</code>,
@@ -826,7 +826,7 @@ own. In the choice dialog Enter does nothing and no button has focus.</p>
   <tr><td><code>--muted</code></td><td><span class="swatch" style="background:#5f7d8b"></span>#5f7d8b</td><td><span class="swatch" style="background:#93b3c2"></span>#93b3c2</td><td>secondary text, readouts</td></tr>
   <tr><td><code>--grid</code></td><td>rgba(23,50,66,.10)</td><td>rgba(111,182,201,.13)</td><td>the viewport dot grid</td></tr>
   <tr><td><code>--cursor</code></td><td><span class="swatch" style="background:#d75f2e"></span>#d75f2e</td><td><span class="swatch" style="background:#f27a44"></span>#f27a44</td><td>focus rings, divider hover</td></tr>
-  <tr><td><code>--c-doing</code></td><td><span class="swatch" style="background:#d75f2e"></span>#d75f2e</td><td><span class="swatch" style="background:#f27a44"></span>#f27a44</td><td>danger buttons, error dot, URL syntax</td></tr>
+  <tr><td><code>--c-progress</code></td><td><span class="swatch" style="background:#d75f2e"></span>#d75f2e</td><td><span class="swatch" style="background:#f27a44"></span>#f27a44</td><td>danger buttons, error dot, URL syntax</td></tr>
   <tr><td><code>--c-todo</code></td><td><span class="swatch" style="background:#d9a53a"></span>#d9a53a</td><td><span class="swatch" style="background:#f0bd55"></span>#f0bd55</td><td>list-marker syntax</td></tr>
   <tr><td><code>--c-cancel</code></td><td><span class="swatch" style="background:#8aa0ab"></span>#8aa0ab</td><td><span class="swatch" style="background:#7590a0"></span>#7590a0</td><td>MCP dot off</td></tr>
   <tr><td><code>--accent-teal</code></td><td><span class="swatch" style="background:#1f8f8a"></span>#1f8f8a</td><td><span class="swatch" style="background:#37c2ba"></span>#37c2ba</td><td>MCP dot on; preview links; code/link syntax</td></tr>
@@ -838,10 +838,10 @@ own. In the choice dialog Enter does nothing and no button has focus.</p>
 <p class="small">Every derived tint is a named token drawn at an opacity;
 treat them as translucent overlays or precompute the composite. Hover tints
 are <code>--line</code> at 16 % (buttons) and 20 % (menu items), the danger
-button's <code>--c-doing</code> at 16 %, the caret's line in the editor 12 %,
+button's <code>--c-progress</code> at 16 %, the caret's line in the editor 12 %,
 code grounds 16 %/14 %, the editor selection <code>--cursor</code> at 24 %,
 the automation dot's inward ring <code>--ink</code> at 25 %. The one opaque
-blend, the danger button's edge (55 % <code>--c-doing</code> with 45 %
+blend, the danger button's edge (55 % <code>--c-progress</code> with 45 %
 <code>--line</code>), resolves to <code>#8f5d4a</code> on azure and
 <code>#b79580</code> on navy. The dialog backdrop is black at 35 % opacity;
 the shadows are black at 28 % (menus) and 40 % (dialogs), literal values with
@@ -865,7 +865,7 @@ above it); About and Licenses are separate windows.</p>
   <tbody>
   <tr><td><code>settings.json</code> in the data directory</td><td><code>theme</code></td><td><code>azure</code> or <code>navy</code></td></tr>
   <tr><td><code>settings.json</code></td><td><code>note.split</code> · <code>note.wrap</code> · <code>note.fontSize</code></td><td>editor split fraction (default .5); soft wrap (default on); preview text px (12..28, default 16)</td></tr>
-  <tr><td><code>settings.json</code></td><td><code>libraryRoot</code> · <code>lastDomain</code> · <code>server</code></td><td>the library root; the last domain by id; the automation server's enabled (default on), port (35901), scope (read-only / read-write / destructive; default read-write)</td></tr>
+  <tr><td><code>settings.json</code></td><td><code>libraryRoot</code> · <code>lastDomain</code> · <code>server</code></td><td>the library root; the last domain by id; the automation server's enabled (default on), port (35899), scope (read-only / read-write / destructive; default read-write)</td></tr>
   <tr><td><code>viewstate.json</code> in the data directory</td><td>per domain id</td><td>folded opener ids (begin or start)</td></tr>
   <tr><td>the domain directory</td><td><code>bookmarks.json</code> · <code>notes/*.md</code></td><td>bookmarks; note files</td></tr>
   </tbody>

@@ -25,7 +25,7 @@ the model has exactly one home.
 
 ## 2. The workspace
 
-Six crates (P6), each with one job, arranged so that dependencies point one
+Six crates (D33), each with one job, arranged so that dependencies point one
 way:
 
 ```
