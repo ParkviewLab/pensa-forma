@@ -147,8 +147,9 @@ A return point is a target for a finish node alone, and issues
 `attach_return(branch, gap)`. A finish node cannot choose a side or an order:
 the return is made on the same side as its branch's departure, at the order
 position the structural model's rule assigns. So a return point offers one
-target, its diamond and the lane-width band of the incoming edge above it,
-and only the gaps the catalogue lists as legal for that branch are ever
+target, its diamond (drawn at every point, so the target is visible before
+the drag begins) and the lane-width band of the incoming edge above it, and
+only the gaps the catalogue lists as legal for that branch are ever
 targets.
 
 ### 4.4 Main-workflow targets

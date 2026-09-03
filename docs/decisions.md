@@ -455,6 +455,15 @@ dot gone the diamond is the only mark on a line, and it grows from 8 to 12
 pixels on a side, chosen from renders at 8, 10, 12, and 14: at 12 it reads
 as a junction at the ordinary zoom without reading as a node.
 
+*Amended 2026-09-03.* Every branch point and return point is drawn, whether
+or not a branch attaches there, after a render of the worked example with
+every point drawn was set beside one with occupied points only. Where the
+station dots had put a decorative mark in every gap, the point diamonds put
+a meaningful one there: each is a place a branch may depart or arrive, the
+drop positions are visible at rest, and a shut gap's single diamond at its
+midpoint reads as the gap's own mark. One diamond where a gap's two points
+coincide, two where its middle edge has opened.
+
 ### D22. A new application, in Rust, in its own repository
 
 *2026-09-02.*

@@ -535,11 +535,12 @@ explicit mitred ribbon quad; see the implementation notes.</p>
 
 <!-- ============================================================ -->
 <h2><span class="n">9</span>The junction diamond</h2>
-<p class="desc">A branch point or return point with a branch attached is marked by an
-12-pixel square turned 45&deg; into a diamond, in <code>--line</code> (turning to
-<code>--ink</code> on hover), the only mark a line carries; every junction carries a
-transparent 13-pixel hit halo, shown faint, which is the return-point drop region and
-the hover region.</p>
+<p class="desc">Every branch point and return point is marked by a 12-pixel square turned
+45&deg; into a diamond, in <code>--line</code> (turning to <code>--ink</code> on hover),
+whether or not a branch attaches there: one at the midpoint of a shut gap, where the two
+points coincide, and two where a middle edge has opened. It is the only mark a line
+carries. Every point carries a transparent 13-pixel hit halo, shown faint, which is the
+return-point drop region and the hover region.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
     <svg width="70" height="70" viewBox="0 0 70 70" aria-label="junction on azure">

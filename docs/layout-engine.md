@@ -484,12 +484,12 @@ wins.
 
 ## 10. Output
 
-The layout returns the station anchor of every node, the point list of every
-track with its kind, the centre of every junction with the gap and point it
-stands for and the branches attached there, the crossings marked as
-underpasses with the direction of the crossed line, the drawing's bounds, the
-metrics it used, and the unresolved conflict list. Everything downstream
-reads only that.
+The layout returns the box position of every node, the point list of every
+track with its kind, the position of every gap's two points, coincident or
+apart, each with the gap and role it stands for and the branches attached
+there, the crossings marked as underpasses with the direction of the crossed
+line, the drawing's bounds, the metrics it used, and the unresolved conflict
+list. Everything downstream reads only that.
 
 The camera is the chrome's: `Fit` frames the bounds with a margin, and the
 zoom and pan are view state the layout does not see.
@@ -506,7 +506,9 @@ reported on the conflict list. Every lateral segment is flat or at exactly
 A branch's riser runs from its incoming lateral's arrival to its return's
 departure, and a main workflow's runs from its start card's centre to its
 finish card's centre. Every shut gap measures exactly `2L` between the silhouettes at the line,
-whatever shapes its two cards wear. The two fixed edges hold to
+whatever shapes its two cards wear, and its one point diamond stands at its
+midpoint; an open gap's two diamonds stand `L` from the silhouettes on their
+sides. The two fixed edges hold to
 the pixel. The minimum air is met everywhere, and is tight on a branch-free
 workflow. No two cards overlap. A branch's start node sits above the node it
 leaves and below that node's successor. Sibling branches sharing a branch

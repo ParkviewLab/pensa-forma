@@ -150,9 +150,12 @@ the viewport, not the map world, so it neither pans nor zooms.
 ### 2. Where a card meets its line (no mark)
 
 Nothing is drawn where a card attaches to its line. The layout measures
-each gap from the cards' own edges (layout engine, section 3), the card is
-the station, and the only marks on a line are the junction diamonds of
-section 9, so every mark on a track means a junction. The riser runs from the centre
+each gap between the silhouettes at the line (layout engine, section 3),
+the card is the station, and the only marks on a line are the point
+diamonds of section 9: one in every shut gap, at the point where its branch
+point and return point coincide, and two where a middle edge has opened.
+Every mark on a track is therefore a point at which a branch may depart or
+arrive, drawn whether or not one does. The riser runs from the centre
 of a line's first card to the centre of its last, behind the cards, so that
 it meets the ellipse and the keystone, which do not fill their boxes; it
 never stands as a stub above a card, and an open branch's riser ends behind
@@ -606,14 +609,20 @@ CROSSED_HALF = { riser:1.5, lateral:1.15 }
 
 ### 9. The junction diamond
 
-A branch point or return point with at least one branch attached is marked
-by a diamond centred on the junction point: a 12-pixel square rotated 45
-degrees, filled in `--line`, turning to `--ink` when the pointer hovers it.
-It is the only mark a line carries, so it is sized to read as a junction at
-the map's ordinary zoom without reading as a node. Every junction carries a
-transparent circular hit halo of radius 13 centred on the same point, which
-the interaction layer uses as the drop region for a return-point target and
-the hover region for the diamond.
+Every branch point and every return point is marked by a diamond centred
+on it, whether or not a branch attaches there: a 12-pixel square rotated
+45 degrees, filled in `--line`, turning to `--ink` when the pointer hovers
+it. In a shut gap the two points coincide and one diamond stands at the
+midpoint of the gap; where the middle edge has opened, the branch point's
+diamond stands `L` above the lower card and the return point's `L` below the
+upper card, with the middle edge between them. It is the only mark a line
+carries, so it is sized to read at the map's ordinary zoom without reading
+as a node, and because it is drawn at every point the reader sees where a
+branch may depart or arrive before any branch does. Every point carries a
+transparent circular hit halo of radius 13 centred on it, which the
+interaction layer uses as the drop region for a return-point target and the
+hover region for the diamond; where two points coincide, one halo serves
+both.
 
 ```
 diamond: square  centre=(cx,cy)  side=12  rotate 45° about (cx,cy)  fill=--line
@@ -732,7 +741,7 @@ Burst (optional decoration):  four full spokes: vertical and horizontal to ±26,
 Tracks:          riser 3; departure 2.3; return 2.3; round cap and join; colour --line
 Underpass:       TUNE perpClear 3, breakMax 12, capLength 9.2, stripLength 30;
                  CROSSED_HALF riser 1.5, lateral 1.15; cap stroke 1.6
-Junction:        diamond side 12, rotate 45; halo r 13
+Junction:        diamond side 12, rotate 45, at every branch and return point; halo r 13
 Note glyph:      design box 16 rendered at 14; body rect (3,3,10,11) corner radius 1.5 stroke 1.2; rings stroke 1.2; rules stroke 1.0;
                  placement: inset 11 right / 8 bottom on the axis-aligned silhouettes; the inner ellipse's
                  inscribed corner on the start ellipse (rotating with it); centred on the inner shape of the finish keystone

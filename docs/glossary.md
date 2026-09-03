@@ -162,8 +162,10 @@ points, and is then no drop target.
 start node. **Return edge.** The connection from a branch workflow's finish
 node to a return point. Neither carries nodes.
 
-**Junction.** A branch point or return point with at least one branch
-attached, as drawn: one diamond per point, shared by every branch meeting it.
+**Junction.** A branch point or return point as drawn: a diamond at every
+point whether or not a branch attaches there, one where a gap's two points
+coincide and two where its middle edge has opened, shared by every branch
+meeting it.
 
 ## The drawing
 
