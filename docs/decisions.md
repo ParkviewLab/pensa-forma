@@ -121,6 +121,13 @@ anchors to the inner ellipse's inscribed corner and rotates with the mark; on
 the finish circle it sits beside the mark, to its right, centred. The mark
 geometry carries the constructions.
 
+**Third amendment, 2026-09-02.** The start ellipse's major axis is held to
+seven tenths of the width its box allows, after renders at 100, 90, 80, and
+70 percent; the minor axis keeps the full fitted height. The opener then
+reads as a compact medallion rather than a bar across the card. The cost was
+accepted knowingly: a start title wraps to the inner ellipse's inscribed
+width, about 85 pixels, so long workflow titles make tall medallions.
+
 **Second amendment, 2026-09-02.** The finish node's circle was replaced by a
 narrow keystone, 92 by 44, centred in the card box at an offset of 48 and
 tilted with the card, after renders of the circle beside keystones of 56,

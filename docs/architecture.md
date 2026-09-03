@@ -107,8 +107,11 @@ Each frame in which the record or the view has changed runs, in order:
    or notification. The interface holds this record between frames as the
    thing it draws; it is not a cache the command layer consults.
 2. **Measure.** Every card's height from the text engine: the label's line
-   count under the card's inner width with soft-hyphen break opportunities,
-   plus the fixed metrics of the mark geometry. Measurement is a pure
+   count under the card's wrap width with soft-hyphen break opportunities,
+   plus the fixed metrics of the mark geometry. The wrap width is the card's
+   inner width for every kind but the start node, whose label wraps to the
+   inscribed width of its ellipse's inner shape (mark geometry, section
+   3.5), a fixed number that does not grow with the card's height. Measurement is a pure
    function of the fonts and the text, so it is memoised by (kind, title,
    status, here, flagged) and recomputed only for cards whose inputs changed.
 3. **Layout.** The `layout` crate, given the record, the fold set, and the

@@ -257,19 +257,23 @@ transform = translate(188 58) scale(-1 -1)
 #### 3.5 ellipse (a start node)
 
 A workflow opens with an ellipse, tilted: the jaunty opener of the style.
-The ellipse is the largest one of the card box's proportions that, once
-rotated by the card's tilt `θ` (section 3.8), still lies within the box
-inset by the margin. Build it axis-aligned from the inscribed semi-axes,
-scale it down until its rotated bounding box fits, and rotate it about the
-card centre.
+Its minor axis is the full height the card box allows; its major axis is
+held to seven tenths of the width the box allows, so the opener reads as a
+compact medallion on its wide card rather than as a bar across it. First
+find the largest ellipse of the box's proportions that, once rotated by the
+card's tilt `θ` (section 3.8), still lies within the box inset by the
+margin: build it axis-aligned from the inscribed semi-axes and scale it down
+until its rotated bounding box fits. Then shorten the major axis by the
+factor `K = 0.7`, and rotate the result about the card centre.
 
 ```
 rx0 = (w - 2m) / 2                      the inscribed semi-axes
 ry0 = (h - 2m) / 2
 bx  = sqrt(rx0² cos²θ + ry0² sin²θ)     half-extents of the rotated bounding box
 by  = sqrt(rx0² sin²θ + ry0² cos²θ)
-s   = min(rx0 / bx, ry0 / by)           the scale that makes it fit
-rx  = s * rx0
+s   = min(rx0 / bx, ry0 / by)           the scale that makes the full ellipse fit
+K   = 0.7                               the major-axis factor
+rx  = K * s * rx0
 ry  = s * ry0
 outer: ellipse  centre=(cx,cy)  semi-axes=(rx,ry)  then rotate(θ about (cx,cy))
 ```
@@ -280,15 +284,17 @@ Golden master, `w = 188`, `h = 58`, `θ = -3°`:
 rx0 = 92.5   ry0 = 27.5
 bx  = 92.38  by  = 27.89
 s   = 0.9862
-outer: ellipse  centre=(94,29)  semi-axes=(91.22,27.12)  rotate -3° about (94,29)
+outer: ellipse  centre=(94,29)  semi-axes=(63.85,27.12)  rotate -3° about (94,29)
 ```
 
-At this slight tilt the fit scale is close to one, so the ellipse all but
-fills its box; the lean reads as a hand-set card rather than a tilted one,
-whilst the band's weight still pools to the lower right.
-
 The label sits centred in the card, unrotated, as on a begin card: the tilt
-belongs to the silhouette, not to the text.
+belongs to the silhouette, not to the text. Its wrap width is not the card's
+inner width but the **inscribed width of the inner ellipse**, `2 · rx_i /
+√2`, which for the golden master is 84.5 pixels and which does not grow
+with the card's height, since a taller card widens only the minor axis. A
+start title therefore wraps at about twelve characters of the label face,
+and a long title makes a tall medallion rather than a wide one; the measure
+step must use this width for start cards (architecture, section 4).
 
 #### 3.6 keystone (a finish node)
 
@@ -346,7 +352,7 @@ Worked `innerT` for each golden master above: screen `translate(7, 3.5)
 scale(0.9202, 0.8750)`; marquee `translate(5, 6) scale(0.9309, 0.8611)`;
 hull `translate(8, 4) scale(0.9309, 0.7931)`; ellipse `translate(6, 3)
 scale(0.9362, 0.8103)`, giving an inner ellipse of centre `(94.0, 26.5)` and
-semi-axes `(85.40, 21.98)` before the shared rotation; the finish keystone,
+semi-axes `(59.78, 21.98)` before the shared rotation; the finish keystone,
 in its own 92 by 44 frame, `translate(7, 3) scale(0.8696, 0.7273)`, whose inner
 shape is centred at `(47.0, 19.0)` of that frame. On the ellipse the band is
 3 thick at the top and 8 at the bottom, the calligraphic weight of the
@@ -591,8 +597,8 @@ corner = (cx_i + rx_i / √2,  cy_i + ry_i / √2)     of the inner ellipse, car
 box    = (corner.x - 14, corner.y - 14)             then rotate(θ about (cx, cy))
 ```
 
-For the golden master (inner centre `(94.0, 26.5)`, semi-axes `(85.40,
-21.98)`) the corner is `(154.4, 42.0)` and the box `(140.4, 28.0)` before the
+For the golden master (inner centre `(94.0, 26.5)`, semi-axes `(59.78,
+21.98)`) the corner is `(136.3, 42.0)` and the box `(122.3, 28.0)` before the
 rotation.
 
 On the finish node's keystone the glyph is centred on the inner shape,
@@ -645,7 +651,9 @@ Silhouette:      margin m = 1.5
   marquee:       top/bottom bow 0.14h; left/right bow 0.05w
   hull:          side inset 0.13w; top start 0.10*ch, control 0.22*ch; bottom 0.05*ch;
                  ch = min(h, 58); HULL_DIP = 0.1424 (derived)
-  ellipse:       inscribed semi-axes, scaled by s = min(rx0/bx, ry0/by) to fit the tilt
+  ellipse:       inscribed semi-axes, scaled by s = min(rx0/bx, ry0/by) to fit the tilt,
+                 the major axis then held to K = 0.7 of that; the label wraps to the inner
+                 ellipse's inscribed width, 2·rx_i/√2
   keystone:      points (x0+0.05w, y0+0.12h), (x1, y0), (x1-0.12w, y1), (x0+0.20w, y1-0.06h);
                  corner radius min(11, 0.22h); the finish node's instance 92 by 44, centred
                  in the card box at offset (48, 0)
