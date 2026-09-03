@@ -104,8 +104,8 @@ becomes indistinguishable from an original.
 
 *2026-08-30; the tilt and the glyph placements amended 2026-09-02.*
 
-The start node wears a jaunty ellipse; the finish node wears a circle and
-carries no label. Both follow three rules of the style, stated in full in the
+The start node wears a jaunty ellipse; the finish node wears a narrow
+keystone (amended from a circle, below) and carries no label. Both follow three rules of the style, stated in full in the
 mark geometry: no outline is a constant-width stroke, every line being a
 variable-width filled ribbon whose weight pools along one nominated side; every
 such mark is rotated to a slight, jaunty angle; and shapes are authored
@@ -120,6 +120,18 @@ because a card's corner is empty on a conic: on the start ellipse the glyph
 anchors to the inner ellipse's inscribed corner and rotates with the mark; on
 the finish circle it sits beside the mark, to its right, centred. The mark
 geometry carries the constructions.
+
+**Second amendment, 2026-09-02.** The finish node's circle was replaced by a
+narrow keystone, 92 by 44, centred in the card box at an offset of 48 and
+tilted with the card, after renders of the circle beside keystones of 56,
+72, and 92. A circle is the most generic mark on the map, the same figure as
+the station dots and the status glyphs only larger, so an unlabelled circle
+at the top of a line could be mistaken for a heavy dot; the keystone is a
+shape nothing else wears, and its asymmetry, wider at the top than at its
+base, reads as a cap set on the line. The note glyph is centred on the
+keystone's inner shape, the cap carrying no label. The keystone is therefore
+no longer held in reserve. An even width was chosen so that the mark centres
+on the even card box with its edges on whole pixels.
 
 Two notes carried forward to the geometry work.
 
@@ -252,9 +264,9 @@ unavoidable in this model regardless (D14's note on spans).
 
 *2026-08-30.*
 
-The ellipse and circle of D7 are drawn within the standard card box, centred,
-so that only height varies between nodes and the circle simply does not fill
-its box.
+The ellipse and keystone of D7 are drawn within the standard card box,
+centred, so that only height varies between nodes and the keystone simply
+does not fill its box.
 
 The reason is the packer. Because card width is fixed, a subtree's contour
 reduces from a real outline to an integer count of lanes, and placing a
@@ -275,7 +287,7 @@ folds, and a branch is hidden only by folding a project that contains it.
 
 Folding a branch workflow was considered as the natural way to quieten a busy
 map. It was deferred because it needs a second seam construction for the
-ellipse-and-circle pair and a rule for where a folded branch's return lateral
+ellipse-and-keystone pair and a rule for where a folded branch's return lateral
 arrives, which it must still do. Recorded here as a candidate rather than
 dismissed.
 

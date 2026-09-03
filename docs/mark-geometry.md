@@ -157,11 +157,12 @@ circle  centre = (anchor.x, anchor.y)  r = 5.5  fill = --line
 
 ### 3. The card silhouettes
 
-Six silhouettes exist: four axis-aligned polygons and curves for tasks and
-project boundaries, and two tilted conics for workflow boundaries. Each is
-defined by its outer path and a derived transform, `innerT`, that produces
-the inner path from it. The outer path per shape is given first; the shared
-inner-path mechanism follows; the tilt of the two conics is given last.
+Six silhouettes exist: four axis-aligned shapes for tasks and project
+boundaries, and two tilted shapes for workflow boundaries, an ellipse for the
+start node and a narrow keystone for the finish node. Each is defined by its
+outer path and a derived transform, `innerT`, that produces the inner path
+from it. The outer path per shape is given first; the shared inner-path
+mechanism follows; the tilt of the two workflow shapes is given last.
 
 The margin `m = 1.5` is common to all six: every silhouette is inset 1.5
 pixels inside the card box. Define `x0 = m`, `x1 = w - m`, `y0 = m`, `y1 = h
@@ -289,20 +290,28 @@ whilst the band's weight still pools to the lower right.
 The label sits centred in the card, unrotated, as on a begin card: the tilt
 belongs to the silhouette, not to the text.
 
-#### 3.6 circle (a finish node)
+#### 3.6 keystone (a finish node)
 
-A workflow closes with a circle, unlabelled, drawn within a finish card of
-the minimum height. Its radius is half the lesser inset dimension, which for
-a finish card is its height. A circle has no visible tilt; its outline's
-weight does (section 3.7), and it rotates with the card's tilt so that the
-heavy side sits at a jaunty angle rather than flat underneath.
+A workflow closes with a narrow keystone, unlabelled: the rounded,
+asymmetric quadrilateral of section 3.9, built at a box of its own, 92 by
+44, and centred in the finish card's 188-wide box at an offset of 48. Wider
+at the top than at its base, it reads as a cap set on the line, the natural
+close of something that grew upward, and no other mark on the map wears it.
+The tilt (section 3.8) turns the whole mark, outer and inner together, about
+the card centre.
 
 ```
-r = min(w - 2m, h - 2m) / 2
-outer: circle  centre=(cx,cy)  r
+kw = 92   kh = 44
+outer: the keystone construction of 3.9 evaluated at (kw, kh),
+       translated by ((w - kw) / 2, 0) = (48, 0) into the card frame,
+       then rotate(θ about (cx, cy))
 ```
 
-Golden master, `w = 188`, `h = 44`: `r = 20.5`, centre `(94, 22)`.
+Golden master, keystone box `92 by 44`, before the offset and the tilt:
+
+```svg
+<path d="M9.83,15.71Q6.10,6.78 15.76,6.18L80.84,2.10Q90.50,1.50 87.98,10.85L81.98,33.15Q79.46,42.50 69.79,42.07L29.57,40.29Q19.90,39.86 16.17,30.93Z"/>
+```
 
 #### 3.7 the inner path and the variable-weight outline
 
@@ -331,18 +340,17 @@ The `BORDERS` four-tuples are:
 | marquee | 6 | 8 | 4 | 5 |
 | hull | 4 | 5 | 8 | 8 |
 | ellipse | 3 | 6 | 8 | 6 |
-| circle | 3 | 6 | 8 | 6 |
 | keystone | 3 | 5 | 9 | 7 |
 
 Worked `innerT` for each golden master above: screen `translate(7, 3.5)
 scale(0.9202, 0.8750)`; marquee `translate(5, 6) scale(0.9309, 0.8611)`;
 hull `translate(8, 4) scale(0.9309, 0.7931)`; ellipse `translate(6, 3)
 scale(0.9362, 0.8103)`, giving an inner ellipse of centre `(94.0, 26.5)` and
-semi-axes `(85.40, 21.98)` before the shared rotation; circle `translate(6,
-3) scale(0.9362, 0.7500)`, giving an inner ellipse of centre `(94.0, 19.5)`
-and semi-axes `(19.19, 15.38)` before rotation. An inset circle is an
-ellipse, and that is the point: the band is 3 thick at the top of the circle
-and 8 thick at the bottom, the calligraphic weight of the style.
+semi-axes `(85.40, 21.98)` before the shared rotation; the finish keystone,
+in its own 92 by 44 frame, `translate(7, 3) scale(0.8696, 0.7273)`, whose inner
+shape is centred at `(47.0, 19.0)` of that frame. On the ellipse the band is
+3 thick at the top and 8 at the bottom, the calligraphic weight of the
+style; on the keystone the bottom band is heaviest at 9.
 
 #### 3.8 the tilt
 
@@ -367,12 +375,14 @@ and its hit region are unaffected; the fit rule of section 3.5 guarantees the
 rotated silhouette stays inside the box, so the layout and the interaction
 layer never see the tilt.
 
-#### 3.9 keystone (reserved)
+#### 3.9 the keystone construction
 
-A rounded, asymmetric quadrilateral, defined and held in reserve for a
-future node state; nothing draws it in the initial design. It is built by
-rounding the corners of four points at `(x0+0.05w, y0+0.12h)`, `(x1, y0)`,
-`(x1-0.12w, y1)`, `(x0+0.20w, y1-0.06h)` to a radius `min(11, 0.22h)`.
+A rounded, asymmetric quadrilateral, splayed so that no two edges are
+parallel: wider at the top than at its base, its right side steeper than its
+left. The finish node wears it at 92 by 44 (section 3.6); the construction is
+general in `(w, h)`. It is built by rounding the corners of four points at
+`(x0+0.05w, y0+0.12h)`, `(x1, y0)`, `(x1-0.12w, y1)`, `(x0+0.20w, y1-0.06h)`
+to a radius `min(11, 0.22h)`.
 
 ```
 P = [ (x0+0.05w, y0+0.12h), (x1, y0), (x1-0.12w, y1), (x0+0.20w, y1-0.06h) ]
@@ -383,7 +393,8 @@ The corner-rounding rule: walk the polygon and replace each sharp corner
 with a quadratic. At each vertex, step back toward the previous vertex and
 forward toward the next, each by the radius (clamped to half the shorter
 adjacent edge), and draw a `Q` through the vertex between those two points.
-Golden master, `w = 188`, `h = 56`:
+Reference instance at full card width, `w = 188`, `h = 56`, for checking the
+construction (the finish node's own instance is in section 3.6):
 
 ```svg
 <path d="M16.94,17.41Q10.90,8.22 21.89,7.80L175.51,1.92Q186.50,1.50 182.19,11.62L168.25,44.38Q163.94,54.50 152.94,54.20L50.10,51.44Q39.10,51.14 33.06,41.95Z"/>
@@ -584,11 +595,10 @@ For the golden master (inner centre `(94.0, 26.5)`, semi-axes `(85.40,
 21.98)`) the corner is `(154.4, 42.0)` and the box `(140.4, 28.0)` before the
 rotation.
 
-On the finish node's circle the glyph sits beside the mark rather than in
-it, since the circle is too small to hold it and has no label to make room
-for: the box's left edge 6 pixels right of the circle's rightmost point, its
-vertical centre on the circle's centre, in the card frame and not rotated.
-For the golden master that is the box at `(120.5, 15.0)`.
+On the finish node's keystone the glyph is centred on the inner shape,
+since the cap carries no label and the glyph is then its one piece of
+content: in the keystone's own frame the inner shape's centre is `(47.0,
+19.0)`, so the 14-box sits at `(40.0, 12.0)`, and it rotates with the mark.
 
 ### 11. The drop indicators
 
@@ -636,12 +646,12 @@ Silhouette:      margin m = 1.5
   hull:          side inset 0.13w; top start 0.10*ch, control 0.22*ch; bottom 0.05*ch;
                  ch = min(h, 58); HULL_DIP = 0.1424 (derived)
   ellipse:       inscribed semi-axes, scaled by s = min(rx0/bx, ry0/by) to fit the tilt
-  circle:        r = min(w-2m, h-2m)/2
   keystone:      points (x0+0.05w, y0+0.12h), (x1, y0), (x1-0.12w, y1), (x0+0.20w, y1-0.06h);
-                 corner radius min(11, 0.22h)
+                 corner radius min(11, 0.22h); the finish node's instance 92 by 44, centred
+                 in the card box at offset (48, 0)
 Tilt:            θ = ±(2 + 4 f) degrees, f and sign from FNV-1a of the id (section 3.8)
 BORDERS (t,r,b,l):  screen (3.5,8,3.5,7)  marquee (6,8,4,5)  hull (4,5,8,8)
-                    ellipse (3,6,8,6)  circle (3,6,8,6)  keystone (3,5,9,7)
+                    ellipse (3,6,8,6)  keystone (3,5,9,7)
                     (each clamped to w/2-4 or h/2-4 on its axis)
 Glyph:           11px envelope, strokes inside; filled r 5.5; todo ring r 4.5 stroke 2 solid;
                  cancel ring r 4.75 stroke 1.5 dashed (dash 2.4, gap 2.2)
@@ -660,7 +670,7 @@ Underpass:       TUNE perpClear 3, breakMax 12, capLength 9.2, stripLength 30;
 Junction:        diamond side 8, rotate 45; halo r 13
 Note glyph:      design box 16 rendered at 14; body rect (3,3,10,11) corner radius 1.5 stroke 1.2; rings stroke 1.2; rules stroke 1.0;
                  placement: inset 11 right / 8 bottom on the axis-aligned silhouettes; the inner ellipse's
-                 inscribed corner on the start ellipse (rotating with it); 6 right of the circle, centred, on the finish node
+                 inscribed corner on the start ellipse (rotating with it); centred on the inner shape of the finish keystone
 Drop indicators: chevrons ±13 wide, ±6 tall, tips 7 from centre, stroke 2.4; bar stroke 3
 Ghost:           opacity 0.4 (ghost and original alike)
 Ground:          dot lattice pitch 40; dot radius ~1.2 (full --grid at 1px, transparent by 1.4px)
@@ -684,7 +694,7 @@ Each token by role, and where relevant by hue, for both themes.
 | `--c-cancel` | cancelled | `#8aa0ab` | `#7590a0` |
 | `--c-project` | begin and end hulls (= `--accent-teal`) | `#1f8f8a` | `#37c2ba` |
 | `--c-project-tint` | begin and end panel | `#cbe6e4` | `#356e69` |
-| `--c-workflow` | start ellipse and finish circle (= `--line`) | `#365b6c` | `#6fb6c9` |
+| `--c-workflow` | start ellipse and finish keystone (= `--line`) | `#365b6c` | `#6fb6c9` |
 | `--cursor` | HERE pill, drop indicators | `#d75f2e` | `#f27a44` |
 | `--burst-a` | atmosphere burst | `#1f8f8a` | `#37c2ba` |
 | `--burst-b` | atmosphere burst (variant) | `#d9a53a` | `#f0bd55` |
@@ -706,7 +716,7 @@ independently of the shapes.
 | task | screen | its status colour | `--panel` | status glyph; status tag |
 | task, marked "here" | marquee | its status colour | `--panel` | sputnik beside it; HERE pill |
 | start node | ellipse, tilted | `--c-workflow` | `--panel` | workflow glyph; centred label |
-| finish node | circle, tilted | `--c-workflow` | `--panel` | no label, glyph, or tag |
+| finish node | keystone 92 by 44, tilted | `--c-workflow` | `--panel` | no label or tag; the note glyph centred when noted |
 | begin node | hull | `--c-project` | `--c-project-tint` | project glyph; centred label |
 | end node | hull, half-turned | `--c-project` | `--c-project-tint` | no label, glyph, or tag |
 | any flagged node | (its shape) | (unchanged) | (unchanged) | orbits behind, in the node's colour |
@@ -722,10 +732,10 @@ state alone and compose with any shape.
 The constructions above are geometry; this section records the traps an
 implementation meets translating them, whatever the toolkit.
 
-Quadratic Beziers and conics may lack native primitives. Where they do,
+Quadratic Beziers and ellipses may lack native primitives. Where they do,
 flatten each `Q` to a short polyline by sampling the curve at a handful of
-parameter values (16 subdivisions is ample at card scale), and an ellipse or
-circle at 48 evenly spaced angles; the sampled points join the straight
+parameter values (16 subdivisions is ample at card scale), and an ellipse at
+48 evenly spaced angles; the sampled points join the straight
 segments to form one point list per silhouette. Flatten in world coordinates
 before any camera transform, so the subdivision density is chosen once at
 model scale.
@@ -742,7 +752,7 @@ the hull (its top edge bows inward) and the marquee (all four edges bow
 inward). A renderer that fills only convex polygons directly will produce
 artifacts on exactly these; triangulate the flattened point list first (any
 standard polygon tessellator) and submit triangles. The screen, the ellipse,
-the circle, and the glyphs and dots are convex and need no such treatment; a
+the keystone, and the glyphs and dots are convex and need no such treatment; a
 single "fill this closed point list" helper that routes concave shapes
 through the tessellator and convex ones through the fast path keeps the call
 sites uniform.
