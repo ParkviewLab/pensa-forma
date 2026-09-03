@@ -57,7 +57,7 @@ writes files, which is the one write path. `layout` is pure too: a validated
 record and a map of card sizes in, positions out. `server` and `app` are the
 two callers of `command` and never call each other.
 
-The binary is `crates/app`'s target, named `yucca-basing`. The version is
+The binary is `crates/app`'s target, named `pensa-forma`. The version is
 `[workspace.package].version` in the root `Cargo.toml`, inherited by every
 member with `version.workspace = true`, and the application reads it at
 runtime from `env!("CARGO_PKG_VERSION")`; it is never written anywhere else.

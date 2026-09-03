@@ -17,9 +17,10 @@ unordered; lists written `[…]` are ordered, and their order is model state.
 
 ## The application
 
-**Yucca Basing** is the product's name in prose and on screen. `yucca-basing`
+**PensaForma** (pensa, tasks; forma, shape) is the product's name in prose
+and on screen, written with the seam between its two roots shown. `pensa-forma`
 is the repository, the binary, and the bundle identifier's last segment
-(`ai.parkviewlab.yucca-basing`); `yucca_basing` is the Rust workspace's root
+(`ai.parkviewlab.pensa-forma`); `pensa_forma` is the Rust workspace's root
 crate name. Documents refer to "the application" where the name itself is not
 the point.
 

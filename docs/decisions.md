@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Decisions record
 
-Settled design decisions for Yucca Basing, with the reasoning that produced
+Settled design decisions for PensaForma, with the reasoning that produced
 them, so that neither a later session nor a later reader re-litigates a
 question that has already been answered. A decision listed under "Settled" is
 closed. A proposal listed under "Proposed" has been written into the
@@ -369,10 +369,14 @@ imposed.
 
 *2026-09-02.*
 
-Yucca Basing is built from the ground up, in Rust, in the public repository
-`ParkviewLab/yucca-basing`, following the ParkviewLab handbook's conventions.
-The product is named Yucca Basing; the repository, binary, and bundle
-identifier use `yucca-basing`.
+PensaForma is built from the ground up, in Rust, in the public repository
+`ParkviewLab/pensa-forma`, following the ParkviewLab handbook's conventions.
+The product is named PensaForma (pensa, tasks; forma, shape), styled with the
+seam between its roots shown; the repository, binary, and bundle identifier
+use `pensa-forma`, the crate `pensa_forma`. The name was settled before any
+identifier reached disk or a registration, which is the moment a name becomes
+expensive to change; a working name used during the specification's drafting
+was retired at the same time.
 
 ### D23. The specification stands alone
 
@@ -478,8 +482,8 @@ by every member.
 *Proposed 2026-09-02; persistence.*
 
 The application's data directory is the platform's per-user application-data
-directory for `ai.parkviewlab.yucca-basing`; the default library is its
-`domains/` subdirectory; a domain directory is named `yucca_domain_<slug>_<id>`.
+directory for `ai.parkviewlab.pensa-forma`; the default library is its
+`domains/` subdirectory; a domain directory is named `pensaforma_domain_<slug>_<id>`.
 
 ### P8. Two drop indicators
 

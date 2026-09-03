@@ -3,7 +3,7 @@ SPDX-FileCopyrightText: 2026 Gary Frattarola <garyf@parkviewlab.ai>
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# Yucca Basing: northstar
+# PensaForma: northstar
 
 The canonical statement of what this application is for. Design decisions and
 feature proposals are weighed against it. Where it and any other document
@@ -12,7 +12,7 @@ it and the code disagree, the code is wrong.
 
 ## What it is
 
-Yucca Basing is a studio in which people and AI agents plan and track work
+PensaForma is a studio in which people and AI agents plan and track work
 together, as a living graph of workflows. A workflow orders tasks. It may
 contain projects, which group a contiguous run of its nodes, and branches,
 which run in parallel beside it and may rejoin it or not. Workflows are
@@ -152,7 +152,7 @@ and amend entries at will.
   what to do instead?
 - Is there exactly one source of truth for this fact?
 
-## What Yucca Basing is not
+## What PensaForma is not
 
 - Not a flat list or a nested checklist. The structure is workflows,
   projects, and branches, and the tool's operations are those and no others.

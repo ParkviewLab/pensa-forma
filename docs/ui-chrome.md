@@ -27,7 +27,7 @@ file dialogs, a clipboard), use it; where it does not, the stated behaviour is
 the contract to reproduce. An HTML sibling of this file renders each widget,
 menu, and dialog so the target can be seen as well as read.
 
-Conventions: "Yucca Basing" is the application's name in exact strings.
+Conventions: "PensaForma" is the application's name in exact strings.
 Colours are given as a token name (for instance `--ink`) whose two values per
 theme appear in Appendix A. Sizes are logical pixels. `Mod` means the
 platform's primary command modifier (Cmd on macOS, Ctrl elsewhere). An "edge
@@ -48,7 +48,7 @@ truncation means cutting overflowing text with a trailing `…`.
   draws. If the stored choice cannot be read before the first paint, paint
   azure.
 - Standard platform window chrome and title bar; nothing custom. The window
-  title is `Yucca Basing`.
+  title is `PensaForma`.
 - Only one instance runs: launching a second focuses the first, restoring it
   if minimised.
 - Links to the outside world always open in the system's default web
@@ -66,7 +66,7 @@ truncation means cutting overflowing text with a trailing `…`.
 
 Where the host provides a native menu bar, provide:
 
-1. An application menu (on platforms that have one): `About Yucca Basing`
+1. An application menu (on platforms that have one): `About PensaForma`
    (opens the About window, section 9); `Open Source Licenses…` (opens the
    Licenses window, section 10); then the platform's conventional
    services/hide/quit entries.
@@ -156,7 +156,7 @@ requirement.
 ### 3.1 Brand
 
 The application's wordmark, static: display face (Appendix B), 13px, weight
-800, 0.06 tracking, uppercase, `--ink`: `YUCCA BASING`. No behaviour.
+800, 0.06 tracking, uppercase, `--ink`: `PENSAFORMA`. No behaviour.
 
 ### 3.2 Domain switcher
 
@@ -823,12 +823,12 @@ singleton; opening again focuses the existing window.
 
 A separate window, 420 × 300, fixed size (not resizable, minimisable,
 maximisable, or full-screenable), no menu bar of its own, titled `About
-Yucca Basing`. It has its own fixed dark palette independent of the
+PensaForma`. It has its own fixed dark palette independent of the
 application's themes: background `#111116`, text `#e9e9ec`, the platform's
 standard UI face, text unselectable, content centred with inner spacing 30px
 vertical and 34px horizontal.
 
-Content, top to bottom: `Yucca Basing` (21px, weight 600); `Version <x.y.z>`
+Content, top to bottom: `PensaForma` (21px, weight 600); `Version <x.y.z>`
 (12px, `#9494a0`); an update line (12px, `#9494a0`, held at a fixed minimum
 height of 16px so the network answer never shifts the layout); `© 2026 Gary
 Frattarola` (11px, `#858590` at 56 % opacity, rendering near `#53535a` over
@@ -842,8 +842,8 @@ latest version (a 5-second timeout) and the line shows one of four states:
 | State | Text |
 | --- | --- |
 | checking (initial) | `Checking for a newer version…` |
-| newer version exists | a link, text `Yucca Basing <version> is available.`, pointing at the project's download page |
-| up to date | `Yucca Basing is up-to-date.` |
+| newer version exists | a link, text `PensaForma <version> is available.`, pointing at the project's download page |
+| up to date | `PensaForma is up-to-date.` |
 | any failure, or an unreadable version | `Could not check for a newer version.` |
 
 Every failure answers unknown, never up-to-date. Nothing downloads or
@@ -867,7 +867,7 @@ names at 90 %; card role lines at 50 %; card notes at 42 %; table cells at
 72 % with muted version cells at 45 %.
 
 Content: a header `OPEN SOURCE LICENSES` (13px, uppercase, 0.1 tracking) with
-the sub-line `Yucca Basing includes the open-source software below.`; a "Key
+the sub-line `PensaForma includes the open-source software below.`; a "Key
 components" card list naming the handful of components a user would
 recognise, each with a one-line role (the GUI toolkit, the markdown renderer,
 the math typesetter, the MCP SDK, the bundled fonts), with versions and links

@@ -3,7 +3,7 @@ SPDX-FileCopyrightText: 2026 Gary Frattarola <garyf@parkviewlab.ai>
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# Yucca Basing
+# PensaForma
 
 A desktop application for planning and tracking work as a graph of workflows,
 for humans and AI agents alike. A workflow orders tasks; a project groups a run
@@ -63,7 +63,7 @@ GitHub Release. The release workflow lands with the first release.
 
 ## License
 
-Yucca Basing is dual-licensed: the code is free software under
+PensaForma is dual-licensed: the code is free software under
 **AGPL-3.0-or-later** by default, with a **commercial license** available as an
 alternative for closed-source use without the AGPL's obligations.
 Documentation is **CC-BY-4.0**.

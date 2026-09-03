@@ -3,7 +3,7 @@
 # Verify: uvx --from "reuse[charset-normalizer]" reuse lint
 version = 1
 
-SPDX-PackageName = "yucca-basing"
+SPDX-PackageName = "pensa-forma"
 SPDX-PackageSupplier = "Gary Frattarola <garyf@parkviewlab.ai>"
 
 # --- Documentation and repository metadata → CC-BY-4.0 ---------------------

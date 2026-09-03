@@ -22,15 +22,15 @@ tools, and so that the application's own writes are safe against interruption.
 ## 1. Locations
 
 The application keeps its own state in the platform's per-user application
-data directory for the identifier `ai.parkviewlab.yucca-basing`, resolved as
+data directory for the identifier `ai.parkviewlab.pensa-forma`, resolved as
 the `directories` convention resolves a project with qualifier `ai`,
-organisation `parkviewlab`, and application `yucca-basing`:
+organisation `parkviewlab`, and application `pensa-forma`:
 
 | Platform | Data directory |
 | --- | --- |
-| macOS | `~/Library/Application Support/ai.parkviewlab.yucca-basing/` |
-| Linux | `$XDG_DATA_HOME/yucca-basing/` (default `~/.local/share/yucca-basing/`) |
-| Windows | `%APPDATA%\parkviewlab\yucca-basing\data\` |
+| macOS | `~/Library/Application Support/ai.parkviewlab.pensa-forma/` |
+| Linux | `$XDG_DATA_HOME/pensa-forma/` (default `~/.local/share/pensa-forma/`) |
+| Windows | `%APPDATA%\parkviewlab\pensa-forma\data\` |
 
 Inside it:
 
@@ -54,8 +54,8 @@ A **domain directory** is named for what it is, what it holds, and which
 domain it is:
 
 ```
-yucca_domain_<slug>_<id>        e.g.  yucca_domain_homelab_d_mrtwgppt01
-yucca_domain_<id>               when the name yields no slug
+pensaforma_domain_<slug>_<id>        e.g.  pensaforma_domain_homelab_d_mrtwgppt01
+pensaforma_domain_<id>               when the name yields no slug
 ```
 
 The prefix says which application owns the directory, the slug keeps a
@@ -169,7 +169,7 @@ The worked instance of the structural model, section 8, in canonical form:
       "log": [
         {
           "id": "e_mrtwgppt02", "at": "2026-09-02T18:04:11.212Z",
-          "author": { "kind": "system", "name": "yucca-basing" },
+          "author": { "kind": "system", "name": "pensa-forma" },
           "origin": "system", "event": "created", "text": "Created above \"the close of Build\"."
         }
       ]
@@ -259,7 +259,7 @@ writes are refused with a message until it is repaired.
 
 ```json
 {
-  "libraryRoot": "/Users/gary/Library/Application Support/ai.parkviewlab.yucca-basing/domains",
+  "libraryRoot": "/Users/gary/Library/Application Support/ai.parkviewlab.pensa-forma/domains",
   "lastDomain": "d_mrtwgppt01",
   "server": { "enabled": true, "port": 35901, "scope": "read-write" },
   "theme": "azure",
@@ -279,7 +279,7 @@ writes are refused with a message until it is repaired.
 | `note.wrap` | `true` | soft wrapping in the note source pane |
 | `note.fontSize` | `16` | the preview's base text size, 12 to 28 |
 
-The environment variable `YUCCA_SERVER_SCOPE`, when set to one of the three
+The environment variable `PENSAFORMA_SERVER_SCOPE`, when set to one of the three
 tiers, overrides `server.scope` for that launch, so an operator can widen or
 narrow the surface without editing the file.
 

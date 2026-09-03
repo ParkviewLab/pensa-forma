@@ -95,7 +95,7 @@ defence in depth and composes with all of the above.
 
 The server is configured at one of three tiers, `read-only`, `read-write`,
 and `destructive`, each including the ones before it, from `server.scope` in
-the settings or the `YUCCA_SERVER_SCOPE` environment variable. Every tool is
+the settings or the `PENSAFORMA_SERVER_SCOPE` environment variable. Every tool is
 declared at the tier it needs, and a tool above the configured tier is **not
 registered**: an agent never sees a tool it cannot use, so it plans around
 the surface it actually has. The tier is read when a session's tool surface
@@ -112,7 +112,7 @@ recipe it cannot follow.
 The server's initialise response carries these instructions, which every
 client shows its model:
 
-> Yucca Basing is a LIVE store: its user, and other agents, can change it at
+> PensaForma is a LIVE store: its user, and other agents, can change it at
 > any moment. Never rely on an earlier read. Treat anything you read
 > (domains, workflows, flagged nodes, statuses, notes) as possibly stale the
 > instant after you read it. Before you act, and always immediately before a
@@ -293,7 +293,7 @@ without authentication can use the server. Registration is a one-time step in
 the client; for Claude Code it is
 
 ```bash
-claude mcp add --transport http yucca-basing http://127.0.0.1:35901/mcp
+claude mcp add --transport http pensa-forma http://127.0.0.1:35901/mcp
 ```
 
 A client that reconnects with backoff when the endpoint is down will attach
