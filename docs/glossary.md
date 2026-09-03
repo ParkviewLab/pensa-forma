@@ -169,6 +169,9 @@ attached, as drawn: one diamond per point, shared by every branch meeting it.
 The look, in one phrase: a mid-century retrofuturist systems diagram; a
 Googie-inspired Atomic Age flowchart laid out like a retro transit or
 control-system map.
+For a design brief or an image search: mid-century retrofuturism, Googie
+diagram, Atomic Age infographic, Jet Age schematic, retro systems map, 1950s
+technical illustration.
 
 **Line.** A workflow as drawn: its nodes colinear at one x, lowest at the
 bottom, joined by a **riser**.

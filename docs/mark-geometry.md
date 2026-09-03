@@ -17,6 +17,9 @@ instance for each.
 The look the marks add up to is a mid-century retrofuturist systems diagram:
 a Googie-inspired, Atomic Age flowchart laid out like a retro transit or
 control-system map. Every mark below serves that reading or is cut.
+For a design brief or an image search, the terms are: mid-century
+retrofuturism, Googie diagram, Atomic Age infographic, Jet Age schematic,
+retro systems map, 1950s technical illustration.
 
 This document is the sole and final authority for the marks' geometry: build
 exactly what it says, and where it is silent, choose any reasonable behaviour
