@@ -183,6 +183,10 @@ map is varied but a given card never changes shape when it is reordered; a
 tilt drawn from a running index would suit a static grid of decorative icons,
 not a diagram the user rearranges.
 
+**Sixth amendment, 2026-09-03.** The finish node carries no note (D11 as
+amended), so the glyph placement on the keystone recorded above is
+withdrawn; only the start ellipse's placement stands.
+
 ### D8. A gap is the stored record; its two points are addressed within it
 
 *2026-08-30.*
