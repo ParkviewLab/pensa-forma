@@ -435,11 +435,9 @@ imposed.
 
 The line carries no mark where a card attaches to it. The card is the
 station, and the only marks on a track are the junction diamonds, so every
-mark on a line means a junction. The station anchor survives as geometry, the
-point `anchorGap` above a card's top edge from which the gap above it is
-measured. The anchor gap that once held the dot is gone with it: gaps are
-measured from the cards' own edges, and each junction stands `L` clear of
-the card on its side, at either end of a gap alike. A riser is drawn from
+mark on a line means a junction. The anchor gap that once held the dot is
+gone with it: gaps are measured from the cards' own edges, and each junction
+stands `L` clear of the card on its side, at either end of a gap alike. A riser is drawn from
 card centre to card centre, behind the cards, so that it meets an ellipse or
 a keystone that does not fill its box. (The first renderings of the worked
 example measured the return point from the card's edge but the branch point
