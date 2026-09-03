@@ -91,8 +91,8 @@ section.
 Three rules of the style govern every mark (D7). No outline is a
 constant-width stroke; a line that carries character is a filled ribbon whose
 weight pools along one side, and the two-fill outline is that ribbon. The
-workflow boundaries are rotated to a jaunty angle, four to sixteen degrees,
-varied from card to card. And shapes are splayed: no silhouette has two
+workflow boundaries are rotated to a slight, jaunty angle, two to six
+degrees, varied from card to card. And shapes are splayed: no silhouette has two
 parallel straight edges.
 
 ### Path notation
@@ -273,14 +273,18 @@ ry  = s * ry0
 outer: ellipse  centre=(cx,cy)  semi-axes=(rx,ry)  then rotate(θ about (cx,cy))
 ```
 
-Golden master, `w = 188`, `h = 58`, `θ = 9°`:
+Golden master, `w = 188`, `h = 58`, `θ = -3°`:
 
 ```
 rx0 = 92.5   ry0 = 27.5
-bx  = 91.46  by  = 30.78
-s   = 0.8935
-outer: ellipse  centre=(94,29)  semi-axes=(82.65,24.57)  rotate 9° about (94,29)
+bx  = 92.38  by  = 27.89
+s   = 0.9862
+outer: ellipse  centre=(94,29)  semi-axes=(91.22,27.12)  rotate -3° about (94,29)
 ```
+
+At this slight tilt the fit scale is close to one, so the ellipse all but
+fills its box; the lean reads as a hand-set card rather than a tilted one,
+whilst the band's weight still pools to the lower right.
 
 The label sits centred in the card, unrotated, as on a begin card: the tilt
 belongs to the silhouette, not to the text.
@@ -334,7 +338,7 @@ Worked `innerT` for each golden master above: screen `translate(7, 3.5)
 scale(0.9202, 0.8750)`; marquee `translate(5, 6) scale(0.9309, 0.8611)`;
 hull `translate(8, 4) scale(0.9309, 0.7931)`; ellipse `translate(6, 3)
 scale(0.9362, 0.8103)`, giving an inner ellipse of centre `(94.0, 26.5)` and
-semi-axes `(77.37, 19.91)` before the shared rotation; circle `translate(6,
+semi-axes `(85.40, 21.98)` before the shared rotation; circle `translate(6,
 3) scale(0.9362, 0.7500)`, giving an inner ellipse of centre `(94.0, 19.5)`
 and semi-axes `(19.19, 15.38)` before rotation. An inset circle is an
 ellipse, and that is the point: the band is 3 thick at the top of the circle
@@ -346,14 +350,15 @@ Each start and finish card carries a tilt `θ`, derived from the node's id so
 that a given card never changes shape when the map is rearranged, and
 varied across cards so that a domain reads as hand-placed rather than
 stamped. Hash the id's bytes with 32-bit FNV-1a; take the low ten bits as a
-fraction `f = (hash mod 1024) / 1024`; the tilt is `4 + 12f` degrees, and
+fraction `f = (hash mod 1024) / 1024`; the tilt is `2 + 4f` degrees, and
 its sign is positive when bit 10 of the hash is set and negative otherwise.
-So every tilt lies in `[4, 16)` degrees either way, and no opener is square.
+So every tilt lies in `[2, 6)` degrees either way: slight, never square, and
+never so steep that the ellipse must shrink far to fit its box.
 
 ```
 h = fnv1a32(id)
 f = (h mod 1024) / 1024
-θ = (h bit 10 ? +1 : -1) * (4 + 12 f)
+θ = (h bit 10 ? +1 : -1) * (2 + 4 f)
 ```
 
 The tilt is a rotation of the finished mark, outer and inner together, about
@@ -552,12 +557,38 @@ pointer hovers it): a rounded body rectangle, two spiral-ring ticks over the
 top edge, and three ruled lines, the last shorter.
 
 ```
-design box: origin (0,0), 16 by 16; rendered at 14 by 14, inset 11 from the
-card's right edge and 8 from its bottom
+design box: origin (0,0), 16 by 16; rendered at 14 by 14
 body:  rect  x=3 y=3 w=10 h=11, corner radius 1.5   (no fill, stroke 1.2)
 rings: line (6,1.5)->(6,4.5);  line (10,1.5)->(10,4.5)   (stroke 1.2, round cap)
 rules: line (5.5,7.5)->(10.5,7.5);  line (5.5,10)->(10.5,10);  line (5.5,12.5)->(8.5,12.5)   (stroke 1.0, round cap)
 ```
+
+Where the glyph sits depends on the silhouette, because a card's corner is
+empty on a conic and a glyph placed there would land on the ground.
+
+On the four axis-aligned silhouettes (screen, marquee, hull, and the end
+node's half-turned hull), the box is inset 11 from the card's right edge and
+8 from its bottom, in the card frame.
+
+On the start node's ellipse, the box's bottom-right corner sits at the
+inscribed-rectangle corner of the *inner* ellipse, computed before the tilt
+and rotated with the mark, so the glyph stays inside the panel, clear of the
+band, at any tilt and any card height:
+
+```
+corner = (cx_i + rx_i / √2,  cy_i + ry_i / √2)     of the inner ellipse, card frame
+box    = (corner.x - 14, corner.y - 14)             then rotate(θ about (cx, cy))
+```
+
+For the golden master (inner centre `(94.0, 26.5)`, semi-axes `(85.40,
+21.98)`) the corner is `(154.4, 42.0)` and the box `(140.4, 28.0)` before the
+rotation.
+
+On the finish node's circle the glyph sits beside the mark rather than in
+it, since the circle is too small to hold it and has no label to make room
+for: the box's left edge 6 pixels right of the circle's rightmost point, its
+vertical centre on the circle's centre, in the card frame and not rotated.
+For the golden master that is the box at `(120.5, 15.0)`.
 
 ### 11. The drop indicators
 
@@ -608,7 +639,7 @@ Silhouette:      margin m = 1.5
   circle:        r = min(w-2m, h-2m)/2
   keystone:      points (x0+0.05w, y0+0.12h), (x1, y0), (x1-0.12w, y1), (x0+0.20w, y1-0.06h);
                  corner radius min(11, 0.22h)
-Tilt:            θ = ±(4 + 12 f) degrees, f and sign from FNV-1a of the id (section 3.8)
+Tilt:            θ = ±(2 + 4 f) degrees, f and sign from FNV-1a of the id (section 3.8)
 BORDERS (t,r,b,l):  screen (3.5,8,3.5,7)  marquee (6,8,4,5)  hull (4,5,8,8)
                     ellipse (3,6,8,6)  circle (3,6,8,6)  keystone (3,5,9,7)
                     (each clamped to w/2-4 or h/2-4 on its axis)
@@ -627,7 +658,9 @@ Tracks:          riser 3; departure 2.3; return 2.3; round cap and join; colour 
 Underpass:       TUNE perpClear 3, breakMax 12, capLength 9.2, stripLength 30;
                  CROSSED_HALF riser 1.5, lateral 1.15; cap stroke 1.6
 Junction:        diamond side 8, rotate 45; halo r 13
-Note glyph:      design box 16; body rect (3,3,10,11) corner radius 1.5 stroke 1.2; rings stroke 1.2; rules stroke 1.0
+Note glyph:      design box 16 rendered at 14; body rect (3,3,10,11) corner radius 1.5 stroke 1.2; rings stroke 1.2; rules stroke 1.0;
+                 placement: inset 11 right / 8 bottom on the axis-aligned silhouettes; the inner ellipse's
+                 inscribed corner on the start ellipse (rotating with it); 6 right of the circle, centred, on the finish node
 Drop indicators: chevrons ±13 wide, ±6 tall, tips 7 from centre, stroke 2.4; bar stroke 3
 Ghost:           opacity 0.4 (ghost and original alike)
 Ground:          dot lattice pitch 40; dot radius ~1.2 (full --grid at 1px, transparent by 1.4px)

@@ -102,14 +102,24 @@ becomes indistinguishable from an original.
 
 ### D7. Start and finish nodes wear mid-century shapes of their own
 
-*2026-08-30.*
+*2026-08-30; the tilt and the glyph placements amended 2026-09-02.*
 
 The start node wears a jaunty ellipse; the finish node wears a circle and
 carries no label. Both follow three rules of the style, stated in full in the
 mark geometry: no outline is a constant-width stroke, every line being a
 variable-width filled ribbon whose weight pools along one nominated side; every
-such mark is rotated to a jaunty angle of roughly four to sixteen degrees; and
-shapes are authored splayed, with no parallel edges.
+such mark is rotated to a slight, jaunty angle; and shapes are authored
+splayed, with no parallel edges.
+
+**Amendment, 2026-09-02.** Renders at nine, minus five, and minus three
+degrees were compared, and the slight tilt was chosen: the range is two to six
+degrees either way, and the worked instance is minus three. At that tilt the
+ellipse all but fills its box and the lean reads as a hand-set card rather
+than a tilted one. The note glyph's placement was ruled at the same time,
+because a card's corner is empty on a conic: on the start ellipse the glyph
+anchors to the inner ellipse's inscribed corner and rotates with the mark; on
+the finish circle it sits beside the mark, to its right, centred. The mark
+geometry carries the constructions.
 
 Two notes carried forward to the geometry work.
 
