@@ -50,7 +50,8 @@ the laterals with the fan split, junctions, underpass detection, folding, the
 repair pass, and the output structure.
 
 Proves: the required properties over generated domains; the golden masters
-snapshotted.
+snapshotted, the [worked example](worked-example.md)'s numbers reproduced to
+the pixel.
 
 ## 4. The canvas
 

@@ -15,6 +15,9 @@ derives its drop targets from this document's output.
 
 ---
 
+The [worked example](worked-example.md) carries one small domain through this
+engine and lists every number it produces.
+
 ## 1. The problem
 
 A domain is drawn as a forest. Each main workflow is a vertical spine growing

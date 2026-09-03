@@ -41,6 +41,7 @@ the application is for; everything else is downstream of it.
 | [persistence.md](docs/persistence.md) | Locations, the on-disk record, notes, bookmarks, settings, atomic writes |
 | [automation-server.md](docs/automation-server.md) | The MCP server: binding, hardening, tiers, tools, prompts, live view |
 | [architecture.md](docs/architecture.md) | The workspace, threads, rendering, packaging, the crate inventory |
+| [worked-example.md](docs/worked-example.md) · [.html](docs/worked-example.html) | One domain carried through record, layout, and drawing: the fixture to build against |
 | [testing.md](docs/testing.md) | What is tested and how |
 | [implementation-plan.md](docs/implementation-plan.md) | The milestones, in order |
 | [in-flight_ideas.md](docs/in-flight_ideas.md) | Questions under consideration |

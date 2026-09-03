@@ -81,7 +81,9 @@ level; a tall branch stretching only above its return; lane order following
 the side lists; determinism under permuted key order; monotonicity under an
 added card.
 
-**Golden masters.** A small set of hand-built domains (the worked instance;
+**Golden masters.** A small set of hand-built domains (the [worked
+example](worked-example.md), whose record, positions, and lateral point
+lists are the first fixture; the structural model's worked instance;
 one with a shared branch point carrying three siblings on each side; one with
 an open branch outermost and a returning branch inside it; one with a folded
 project) has its layout output snapshotted, so a change in geometry is a

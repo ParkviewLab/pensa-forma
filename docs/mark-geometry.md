@@ -26,6 +26,9 @@ exactly what it says, and where it is silent, choose any reasonable behaviour
 and record the choice. Nothing here presumes a rendering technology; the
 implementation notes at the end record the traps any toolkit meets.
 
+A whole domain drawn with these marks, over a layout computed by the rules,
+is the [worked example](worked-example.md) and its HTML sibling.
+
 ## Scope
 
 This covers the mark vocabulary: the complete set of vector marks the canvas
