@@ -407,7 +407,9 @@ separation of two junction diamonds sharing a gap; a departure clearance, an
 arrival clearance, and a junction gap held as three numbers would collapse
 into it. A middle edge is either zero or at least `L`, never between.
 
-*Amended 2026-09-03.* `L` is 24, measured from the card's own edge, and is
+*Amended 2026-09-03.* `L` is 24, measured from the silhouette's edge where
+the line passes through it (the mark geometry tabulates each shape's
+insets), and is
 sized so that the two fixed edges do all the clearing: a lateral climbs about
 twenty pixels across a card's half-width, and with a four-pixel margin that
 is 24, so a gap with departures only or arrivals only stays shut with its
@@ -436,8 +438,10 @@ imposed.
 The line carries no mark where a card attaches to it. The card is the
 station, and the only marks on a track are the junction diamonds, so every
 mark on a line means a junction. The anchor gap that once held the dot is
-gone with it: gaps are measured from the cards' own edges, and each junction
-stands `L` clear of the card on its side, at either end of a gap alike. A riser is drawn from
+gone with it: gaps are measured between the silhouettes where the line
+passes through them, so that two cards a shut gap apart look the same
+distance apart whatever shapes they wear, and each junction stands `L`
+clear of the silhouette on its side, at either end of a gap alike. A riser is drawn from
 card centre to card centre, behind the cards, so that it meets an ellipse or
 a keystone that does not fill its box. (The first renderings of the worked
 example measured the return point from the card's edge but the branch point

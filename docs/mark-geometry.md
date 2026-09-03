@@ -304,7 +304,7 @@ must use this width for start cards (architecture, section 4).
 #### 3.6 keystone (a finish node)
 
 A workflow closes with a narrow keystone, unlabelled: the rounded,
-asymmetric quadrilateral of section 3.9, built at a box of its own and
+asymmetric quadrilateral of section 3.10, built at a box of its own and
 centred in the finish card's 188-wide box. Wider at the top than at its
 base, it reads as a cap set on the line, the natural close of something that
 grew upward, and no other mark on the map wears it.
@@ -403,7 +403,38 @@ and its hit region are unaffected; the fit rule of section 3.5 guarantees the
 rotated silhouette stays inside the box, so the layout and the interaction
 layer never see the tilt.
 
-#### 3.9 the keystone construction
+#### 3.9 the silhouette at the line
+
+The layout measures every gap between the **silhouettes** where the line
+passes through them, not between the card boxes, so that two cards a shut
+gap apart look the same distance apart whatever shapes they wear. Each
+silhouette therefore has a **top inset** and a **bottom inset**: how far its
+outline lies inside the box's top and bottom edges at the card's centre x.
+They follow from the constructions above.
+
+| silhouette | top inset | bottom inset | at the golden master |
+| --- | --- | --- | --- |
+| screen | `m` | `m` | 1.50, 1.50 |
+| marquee | `m + 0.07h` | `m + 0.07h` | 6.54, 6.54 (h 72) |
+| hull (begin) | `m + 0.135 ch` | `m + 0.025 ch` | 9.33, 2.95 |
+| hull, half-turned (end) | `m + 0.025 ch` | `m + 0.135 ch` | 2.95, 9.33 |
+| ellipse (start) | `h/2 − r_v` | `h/2 − r_v` | 5.92, 5.92 |
+| keystone (finish) | from the top edge's line at the centre, rotated | from the bottom edge's line, rotated | 5.77, 3.13 |
+
+The marquee's and the hull's figures are the quadratics evaluated at their
+midpoint (`t = 0.5`, which is the centre x): the marquee's edge reaches half
+its control depth there; the hull's top reaches `0.25 · 0.10 + 0.5 · 0.22 =
+0.135` of `ch`, and its bottom `0.025` of `ch`. `r_v` is the ellipse's
+semi-extent along the vertical through its centre after the tilt,
+`1 / sqrt(cos²α / rx² + sin²α / ry²)` with `α = 90° + θ`, which at −3° is
+23.07 against a minor semi-axis of 23.05. The keystone's are the two edge
+lines of section 3.6, rotated by +2° about the keystone box's centre and
+met at `x = 50` of that box; the rotation moves them by less than a tenth
+of a pixel. An implementation that flattens its silhouettes can read the
+insets off the flattened path instead of computing them; the two must
+agree.
+
+#### 3.10 the keystone construction
 
 A rounded, asymmetric quadrilateral, splayed so that no two edges are
 parallel: wider at the top than at its base, its right side steeper than its
@@ -683,6 +714,8 @@ Silhouette:      margin m = 1.5
                  the box grown 2 at the top and the top-right corner at the new top (100 by 52),
                  centred in the card box at offset (44, 0), tilted a fixed +2
 Tilt:            start −3 degrees and finish +2, on every card (section 3.8)
+Line insets:     screen (1.5, 1.5); marquee (m+0.07h, m+0.07h); hull (m+0.135ch, m+0.025ch), reversed for the end;
+                 ellipse (h/2−r_v, h/2−r_v) = (5.92, 5.92); keystone (5.77, 3.13)   (section 3.9)
 BORDERS (t,r,b,l):  screen (3.5,8,3.5,7)  marquee (6,8,4,5)  hull (4,5,8,8)
                     ellipse (3,6,8,6)  keystone (3,5,9,7)
                     (each clamped to w/2-4 or h/2-4 on its axis)

@@ -20,6 +20,10 @@ TAN12 = math.tan(math.radians(12))
 RISE = LANE * TAN12
 L, JMARGIN, RAMP_FLOOR, M, DIAMOND = 24, 4, 0.2, 1.5, 12
 H = {'start': 58, 'begin': 58, 'end': 58, 'task': 56, 'finish': 52}
+# the silhouette's insets at the centre x (mark geometry 3.9): how far the outline lies inside the box, top and bottom
+INSET = {'task': (1.5, 1.5), 'begin': (9.33, 2.95), 'end': (2.95, 9.33), 'start': (5.92, 5.92), 'finish': (5.77, 3.13)}
+top = lambda k: INSET[k][0]
+bottom = lambda k: INSET[k][1]
 # the start ellipse (geometry 3.5, 3.7): fitted at -3 degrees, major axis 0.7, size 0.85, inset on its own box
 ELL = dict(rx=54.28, ry=23.05, irx=48.28, iry=17.55, icx=94.0, icy=26.5)
 SCREEN = "M15.5,1.5L172.5,1.5Q186.5,1.5 186.5,15.5L186.5,40.5Q186.5,54.5 172.5,54.5L15.5,54.5Q1.5,54.5 1.5,40.5L1.5,15.5Q1.5,1.5 15.5,1.5Z"
@@ -64,21 +68,21 @@ def kinds(wf): return [nodes[i]['kind'] for i in workflows[wf]['nodes']]
 def line_heights(wf, u0, airs):
     ks = kinds(wf); u = [u0]
     for i in range(1, len(ks)):
-        u.append(u[-1] + airs[i - 1] + H[ks[i]])                        # succession
+        u.append(u[-1] - top(ks[i - 1]) + airs[i - 1] + H[ks[i]] - bottom(ks[i]))   # succession, silhouette to silhouette
     return u
 
 airs_main = [2 * L] * 6; airs_main[2] = air(True, False); airs_main[3] = air(False, True)
 u = {'w_main': line_heights('w_main', 0, airs_main)}
-bp = u['w_main'][2] + L                                                   # the branch point of g_2, L above step alpha's top
+bp = u['w_main'][2] - top('task') + L                                     # the branch point of g_2, L above step alpha's silhouette top
 arrive = bp + RISE                                                        # where every departure lateral arrives
-foot_bottom = arrive + L                                                  # the start cards' bottom edge
+foot_bottom = arrive + L - bottom('start')                                # the start cards' box bottom (the silhouette bottom is L above the arrival)
 u['w_plan'] = line_heights('w_plan', foot_bottom + H['start'], [2 * L] * 5)
 u['w_111'] = line_heights('w_111', foot_bottom + H['start'], [2 * L] * 2)
-need = max(u['w_plan'][-1], u['w_111'][-1]) + L + RISE + L + H['task']
+need = max(u['w_plan'][-1], u['w_111'][-1]) - top('finish') + L + RISE + L + H['task'] - bottom('task')
 if need > u['w_main'][4]:                                                 # the return constraint lifts step gama
     shift = need - u['w_main'][4]
     for i in range(4, 7): u['w_main'][i] += shift
-rp = u['w_main'][4] - H['task'] - L                                       # the return point of g_3, L below step gama's bottom
+rp = u['w_main'][4] - H['task'] + bottom('task') - L                      # the return point of g_3, L below step gama's silhouette bottom
 leave = rp - RISE                                                         # where each return lateral leaves its tail
 
 X0 = 760
@@ -166,13 +170,13 @@ quant = [
     ('air of `g_2` (departures) and of `g_3` (arrivals) before the branches stretch them', f'{air(True, False)}'),
     ('the least distance between two cards, 2L', f'{2 * L}'),
     ('the branch point of `g_2` (u)', f'{bp:.1f}'),
-    ('where the departure laterals arrive, L below the start cards\' bottom edge (u)', f'{arrive:.1f}'),
-    ("the start cards' bottom edge, every departing branch (u)", f'{foot_bottom:.1f}'),
+    ('where the departure laterals arrive, L below the start ellipses\' silhouette bottom (u)', f'{arrive:.1f}'),
+    ("the start cards' box bottom, every departing branch (u)", f'{foot_bottom:.1f}'),
     ('the return point of `g_3` (u)', f'{rp:.1f}'),
     ("where each return lateral leaves its branch's tail (u)", f'{leave:.1f}'),
-    ("the tail of `w_plan`, from its finish card's top edge to the turn", f'{leave - u["w_plan"][-1]:.1f}'),
-    ('the tail of `w_111`', f'{leave - u["w_111"][-1]:.1f}'),
-    ('the middle edge of `g_3`, opened by the branches', f'{(u["w_main"][4] - H["task"]) - u["w_main"][3] - 2 * L:.1f}'),
+    ("the tail of `w_plan`, from its finish keystone's silhouette top to the turn", f'{leave - (u["w_plan"][-1] - top("finish")):.1f}'),
+    ('the tail of `w_111`', f'{leave - (u["w_111"][-1] - top("finish")):.1f}'),
+    ('the middle edge of `g_3`, opened by the branches', f'{(u["w_main"][4] - H["task"] + bottom("task")) - (u["w_main"][3] - top("task")) - 2 * L:.1f}'),
     ('junction-side ramps at the shared points, inner and outer', f'{inner_rampJ:.1f} and {outer_rampJ:.1f}'),
     ('baseY, the screen y of u = 0', f'{baseY:.1f}'),
 ]
@@ -221,12 +225,15 @@ structural model, section 1):
 
 Constants as the layout engine's section 12 gives them: card width 188, lane
 step 228, `L` 24, `junctionMargin` 4, `rampFloor` 0.2, rise {RISE:.1f}. `u` is
-a card's top above the baseline, up positive, with the main start node's
-card top at zero; gaps are measured from the cards' edges; screen `y` is
+a card's box top above the baseline, up positive, with the main start
+node's box top at zero; gaps are measured between the silhouettes where the
+line passes through them, using the insets of the mark geometry's section
+3.9 (task 1.5 and 1.5; begin 9.33 and 2.95; end 2.95 and 9.33; start 5.92
+and 5.92; finish 5.77 and 3.13, top and bottom); screen `y` is
 `baseY - u` with the baseline placed so that the drawing fits, and the main
 workflow's line at `x = 760`, the branches one and two lanes to its left.
 
-| Node | Kind | Title | Workflow | x | u (card top) | Height | Screen y of the top |
+| Node | Kind | Title | Workflow | x | u (box top) | Height | Screen y of the box top |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 {md_rows}
 
@@ -242,8 +249,8 @@ junction-side ramp longest):
 
 The risers, in screen coordinates: the main workflow's from the centre of its
 start card to the centre of its finish card, behind the cards; each branch's
-from where its departure lateral arrives, `L` beneath its start card, to
-where its return lateral leaves, above its finish card.
+from where its departure lateral arrives, `L` beneath its start ellipse's
+silhouette, to where its return lateral leaves, above its finish keystone.
 
 | Riser | Extent |
 | --- | --- |
@@ -252,7 +259,10 @@ where its return lateral leaves, above its finish card.
 The two junction diamonds, 12 on a side, sit at the branch point of `g_2`,
 which is also that gap's return point since its middle edge is zero, and at
 the return point of `g_3`; each stands `L` = 24 clear of the card on its
-side, and there are no other marks on the lines.
+side, measured to the silhouette, and there are no other marks on the
+lines. Every shut gap is 48 between silhouettes at the line: from the main
+start ellipse to the XYZ-1 hull, from the hull to step alpha, from step
+alpha to step Beta, and so on up the line.
 
 ## The drawing
 
@@ -322,8 +332,8 @@ pre{{background:#161412;color:#ece5d4;padding:12px 14px;border-radius:8px;font-s
 <h2>The record</h2>
 <pre>{record_json}</pre>
 <h2>The layout</h2>
-<p>Card width 188, lane step 228, <code>L</code> 24, <code>junctionMargin</code> 4, <code>rampFloor</code> 0.2, rise {RISE:.1f}. <code>u</code> is a card's top above the baseline, up positive, the main start card's top at zero; gaps are measured from the cards' edges; screen <code>y</code> is <code>baseY − u</code> with <code>baseY</code> {baseY:.1f}; the main line is at <code>x</code> = 760 and the branches one and two lanes to its left.</p>
-<table><thead><tr><th>Node</th><th>Kind</th><th>Title</th><th>Workflow</th><th>x</th><th>u</th><th>Height</th><th>Screen y of the top</th></tr></thead><tbody>{html_rows}</tbody></table>
+<p>Card width 188, lane step 228, <code>L</code> 24, <code>junctionMargin</code> 4, <code>rampFloor</code> 0.2, rise {RISE:.1f}. <code>u</code> is a card's top above the baseline, up positive, the main start card's top at zero; gaps are measured between the silhouettes where the line passes through them, with the insets of the mark geometry's section 3.9; screen <code>y</code> is <code>baseY − u</code> with <code>baseY</code> {baseY:.1f}; the main line is at <code>x</code> = 760 and the branches one and two lanes to its left.</p>
+<table><thead><tr><th>Node</th><th>Kind</th><th>Title</th><th>Workflow</th><th>x</th><th>u (box top)</th><th>Height</th><th>Screen y of the box top</th></tr></thead><tbody>{html_rows}</tbody></table>
 {quant_html}
 <table><thead><tr><th>Lateral</th><th>Points (screen)</th></tr></thead><tbody>{lat_html}</tbody></table>
 <table><thead><tr><th>Riser</th><th>Extent (screen)</th></tr></thead><tbody>{ris_html}</tbody></table>

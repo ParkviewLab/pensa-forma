@@ -182,7 +182,7 @@ the silhouette its kind and state assign.
 
 **Station.** Where a card sits on its line: the card itself, which is the
 mark; nothing separate is drawn there, and the layout measures each gap
-from the cards' edges.
+between the silhouettes where the line passes through them.
 
 **Lateral.** The drawn track of a branch edge or a return edge: a ramp, a flat
 run, and a ramp, climbing a constant rise whatever its horizontal span.

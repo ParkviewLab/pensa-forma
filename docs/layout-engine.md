@@ -55,38 +55,44 @@ Write `u(n)` for the height of node `n`'s card top above the drawing's
 baseline, up positive, so screen y is `baseY - u`. Every constraint is a
 lower bound on one node given another; none is an upper bound.
 
-A gap is measured from the cards' own edges. From the lower card's top edge
-upward it runs through the outgoing edge `L`, the middle edge, and the
-incoming edge `L` to the upper card's bottom edge; the two fixed edges are
-the same length and never stretch, and nothing is drawn where a card meets
-its line. Cards are painted over tracks, so a card hides whatever passes
-behind it.
+A gap is measured between the **silhouettes** where the line passes
+through them, not between the card boxes, so that two cards a shut gap
+apart look the same distance apart whatever shapes they wear: a hull's top
+bows nine pixels into its box and a task's only one and a half, and a gap
+measured box to box would show the difference. Each silhouette's top and
+bottom inset at the centre x, `top(n)` and `bottom(n)`, are tabulated in the
+mark geometry, section 3.9. From the lower card's silhouette top upward the
+gap runs through the outgoing edge `L`, the middle edge, and the incoming
+edge `L` to the upper card's silhouette bottom; the two fixed edges are the
+same length and never stretch, and nothing is drawn where a card meets its
+line. Cards are painted over tracks, so a card hides whatever passes behind
+it.
 
 **Succession.** For consecutive nodes `A` and `B` in one workflow, `B`
 directly above `A`:
 
 ```
-u(B) >= u(A) + air(A, B) + cardH(B)
+u(B) >= u(A) - top(A) + air(A, B) + cardH(B) - bottom(B)
 ```
 
-`air(A, B)` is the gap between `A`'s top edge and `B`'s bottom edge, the
-outgoing edge, the middle edge, and the incoming edge together, and section
-5 derives it.
+`air(A, B)` is the gap between `A`'s silhouette top and `B`'s silhouette
+bottom, the outgoing edge, the middle edge, and the incoming edge together,
+and section 5 derives it.
 
 **Fork.** For a branch workflow `X` departing at the branch point of the gap
 above node `A`, with `F` being `X`'s own start node, whose departure lateral
-arrives `L` below `F`'s bottom edge:
+arrives `L` below `F`'s silhouette bottom:
 
 ```
-u(F) >= u(A) + L + rise + L + cardH(F)
+u(F) >= u(A) - top(A) + L + rise + L + cardH(F) - bottom(F)
 ```
 
 **Return.** For a branch workflow `X` arriving at the return point of the gap
 below node `P`, with tip `T` being `X`'s own finish node, whose return
-lateral leaves the tail at least `L` above `T`'s top edge:
+lateral leaves the tail at least `L` above `T`'s silhouette top:
 
 ```
-u(P) >= u(T) + L + rise + L + cardH(P)
+u(P) >= u(T) - top(T) + L + rise + L + cardH(P) - bottom(P)
 ```
 
 The three run over the same graph the validator has already proved acyclic,
@@ -102,7 +108,7 @@ its slack is the branch's **tail**, the line drawn above the branch's finish
 node:
 
 ```
-tail(X) = u(P) - cardH(P) - L - rise - u(T)
+tail(X) = u(P) - cardH(P) + bottom(P) - L - rise - u(T) + top(T)
 ```
 
 The constraint is exactly what guarantees the tail is at least `L`, a floor
@@ -137,7 +143,7 @@ slack is the tail.
 Together these give a property worth having rather than merely a tidy one.
 Sibling branches sharing a branch point have their start nodes placed by the fork
 constraint, which is an equality in practice, so every sibling's start node
-has its card bottom at exactly `u(A) + 2L + rise`. They are
+has its silhouette bottom at exactly `u(A) - top(A) + 2L + rise`. They are
 level, whatever their branches contain. A short branch and a tall one sharing
 both a branch point and a return point therefore need no reconciliation: the
 short one's start node is not raised to meet the tall one's, and its own cards are
@@ -292,8 +298,8 @@ occupied (structural model, section 2.4). The gap's vertical extent must hold
 both junctions and keep them apart.
 
 One length governs the gap's interior: **L**, the standard trunk-edge length.
-The **branch point** sits `L` above the lower node's top edge, and the
-**return point** sits `L` below the upper node's bottom edge, so the outgoing
+The **branch point** sits `L` above the lower node's silhouette top, and the
+**return point** sits `L` below the upper node's silhouette bottom, so the outgoing
 edge and the incoming edge are both exactly `L` and neither ever stretches,
 and a junction on either always stands `L` clear of the card on its side.
 The span between the two points is the middle edge, and it absorbs every
@@ -499,7 +505,8 @@ reported on the conflict list. Every lateral segment is flat or at exactly
 `tan 12`, and no lateral segment is vertical, the tail being drawn as riser.
 A branch's riser runs from its incoming lateral's arrival to its return's
 departure, and a main workflow's runs from its start card's centre to its
-finish card's centre. The two fixed edges hold to
+finish card's centre. Every shut gap measures exactly `2L` between the silhouettes at the line,
+whatever shapes its two cards wear. The two fixed edges hold to
 the pixel. The minimum air is met everywhere, and is tight on a branch-free
 workflow. No two cards overlap. A branch's start node sits above the node it
 leaves and below that node's successor. Sibling branches sharing a branch

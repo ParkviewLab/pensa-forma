@@ -229,45 +229,48 @@ structural model, section 1):
 
 Constants as the layout engine's section 12 gives them: card width 188, lane
 step 228, `L` 24, `junctionMargin` 4, `rampFloor` 0.2, rise 48.5. `u` is
-a card's top above the baseline, up positive, with the main start node's
-card top at zero; gaps are measured from the cards' edges; screen `y` is
+a card's box top above the baseline, up positive, with the main start
+node's box top at zero; gaps are measured between the silhouettes where the
+line passes through them, using the insets of the mark geometry's section
+3.9 (task 1.5 and 1.5; begin 9.33 and 2.95; end 2.95 and 9.33; start 5.92
+and 5.92; finish 5.77 and 3.13, top and bottom); screen `y` is
 `baseY - u` with the baseline placed so that the drawing fits, and the main
 workflow's line at `x = 760`, the branches one and two lanes to its left.
 
-| Node | Kind | Title | Workflow | x | u (card top) | Height | Screen y of the top |
+| Node | Kind | Title | Workflow | x | u (box top) | Height | Screen y of the box top |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `n_s0` | start |  | `w_main` | 760 | 0 | 58 | 1272.9 |
-| `n_b1` | begin | XYZ-1 | `w_main` | 760 | 106 | 58 | 1166.9 |
-| `n_a1` | task | step alpha | `w_main` | 760 | 210 | 56 | 1062.9 |
-| `n_a2` | task | step Beta | `w_main` | 760 | 314 | 56 | 958.9 |
-| `n_a3` | task | step gama | `w_main` | 760 | 1036.9 | 56 | 236.0 |
-| `n_e1` | end |  | `w_main` | 760 | 1142.9 | 58 | 130.0 |
-| `n_f0` | finish |  | `w_main` | 760 | 1242.9 | 52 | 30.0 |
-| `n_s1` | start |  | `w_plan` | 532 | 364.5 | 58 | 908.5 |
-| `n_b2` | begin | plan | `w_plan` | 532 | 470.5 | 58 | 802.5 |
-| `n_t1` | task | 333 | `w_plan` | 532 | 574.5 | 56 | 698.5 |
-| `n_t2` | task | think | `w_plan` | 532 | 678.5 | 56 | 594.5 |
-| `n_e2` | end |  | `w_plan` | 532 | 784.5 | 58 | 488.5 |
-| `n_f1` | finish |  | `w_plan` | 532 | 884.5 | 52 | 388.5 |
-| `n_s2` | start |  | `w_111` | 304 | 364.5 | 58 | 908.5 |
-| `n_t3` | task | 111 | `w_111` | 304 | 468.5 | 56 | 804.5 |
-| `n_f2` | finish |  | `w_111` | 304 | 568.5 | 52 | 704.5 |
+| `n_s0` | start |  | `w_main` | 760 | 0 | 58 | 1182.0 |
+| `n_b1` | begin | XYZ-1 | `w_main` | 760 | 97.1 | 58 | 1084.9 |
+| `n_a1` | task | step alpha | `w_main` | 760 | 190.3 | 56 | 991.7 |
+| `n_a2` | task | step Beta | `w_main` | 760 | 291.3 | 56 | 890.7 |
+| `n_a3` | task | step gama | `w_main` | 760 | 962.9 | 56 | 219.1 |
+| `n_e1` | end |  | `w_main` | 760 | 1058.1 | 58 | 123.9 |
+| `n_f0` | finish |  | `w_main` | 760 | 1152.0 | 52 | 30.0 |
+| `n_s1` | start |  | `w_plan` | 532 | 337.3 | 58 | 844.7 |
+| `n_b2` | begin | plan | `w_plan` | 532 | 434.5 | 58 | 747.5 |
+| `n_t1` | task | 333 | `w_plan` | 532 | 527.6 | 56 | 654.4 |
+| `n_t2` | task | think | `w_plan` | 532 | 628.6 | 56 | 553.4 |
+| `n_e2` | end |  | `w_plan` | 532 | 723.8 | 58 | 458.2 |
+| `n_f1` | finish |  | `w_plan` | 532 | 817.7 | 52 | 364.3 |
+| `n_s2` | start |  | `w_111` | 304 | 337.3 | 58 | 844.7 |
+| `n_t3` | task | 111 | `w_111` | 304 | 433.9 | 56 | 748.1 |
+| `n_f2` | finish |  | `w_111` | 304 | 529.3 | 52 | 652.7 |
 
 | Quantity | Value |
 | --- | --- |
 | air of an ordinary gap, 2L | 48 |
 | air of `g_2` (departures) and of `g_3` (arrivals) before the branches stretch them | 48 |
 | the least distance between two cards, 2L | 48 |
-| the branch point of `g_2` (u) | 234.0 |
-| where the departure laterals arrive, L below the start cards' bottom edge (u) | 282.5 |
-| the start cards' bottom edge, every departing branch (u) | 306.5 |
-| the return point of `g_3` (u) | 956.9 |
-| where each return lateral leaves its branch's tail (u) | 908.5 |
-| the tail of `w_plan`, from its finish card's top edge to the turn | 24.0 |
-| the tail of `w_111` | 340.0 |
-| the middle edge of `g_3`, opened by the branches | 618.9 |
+| the branch point of `g_2` (u) | 212.8 |
+| where the departure laterals arrive, L below the start ellipses' silhouette bottom (u) | 261.3 |
+| the start cards' box bottom, every departing branch (u) | 279.3 |
+| the return point of `g_3` (u) | 884.4 |
+| where each return lateral leaves its branch's tail (u) | 836.0 |
+| the tail of `w_plan`, from its finish keystone's silhouette top to the turn | 24.0 |
+| the tail of `w_111` | 312.4 |
+| the middle edge of `g_3`, opened by the branches | 570.6 |
 | junction-side ramps at the shared points, inner and outer | 182.4 and 45.6 |
-| baseY, the screen y of u = 0 | 1272.9 |
+| baseY, the screen y of u = 0 | 1182.0 |
 
 The laterals, as point lists in screen coordinates, each a ramp, a flat, and
 a ramp with the fan split at the shared points (the inner sibling's
@@ -275,26 +278,29 @@ junction-side ramp longest):
 
 | Lateral | Points |
 | --- | --- |
-| departure, w_plan (inner) | (760.0, 1038.9) → (577.6, 1000.2) → (532.0, 990.5) |
-| departure, w_111 (outer) | (760.0, 1038.9) → (714.4, 1029.2) → (486.4, 1029.2) → (304.0, 990.5) |
-| return, w_plan (inner) | (760.0, 316.0) → (577.6, 354.8) → (532.0, 364.5) |
-| return, w_111 (outer) | (760.0, 316.0) → (714.4, 325.7) → (486.4, 325.7) → (304.0, 364.5) |
+| departure, w_plan (inner) | (760.0, 969.2) → (577.6, 930.4) → (532.0, 920.8) |
+| departure, w_111 (outer) | (760.0, 969.2) → (714.4, 959.5) → (486.4, 959.5) → (304.0, 920.8) |
+| return, w_plan (inner) | (760.0, 297.6) → (577.6, 336.4) → (532.0, 346.1) |
+| return, w_111 (outer) | (760.0, 297.6) → (714.4, 307.3) → (486.4, 307.3) → (304.0, 346.1) |
 
 The risers, in screen coordinates: the main workflow's from the centre of its
 start card to the centre of its finish card, behind the cards; each branch's
-from where its departure lateral arrives, `L` beneath its start card, to
-where its return lateral leaves, above its finish card.
+from where its departure lateral arrives, `L` beneath its start ellipse's
+silhouette, to where its return lateral leaves, above its finish keystone.
 
 | Riser | Extent |
 | --- | --- |
-| `w_main` | x = 760, from screen y 1301.9 to 56.0 |
-| `w_plan` | x = 532, from screen y 990.5 to 364.5 |
-| `w_111` | x = 304, from screen y 990.5 to 364.5 |
+| `w_main` | x = 760, from screen y 1211.0 to 56.0 |
+| `w_plan` | x = 532, from screen y 920.8 to 346.1 |
+| `w_111` | x = 304, from screen y 920.8 to 346.1 |
 
 The two junction diamonds, 12 on a side, sit at the branch point of `g_2`,
 which is also that gap's return point since its middle edge is zero, and at
 the return point of `g_3`; each stands `L` = 24 clear of the card on its
-side, and there are no other marks on the lines.
+side, measured to the silhouette, and there are no other marks on the
+lines. Every shut gap is 48 between silhouettes at the line: from the main
+start ellipse to the XYZ-1 hull, from the hull to step alpha, from step
+alpha to step Beta, and so on up the line.
 
 ## The drawing
 
