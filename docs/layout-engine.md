@@ -55,33 +55,41 @@ Write `u(n)` for the height of node `n`'s card top above the drawing's
 baseline, up positive, so screen y is `baseY - u`. Every constraint is a
 lower bound on one node given another; none is an upper bound.
 
-A node's station anchor, the point on its line from which the gap above
-it is measured, sits `anchorGap` above its own card's top edge; nothing is
-drawn there. Cards are painted over tracks, so a card hides whatever passes
-behind it.
+Every card has two station anchors, points on its line from which the
+gaps beside it are measured: an **upper anchor** `anchorGap` above its top
+edge and a **lower anchor** `anchorGap` below its bottom edge. Nothing is
+drawn at either. The gap between two cards therefore runs, from the lower
+card's top edge upward, through `anchorGap`, the outgoing edge `L`, the
+middle edge, the incoming edge `L`, and `anchorGap` again to the upper
+card's bottom edge, so the two junction-bearing edges stand the same
+distance, `anchorGap + L`, from the card on their side. Cards are painted
+over tracks, so a card hides whatever passes behind it.
 
 **Succession.** For consecutive nodes `A` and `B` in one workflow, `B`
 directly above `A`:
 
 ```
-u(B) >= u(A) + anchorGap + air(A, B) + cardH(B)
+u(B) >= u(A) + anchorGap + air(A, B) + anchorGap + cardH(B)
 ```
 
-`air(A, B)` is the clearance between `A`'s anchor and `B`'s card bottom,
+`air(A, B)` is the clearance between `A`'s upper anchor and `B`'s lower
+anchor, the outgoing edge, the middle edge, and the incoming edge together,
 and section 5 derives it.
 
 **Fork.** For a branch workflow `X` departing at the branch point of the gap
-above node `A`, with `F` being `X`'s own start node:
+above node `A`, with `F` being `X`'s own start node, whose departure lateral
+arrives `L` below `F`'s lower anchor:
 
 ```
-u(F) >= u(A) + anchorGap + L + rise + L + cardH(F)
+u(F) >= u(A) + anchorGap + L + rise + L + anchorGap + cardH(F)
 ```
 
 **Return.** For a branch workflow `X` arriving at the return point of the gap
-below node `P`, with tip `T` being `X`'s own finish node:
+below node `P`, with tip `T` being `X`'s own finish node, whose return
+lateral leaves the tail above `T`'s upper anchor:
 
 ```
-u(P) >= u(T) + anchorGap + L + rise + L + cardH(P)
+u(P) >= u(T) + anchorGap + L + rise + L + anchorGap + cardH(P)
 ```
 
 The three run over the same graph the validator has already proved acyclic,
@@ -97,7 +105,7 @@ its slack is the branch's **tail**, the line drawn above the branch's finish
 node:
 
 ```
-tail(X) = u(P) - cardH(P) - L - rise - u(T) - anchorGap
+tail(X) = u(P) - cardH(P) - anchorGap - L - rise - u(T) - anchorGap
 ```
 
 The constraint is exactly what guarantees the tail is at least `L`, so the
@@ -110,7 +118,7 @@ section 4.2 says how.
 
 An **open branch** contributes a fork constraint and no return constraint. It
 therefore never stretches the line it left, and it has no tail. Its riser
-simply ends at its finish card.
+simply ends at its finish card's centre, behind the keystone.
 
 ### 3.1 Where the slack goes
 
@@ -133,7 +141,7 @@ slack is the tail.
 Together these give a property worth having rather than merely a tidy one.
 Sibling branches sharing a branch point have their start nodes placed by the fork
 constraint, which is an equality in practice, so every sibling's start node
-has its card bottom at exactly `u(A) + anchorGap + 2L + rise`. They are
+has its card bottom at exactly `u(A) + 2 anchorGap + 2L + rise`. They are
 level, whatever their branches contain. A short branch and a tall one sharing
 both a branch point and a return point therefore need no reconciliation: the
 short one's start node is not raised to meet the tall one's, and its own cards are
@@ -201,11 +209,15 @@ the drawing.
 
 ### 4.2 The tail is riser, not lateral
 
-A line's riser does not simply run card to card. For a branch it runs from
-where its own incoming lateral arrives, beneath its start card, up to where
-its return departs, above its finish card. Only a main workflow's line, which
-has neither an incoming lateral nor a return, runs from its start card to its
-finish card and no further.
+A line's riser is drawn from the **centre** of its first card to the centre
+of its last, the cards painted over it, so that it meets every silhouette
+whatever its shape: an opener's ellipse and a closer's keystone do not fill
+their boxes, and a riser stopped at the box edge would float clear of them.
+For a branch it runs further at both ends, from where its own incoming
+lateral arrives, `anchorGap + L` beneath its start card, up to where its
+return departs, above its finish card. Only a main workflow's line, which
+has neither an incoming lateral nor a return, runs from centre to centre and
+no further.
 
 So the tail of section 3.1, the slack in the return constraint, is drawn as
 riser. Two things follow, and both are why it belongs there rather than on
@@ -284,10 +296,11 @@ occupied (structural model, section 2.4). The gap's vertical extent must hold
 both junctions and keep them apart.
 
 One length governs the gap's interior: **L**, the standard trunk-edge length.
-The **branch point** sits `L` above the lower node's anchor, and the
-**return point** sits `L` below the upper node's card bottom edge, so the
+The **branch point** sits `L` above the lower node's upper anchor, and the
+**return point** sits `L` below the upper node's lower anchor, so the
 outgoing edge and the incoming edge are both exactly `L` and neither ever
-stretches. The span between the two points is the middle edge, and it absorbs
+stretches, and each junction stands `anchorGap + L` clear of the card on its
+side. The span between the two points is the middle edge, and it absorbs
 every stretch the height solve adds.
 
 A middle edge is **either zero or at least L**, never between. At zero the
@@ -535,7 +548,7 @@ rampFloor       the shortest junction-side ramp, as a fraction of a lane   0.2
 L               the standard trunk-edge length: the outgoing edge, the incoming
                 edge, the floor on a non-zero middle edge, and the least
                 separation of two junctions sharing a gap                  12
-anchorGap       the station anchor above its own card's top edge            8
+anchorGap       each anchor's distance from its card's edge, above the top and below the bottom   8
 minAir          2L, the shut gap; air is never inside the open band (2L, 3L)  24
 junctionMargin  slack added to a junction-bearing gap                       4
 seam            overlap of a folded pair                                    22
