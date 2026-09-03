@@ -427,8 +427,16 @@ The line carries no mark where a card attaches to it. The card is the
 station, and the only marks on a track are the junction diamonds, so every
 mark on a line means a junction. The station anchor survives as geometry, the
 point `anchorGap` above a card's top edge from which the gap above it is
-measured, and `anchorGap` is 8, enough that a junction diamond never touches
-a card's edge; it had been sized to hold a dot. The air rule's arrival case
+measured, and `anchorGap` is 8; it had been sized to hold a dot. Every card
+has an anchor above and one below, so the outgoing and incoming edges stand
+the same distance, `anchorGap + L`, from the cards on their sides and a
+junction diamond clears its card by the same margin at either end of a gap;
+and a riser is drawn from card centre to card centre, behind the cards, so
+that it meets an ellipse or a keystone that does not fill its box. (The
+first rendering of the worked example measured the return point from the
+card's bottom edge alone and stopped risers at the box edges, which put the
+arrival diamond nearly against the card above it and left the openers
+floating clear of their lines; both are corrected here.) The air rule's arrival case
 loses its dot-radius term, and a riser is drawn from card to card, an open
 branch's ending at its finish keystone. Decided on the northstar's tenth
 axiom: the dot clarified nothing the card and the diamonds do not. With the

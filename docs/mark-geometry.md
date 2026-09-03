@@ -149,13 +149,16 @@ the viewport, not the map world, so it neither pans nor zooms.
 
 ### 2. The station anchor (no mark)
 
-Where a card attaches to its line is its station anchor: a point on the
-riser a fixed distance, `anchorGap`, above the card's top edge, from which
-the layout measures the gap above the card (layout engine, section 3).
-Nothing is drawn there. The card is the station, and the only marks on a line
-are the junction diamonds of section 9, so every mark on a track means a
-junction. The riser runs from card to card behind them; it never stands as a
-stub above a card, and an open branch's riser ends at its finish keystone.
+Where a card attaches to its line are its station anchors: two points on
+the riser a fixed distance, `anchorGap`, above the card's top edge and below
+its bottom edge, from which the layout measures the gaps beside the card
+(layout engine, section 3). Nothing is drawn at either. The card is the
+station, and the only marks on a line are the junction diamonds of section
+9, so every mark on a track means a junction. The riser runs from the centre
+of a line's first card to the centre of its last, behind the cards, so that
+it meets the ellipse and the keystone, which do not fill their boxes; it
+never stands as a stub above a card, and an open branch's riser ends behind
+its finish keystone.
 
 ### 3. The card silhouettes
 
@@ -524,7 +527,7 @@ A track is a polyline through a point list the layout supplies, drawn as an
 
 | kind | role | stroke width |
 | --- | --- | --- |
-| riser | the vertical spine of a line, drawn from its first card to its last, the tail above a returning branch's finish card included | 3 |
+| riser | the vertical spine of a line, drawn from the centre of its first card to the centre of its last, the tail above a returning branch's finish card included | 3 |
 | departure | a lateral leaving a branch point for a branch's start node | 2.3 |
 | return | a lateral from a branch's finish node to a return point | 2.3 |
 
