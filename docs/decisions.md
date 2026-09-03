@@ -140,6 +140,16 @@ keystone's inner shape, the cap carrying no label. The keystone is therefore
 no longer held in reserve. An even width was chosen so that the mark centres
 on the even card box with its edges on whole pixels.
 
+**Fourth amendment, 2026-09-02.** The cap's size, shape, and tilt were
+settled after renders of five sizes beside a task card and the opener, four
+tilts, and three readings of a lifted corner: the keystone is built at 100 by
+50 with its box grown 2 at the top and the top-right corner at the new top,
+so that the top edge still climbs to the right once tilted; the box is 100 by
+52, centred at an offset of 44; and the tilt is fixed at +2 on every finish
+card, since the cap's own lean is cancelled by a negative tilt and
+exaggerated by a larger one. Only the start node's tilt varies with the id.
+The finish card is 52 high, between the opener's 54 and a task's 56.
+
 Two notes carried forward to the geometry work.
 
 The variable-width outline needs no new machinery. The geometry already draws

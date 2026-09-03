@@ -299,24 +299,40 @@ step must use this width for start cards (architecture, section 4).
 #### 3.6 keystone (a finish node)
 
 A workflow closes with a narrow keystone, unlabelled: the rounded,
-asymmetric quadrilateral of section 3.9, built at a box of its own, 92 by
-44, and centred in the finish card's 188-wide box at an offset of 48. Wider
-at the top than at its base, it reads as a cap set on the line, the natural
-close of something that grew upward, and no other mark on the map wears it.
-The tilt (section 3.8) turns the whole mark, outer and inner together, about
-the card centre.
+asymmetric quadrilateral of section 3.9, built at a box of its own and
+centred in the finish card's 188-wide box. Wider at the top than at its
+base, it reads as a cap set on the line, the natural close of something that
+grew upward, and no other mark on the map wears it.
+
+The cap's construction lifts one corner. Take the four corners of section
+3.9 at a box of 100 by 50, then grow the box by 2 at the top: the top-right
+corner rises to the new top edge, and the other three keep their places,
+now 2 lower in the taller box. The top edge therefore climbs more steeply
+to the right and the shape, once tilted, still shows that climb. The corner
+radius is that of the 50-high box, 11. The box is 100 by 52, centred in the
+card at an offset of 44, and the finish card is 52 high.
 
 ```
-kw = 92   kh = 44
-outer: the keystone construction of 3.9 evaluated at (kw, kh),
-       translated by ((w - kw) / 2, 0) = (48, 0) into the card frame,
-       then rotate(θ about (cx, cy))
+kw = 100   kh0 = 50   lift = 2   kh = kh0 + lift = 52
+x0 = m   x1 = kw - m   y0 = m   y1 = kh0 - m
+P  = [ (x0 + 0.05 kw,  y0 + 0.12 kh0 + lift),     top-left, lowered by the lift
+       (x1,            y0),                        top-right, at the new top
+       (x1 - 0.12 kw,  y1 + lift),                 bottom-right
+       (x0 + 0.20 kw,  y1 - 0.06 kh0 + lift) ]     bottom-left
+round the corners of P at radius min(11, 0.22 kh0) = 11
+outer: the rounded path, translated by ((w - kw) / 2, 0) = (44, 0) into the
+       card frame, then rotate(+2° about (cx, cy))
 ```
 
-Golden master, keystone box `92 by 44`, before the offset and the tilt:
+The tilt of a finish card is fixed at +2 degrees (section 3.8): the cap's
+own geometry already leans, and a tilt drawn from the id would cancel that
+lean on some cards and exaggerate it on others.
+
+Golden master, keystone box `100 by 52`, corners `(6.5, 9.5)`, `(98.5,
+1.5)`, `(86.5, 50.5)`, `(21.5, 47.5)`, before the offset and the tilt:
 
 ```svg
-<path d="M9.83,15.71Q6.10,6.78 15.76,6.18L80.84,2.10Q90.50,1.50 87.98,10.85L81.98,33.15Q79.46,42.50 69.79,42.07L29.57,40.29Q19.90,39.86 16.17,30.93Z"/>
+<path d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>
 ```
 
 #### 3.7 the inner path and the variable-weight outline
@@ -353,17 +369,19 @@ scale(0.9202, 0.8750)`; marquee `translate(5, 6) scale(0.9309, 0.8611)`;
 hull `translate(8, 4) scale(0.9309, 0.7931)`; ellipse `translate(6, 3)
 scale(0.9362, 0.8103)`, giving an inner ellipse of centre `(94.0, 26.5)` and
 semi-axes `(59.78, 21.98)` before the shared rotation; the finish keystone,
-in its own 92 by 44 frame, `translate(7, 3) scale(0.8696, 0.7273)`, whose inner
-shape is centred at `(47.0, 19.0)` of that frame. On the ellipse the band is
+in its own 100 by 52 frame, `translate(7, 3) scale(0.8800, 0.7692)`, whose inner
+shape is centred at `(51.0, 23.0)` of that frame. On the ellipse the band is
 3 thick at the top and 8 at the bottom, the calligraphic weight of the
 style; on the keystone the bottom band is heaviest at 9.
 
 #### 3.8 the tilt
 
-Each start and finish card carries a tilt `θ`, derived from the node's id so
-that a given card never changes shape when the map is rearranged, and
-varied across cards so that a domain reads as hand-placed rather than
-stamped. Hash the id's bytes with 32-bit FNV-1a; take the low ten bits as a
+Each start card carries a tilt `θ`, derived from the node's id so that a
+given card never changes shape when the map is rearranged, and varied across
+cards so that a domain reads as hand-placed rather than stamped. A finish
+card's tilt is not derived: it is +2 degrees on every card, because the
+cap's geometry already leans and a varying tilt would make some caps square
+and others look as if they were sliding off the line. Hash the id's bytes with 32-bit FNV-1a; take the low ten bits as a
 fraction `f = (hash mod 1024) / 1024`; the tilt is `2 + 4f` degrees, and
 its sign is positive when bit 10 of the hash is set and negative otherwise.
 So every tilt lies in `[2, 6)` degrees either way: slight, never square, and
@@ -603,8 +621,8 @@ rotation.
 
 On the finish node's keystone the glyph is centred on the inner shape,
 since the cap carries no label and the glyph is then its one piece of
-content: in the keystone's own frame the inner shape's centre is `(47.0,
-19.0)`, so the 14-box sits at `(40.0, 12.0)`, and it rotates with the mark.
+content: in the keystone's own frame the inner shape's centre is `(51.0,
+23.0)`, so the 14-box sits at `(44.0, 16.0)`, and it rotates with the mark.
 
 ### 11. The drop indicators
 
@@ -644,7 +662,7 @@ Every number the marks use, gathered in one place.
 Card box:        width 188 (fixed, the whole drawn box);  height measured
 Card metrics:    task inner spacing 11 (top/bottom) / 16 (left/right);
                  begin and start inner spacing 16 all round, minimum height 58;
-                 folded begin top spacing 24; end minimum height 58; finish height 44;
+                 folded begin top spacing 24; end minimum height 58; finish height 52;
                  inter-element gap 3; glyph-to-label gap 7; cursor card left/right spacing 24
 Silhouette:      margin m = 1.5
   screen:        corner radius R = min(14, (h-2m)/2, (w-2m)/2)
@@ -655,9 +673,11 @@ Silhouette:      margin m = 1.5
                  the major axis then held to K = 0.7 of that; the label wraps to the inner
                  ellipse's inscribed width, 2·rx_i/√2
   keystone:      points (x0+0.05w, y0+0.12h), (x1, y0), (x1-0.12w, y1), (x0+0.20w, y1-0.06h);
-                 corner radius min(11, 0.22h); the finish node's instance 92 by 44, centred
-                 in the card box at offset (48, 0)
-Tilt:            θ = ±(2 + 4 f) degrees, f and sign from FNV-1a of the id (section 3.8)
+                 corner radius min(11, 0.22h); the finish node's instance built at 100 by 50 with
+                 the box grown 2 at the top and the top-right corner at the new top (100 by 52),
+                 centred in the card box at offset (44, 0), tilted a fixed +2
+Tilt:            start: θ = ±(2 + 4 f) degrees, f and sign from FNV-1a of the id (section 3.8);
+                 finish: +2 on every card
 BORDERS (t,r,b,l):  screen (3.5,8,3.5,7)  marquee (6,8,4,5)  hull (4,5,8,8)
                     ellipse (3,6,8,6)  keystone (3,5,9,7)
                     (each clamped to w/2-4 or h/2-4 on its axis)
@@ -724,7 +744,7 @@ independently of the shapes.
 | task | screen | its status colour | `--panel` | status glyph; status tag |
 | task, marked "here" | marquee | its status colour | `--panel` | sputnik beside it; HERE pill |
 | start node | ellipse, tilted | `--c-workflow` | `--panel` | workflow glyph; centred label |
-| finish node | keystone 92 by 44, tilted | `--c-workflow` | `--panel` | no label or tag; the note glyph centred when noted |
+| finish node | keystone 100 by 52, tilted +2 | `--c-workflow` | `--panel` | no label or tag; the note glyph centred when noted |
 | begin node | hull | `--c-project` | `--c-project-tint` | project glyph; centred label |
 | end node | hull, half-turned | `--c-project` | `--c-project-tint` | no label, glyph, or tag |
 | any flagged node | (its shape) | (unchanged) | (unchanged) | orbits behind, in the node's colour |
