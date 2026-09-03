@@ -157,6 +157,14 @@ inconsistency rather than as hand placement once the shapes are this
 restrained, and a uniform opener is recognised faster. Both workflow
 boundaries are now constant marks: the ellipse at −3, the keystone at +2.
 
+**Sixth amendment, 2026-09-02.** The start ellipse is scaled to 0.85 on both
+axes, after a rendered domain showed it outweighing the finish keystone at
+the other end of the line; at seven tenths of the width and 0.85 of the fit
+it is 54.3 by 23.1 in the 188 by 58 card. Its band is now inset on the
+ellipse's own box rather than the card's, so the outline keeps its stated
+thickness at any size. The label's wrap width falls with the mark, to about
+68 pixels, roughly ten characters a line, which was accepted.
+
 Two notes carried forward to the geometry work.
 
 The variable-width outline needs no new machinery. The geometry already draws

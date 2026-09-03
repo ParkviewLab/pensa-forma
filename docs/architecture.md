@@ -111,7 +111,8 @@ Each frame in which the record or the view has changed runs, in order:
    plus the fixed metrics of the mark geometry. The wrap width is the card's
    inner width for every kind but the start node, whose label wraps to the
    inscribed width of its ellipse's inner shape (mark geometry, section
-   3.5), a fixed number that does not grow with the card's height. Measurement is a pure
+   3.5), a fixed number, about 68 pixels, that does not grow with the card's
+   height. Measurement is a pure
    function of the fonts and the text, so it is memoised by (kind, title,
    status, here, flagged) and recomputed only for cards whose inputs changed.
 3. **Layout.** The `layout` crate, given the record, the fold set, and the
