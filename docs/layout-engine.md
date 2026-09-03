@@ -519,8 +519,8 @@ underpass. No lateral segment lies inside a node's rectangle, except as
 reported on the conflict list. Every lateral segment is flat or at exactly
 `tan 12`, and no lateral segment is vertical, the tail being drawn as riser.
 A branch's riser runs from its incoming lateral's arrival to its return's
-departure, and a main workflow's runs from its start card to its finish
-card. The four clearances hold to
+departure, and a main workflow's runs from its start card's centre to its
+finish card's centre. The four clearances hold to
 the pixel. The minimum air is met everywhere, and is tight on a branch-free
 workflow. No two cards overlap. A branch's start node sits above the node it
 leaves and below that node's successor. Sibling branches sharing a branch
