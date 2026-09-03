@@ -183,19 +183,12 @@ layout supplies.</div>
 </div>
 
 <!-- ============================================================ -->
-<h2><span class="n">2</span>The station dot</h2>
-<div class="mark">
-  <p class="desc">Where a card attaches to its line: a filled circle of diameter 11
-  (radius 5.5) in <code>--line</code>, the same size as a status glyph.</p>
-  <div class="pair">
-    <div class="ground azure"><span class="tag">azure</span>
-      <svg width="60" height="60" viewBox="0 0 60 60"><circle class="dot" cx="30" cy="30" r="5.5"/></svg>
-    </div>
-    <div class="ground navy"><span class="tag">navy</span>
-      <svg width="60" height="60" viewBox="0 0 60 60"><circle class="dot" cx="30" cy="30" r="5.5"/></svg>
-    </div>
-  </div>
-</div>
+<h2><span class="n">2</span>The station anchor (no mark)</h2>
+<p class="desc">Where a card attaches to its line is its station anchor, a point on the
+riser a fixed distance (<code>anchorGap</code>, 8) above the card's top edge, from
+which the layout measures the gap above the card. Nothing is drawn there: the card is
+the station, and the only marks on a line are the junction diamonds, so every mark on
+a track means a junction. Risers run from card to card behind the cards.</p>
 
 <!-- ============================================================ -->
 <h2><span class="n">3</span>The card silhouettes</h2>
@@ -271,9 +264,8 @@ same hull turned a half turn, so a folded pair reads as one shape and its reflec
 card's tilt, its major axis then held to seven tenths of that: semi-axes (63.85,
 27.12) about (94, 29). The inner ellipse is the per-edge inset in the card frame, and
 both turn together about the centre, so the heavy side of the band tilts with the
-shape. The tilt is derived from the node's id, between 2 and 6 degrees either way. The
-note glyph, shown, anchors to the inner ellipse's inscribed corner and rotates with the
-mark. The label wraps to the inner ellipse's inscribed width, 84.5 px, whatever the
+shape. The tilt is &minus;3 on every start card. The note glyph, shown, anchors to the
+inner ellipse's inscribed corner and rotates with the mark. The label wraps to the inner ellipse's inscribed width, 84.5 px, whatever the
 card's height.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
@@ -477,36 +469,27 @@ decoration, not drawn by default; its constants are in the Markdown.</p>
 <!-- ============================================================ -->
 <h2><span class="n">7</span>The tracks</h2>
 <p class="desc">A track is a polyline in <code>--line</code> with round caps and joins:
-a riser (the vertical spine, width 3), and the departure and return laterals (width 2.3).</p>
+a riser (the vertical spine, drawn from a line's first card to its last, width 3), and
+the departure and return laterals (width 2.3). No mark sits where a card meets its line.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure &middot; a departure fan of three</span>
     <svg width="300" height="120" viewBox="0 0 300 120" aria-label="tracks on azure">
       <path class="track riser" d="M40,110 L40,10"/>
-      <circle class="dot" cx="40" cy="96" r="5.5"/>
-      <circle class="dot" cx="40" cy="24" r="5.5"/>
       <rect class="fork" x="36" y="56" width="8" height="8" transform="rotate(45 40 60)"/>
       <!-- three siblings from one branch point, one, two, and three lanes out (lanes compressed for the figure);
            the junction-side ramp is longest for the innermost, so the flats sit at distinct heights -->
       <path class="track branch" d="M40,60 L120,43"/>
       <path class="track branch" d="M40,60 L92,49 L160,49 L200,43"/>
       <path class="track branch" d="M40,60 L64,55 L216,55 L280,43"/>
-      <circle class="dot" cx="120" cy="40" r="5.5"/>
-      <circle class="dot" cx="200" cy="40" r="5.5"/>
-      <circle class="dot" cx="280" cy="40" r="5.5"/>
     </svg>
   </div>
   <div class="ground navy"><span class="tag">navy &middot; a departure fan of three</span>
     <svg width="300" height="120" viewBox="0 0 300 120" aria-label="tracks on navy">
       <path class="track riser" d="M40,110 L40,10"/>
-      <circle class="dot" cx="40" cy="96" r="5.5"/>
-      <circle class="dot" cx="40" cy="24" r="5.5"/>
       <rect class="fork" x="36" y="56" width="8" height="8" transform="rotate(45 40 60)"/>
       <path class="track branch" d="M40,60 L120,43"/>
       <path class="track branch" d="M40,60 L92,49 L160,49 L200,43"/>
       <path class="track branch" d="M40,60 L64,55 L216,55 L280,43"/>
-      <circle class="dot" cx="120" cy="40" r="5.5"/>
-      <circle class="dot" cx="200" cy="40" r="5.5"/>
-      <circle class="dot" cx="280" cy="40" r="5.5"/>
     </svg>
   </div>
 </div>
@@ -526,8 +509,6 @@ of what runs on. The illustration shows a return passing behind a riser.</p>
     <svg width="200" height="120" viewBox="0 0 200 120" aria-label="underpass on azure">
       <!-- the crossed line runs on unbroken: a vertical trunk (riser) -->
       <path class="track riser" d="M100,12 L100,108"/>
-      <circle class="dot" cx="100" cy="32" r="5.5"/>
-      <circle class="dot" cx="100" cy="96" r="5.5"/>
       <!-- the crossing lateral (a return) yields: one straight line, cut where it passes behind -->
       <path class="track return" d="M24,84 L95.5,68.95"/>
       <path class="track return" d="M104.5,67.05 L176,52"/>
@@ -539,8 +520,6 @@ of what runs on. The illustration shows a return passing behind a riser.</p>
   <div class="ground navy"><span class="tag">navy</span>
     <svg width="200" height="120" viewBox="0 0 200 120" aria-label="underpass on navy">
       <path class="track riser" d="M100,12 L100,108"/>
-      <circle class="dot" cx="100" cy="32" r="5.5"/>
-      <circle class="dot" cx="100" cy="96" r="5.5"/>
       <path class="track return" d="M24,84 L95.5,68.95"/>
       <path class="track return" d="M104.5,67.05 L176,52"/>
       <line class="cap" x1="95.5" y1="64.35" x2="95.5" y2="73.55"/>
@@ -621,31 +600,23 @@ gutter it would occupy. The dragged card's ghost follows the pointer at 40 % opa
   <div class="ground azure"><span class="tag">azure &middot; chevrons on a trunk edge; the bar in a gutter</span>
     <svg width="300" height="120" viewBox="0 0 300 120" aria-label="drop indicators on azure">
       <path class="track riser" d="M70,110 L70,10"/>
-      <circle class="dot" cx="70" cy="96" r="5.5"/>
-      <circle class="dot" cx="70" cy="24" r="5.5"/>
       <g transform="translate(70 60)">
         <path class="drop" stroke-width="2.4" d="M-13,-6 L-7,0 L-13,6"/>
         <path class="drop" stroke-width="2.4" d="M13,-6 L7,0 L13,6"/>
       </g>
       <path class="drop" stroke-width="3" d="M200,8 L200,112"/>
       <path class="track riser" d="M260,110 L260,10"/>
-      <circle class="dot" cx="260" cy="96" r="5.5"/>
-      <circle class="dot" cx="260" cy="24" r="5.5"/>
     </svg>
   </div>
   <div class="ground navy"><span class="tag">navy &middot; chevrons on a trunk edge; the bar in a gutter</span>
     <svg width="300" height="120" viewBox="0 0 300 120" aria-label="drop indicators on navy">
       <path class="track riser" d="M70,110 L70,10"/>
-      <circle class="dot" cx="70" cy="96" r="5.5"/>
-      <circle class="dot" cx="70" cy="24" r="5.5"/>
       <g transform="translate(70 60)">
         <path class="drop" stroke-width="2.4" d="M-13,-6 L-7,0 L-13,6"/>
         <path class="drop" stroke-width="2.4" d="M13,-6 L7,0 L13,6"/>
       </g>
       <path class="drop" stroke-width="3" d="M200,8 L200,112"/>
       <path class="track riser" d="M260,110 L260,10"/>
-      <circle class="dot" cx="260" cy="96" r="5.5"/>
-      <circle class="dot" cx="260" cy="24" r="5.5"/>
     </svg>
   </div>
 </div>
@@ -661,7 +632,7 @@ task that is done. Every mark names its tokens; the two-theme values are below.<
     <tr><td><code>--ground</code></td><td>canvas</td><td><span class="swatch" style="background:#d3e6ef"></span>#d3e6ef</td><td><span class="swatch" style="background:#0f2334"></span>#0f2334</td></tr>
     <tr><td><code>--panel</code></td><td>card panel (task, start, finish)</td><td><span class="swatch" style="background:#f8f3e8"></span>#f8f3e8</td><td><span class="swatch" style="background:#1a3a54"></span>#1a3a54</td></tr>
     <tr><td><code>--ink</code></td><td>text, cursor mark</td><td><span class="swatch" style="background:#173242"></span>#173242</td><td><span class="swatch" style="background:#e8f1f6"></span>#e8f1f6</td></tr>
-    <tr><td><code>--line</code></td><td>tracks, dots, diamonds</td><td><span class="swatch" style="background:#365b6c"></span>#365b6c</td><td><span class="swatch" style="background:#6fb6c9"></span>#6fb6c9</td></tr>
+    <tr><td><code>--line</code></td><td>tracks and diamonds</td><td><span class="swatch" style="background:#365b6c"></span>#365b6c</td><td><span class="swatch" style="background:#6fb6c9"></span>#6fb6c9</td></tr>
     <tr><td><code>--muted</code></td><td>tags, note glyph</td><td><span class="swatch" style="background:#5f7d8b"></span>#5f7d8b</td><td><span class="swatch" style="background:#93b3c2"></span>#93b3c2</td></tr>
     <tr><td><code>--grid</code></td><td>ground dots</td><td><span class="swatch" style="background:#173242"></span>#173242 at 10 %</td><td><span class="swatch" style="background:#6fb6c9"></span>#6fb6c9 at 13 %</td></tr>
     <tr><td><code>--c-todo</code></td><td>to-do glyph and screen</td><td><span class="swatch" style="background:#d9a53a"></span>#d9a53a</td><td><span class="swatch" style="background:#f0bd55"></span>#f0bd55</td></tr>
