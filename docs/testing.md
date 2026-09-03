@@ -95,7 +95,7 @@ heights and no two siblings cross.
 **Golden paths.** Every silhouette's construction evaluated at its stated
 `(w, h)` must reproduce the golden-master path data in the mark geometry to
 two decimal places, and the inner transform likewise. The tilted openers are
-checked to lie within their card boxes at every permitted tilt.
+checked to lie within their card boxes at their fixed tilts.
 
 **The underpass** is tested on crossings at several angles: the cut's setback
 follows the formula, the caps lie parallel to the crossed line, and a

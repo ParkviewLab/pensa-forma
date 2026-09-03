@@ -52,8 +52,10 @@ Write `u(n)` for the height of node `n`'s card top above the drawing's
 baseline, up positive, so screen y is `baseY - u`. Every constraint is a
 lower bound on one node given another; none is an upper bound.
 
-A node's station dot sits `anchorGap` above its own card's top edge. Cards
-are painted over tracks, so a card hides whatever passes behind it.
+A node's station anchor, the point on its line from which the gap above
+it is measured, sits `anchorGap` above its own card's top edge; nothing is
+drawn there. Cards are painted over tracks, so a card hides whatever passes
+behind it.
 
 **Succession.** For consecutive nodes `A` and `B` in one workflow, `B`
 directly above `A`:
@@ -62,7 +64,7 @@ directly above `A`:
 u(B) >= u(A) + anchorGap + air(A, B) + cardH(B)
 ```
 
-`air(A, B)` is the clearance between `A`'s dot centre and `B`'s card bottom,
+`air(A, B)` is the clearance between `A`'s anchor and `B`'s card bottom,
 and section 5 derives it.
 
 **Fork.** For a branch workflow `X` departing at the branch point of the gap
@@ -105,7 +107,7 @@ section 4.2 says how.
 
 An **open branch** contributes a fork constraint and no return constraint. It
 therefore never stretches the line it left, and it has no tail. Its riser
-simply ends at its finish node's dot.
+simply ends at its finish card.
 
 ### 3.1 Where the slack goes
 
@@ -196,10 +198,11 @@ the drawing.
 
 ### 4.2 The tail is riser, not lateral
 
-A line's riser does not simply run dot to dot. For a branch it runs from
-where its own incoming lateral arrives, beneath its start node's card, up to
-where its return departs, above its finish node's dot. Only a main workflow's
-line, which has neither an incoming lateral nor a return, runs dot to dot.
+A line's riser does not simply run card to card. For a branch it runs from
+where its own incoming lateral arrives, beneath its start card, up to where
+its return departs, above its finish card. Only a main workflow's line, which
+has neither an incoming lateral nor a return, runs from its start card to its
+finish card and no further.
 
 So the tail of section 3.1, the slack in the return constraint, is drawn as
 riser. Two things follow, and both are why it belongs there rather than on
@@ -278,7 +281,7 @@ occupied (structural model, section 2.4). The gap's vertical extent must hold
 both junctions and keep them apart.
 
 One length governs the gap's interior: **L**, the standard trunk-edge length.
-The **branch point** sits `L` above the lower node's dot centre, and the
+The **branch point** sits `L` above the lower node's anchor, and the
 **return point** sits `L` below the upper node's card bottom edge, so the
 outgoing edge and the incoming edge are both exactly `L` and neither ever
 stretches. The span between the two points is the middle edge, and it absorbs
@@ -302,7 +305,7 @@ air = 2 * L                                        # the shut gap: middle edge z
 if the gap has departures:
     air = max(air, L + (cardW / 2) * tan12 + junctionMargin)
 if the gap has arrivals:
-    air = max(air, L + (cardW / 2) * tan12 + dotRadius + junctionMargin)
+    air = max(air, L + (cardW / 2) * tan12 + junctionMargin)
 if the gap has both:
     air = max(air, 3 * L)                          # two diamonds, L apart
 if 2 * L < air < 3 * L:  air = 3 * L               # a middle edge is 0 or >= L
@@ -319,9 +322,9 @@ departure clearance, or the line passes behind the card and re-emerges beyond
 it.
 
 An arriving lateral is the mirror: it descends as it goes outward from the
-card it joins, so what it can run into is the lower node, and what it meets
-there first is the rim of its dot rather than its card, since a node's
-occupied space begins at the top of its circle.
+card it joins, so what it can run into is the lower node's card, whose top
+edge lies `anchorGap` below the anchor; the same figure as the departure
+case covers it, with that much room to spare.
 
 A gap that both departs and arrives must keep its two diamonds apart.
 Nothing in the height solve relates them, because one is bounded through its
@@ -500,7 +503,8 @@ underpass. No lateral segment lies inside a node's rectangle, except as
 reported on the conflict list. Every lateral segment is flat or at exactly
 `tan 12`, and no lateral segment is vertical, the tail being drawn as riser.
 A branch's riser runs from its incoming lateral's arrival to its return's
-departure, and a main workflow's runs dot to dot. The four clearances hold to
+departure, and a main workflow's runs from its start card to its finish
+card. The four clearances hold to
 the pixel. The minimum air is met everywhere, and is tight on a branch-free
 workflow. No two cards overlap. A branch's start node sits above the node it
 leaves and below that node's successor. Sibling branches sharing a branch
@@ -528,9 +532,8 @@ rampFloor       the shortest junction-side ramp, as a fraction of a lane   0.2
 L               the standard trunk-edge length: the outgoing edge, the incoming
                 edge, the floor on a non-zero middle edge, and the least
                 separation of two junctions sharing a gap                  12
-anchorGap       dot centre above its own card's top edge                   14
+anchorGap       the station anchor above its own card's top edge            8
 minAir          2L, the shut gap; air is never inside the open band (2L, 3L)  24
-dotRadius       from the mark geometry                                     5.5
 junctionMargin  slack added to a junction-bearing gap                       4
 seam            overlap of a folded pair                                    22
 repairPasses    bound on the repair loop                                    8

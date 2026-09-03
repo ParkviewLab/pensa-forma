@@ -257,7 +257,7 @@ A toggle button labelled `Flagged`, tooltip `Show only flagged nodes
 exposed to accessibility as a pressed toggle.
 
 Pressed, it puts the map into flagged-only review: only flagged cards remain
-visible; the whole track layer and every station dot disappear; all cards
+visible; the whole track layer disappears; all cards
 become inert to the pointer; drags are disabled; and the right-click menu is
 suppressed entirely, so no edit, paste, or bookmark action is reachable. Pan,
 wheel zoom, the header, and open dialogs stay live. The state is session
@@ -290,8 +290,8 @@ The map itself is out of scope, but four gestures on it invoke the chrome
 and must be honoured as triggers:
 
 - Right-click anywhere in the viewport opens a context menu (section 6): on
-  a card, that node's menu; anywhere else (tracks, junction diamonds, dots,
-  bare canvas), the canvas menu. With no domain open, or in flagged-only
+  a card, that node's menu; anywhere else (tracks, junction diamonds, bare
+  canvas), the canvas menu. With no domain open, or in flagged-only
   mode, right-click does nothing.
 - Single click on a card's note glyph (the small memo-pad in its
   bottom-right corner) opens the note editor on that node.

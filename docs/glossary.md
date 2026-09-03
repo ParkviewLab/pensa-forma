@@ -180,7 +180,9 @@ bottom, joined by a **riser**.
 **Card.** The drawn body of a node, of fixed width and measured height, wearing
 the silhouette its kind and state assign.
 
-**Station.** The point on a line at which a card attaches, marked by a dot.
+**Station anchor.** The point on a line, a fixed distance above a card's top
+edge, from which the layout measures the gap above the card. Nothing is drawn
+there; the card is the station.
 
 **Lateral.** The drawn track of a branch edge or a return edge: a ramp, a flat
 run, and a ramp, climbing a constant rise whatever its horizontal span.

@@ -150,6 +150,13 @@ card, since the cap's own lean is cancelled by a negative tilt and
 exaggerated by a larger one. Only the start node's tilt varies with the id.
 The finish card is 52 high, between the opener's 54 and a task's 56.
 
+**Fifth amendment, 2026-09-02.** The start node's tilt is fixed at −3 on
+every card, and the per-id variation is withdrawn. A rendered domain with
+three openers at three angles showed that the variation reads as
+inconsistency rather than as hand placement once the shapes are this
+restrained, and a uniform opener is recognised faster. Both workflow
+boundaries are now constant marks: the ellipse at −3, the keystone at +2.
+
 Two notes carried forward to the geometry work.
 
 The variable-width outline needs no new machinery. The geometry already draws
@@ -403,6 +410,20 @@ above `3L` the air is continuous, so a gap that needs more takes exactly what
 it needs. With the constants in the layout document the raised airs already
 land at or near `3L`, which is some evidence the length is right rather than
 imposed.
+
+### D26. No station dots; the anchor is a measurement point
+
+*2026-09-02.*
+
+The line carries no mark where a card attaches to it. The card is the
+station, and the only marks on a track are the junction diamonds, so every
+mark on a line means a junction. The station anchor survives as geometry, the
+point `anchorGap` above a card's top edge from which the gap above it is
+measured, and `anchorGap` is 8, enough that a junction diamond never touches
+a card's edge; it had been sized to hold a dot. The air rule's arrival case
+loses its dot-radius term, and a riser is drawn from card to card, an open
+branch's ending at its finish keystone. Decided on the northstar's tenth
+axiom: the dot clarified nothing the card and the diamonds do not.
 
 ### D22. A new application, in Rust, in its own repository
 

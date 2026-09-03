@@ -91,9 +91,9 @@ section.
 Three rules of the style govern every mark (D7). No outline is a
 constant-width stroke; a line that carries character is a filled ribbon whose
 weight pools along one side, and the two-fill outline is that ribbon. The
-workflow boundaries are rotated to a slight, jaunty angle, two to six
-degrees, varied from card to card. And shapes are splayed: no silhouette has two
-parallel straight edges.
+workflow boundaries are rotated to a slight, jaunty angle, the start ellipse
+by −3 degrees and the finish keystone by +2, the same on every card. And
+shapes are splayed: no silhouette has two parallel straight edges.
 
 ### Path notation
 
@@ -126,7 +126,7 @@ both themes is the colour appendix; the marks below name tokens.
 ## The marks
 
 Paint order, back to front: the ground grid; the track layer (tracks,
-junction diamonds, and cursor marks); the station dots; then the cards, each
+junction diamonds, and cursor marks); then the cards, each
 drawn in this order: its orbits decorator first, then its outer silhouette,
 its inner silhouette, and its content, with the note glyph last atop its
 corner; then, during a drag, the drop indicator and the ghost. A card
@@ -144,16 +144,15 @@ texture, or as a loop drawing a filled circle of radius about 1.2px at every
 `(40i, 40j)` within the visible rectangle, in `--grid`. The grid belongs to
 the viewport, not the map world, so it neither pans nor zooms.
 
-### 2. The station dot
+### 2. The station anchor (no mark)
 
-Where a card attaches to its line, the line carries a station dot: a filled
-circle of diameter 11 pixels (radius 5.5) in the `--line` token, centred on
-the station anchor the layout supplies. It is the subway-map station mark,
-and it is the same size as a status glyph so the two read as one family.
-
-```
-circle  centre = (anchor.x, anchor.y)  r = 5.5  fill = --line
-```
+Where a card attaches to its line is its station anchor: a point on the
+riser a fixed distance, `anchorGap`, above the card's top edge, from which
+the layout measures the gap above the card (layout engine, section 3).
+Nothing is drawn there. The card is the station, and the only marks on a line
+are the junction diamonds of section 9, so every mark on a track means a
+junction. The riser runs from card to card behind them; it never stands as a
+stub above a card, and an open branch's riser ends at its finish keystone.
 
 ### 3. The card silhouettes
 
@@ -376,22 +375,15 @@ style; on the keystone the bottom band is heaviest at 9.
 
 #### 3.8 the tilt
 
-Each start card carries a tilt `θ`, derived from the node's id so that a
-given card never changes shape when the map is rearranged, and varied across
-cards so that a domain reads as hand-placed rather than stamped. A finish
-card's tilt is not derived: it is +2 degrees on every card, because the
-cap's geometry already leans and a varying tilt would make some caps square
-and others look as if they were sliding off the line. Hash the id's bytes with 32-bit FNV-1a; take the low ten bits as a
-fraction `f = (hash mod 1024) / 1024`; the tilt is `2 + 4f` degrees, and
-its sign is positive when bit 10 of the hash is set and negative otherwise.
-So every tilt lies in `[2, 6)` degrees either way: slight, never square, and
-never so steep that the ellipse must shrink far to fit its box.
-
-```
-h = fnv1a32(id)
-f = (h mod 1024) / 1024
-θ = (h bit 10 ? +1 : -1) * (2 + 4 f)
-```
+Every start card is tilted −3 degrees and every finish card +2, the same on
+every card of its kind (D7). The two angles were chosen by looking: −3 is the
+slight lean at which the ellipse reads as a hand-set card rather than a
+tilted one while its band still pools to the lower right, and +2 is the
+angle at which the keystone's own lean, wider at the top and steeper on the
+right, is completed rather than cancelled or exaggerated. A tilt varied from
+card to card was tried and dropped: with shapes this restrained the
+variation bought nothing, and a uniform opener is recognised at a glance,
+which is what the openers are for.
 
 The tilt is a rotation of the finished mark, outer and inner together, about
 the card centre. The card's box, its label, its glyphs, its station anchor,
@@ -521,7 +513,7 @@ A track is a polyline through a point list the layout supplies, drawn as an
 
 | kind | role | stroke width |
 | --- | --- | --- |
-| riser | the vertical spine between stacked nodes on a line | 3 |
+| riser | the vertical spine of a line, drawn from its first card to its last, the tail above a returning branch's finish card included | 3 |
 | departure | a lateral leaving a branch point for a branch's start node | 2.3 |
 | return | a lateral from a branch's finish node to a return point | 2.3 |
 
@@ -676,14 +668,12 @@ Silhouette:      margin m = 1.5
                  corner radius min(11, 0.22h); the finish node's instance built at 100 by 50 with
                  the box grown 2 at the top and the top-right corner at the new top (100 by 52),
                  centred in the card box at offset (44, 0), tilted a fixed +2
-Tilt:            start: θ = ±(2 + 4 f) degrees, f and sign from FNV-1a of the id (section 3.8);
-                 finish: +2 on every card
+Tilt:            start −3 degrees and finish +2, on every card (section 3.8)
 BORDERS (t,r,b,l):  screen (3.5,8,3.5,7)  marquee (6,8,4,5)  hull (4,5,8,8)
                     ellipse (3,6,8,6)  keystone (3,5,9,7)
                     (each clamped to w/2-4 or h/2-4 on its axis)
 Glyph:           11px envelope, strokes inside; filled r 5.5; todo ring r 4.5 stroke 2 solid;
                  cancel ring r 4.75 stroke 1.5 dashed (dash 2.4, gap 2.2)
-Station dot:     diameter 11 (r 5.5), fill --line
 Orbits:          O = [(72,12,-30,-38),(66,13,40,215),(68,11,103,-38)];
                  ring stroke 2.4, opacity 0.7; ball r 4; core r 4
 Sputnik:         base 15; rays (deg,factor) =
@@ -743,7 +733,7 @@ independently of the shapes.
 | --- | --- | --- | --- | --- |
 | task | screen | its status colour | `--panel` | status glyph; status tag |
 | task, marked "here" | marquee | its status colour | `--panel` | sputnik beside it; HERE pill |
-| start node | ellipse, tilted | `--c-workflow` | `--panel` | workflow glyph; centred label |
+| start node | ellipse, tilted −3 | `--c-workflow` | `--panel` | workflow glyph; centred label |
 | finish node | keystone 100 by 52, tilted +2 | `--c-workflow` | `--panel` | no label or tag; the note glyph centred when noted |
 | begin node | hull | `--c-project` | `--c-project-tint` | project glyph; centred label |
 | end node | hull, half-turned | `--c-project` | `--c-project-tint` | no label, glyph, or tag |
