@@ -253,8 +253,8 @@ then `innerT`). Mirroring about both axes, rather than only top-to-bottom,
 is what makes the pair read as one shape and its reflection: the hull's top
 edge rises from left to right, and after a half turn the close's bottom edge
 rises from left to right too, so the two edges bow oppositely and, when a
-folded pair is drawn touching, meet twice and enclose a lens. Golden master
-flip for a `188 by 58` close:
+folded pair is drawn shut (3.11), meet twice and enclose a lens. Golden
+master flip for a `188 by 58` close:
 
 ```
 transform = translate(188 58) scale(-1 -1)
@@ -460,6 +460,71 @@ construction (the finish node's own instance is in section 3.6):
 
 ```svg
 <path d="M16.94,17.41Q10.90,8.22 21.89,7.80L175.51,1.92Q186.50,1.50 182.19,11.62L168.25,44.38Q163.94,54.50 152.94,54.20L50.10,51.44Q39.10,51.14 33.06,41.95Z"/>
+```
+
+#### 3.11 the folded pair (a project drawn shut)
+
+A folded project is its begin card and its end card drawn as one object,
+the body between them hidden. The end card sits on the begin card: its box
+overlaps the begin card's box by the fold seam, `seam = 22` (layout engine,
+section 7), so two cards of 58 make a pair `188 by 94`. The paint order is
+the construction, and it must be kept exactly: the begin card first, its
+outer path then its inner; the end card after it, its outer then its inner;
+the begin card's glyph and label last. Painted over the begin card, the end's
+bottom band lies across the begin's top band where the two edges bow apart,
+and the silhouettes cross: a thin lens of the tint runs along the middle
+between the two bands, and at each side the begin's top corner and the end's
+bottom corner cross into a pair of tips. No ground shows anywhere within the
+pair. Less overlap than the seam opens a lens of ground through the middle;
+more buries the lens and the pair reads as one card. The begin card's label
+clears the end's ink because a folded begin card takes 24 of top spacing
+(constants).
+
+Golden master, both cards `188 by 58`, the pair `188 by 94`, in paint order:
+
+```svg
+<g transform="translate(0 36)">                       <!-- begin: outer, then inner -->
+  <path d="M1.5,7.3 Q94,14.3 186.5,1.5 L162.1,53.6 Q94,56.5 25.9,53.6 Z"/>
+  <path transform="translate(8 4) scale(0.9309 0.7931)"
+        d="M1.5,7.3 Q94,14.3 186.5,1.5 L162.1,53.6 Q94,56.5 25.9,53.6 Z"/>
+</g>
+<g>                                                   <!-- end: outer, then inner -->
+  <path transform="translate(188 58) scale(-1 -1)"
+        d="M1.5,7.3 Q94,14.3 186.5,1.5 L162.1,53.6 Q94,56.5 25.9,53.6 Z"/>
+  <path transform="translate(188 58) scale(-1 -1) translate(8 4) scale(0.9309 0.7931)"
+        d="M1.5,7.3 Q94,14.3 186.5,1.5 L162.1,53.6 Q94,56.5 25.9,53.6 Z"/>
+</g>
+<g transform="translate(0 36)"> …the begin's glyph and label… </g>
+```
+
+#### 3.12 the folded workflow (a start and finish drawn shut)
+
+Where the layout folds a workflow, its start card and its finish card are
+drawn as one object by the same means, with the order reversed: the finish
+card sits behind the start card. The start card's box overlaps the finish
+card's box by the workflow fold seam, `seamW = 35`, and the start card is
+painted after the finish card: finish outer, finish inner, start outer,
+start inner, then the start's title. A start card of 58 and a finish card of
+52 therefore make a pair `188 by 75`, the finish card's box top at the
+pair's top and the start card's box top 17 below it. The keystone's lower
+part lies behind the ellipse and its upper part rises above it, the two
+tilts unchanged, so the pair reads as the keystone standing in the ellipse.
+The title stays where the start card puts it. Whether a workflow folds at
+all is the layout's and the decisions record's business (D15), not this
+document's; this is how one looks when it does.
+
+Golden master, the pair `188 by 75`, in paint order:
+
+```svg
+<g transform="rotate(2 94 26) translate(44 0)">        <!-- finish: outer, then inner -->
+  <path d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>
+  <path transform="translate(7 3) scale(0.8800 0.7692)" d="…the same path…"/>
+</g>
+<g transform="translate(0 17) rotate(-3 94 29)">        <!-- start: outer, then inner -->
+  <ellipse cx="94" cy="29" rx="54.28" ry="23.05"/>
+  <ellipse cx="94" cy="26.5" rx="48.28" ry="17.55"/>
+</g>
+<g transform="translate(0 17)"> …the start's title… </g>
 ```
 
 ### 4. The status glyphs
@@ -709,6 +774,8 @@ Card metrics:    task inner spacing 11 (top/bottom) / 16 (left/right);
                  begin and start inner spacing 16 all round, minimum height 58;
                  folded begin top spacing 24; end minimum height 58; finish height 52;
                  inter-element gap 3; glyph-to-label gap 7; cursor card left/right spacing 24
+Folded pair:     end card overlapping the begin card by the fold seam 22, painted after it (3.11);
+                 start card overlapping the finish card by the workflow fold seam 35, painted after it (3.12)
 Silhouette:      margin m = 1.5
   screen:        corner radius R = min(14, (h-2m)/2, (w-2m)/2)
   marquee:       top/bottom bow 0.14h; left/right bow 0.05w
@@ -794,7 +861,8 @@ independently of the shapes.
 | begin node | hull | `--c-project` | `--c-project-tint` | project glyph; centred label |
 | end node | hull, half-turned | `--c-project` | `--c-project-tint` | no label, glyph, or tag |
 | any flagged node | (its shape) | (unchanged) | (unchanged) | orbits behind, in the node's colour |
-| folded begin node | hull | `--c-project` | `--c-project-tint` | end drawn shut on its card; extra top spacing |
+| folded begin node | hull | `--c-project` | `--c-project-tint` | end drawn shut on its card, painted over it (3.11); extra top spacing |
+| folded start node | ellipse over keystone | `--c-workflow` | `--panel` | finish drawn behind the start card by the workflow fold seam (3.12) |
 
 A begin node and a start node show no status glyph and no tag and can never
 be the cursor, so the teal hull and the line-coloured ellipse read
