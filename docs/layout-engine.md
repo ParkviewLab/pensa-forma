@@ -55,41 +55,38 @@ Write `u(n)` for the height of node `n`'s card top above the drawing's
 baseline, up positive, so screen y is `baseY - u`. Every constraint is a
 lower bound on one node given another; none is an upper bound.
 
-Every card has two station anchors, points on its line from which the
-gaps beside it are measured: an **upper anchor** `anchorGap` above its top
-edge and a **lower anchor** `anchorGap` below its bottom edge. Nothing is
-drawn at either. The gap between two cards therefore runs, from the lower
-card's top edge upward, through `anchorGap`, the outgoing edge `L`, the
-middle edge, the incoming edge `L`, and `anchorGap` again to the upper
-card's bottom edge, so the two junction-bearing edges stand the same
-distance, `anchorGap + L`, from the card on their side. Cards are painted
-over tracks, so a card hides whatever passes behind it.
+A gap is measured from the cards' own edges. From the lower card's top edge
+upward it runs through the outgoing edge `L`, the middle edge, and the
+incoming edge `L` to the upper card's bottom edge; the two fixed edges are
+the same length and never stretch, and nothing is drawn where a card meets
+its line. Cards are painted over tracks, so a card hides whatever passes
+behind it.
 
 **Succession.** For consecutive nodes `A` and `B` in one workflow, `B`
 directly above `A`:
 
 ```
-u(B) >= u(A) + anchorGap + air(A, B) + anchorGap + cardH(B)
+u(B) >= u(A) + air(A, B) + cardH(B)
 ```
 
-`air(A, B)` is the clearance between `A`'s upper anchor and `B`'s lower
-anchor, the outgoing edge, the middle edge, and the incoming edge together,
-and section 5 derives it.
+`air(A, B)` is the gap between `A`'s top edge and `B`'s bottom edge, the
+outgoing edge, the middle edge, and the incoming edge together, and section
+5 derives it.
 
 **Fork.** For a branch workflow `X` departing at the branch point of the gap
 above node `A`, with `F` being `X`'s own start node, whose departure lateral
-arrives `L` below `F`'s lower anchor:
+arrives `L` below `F`'s bottom edge:
 
 ```
-u(F) >= u(A) + anchorGap + L + rise + L + anchorGap + cardH(F)
+u(F) >= u(A) + L + rise + L + cardH(F)
 ```
 
 **Return.** For a branch workflow `X` arriving at the return point of the gap
 below node `P`, with tip `T` being `X`'s own finish node, whose return
-lateral leaves the tail above `T`'s upper anchor:
+lateral leaves the tail at least `L` above `T`'s top edge:
 
 ```
-u(P) >= u(T) + anchorGap + L + rise + L + anchorGap + cardH(P)
+u(P) >= u(T) + L + rise + L + cardH(P)
 ```
 
 The three run over the same graph the validator has already proved acyclic,
@@ -105,12 +102,11 @@ its slack is the branch's **tail**, the line drawn above the branch's finish
 node:
 
 ```
-tail(X) = u(P) - cardH(P) - anchorGap - L - rise - u(T) - anchorGap
+tail(X) = u(P) - cardH(P) - L - rise - u(T)
 ```
 
-The constraint is exactly what guarantees the tail is at least `L`, so the
-departure clearance is a floor the tail can only exceed, and it may exceed it
-without limit. When a returning branch is the shorter side, it is the
+The constraint is exactly what guarantees the tail is at least `L`, a floor
+the tail can only exceed, and it may exceed it without limit. When a returning branch is the shorter side, it is the
 branch's own line that stretches, not the line it returns to; a branch that
 leaves low and rejoins near the top of a tall parent runs most of that
 parent's height as bare line before it turns. That stretch is drawn, and
@@ -141,7 +137,7 @@ slack is the tail.
 Together these give a property worth having rather than merely a tidy one.
 Sibling branches sharing a branch point have their start nodes placed by the fork
 constraint, which is an equality in practice, so every sibling's start node
-has its card bottom at exactly `u(A) + 2 anchorGap + 2L + rise`. They are
+has its card bottom at exactly `u(A) + 2L + rise`. They are
 level, whatever their branches contain. A short branch and a tall one sharing
 both a branch point and a return point therefore need no reconciliation: the
 short one's start node is not raised to meet the tall one's, and its own cards are
@@ -296,66 +292,50 @@ occupied (structural model, section 2.4). The gap's vertical extent must hold
 both junctions and keep them apart.
 
 One length governs the gap's interior: **L**, the standard trunk-edge length.
-The **branch point** sits `L` above the lower node's upper anchor, and the
-**return point** sits `L` below the upper node's lower anchor, so the
-outgoing edge and the incoming edge are both exactly `L` and neither ever
-stretches, and each junction stands `anchorGap + L` clear of the card on its
-side. The span between the two points is the middle edge, and it absorbs
-every stretch the height solve adds.
+The **branch point** sits `L` above the lower node's top edge, and the
+**return point** sits `L` below the upper node's bottom edge, so the outgoing
+edge and the incoming edge are both exactly `L` and neither ever stretches,
+and a junction on either always stands `L` clear of the card on its side.
+The span between the two points is the middle edge, and it absorbs every
+stretch the height solve adds.
 
 A middle edge is **either zero or at least L**, never between. At zero the
-two points coincide, which is the shut gap, and the whole gap is `2L`. Any
-occupied gap is at least `3L`. Nothing is ever drawn in the band between, so
-no interval within a gap is ever shorter than `L`, which is what makes each
-of the three positions large enough to aim a pointer at without a tolerance
-rule (interaction, section 4.1).
+two points coincide, which is the shut gap, and the whole gap is `2L`; a
+gap with departures only, or arrivals only, stays shut, its one drawn
+diamond standing at the coincident point in the middle. A gap using both
+points is at least `3L`, its two diamonds `L` apart. Nothing is ever drawn in
+the band between, so no interval within a gap is ever shorter than `L`,
+which is what makes each of the three positions large enough to aim a
+pointer at without a tolerance rule (interaction, section 4.1).
 
-`L` is also exactly the separation two junction diamonds need when one gap
-carries both, so a departure clearance, an arrival clearance, and a diamond
-gap are one named length here.
+`L` is sized so that the fixed edges do all the clearing on their own. A
+departing lateral leaves the branch point at the lower node's x and climbs
+as it goes outward, so the card it could vanish behind is the upper one,
+directly above the junction; it climbs `(cardW / 2) · tan 12` whilst
+crossing that card's half-width, and the incoming edge above the branch
+point must hold that climb plus a margin. An arriving lateral is the mirror,
+descending toward the lower card's top. So `L` satisfies
 
-The air the gap needs is the largest of four figures:
+```
+L >= (cardW / 2) · tan12 + junctionMargin        # 19.98 + 4, so L = 24
+```
+
+and neither case ever asks the middle edge to open. `L` is also more than a
+junction diamond's diagonal (17 at 12 on a side), so two diamonds `L` apart
+in a gap using both points stand clear of each other.
+
+The air the gap needs is then only this:
 
 ```
 air = 2 * L                                        # the shut gap: middle edge zero
-if the gap has departures:
-    air = max(air, L + (cardW / 2) * tan12 + junctionMargin)
-if the gap has arrivals:
-    air = max(air, L + (cardW / 2) * tan12 + junctionMargin)
-if the gap has both:
-    air = max(air, 3 * L)                          # two diamonds, L apart
-if 2 * L < air < 3 * L:  air = 3 * L               # a middle edge is 0 or >= L
+if the gap has both departures and arrivals:
+    air = 3 * L                                    # two diamonds, L apart
 ```
 
-Each of the three raised cases has a reason, and the reasons are the
-specification rather than the numbers.
-
-A departing lateral leaves at the lower node's x and climbs as it goes
-outward, so the card it could vanish behind is the upper one, directly above
-the junction it just left. It climbs `(cardW / 2) * tan 12` whilst crossing
-that card's own half-width, so the gap must hold that climb plus the
-departure clearance, or the line passes behind the card and re-emerges beyond
-it.
-
-An arriving lateral is the mirror: it descends as it goes outward from the
-card it joins, so what it can run into is the lower node's card, whose top
-edge lies `anchorGap` below the anchor; the same figure as the departure
-case covers it, with that much room to spare.
-
-A gap that both departs and arrives must keep its two diamonds apart.
-Nothing in the height solve relates them, because one is bounded through its
-branch and the other is not, so the separation is imposed here.
-
-The final clause is the quantisation, and it costs almost nothing. The
-forbidden band is the open interval between `2L` and `3L`; above `3L` the air
-is continuous, so a gap that needs more takes exactly what it needs. Only a
-gap whose solve lands strictly inside that band is rounded up, by less than
-`L`.
-
-With the constants of section 12 the three raised figures land at or near
-`3L`: a gap with departures needs about `3L`, and a gap with both needs
-exactly `3L`, which is some evidence the length is the right one rather than
-an imposition.
+and the height solve may raise it further, in which case the middle edge
+takes the whole of the raise, quantised: a solve that lands strictly inside
+the open band between `2L` and `3L` is rounded up to `3L`, and above `3L`
+the air is continuous.
 
 ## 6. Lanes: a subtree-aware band packer
 
@@ -520,7 +500,7 @@ reported on the conflict list. Every lateral segment is flat or at exactly
 `tan 12`, and no lateral segment is vertical, the tail being drawn as riser.
 A branch's riser runs from its incoming lateral's arrival to its return's
 departure, and a main workflow's runs from its start card's centre to its
-finish card's centre. The four clearances hold to
+finish card's centre. The two fixed edges hold to
 the pixel. The minimum air is met everywhere, and is tight on a branch-free
 workflow. No two cards overlap. A branch's start node sits above the node it
 leaves and below that node's successor. Sibling branches sharing a branch
@@ -547,10 +527,10 @@ rise            laneStep * tan12                        48.5
 rampFloor       the shortest junction-side ramp, as a fraction of a lane   0.2
 L               the standard trunk-edge length: the outgoing edge, the incoming
                 edge, the floor on a non-zero middle edge, and the least
-                separation of two junctions sharing a gap                  12
-anchorGap       each anchor's distance from its card's edge, above the top and below the bottom   8
-minAir          2L, the shut gap; air is never inside the open band (2L, 3L)  24
-junctionMargin  slack added to a junction-bearing gap                       4
+                separation of two junctions sharing a gap; at least
+                (cardW/2)·tan12 + junctionMargin                             24
+minAir          2L, the shut gap; air is never inside the open band (2L, 3L)  48
+junctionMargin  the least clearance between a lateral and the card it passes   4
 seam            overlap of a folded pair                                    22
 repairPasses    bound on the repair loop                                    8
 margin          drawing margin inside the bounds                            24
@@ -558,7 +538,7 @@ margin          drawing margin inside the bounds                            24
 
 Where a number is derived, the derivation governs and the value is a
 consequence: `rise` from `laneStep` and the angle, `minAir` from the two
-clearances, `seam` from the margin and the hull's dip, and the two raised airs
+fixed edges, `seam` from the margin and the hull's dip, and the two raised airs
 from the angle and the card's half-width.
 
 ## Lineage

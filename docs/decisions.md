@@ -407,6 +407,16 @@ separation of two junction diamonds sharing a gap; a departure clearance, an
 arrival clearance, and a junction gap held as three numbers would collapse
 into it. A middle edge is either zero or at least `L`, never between.
 
+*Amended 2026-09-03.* `L` is 24, measured from the card's own edge, and is
+sized so that the two fixed edges do all the clearing: a lateral climbs about
+twenty pixels across a card's half-width, and with a four-pixel margin that
+is 24, so a gap with departures only or arrivals only stays shut with its
+one diamond in the middle, and only a gap using both points, or a gap the
+height solve stretches, opens its middle edge. The first worked example had
+`L` at 12 with a clearance rule that opened the middle edge by 12 in every
+gap with departures, which put an invisible return point above every drawn
+branch point; that rule is withdrawn.
+
 The rule exists to make drop targets hittable by construction rather than by
 tolerance. Every position within a gap is then at least `L` tall: an
 unoccupied gap is one zone of `2L`, a gap occupied at one point splits into
@@ -427,15 +437,14 @@ The line carries no mark where a card attaches to it. The card is the
 station, and the only marks on a track are the junction diamonds, so every
 mark on a line means a junction. The station anchor survives as geometry, the
 point `anchorGap` above a card's top edge from which the gap above it is
-measured, and `anchorGap` is 8; it had been sized to hold a dot. Every card
-has an anchor above and one below, so the outgoing and incoming edges stand
-the same distance, `anchorGap + L`, from the cards on their sides and a
-junction diamond clears its card by the same margin at either end of a gap;
-and a riser is drawn from card centre to card centre, behind the cards, so
-that it meets an ellipse or a keystone that does not fill its box. (The
-first rendering of the worked example measured the return point from the
-card's bottom edge alone and stopped risers at the box edges, which put the
-arrival diamond nearly against the card above it and left the openers
+measured. The anchor gap that once held the dot is gone with it: gaps are
+measured from the cards' own edges, and each junction stands `L` clear of
+the card on its side, at either end of a gap alike. A riser is drawn from
+card centre to card centre, behind the cards, so that it meets an ellipse or
+a keystone that does not fill its box. (The first renderings of the worked
+example measured the return point from the card's edge but the branch point
+from an anchor above the card, and stopped risers at the box edges, which
+put the arrival diamond nearly against its card and left the openers
 floating clear of their lines; both are corrected here.) The air rule's arrival case
 loses its dot-radius term, and a riser is drawn from card to card, an open
 branch's ending at its finish keystone. Decided on the northstar's tenth

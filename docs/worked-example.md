@@ -228,47 +228,46 @@ structural model, section 1):
 ## The layout
 
 Constants as the layout engine's section 12 gives them: card width 188, lane
-step 228, `L` 12, `anchorGap` 8, `junctionMargin` 4, `rampFloor` 0.2, rise
-48.5. `u` is a card's top above the baseline, up positive, with the main
-start node's card top at zero; a card's upper anchor is `u + anchorGap` and
-its lower anchor `u - height - anchorGap`; screen `y` is `baseY - u` with the
-baseline placed so that the drawing fits, and the main workflow's line at
-`x = 760`, the branches one and two lanes to its left.
+step 228, `L` 24, `junctionMargin` 4, `rampFloor` 0.2, rise 48.5. `u` is
+a card's top above the baseline, up positive, with the main start node's
+card top at zero; gaps are measured from the cards' edges; screen `y` is
+`baseY - u` with the baseline placed so that the drawing fits, and the main
+workflow's line at `x = 760`, the branches one and two lanes to its left.
 
-| Node | Kind | Title | Workflow | x | u (card top) | Height | Upper anchor | Lower anchor | Screen y of the top |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `n_s0` | start |  | `w_main` | 760 | 0 | 58 | 8 | -66 | 1184.9 |
-| `n_b1` | begin | XYZ-1 | `w_main` | 760 | 98 | 58 | 106 | 32 | 1086.9 |
-| `n_a1` | task | step alpha | `w_main` | 760 | 194 | 56 | 202 | 130 | 990.9 |
-| `n_a2` | task | step Beta | `w_main` | 760 | 302 | 56 | 310 | 238 | 882.9 |
-| `n_a3` | task | step gama | `w_main` | 760 | 964.9 | 56 | 972.9 | 900.9 | 220.0 |
-| `n_e1` | end |  | `w_main` | 760 | 1062.9 | 58 | 1070.9 | 996.9 | 122.0 |
-| `n_f0` | finish |  | `w_main` | 760 | 1154.9 | 52 | 1162.9 | 1094.9 | 30.0 |
-| `n_s1` | start |  | `w_plan` | 532 | 340.5 | 58 | 348.5 | 274.5 | 844.5 |
-| `n_b2` | begin | plan | `w_plan` | 532 | 438.5 | 58 | 446.5 | 372.5 | 746.5 |
-| `n_t1` | task | 333 | `w_plan` | 532 | 534.5 | 56 | 542.5 | 470.5 | 650.5 |
-| `n_t2` | task | think | `w_plan` | 532 | 630.5 | 56 | 638.5 | 566.5 | 554.5 |
-| `n_e2` | end |  | `w_plan` | 532 | 728.5 | 58 | 736.5 | 662.5 | 456.5 |
-| `n_f1` | finish |  | `w_plan` | 532 | 820.5 | 52 | 828.5 | 760.5 | 364.5 |
-| `n_s2` | start |  | `w_111` | 304 | 340.5 | 58 | 348.5 | 274.5 | 844.5 |
-| `n_t3` | task | 111 | `w_111` | 304 | 436.5 | 56 | 444.5 | 372.5 | 748.5 |
-| `n_f2` | finish |  | `w_111` | 304 | 528.5 | 52 | 536.5 | 468.5 | 656.5 |
+| Node | Kind | Title | Workflow | x | u (card top) | Height | Screen y of the top |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `n_s0` | start |  | `w_main` | 760 | 0 | 58 | 1272.9 |
+| `n_b1` | begin | XYZ-1 | `w_main` | 760 | 106 | 58 | 1166.9 |
+| `n_a1` | task | step alpha | `w_main` | 760 | 210 | 56 | 1062.9 |
+| `n_a2` | task | step Beta | `w_main` | 760 | 314 | 56 | 958.9 |
+| `n_a3` | task | step gama | `w_main` | 760 | 1036.9 | 56 | 236.0 |
+| `n_e1` | end |  | `w_main` | 760 | 1142.9 | 58 | 130.0 |
+| `n_f0` | finish |  | `w_main` | 760 | 1242.9 | 52 | 30.0 |
+| `n_s1` | start |  | `w_plan` | 532 | 364.5 | 58 | 908.5 |
+| `n_b2` | begin | plan | `w_plan` | 532 | 470.5 | 58 | 802.5 |
+| `n_t1` | task | 333 | `w_plan` | 532 | 574.5 | 56 | 698.5 |
+| `n_t2` | task | think | `w_plan` | 532 | 678.5 | 56 | 594.5 |
+| `n_e2` | end |  | `w_plan` | 532 | 784.5 | 58 | 488.5 |
+| `n_f1` | finish |  | `w_plan` | 532 | 884.5 | 52 | 388.5 |
+| `n_s2` | start |  | `w_111` | 304 | 364.5 | 58 | 908.5 |
+| `n_t3` | task | 111 | `w_111` | 304 | 468.5 | 56 | 804.5 |
+| `n_f2` | finish |  | `w_111` | 304 | 568.5 | 52 | 704.5 |
 
 | Quantity | Value |
 | --- | --- |
-| air of an ordinary gap, 2L | 24 |
-| air of `g_2` (departures) and of `g_3` (arrivals) before the branches stretch them | 36 |
-| the least distance between two cards, 2 anchorGap + 2L | 40 |
-| the branch point of `g_2` (u) | 214.0 |
-| where the departure laterals arrive, L below the start cards' lower anchors (u) | 262.5 |
-| the start cards' bottom edge, every departing branch (u) | 282.5 |
-| the return point of `g_3` (u) | 888.9 |
-| where each return lateral leaves its branch's tail (u) | 840.5 |
-| the tail of `w_plan`, from its finish card's upper anchor to the turn | 12.0 |
-| the tail of `w_111` | 304.0 |
-| the middle edge of `g_3`, opened by the branches | 566.9 |
+| air of an ordinary gap, 2L | 48 |
+| air of `g_2` (departures) and of `g_3` (arrivals) before the branches stretch them | 48 |
+| the least distance between two cards, 2L | 48 |
+| the branch point of `g_2` (u) | 234.0 |
+| where the departure laterals arrive, L below the start cards' bottom edge (u) | 282.5 |
+| the start cards' bottom edge, every departing branch (u) | 306.5 |
+| the return point of `g_3` (u) | 956.9 |
+| where each return lateral leaves its branch's tail (u) | 908.5 |
+| the tail of `w_plan`, from its finish card's top edge to the turn | 24.0 |
+| the tail of `w_111` | 340.0 |
+| the middle edge of `g_3`, opened by the branches | 618.9 |
 | junction-side ramps at the shared points, inner and outer | 182.4 and 45.6 |
-| baseY, the screen y of u = 0 | 1184.9 |
+| baseY, the screen y of u = 0 | 1272.9 |
 
 The laterals, as point lists in screen coordinates, each a ramp, a flat, and
 a ramp with the fan split at the shared points (the inner sibling's
@@ -276,25 +275,26 @@ junction-side ramp longest):
 
 | Lateral | Points |
 | --- | --- |
-| departure, w_plan (inner) | (760.0, 970.9) → (577.6, 932.2) → (532.0, 922.5) |
-| departure, w_111 (outer) | (760.0, 970.9) → (714.4, 961.2) → (486.4, 961.2) → (304.0, 922.5) |
-| return, w_plan (inner) | (760.0, 296.0) → (577.6, 334.8) → (532.0, 344.5) |
-| return, w_111 (outer) | (760.0, 296.0) → (714.4, 305.7) → (486.4, 305.7) → (304.0, 344.5) |
+| departure, w_plan (inner) | (760.0, 1038.9) → (577.6, 1000.2) → (532.0, 990.5) |
+| departure, w_111 (outer) | (760.0, 1038.9) → (714.4, 1029.2) → (486.4, 1029.2) → (304.0, 990.5) |
+| return, w_plan (inner) | (760.0, 316.0) → (577.6, 354.8) → (532.0, 364.5) |
+| return, w_111 (outer) | (760.0, 316.0) → (714.4, 325.7) → (486.4, 325.7) → (304.0, 364.5) |
 
 The risers, in screen coordinates: the main workflow's from the centre of its
 start card to the centre of its finish card, behind the cards; each branch's
-from where its departure lateral arrives, `anchorGap + L` beneath its start
-card, to where its return lateral leaves, above its finish card.
+from where its departure lateral arrives, `L` beneath its start card, to
+where its return lateral leaves, above its finish card.
 
 | Riser | Extent |
 | --- | --- |
-| `w_main` | x = 760, from screen y 1213.9 to 56.0 |
-| `w_plan` | x = 532, from screen y 922.5 to 344.5 |
-| `w_111` | x = 304, from screen y 922.5 to 344.5 |
+| `w_main` | x = 760, from screen y 1301.9 to 56.0 |
+| `w_plan` | x = 532, from screen y 990.5 to 364.5 |
+| `w_111` | x = 304, from screen y 990.5 to 364.5 |
 
-The two junction diamonds, 12 on a side, sit at the branch point of `g_2` and
-the return point of `g_3`, each `anchorGap + L` = 20 clear of the card on
-its side, and there are no other marks on the lines.
+The two junction diamonds, 12 on a side, sit at the branch point of `g_2`,
+which is also that gap's return point since its middle edge is zero, and at
+the return point of `g_3`; each stands `L` = 24 clear of the card on its
+side, and there are no other marks on the lines.
 
 ## The drawing
 

@@ -18,7 +18,7 @@ CARD_W, GUTTER = 188, 40
 LANE = CARD_W + GUTTER
 TAN12 = math.tan(math.radians(12))
 RISE = LANE * TAN12
-L, ANCHOR, JMARGIN, RAMP_FLOOR, M, DIAMOND = 12, 8, 4, 0.2, 1.5, 12
+L, JMARGIN, RAMP_FLOOR, M, DIAMOND = 24, 4, 0.2, 1.5, 12
 H = {'start': 58, 'begin': 58, 'end': 58, 'task': 56, 'finish': 52}
 # the start ellipse (geometry 3.5, 3.7): fitted at -3 degrees, major axis 0.7, size 0.85, inset on its own box
 ELL = dict(rx=54.28, ry=23.05, irx=48.28, iry=17.55, icx=94.0, icy=26.5)
@@ -28,15 +28,9 @@ KPATH = "M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.
 
 
 def air(departs, arrives):
-    """Layout engine section 5: the clearance between the lower card's upper anchor and the upper card's lower anchor."""
-    a = 2 * L
-    if departs or arrives:
-        a = max(a, L + (CARD_W / 2) * TAN12 + JMARGIN)
-    if departs and arrives:
-        a = max(a, 3 * L)
-    if 2 * L < a < 3 * L:
-        a = 3 * L
-    return a
+    """Layout engine section 5: the gap between the cards' edges; the fixed edges clear the laterals on their own."""
+    assert L >= (CARD_W / 2) * TAN12 + JMARGIN
+    return 3 * L if (departs and arrives) else 2 * L
 
 
 # ---- the domain -----------------------------------------------------------------------------------
@@ -70,23 +64,21 @@ def kinds(wf): return [nodes[i]['kind'] for i in workflows[wf]['nodes']]
 def line_heights(wf, u0, airs):
     ks = kinds(wf); u = [u0]
     for i in range(1, len(ks)):
-        u.append(u[-1] + ANCHOR + airs[i - 1] + ANCHOR + H[ks[i]])      # succession: two anchors and the air
+        u.append(u[-1] + airs[i - 1] + H[ks[i]])                        # succession
     return u
-upper_anchor = lambda v: v + ANCHOR                                       # above the card's top (u is the top)
-lower_anchor = lambda v, k: v - H[k] - ANCHOR                             # below the card's bottom
 
 airs_main = [2 * L] * 6; airs_main[2] = air(True, False); airs_main[3] = air(False, True)
 u = {'w_main': line_heights('w_main', 0, airs_main)}
-bp = upper_anchor(u['w_main'][2]) + L                                     # the branch point of g_2
+bp = u['w_main'][2] + L                                                   # the branch point of g_2, L above step alpha's top
 arrive = bp + RISE                                                        # where every departure lateral arrives
-foot_bottom = arrive + L + ANCHOR                                         # the start cards' bottom edge
+foot_bottom = arrive + L                                                  # the start cards' bottom edge
 u['w_plan'] = line_heights('w_plan', foot_bottom + H['start'], [2 * L] * 5)
 u['w_111'] = line_heights('w_111', foot_bottom + H['start'], [2 * L] * 2)
-need = max(upper_anchor(u['w_plan'][-1]), upper_anchor(u['w_111'][-1])) + L + RISE + L + ANCHOR + H['task']
+need = max(u['w_plan'][-1], u['w_111'][-1]) + L + RISE + L + H['task']
 if need > u['w_main'][4]:                                                 # the return constraint lifts step gama
     shift = need - u['w_main'][4]
     for i in range(4, 7): u['w_main'][i] += shift
-rp = lower_anchor(u['w_main'][4], 'task') - L                             # the return point of g_3
+rp = u['w_main'][4] - H['task'] - L                                       # the return point of g_3, L below step gama's bottom
 leave = rp - RISE                                                         # where each return lateral leaves its tail
 
 X0 = 760
@@ -162,8 +154,8 @@ rows = []
 for wf in workflows:
     for nid, v in zip(workflows[wf]['nodes'], u[wf]):
         k = nodes[nid]['kind']
-        rows.append((nid, k, nodes[nid].get('title', ''), wf, xs[wf], round(v, 1), H[k], round(v + ANCHOR, 1), round(v - H[k] - ANCHOR, 1), round(Y(v), 1)))
-md_rows = '\n'.join(f'| `{r[0]}` | {r[1]} | {r[2]} | `{r[3]}` | {r[4]} | {r[5]} | {r[6]} | {r[7]} | {r[8]} | {r[9]} |' for r in rows)
+        rows.append((nid, k, nodes[nid].get('title', ''), wf, xs[wf], round(v, 1), H[k], round(Y(v), 1)))
+md_rows = '\n'.join(f'| `{r[0]}` | {r[1]} | {r[2]} | `{r[3]}` | {r[4]} | {r[5]} | {r[6]} | {r[7]} |' for r in rows)
 html_rows = ''.join('<tr>' + ''.join(f'<td>{c if i not in (0, 3) else f"<code>{c}</code>"}</td>' for i, c in enumerate(r)) + '</tr>' for r in rows)
 lat_md = '\n'.join(f'| {name} | {" → ".join(f"({x:.1f}, {y:.1f})" for x, y in pts)} |' for name, pts in laterals.items())
 lat_html = ''.join(f'<tr><td>{name}</td><td>{" → ".join(f"({x:.1f}, {y:.1f})" for x, y in pts)}</td></tr>' for name, pts in laterals.items())
@@ -172,15 +164,15 @@ ris_html = ''.join(f'<tr><td><code>{wf}</code></td><td>x = {xs[wf]}, from screen
 quant = [
     ('air of an ordinary gap, 2L', f'{2 * L}'),
     ('air of `g_2` (departures) and of `g_3` (arrivals) before the branches stretch them', f'{air(True, False)}'),
-    ('the least distance between two cards, 2 anchorGap + 2L', f'{2 * ANCHOR + 2 * L}'),
+    ('the least distance between two cards, 2L', f'{2 * L}'),
     ('the branch point of `g_2` (u)', f'{bp:.1f}'),
-    ('where the departure laterals arrive, L below the start cards\' lower anchors (u)', f'{arrive:.1f}'),
+    ('where the departure laterals arrive, L below the start cards\' bottom edge (u)', f'{arrive:.1f}'),
     ("the start cards' bottom edge, every departing branch (u)", f'{foot_bottom:.1f}'),
     ('the return point of `g_3` (u)', f'{rp:.1f}'),
     ("where each return lateral leaves its branch's tail (u)", f'{leave:.1f}'),
-    ("the tail of `w_plan`, from its finish card's upper anchor to the turn", f'{leave - upper_anchor(u["w_plan"][-1]):.1f}'),
-    ('the tail of `w_111`', f'{leave - upper_anchor(u["w_111"][-1]):.1f}'),
-    ('the middle edge of `g_3`, opened by the branches', f'{(lower_anchor(u["w_main"][4], "task")) - upper_anchor(u["w_main"][3]) - 2 * L:.1f}'),
+    ("the tail of `w_plan`, from its finish card's top edge to the turn", f'{leave - u["w_plan"][-1]:.1f}'),
+    ('the tail of `w_111`', f'{leave - u["w_111"][-1]:.1f}'),
+    ('the middle edge of `g_3`, opened by the branches', f'{(u["w_main"][4] - H["task"]) - u["w_main"][3] - 2 * L:.1f}'),
     ('junction-side ramps at the shared points, inner and outer', f'{inner_rampJ:.1f} and {outer_rampJ:.1f}'),
     ('baseY, the screen y of u = 0', f'{baseY:.1f}'),
 ]
@@ -228,15 +220,14 @@ structural model, section 1):
 ## The layout
 
 Constants as the layout engine's section 12 gives them: card width 188, lane
-step 228, `L` 12, `anchorGap` 8, `junctionMargin` 4, `rampFloor` 0.2, rise
-{RISE:.1f}. `u` is a card's top above the baseline, up positive, with the main
-start node's card top at zero; a card's upper anchor is `u + anchorGap` and
-its lower anchor `u - height - anchorGap`; screen `y` is `baseY - u` with the
-baseline placed so that the drawing fits, and the main workflow's line at
-`x = 760`, the branches one and two lanes to its left.
+step 228, `L` 24, `junctionMargin` 4, `rampFloor` 0.2, rise {RISE:.1f}. `u` is
+a card's top above the baseline, up positive, with the main start node's
+card top at zero; gaps are measured from the cards' edges; screen `y` is
+`baseY - u` with the baseline placed so that the drawing fits, and the main
+workflow's line at `x = 760`, the branches one and two lanes to its left.
 
-| Node | Kind | Title | Workflow | x | u (card top) | Height | Upper anchor | Lower anchor | Screen y of the top |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Node | Kind | Title | Workflow | x | u (card top) | Height | Screen y of the top |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 {md_rows}
 
 {quant_md}
@@ -251,16 +242,17 @@ junction-side ramp longest):
 
 The risers, in screen coordinates: the main workflow's from the centre of its
 start card to the centre of its finish card, behind the cards; each branch's
-from where its departure lateral arrives, `anchorGap + L` beneath its start
-card, to where its return lateral leaves, above its finish card.
+from where its departure lateral arrives, `L` beneath its start card, to
+where its return lateral leaves, above its finish card.
 
 | Riser | Extent |
 | --- | --- |
 {ris_md}
 
-The two junction diamonds, 12 on a side, sit at the branch point of `g_2` and
-the return point of `g_3`, each `anchorGap + L` = 20 clear of the card on
-its side, and there are no other marks on the lines.
+The two junction diamonds, 12 on a side, sit at the branch point of `g_2`,
+which is also that gap's return point since its middle edge is zero, and at
+the return point of `g_3`; each stands `L` = 24 clear of the card on its
+side, and there are no other marks on the lines.
 
 ## The drawing
 
@@ -330,8 +322,8 @@ pre{{background:#161412;color:#ece5d4;padding:12px 14px;border-radius:8px;font-s
 <h2>The record</h2>
 <pre>{record_json}</pre>
 <h2>The layout</h2>
-<p>Card width 188, lane step 228, <code>L</code> 12, <code>anchorGap</code> 8, <code>junctionMargin</code> 4, <code>rampFloor</code> 0.2, rise {RISE:.1f}. <code>u</code> is a card's top above the baseline, up positive, the main start card's top at zero; a card's upper anchor is <code>u + anchorGap</code> and its lower anchor <code>u − height − anchorGap</code>; screen <code>y</code> is <code>baseY − u</code> with <code>baseY</code> {baseY:.1f}; the main line is at <code>x</code> = 760 and the branches one and two lanes to its left.</p>
-<table><thead><tr><th>Node</th><th>Kind</th><th>Title</th><th>Workflow</th><th>x</th><th>u</th><th>Height</th><th>Upper anchor</th><th>Lower anchor</th><th>Screen y of the top</th></tr></thead><tbody>{html_rows}</tbody></table>
+<p>Card width 188, lane step 228, <code>L</code> 24, <code>junctionMargin</code> 4, <code>rampFloor</code> 0.2, rise {RISE:.1f}. <code>u</code> is a card's top above the baseline, up positive, the main start card's top at zero; gaps are measured from the cards' edges; screen <code>y</code> is <code>baseY − u</code> with <code>baseY</code> {baseY:.1f}; the main line is at <code>x</code> = 760 and the branches one and two lanes to its left.</p>
+<table><thead><tr><th>Node</th><th>Kind</th><th>Title</th><th>Workflow</th><th>x</th><th>u</th><th>Height</th><th>Screen y of the top</th></tr></thead><tbody>{html_rows}</tbody></table>
 {quant_html}
 <table><thead><tr><th>Lateral</th><th>Points (screen)</th></tr></thead><tbody>{lat_html}</tbody></table>
 <table><thead><tr><th>Riser</th><th>Extent (screen)</th></tr></thead><tbody>{ris_html}</tbody></table>
