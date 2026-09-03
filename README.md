@@ -19,8 +19,34 @@ that an implementation can be built from them alone. The application is
 written in Rust; the Cargo workspace lands with the first implementation
 milestone.
 
-Start with `docs/northstar.md`, the statement of what the application is for.
-Everything else is downstream of it.
+## The documents
+
+Start with [`docs/northstar.md`](docs/northstar.md), the statement of what
+the application is for; everything else is downstream of it.
+
+| Document | What it is the authority for |
+|---|---|
+| [glossary.md](docs/glossary.md) | The vocabulary every document, menu, and tool speaks |
+| [northstar.md](docs/northstar.md) | Intent: four intents, their tensions, twelve axioms |
+| [decisions.md](docs/decisions.md) | Settled decisions with their reasoning; proposals awaiting a ruling |
+| [structural-model.md](docs/structural-model.md) | What exists, identity, the record, the seventeen invariants, the worked instance |
+| [command-layer.md](docs/command-layer.md) | The one write path: the pipeline, validation, undo, refusals |
+| [command-catalogue.md](docs/command-catalogue.md) | Every command: arguments, tier, effect, refusal text, log entry |
+| [interaction.md](docs/interaction.md) | Drag-and-drop: handles, targets, legality by trial application |
+| [layout-engine.md](docs/layout-engine.md) | Where every mark goes: heights, lanes, laterals, junctions, folding |
+| [mark-geometry.md](docs/mark-geometry.md) | How every mark is drawn, with golden masters |
+| [ui-chrome.md](docs/ui-chrome.md) | The shell: window, header, menus, dialogs, note editor, log panel |
+| [persistence.md](docs/persistence.md) | Locations, the on-disk record, notes, bookmarks, settings, atomic writes |
+| [automation-server.md](docs/automation-server.md) | The MCP server: binding, hardening, tiers, tools, prompts, live view |
+| [architecture.md](docs/architecture.md) | The workspace, threads, rendering, packaging, the crate inventory |
+| [testing.md](docs/testing.md) | What is tested and how |
+| [implementation-plan.md](docs/implementation-plan.md) | The milestones, in order |
+| [in-flight_ideas.md](docs/in-flight_ideas.md) | Questions under consideration |
+
+The mark geometry and the UI chrome each have a designed HTML sibling beside
+them, rendering the marks and the widgets from the same data, so the target
+can be seen as well as read. Markdown is canonical; if the two drift, the
+Markdown wins.
 
 ## Building and testing
 
