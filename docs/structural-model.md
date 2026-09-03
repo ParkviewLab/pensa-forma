@@ -377,9 +377,9 @@ told where, it uses this rule, which is model-side and deterministic: within
 one return-point side list, order the branches by the index of their departure
 gap, highest first, and break a tie by their order in that departure list.
 
-The reasoning is worth keeping. A branch departing higher up the trunk runs a
-shorter distance alongside it, so it belongs nearer the trunk; a branch
-departing lower must span more of the trunk, and placing it inside a shorter
+The reasoning is worth keeping. A branch departing higher up its parent's line runs a
+shorter distance alongside it, so it belongs nearer that line; a branch
+departing lower must span more of the line, and placing it inside a shorter
 one would force their lines to cross. A rule stated in terms of graphical
 distance from the parent would make the stored order depend on a layout that
 then has to read the stored order; departure-gap index is the model-side

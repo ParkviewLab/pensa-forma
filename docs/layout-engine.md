@@ -66,7 +66,7 @@ u(B) >= u(A) + anchorGap + air(A, B) + cardH(B)
 and section 5 derives it.
 
 **Fork.** For a branch workflow `X` departing at the branch point of the gap
-above node `A`, with foot `F` being `X`'s own start node:
+above node `A`, with `F` being `X`'s own start node:
 
 ```
 u(F) >= u(A) + anchorGap + L + rise + L + cardH(F)
@@ -126,15 +126,15 @@ The return constraint is the one genuine inequality in the solve, and its
 slack is the tail.
 
 Together these give a property worth having rather than merely a tidy one.
-Sibling branches sharing a branch point have their feet placed by the fork
+Sibling branches sharing a branch point have their start nodes placed by the fork
 constraint, which is an equality in practice, so every sibling's start node
 has its card bottom at exactly `u(A) + anchorGap + 2L + rise`. They are
 level, whatever their branches contain. A short branch and a tall one sharing
 both a branch point and a return point therefore need no reconciliation: the
-short one's foot is not raised to meet the tall one's, and its own cards are
+short one's start node is not raised to meet the tall one's, and its own cards are
 not spread apart to lift its tip, because its riser simply rises further
 before its return lateral turns. A branch's cards stay tightly spaced, its
-foot stays level with its siblings', and the stretch lands in bare line,
+start node stays level with its siblings', and the stretch lands in bare line,
 where it costs nothing to read.
 
 Beyond that, nothing is aligned across lanes. Two cards in different main
@@ -188,7 +188,7 @@ flat run has zero length and the lateral is a single straight diagonal. Wider
 than that, the middle runs flat. The clamps are defensive, for a separation
 narrower than one lane, which the packer never produces.
 
-A departure runs from the shared branch point to each foot's arrival beneath
+A departure runs from the shared branch point to each branch's arrival beneath
 its start node; a return runs from each tip's departure above its finish node
 to the shared return point. They are mirror images through this one
 construction, so nothing whatever distinguishes the two ends of a branch in

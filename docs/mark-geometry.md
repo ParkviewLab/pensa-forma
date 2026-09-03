@@ -14,6 +14,10 @@ the chrome says what a mark means and when it appears, this document says
 exactly how it is constructed, with the formulas, the constants, and a worked
 instance for each.
 
+The look the marks add up to is a mid-century retrofuturist systems diagram:
+a Googie-inspired, Atomic Age flowchart laid out like a retro transit or
+control-system map. Every mark below serves that reading or is cut.
+
 This document is the sole and final authority for the marks' geometry: build
 exactly what it says, and where it is silent, choose any reasonable behaviour
 and record the choice. Nothing here presumes a rendering technology; the
@@ -560,7 +564,7 @@ topmost layer during a drag and only over a legal target.
 The **chevron pair** marks a trunk-edge, branch-edge, or return-point
 target: two chevrons facing each other across the point the drop would
 occupy, centred on that point. For a trunk-edge target the point is on the
-line at the middle of the zone; for a branch-edge target it is at the foot of
+line at the middle of the zone; for a branch-edge target it is at the base of
 the lane the branch would take, level with the branch point's arrival
 height; for a return-point target it is the junction centre.
 

@@ -8,8 +8,10 @@ SPDX-License-Identifier: CC-BY-4.0
 A desktop application for planning and tracking work as a graph of workflows,
 for humans and AI agents alike. A workflow orders tasks; a project groups a run
 of them; a branch runs in parallel beside its workflow and may rejoin it. The
-graph is drawn as a subway map, kept as plain files on your own disk, and open
-to AI agents through a local automation server while the application runs.
+graph is drawn as a mid-century retrofuturist systems diagram, a
+Googie-inspired Atomic Age flowchart laid out like a retro transit map; it is
+kept as plain files on your own disk, and open to AI agents through a local
+automation server while the application runs.
 
 ## Status
 

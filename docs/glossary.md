@@ -166,6 +166,10 @@ attached, as drawn: one diamond per point, shared by every branch meeting it.
 
 ## The drawing
 
+The look, in one phrase: a mid-century retrofuturist systems diagram; a
+Googie-inspired Atomic Age flowchart laid out like a retro transit or
+control-system map.
+
 **Line.** A workflow as drawn: its nodes colinear at one x, lowest at the
 bottom, joined by a **riser**.
 

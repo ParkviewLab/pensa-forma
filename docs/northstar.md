@@ -54,9 +54,10 @@ node decides the structure it takes, and ordering never does.
 
 ### 2. Structure is legible at a glance
 
-A domain is drawn as a subway map: stations are nodes, tracks are the lines
-they sit on, and a junction between two stations is where a branch leaves or
-returns. Before reading a single label one can see the shape of the work:
+A domain is drawn as a mid-century retrofuturist systems diagram, a
+Googie-inspired Atomic Age flowchart laid out like a retro transit or
+control-system map: stations are nodes, tracks are the lines they sit on, and
+a junction between two stations is where a branch leaves or returns. Before reading a single label one can see the shape of the work:
 where one is (the cursor's card), what is done, in progress, or cancelled (the
 outline colour), where a line branches, where it comes back, and where it
 does not. The visual channel carries the structure; text only names it. The
@@ -120,8 +121,8 @@ and amend entries at will.
 4. Side and order are the author's: which side of its parent a branch runs on,
    and its order among the branches sharing a point, are stored and set by
    hand. The drawing obeys them.
-5. One cursor per workflow, set by hand and clearable; a branching plan may
-   show several, one per workflow.
+5. One cursor per workflow, set by hand and clearable; a branching workflow
+   may show several, one per branch.
 6. Status is shown, not inferred: completing or cancelling a task leaves it on
    the map, recoloured; only delete removes it. Only a task has a status.
 7. Structure lives in the visual channel: if the reader must read to see the
