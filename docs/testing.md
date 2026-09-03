@@ -76,7 +76,7 @@ an undo after another write is refused as stale.
 **The required properties** (layout engine, section 11) are each a test over
 the generator's domains, run on the layout's output: no unmarked proper
 crossing; no lateral inside a card except as reported; every lateral segment
-flat or at twelve degrees; the four clearances to the pixel; sibling start nodes
+flat or at twelve degrees; the two fixed edges to the pixel; sibling start nodes
 level; a tall branch stretching only above its return; lane order following
 the side lists; determinism under permuted key order; monotonicity under an
 added card.

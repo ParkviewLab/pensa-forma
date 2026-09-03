@@ -210,7 +210,7 @@ of its last, the cards painted over it, so that it meets every silhouette
 whatever its shape: an opener's ellipse and a closer's keystone do not fill
 their boxes, and a riser stopped at the box edge would float clear of them.
 For a branch it runs further at both ends, from where its own incoming
-lateral arrives, `anchorGap + L` beneath its start card, up to where its
+lateral arrives, `L` beneath its start card, up to where its
 return departs, above its finish card. Only a main workflow's line, which
 has neither an incoming lateral nor a return, runs from centre to centre and
 no further.
@@ -389,9 +389,8 @@ outermost.
 A folded project (D15) is the one edge exempt from section 3. The client's
 view keeps the `begin`/`end` pair and drops the body, and the `end` node is
 placed flush on the `begin` node's card, bottom edge to top edge, with no
-`anchorGap` and no air. The air that edge reports is therefore negative by
-exactly `anchorGap`, since the project's own dot falls inside the closing
-card and is covered by it.
+air at all: that edge reports an air of zero, and the two hulls overlap by
+the seam below rather than standing apart.
 
 The two hull silhouettes cross there into a lens, which is what makes a shut
 scope read as one closed object rather than as two cards touching. The
