@@ -163,6 +163,10 @@ catalogue's grammar; a second node in a relation keeps its role name
 that takes one kind says so in its description and refuses the rest naming
 the tool that accepts them.
 
+A note, a flag, and a log belong to openers and tasks only (D11 as amended);
+`read_note`, `read_log`, `set_note`, `delete_note`, `set_flag`, and the three
+log tools refuse a finish or end node with the catalogue's message.
+
 ### Read-only
 
 | Tool | Wraps |

@@ -38,8 +38,9 @@ and AI agents read and write the open library while the application runs.
 
 ## Nodes
 
-**Node.** The building block of a workflow. Every node has an `id`, a `kind`,
-an optional **note**, a `flagged` mark, and an **activity log**. Kinds are
+**Node.** The building block of a workflow. Every node has an `id` and a
+`kind`; every opener and task also has an optional **note**, a `flagged`
+mark, and an **activity log**, which a closer never has. Kinds are
 intrinsic: a node's kind is a stored property, never inferred from its
 position.
 
@@ -48,15 +49,16 @@ position.
 | Kind | Bounds | Carries |
 | --- | --- | --- |
 | `start` | opens a workflow | a `title` |
-| `finish` | closes a workflow | nothing beyond the common fields |
+| `finish` | closes a workflow | nothing: its id and its kind |
 | `begin` | opens a project | a `title` and a `pair` |
-| `end` | closes a project | a `pair` |
+| `end` | closes a project | a `pair`, and nothing else |
 | `task` | one thing to do | a `status`, and possibly the `here` cursor |
 
 **Opener, closer.** A `start` or `begin` node is an opener; a `finish` or
-`end` node is its closer. An opener carries the title, so a workflow is named
-by its start node and a project by its begin node; a closer carries no title
-and is never named on its own.
+`end` node is its closer. An opener carries the title, the note, the flag,
+and the log, so a workflow is named and annotated by its start node and a
+project by its begin node; a closer carries none of these and is never named
+on its own.
 
 **Title.** The name of a workflow (on its start node), a project (on its begin
 node), or a task. A title may be empty.
@@ -71,16 +73,17 @@ recording where the author is on that workflow. A main workflow and each of
 its branches carry their own, so parallel threads each have a position. Shared
 model state, not view state.
 
-**Flag.** A mark on any node that selects it for attention: the flagged-only
+**Flag.** A mark on an opener or a task that selects it for attention: the flagged-only
 review mode shows flagged nodes alone, and an agent's "work the flagged
 nodes" begins from them.
 
 **Note.** A node's written prose: a markdown file in the domain's `notes/`
-directory, referenced from the node by filename. A node has a note or has
-none; there is no second, shorter description field. The **note glyph** on a
+directory, referenced from the node by filename. An opener or a task has a
+note or has none, and a closer never has one; there is no second, shorter
+description field. The **note glyph** on a
 card means a note exists, not that it has text.
 
-**Activity log.** A time-stamped list of entries on every node, oldest first,
+**Activity log.** A time-stamped list of entries on every opener and task, oldest first,
 written by the application on structural changes and by people and agents at
 will. It is editable, and is therefore a worklog rather than an audit trail.
 
@@ -196,12 +199,13 @@ number of lanes from their parent's line.
 crossing lateral is cut, each severed end capped parallel to the line it
 passes beneath.
 
-**Fold.** A project drawn shut, its begin and end cards touching with the body
-hidden. Fold state is client view state keyed by the begin node's id, never a
+**Fold.** A project or a workflow drawn shut: its begin and end cards, or its
+start and finish cards, overlapping with the body hidden (mark geometry, 3.11
+and 3.12). Fold state is client view state keyed by the opener's id, never a
 field of the record.
 
 **Bookmark.** A named, saved view stored with the domain: a name, the set of
-folded projects, and the set of nodes in view when it was saved.
+folded openers, and the set of nodes in view when it was saved.
 
 ## Change
 

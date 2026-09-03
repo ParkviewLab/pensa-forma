@@ -44,7 +44,7 @@ def node(id, kind, title=None, pair=None):
     if title is not None: n['title'] = title
     if pair: n['pair'] = pair
     if kind == 'task': n['status'] = 'todo'
-    n['log'] = []
+    if kind in ('start', 'begin', 'task'): n['log'] = []        # a closer carries no log (D11 as amended)
     nodes[id] = n
 node('n_s0', 'start', ''); node('n_b1', 'begin', 'XYZ-1', 'n_e1'); node('n_a1', 'task', 'step alpha')
 node('n_a2', 'task', 'step Beta'); node('n_a3', 'task', 'step gama'); node('n_e1', 'end', pair='n_b1'); node('n_f0', 'finish')

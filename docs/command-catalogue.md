@@ -257,8 +257,10 @@ Refusal `bad_arguments`: "Only a task can carry the cursor."
 
 ### `set_flag(node, flagged)`
 
-Tier read-write. Undoable. Subject: the node. Sets or clears the flag on any
-node. State, no log entry.
+Tier read-write. Undoable. Subject: the node. Sets or clears the flag on a
+start, begin, or task node. State, no log entry.
+
+Refusal `bad_arguments`: "A finish node and an end node carry no flag."
 
 ---
 
@@ -375,8 +377,9 @@ right."
 
 ### `attach_return(branch, gap)`
 
-Tier read-write. Undoable. Subject: the branch's finish node. Makes the
-branch return at the named gap's return point, on the same side as its
+Tier read-write. Undoable. Subject: the branch's start node, which holds the
+workflow's log (D11 as amended); the finish node is the handle, not the
+record. Makes the branch return at the named gap's return point, on the same side as its
 departure, at the order position the structural model's automatic-return rule
 assigns (section 6). If the branch already returns, the old return is removed
 only after the new one has validated, and the old list closes up. Log:
@@ -397,8 +400,8 @@ another workflow; a branch returns to the workflow it left."
 
 ### `detach_return(branch)`
 
-Tier read-write. Undoable. Subject: the branch's finish node. Removes the
-branch's return, leaving it open; the return list closes up. Log:
+Tier read-write. Undoable. Subject: the branch's start node, as for
+`attach_return`. Removes the branch's return, leaving it open; the return list closes up. Log:
 `detached`, "Return detached."
 
 Refusal `refused`: "The branch <title> has no return to detach."
@@ -419,7 +422,9 @@ increments the revision. When the node already has a reference, only the file
 is written, empty text included: emptying a note is not deleting it. When the
 node has no reference and `text` is empty, nothing is written. No log entry.
 
-Refusal `write_failed` with the filesystem's message.
+Refusals. `bad_arguments`: "A finish node and an end node carry no note; a
+workflow's note is on its start node and a project's on its begin node."
+`write_failed` with the filesystem's message.
 
 ### `delete_note(node)`
 
@@ -427,12 +432,17 @@ Tier destructive. Not undoable. Subject: the node. Deletes the note file and
 clears the node's reference. The text is not recoverable, which the window's
 dialog says before it asks. No log entry.
 
-Refusal `refused`: "<title> has no note."
+Refusals. `bad_arguments`: the closers' message of `set_note`. `refused`:
+"<title> has no note."
 
 ### `add_log_entry(node, text)`
 
 Tier read-write. Undoable. Subject: the node. Appends an entry with `origin:
 manual`, the command's `actor` as author, `event: null`, and `text`.
+
+Refusal `bad_arguments`, shared by the three log commands: "A finish node and
+an end node carry no log; a workflow's log is on its start node and a
+project's on its begin node."
 
 ### `edit_log_entry(node, entry, text)`
 

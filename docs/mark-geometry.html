@@ -321,25 +321,21 @@ card's height.</p>
 <p class="small">The keystone construction built at 100 by 50, its box then grown 2 at the
 top with the top-right corner at the new top, so the top edge still climbs to the right
 once tilted; corners (6.5, 9.5), (98.5, 1.5), (86.5, 50.5), (21.5, 47.5), radius 11;
-centred in the card at an offset of 44. The tilt is a fixed +2 on every finish card. The
-note glyph, shown, is centred on the inner shape.</p>
+centred in the card at an offset of 44. The tilt is a fixed +2 on every finish card. A
+finish node carries no note, so it never wears the glyph.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
     <svg width="188" height="52" viewBox="0 0 188 52" aria-label="finish keystone on azure">
       <g transform="rotate(2 94 26) translate(44 0)">
         <path class="outer workflow" d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>
-        <path class="inner" transform="translate(7 3) scale(0.8800 0.7692)" d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>
-        <g class="note" transform="translate(44.0 16.0) scale(0.875)"><rect class="body" x="3" y="3" width="10" height="11" rx="1.5"/><line class="ring" x1="6" y1="1.5" x2="6" y2="4.5"/><line class="ring" x1="10" y1="1.5" x2="10" y2="4.5"/><line class="rule" x1="5.5" y1="7.5" x2="10.5" y2="7.5"/><line class="rule" x1="5.5" y1="10" x2="10.5" y2="10"/><line class="rule" x1="5.5" y1="12.5" x2="8.5" y2="12.5"/></g>
-      </g>
+        <path class="inner" transform="translate(7 3) scale(0.8800 0.7692)" d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>      </g>
     </svg>
   </div>
   <div class="ground navy"><span class="tag">navy</span>
     <svg width="188" height="52" viewBox="0 0 188 52" aria-label="finish keystone on navy">
       <g transform="rotate(2 94 26) translate(44 0)">
         <path class="outer workflow" d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>
-        <path class="inner" transform="translate(7 3) scale(0.8800 0.7692)" d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>
-        <g class="note" transform="translate(44.0 16.0) scale(0.875)"><rect class="body" x="3" y="3" width="10" height="11" rx="1.5"/><line class="ring" x1="6" y1="1.5" x2="6" y2="4.5"/><line class="ring" x1="10" y1="1.5" x2="10" y2="4.5"/><line class="rule" x1="5.5" y1="7.5" x2="10.5" y2="7.5"/><line class="rule" x1="5.5" y1="10" x2="10.5" y2="10"/><line class="rule" x1="5.5" y1="12.5" x2="8.5" y2="12.5"/></g>
-      </g>
+        <path class="inner" transform="translate(7 3) scale(0.8800 0.7692)" d="M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.12,39.82Q86.50,50.50 75.51,49.99L32.49,48.01Q21.50,47.50 17.46,37.27Z"/>      </g>
     </svg>
   </div>
 </div>
@@ -349,8 +345,8 @@ note glyph, shown, is centred on the inner shape.</p>
 card. The start card's box overlaps the finish card's by the workflow fold seam of 35 and is
 painted after it: finish outer, finish inner, start outer, start inner, then the start's title.
 The keystone's lower part lies behind the ellipse and its upper part rises above it, both tilts
-unchanged. Whether a workflow folds is the layout's business (D15); this is how one looks when
-it does.</p>
+unchanged, and an untitled start folds to an empty ellipse. Whether a workflow folds is the
+layout's business (D15); this is how one looks when it does.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure &middot; folded workflow</span>
     <svg width="188" height="75" viewBox="0 0 188 75" aria-label="folded workflow on azure">
@@ -626,8 +622,8 @@ a 16&times;16 design box, in <code>--muted</code> (turning to <code>--ink</code>
 hover): a rounded body, two ring ticks over the top, three ruled lines. Shown at 4&times;.
 On the axis-aligned silhouettes it sits inset 11 from the card's right edge and 8 from
 its bottom; on the start ellipse it anchors to the inner ellipse's inscribed corner and
-turns with the mark; on the finish keystone it is centred on the inner shape (both shown
-above).</p>
+turns with the mark (shown above); a finish or end node carries no note and never wears
+it.</p>
 <div class="pair">
   <div class="ground azure"><span class="tag">azure</span>
     <svg width="64" height="64" viewBox="0 0 16 16" aria-label="note glyph on azure">
@@ -727,7 +723,7 @@ assignment is ever exchanged.</p>
     <tr><td>task</td><td>screen</td><td>its status colour</td><td><code>--panel</code></td><td>status glyph; status tag</td></tr>
     <tr><td>task, marked "here"</td><td>marquee</td><td>its status colour</td><td><code>--panel</code></td><td>sputnik beside it; HERE pill</td></tr>
     <tr><td>start node</td><td>ellipse, tilted</td><td><code>--c-workflow</code></td><td><code>--panel</code></td><td>workflow glyph; centred label</td></tr>
-    <tr><td>finish node</td><td>keystone 100 by 52, tilted +2</td><td><code>--c-workflow</code></td><td><code>--panel</code></td><td>no label or tag; the note glyph centred when noted</td></tr>
+    <tr><td>finish node</td><td>keystone 100 by 52, tilted +2</td><td><code>--c-workflow</code></td><td><code>--panel</code></td><td>no label, glyph, or tag; carries no note</td></tr>
     <tr><td>begin node</td><td>hull</td><td><code>--c-project</code></td><td><code>--c-project-tint</code></td><td>project glyph; centred label</td></tr>
     <tr><td>end node</td><td>hull, half-turned</td><td><code>--c-project</code></td><td><code>--c-project-tint</code></td><td>no label, glyph, or tag</td></tr>
     <tr><td>any flagged node</td><td>(its shape)</td><td>(unchanged)</td><td>(unchanged)</td><td>orbits behind, in the node's colour</td></tr>

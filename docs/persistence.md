@@ -153,10 +153,10 @@ The worked instance of the structural model, section 8, in canonical form:
   },
   "nodes": {
     "n_b1": { "id": "n_b1", "kind": "begin", "title": "Build", "pair": "n_e1", "log": [] },
-    "n_e1": { "id": "n_e1", "kind": "end", "pair": "n_b1", "log": [] },
-    "n_f1": { "id": "n_f1", "kind": "finish", "log": [] },
-    "n_f2": { "id": "n_f2", "kind": "finish", "log": [] },
-    "n_f3": { "id": "n_f3", "kind": "finish", "log": [] },
+    "n_e1": { "id": "n_e1", "kind": "end", "pair": "n_b1" },
+    "n_f1": { "id": "n_f1", "kind": "finish" },
+    "n_f2": { "id": "n_f2", "kind": "finish" },
+    "n_f3": { "id": "n_f3", "kind": "finish" },
     "n_s1": { "id": "n_s1", "kind": "start", "title": "Ship v1", "log": [] },
     "n_s2": { "id": "n_s2", "kind": "start", "title": "QA pass", "log": [] },
     "n_s3": { "id": "n_s3", "kind": "start", "title": "Write docs", "log": [] },
@@ -236,7 +236,7 @@ because a name makes it shareable.
 }
 ```
 
-A bookmark is a name, the begin ids folded when it was saved, and the ids of
+A bookmark is a name, the opener ids (begin or start) folded when it was saved, and the ids of
 every node drawn wholly inside the viewport when it was saved (P5). It holds
 no zoom and no camera coordinate, because a field that travels must mean the
 same thing on every client, and a pixel-anchored camera is one screen's

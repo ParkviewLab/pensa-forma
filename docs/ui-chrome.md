@@ -299,8 +299,9 @@ and must be honoured as triggers:
   → done → cancelled → todo), issuing `cycle_status`. A begin card's and a
   start card's glyphs carry no status and ignore the click.
 - Double-click on a card's body toggles the node's flag, issuing `set_flag`;
-  the glyph and note-glyph sub-regions are excluded. Any node may be flagged,
-  closers included.
+  the glyph and note-glyph sub-regions are excluded. An opener or a task may
+  be flagged; a closer carries no flag, and a double-click on a finish or an
+  end card does nothing.
 
 The chrome also reacts to external writers (the automation server editing
 the same library) without user action. An edit to the open domain re-reads
@@ -510,31 +511,35 @@ node would land invisibly inside the fold; expanding restores them.
 
 ### 6.4 The end-card menu
 
-Right-click on a project's close. It has no title, status, or cursor, so the
-menu is short: `Add task above`, `Add task below`, `Add branch above` ▸,
-`Add branch below` ▸, then `Return a branch here` ▸ and `Move a branch
-here` ▸ (only when candidate branches exist), then a separator, then
+Right-click on a project's close. It has no title, status, cursor, note, or
+log, so the menu is short: `Add task above`, `Add task below`, `Add branch
+above` ▸, `Add branch below` ▸, then `Return a branch here` ▸ and `Move a
+branch here` ▸ (only when candidate branches exist), then a separator, then
 `Expand` or `Collapse` (resolved against the begin node the close pairs
-with, so either end of the pair acts identically), `Edit note…`, `Delete
-note…` when a note exists, and `Activity log…`. No `Delete…`: a closer is
+with, so either end of the pair acts identically). No `Delete…`: a closer is
 deleted with its opener.
 
 ### 6.5 The start-card menu
 
 Right-click on a workflow's opener: `Rename…`; for a main workflow `Move
 left` and `Move right` (each present when a neighbour exists in the domain's
-order); a separator; `Add task above`, `Add branch above` ▸, and, when a
-clip exists, `Paste above`; a separator; `Copy` and `Export to Markdown…`;
-`Edit note…`, `Delete note…` when a note exists, `Activity log…`; a
-separator; `Delete…`, which deletes the whole workflow.
+order); `Expand` or `Collapse` (by current fold state; D15 as amended); a
+separator; `Add task above`, `Add branch above` ▸, and, when a clip exists,
+`Paste above`, all three absent while the workflow is folded, since anything
+added on the gap above a folded start node would land invisibly inside the
+fold; a separator; `Copy` and `Export to Markdown…`; `Edit note…`, `Delete
+note…` when a note exists, `Activity log…`; a separator; `Delete…`, which
+deletes the whole workflow.
 
 ### 6.6 The finish-card menu
 
 Right-click on a workflow's close: for a branch workflow, `Detach return`
 when it returns (D18); `Add task below`, `Add branch below` ▸, and `Paste
-below` when a clip exists; a separator; `Edit note…`, `Delete note…` when a
-note exists, `Activity log…`. A main workflow's finish card omits the first
-item. No `Delete…`.
+below` when a clip exists, all three absent while the workflow is folded; a
+separator; `Expand` or `Collapse` (resolved against the start node the close
+pairs with). A closer carries no note and no log, so there are no note or
+log items. A main workflow's finish card omits `Detach return`. No
+`Delete…`.
 
 ### 6.7 The canvas menu
 
@@ -649,8 +654,9 @@ dialog is open, further failures do not stack more dialogs.
 
 A full-window overlay above menus and dialogs raised from outside it
 (Appendix C), opaque on the ground colour; not a dialog. Opens from `Edit
-note…` on any card's menu and from a click on a card's note glyph. There is
-no keyboard shortcut to open it.
+note…` on the menu of any opener or task and from a click on a card's note
+glyph; a closer has no note and offers neither. There is no keyboard
+shortcut to open it.
 
 The editor fills the window as a column:
 
@@ -663,9 +669,8 @@ The editor fills the window as a column:
   toolbar above the text editing area), then a 6px divider, then the preview
   pane; in view mode, the preview pane alone fills the window.
 
-The title shows the node's own title; for an end node it reads `the close of
-“<project title>”` and for a finish node `the close of “<workflow title>”`
-(curly quotes), or `a close` when the pair cannot be resolved.
+The title shows the node's own title; a closer has no note, so the editor
+never opens on one.
 
 The editor always opens in split edit mode (toggle button reading `View`).
 The toggle flips between edit (source + preview) and view (preview only);
@@ -792,12 +797,12 @@ file and clears the node's reference.
 
 ### 8.7 The activity log panel
 
-`Activity log…` on any card's menu opens a panel over the map: a card in the
+`Activity log…` on the menu of any opener or task opens a panel over the map: a card in the
 dialog's visual style but anchored to the right edge of the viewport, 380px
 wide, the viewport's full height, `--panel` fill, a 1px `--line` edge on its
 left, not modal (the map behind stays live, and a right-click on it closes
 the panel). Its head row shows the node's title (14px, weight 800,
-truncated; closers named as in 8.1) and a close button `✕`; below it, a
+truncated) and a close button `✕`; below it, a
 primary button `Add entry…`; below that, the entries newest first, each a
 block: a first line in `--muted` 11px giving the time (local, `D Mon YYYY,
 HH:MM`) and the author (`<name>`, with `· system` for a `system` entry and
@@ -885,8 +890,9 @@ afterwards.
 
 Bookmarks appear only in the canvas menu (6.7): add, jump (by name), delete
 (by name, confirmed). A bookmark is a named saved view stored with the
-domain in its bookmarks file: its name, the set of folded projects, and the
-set of nodes drawn wholly inside the viewport when it was saved (P5). It
+domain in its bookmarks file: its name, the set of folded openers (projects
+and workflows alike), and the set of nodes drawn wholly inside the viewport
+when it was saved (P5). It
 holds no zoom and no camera coordinate.
 
 Jumping applies the fold set (stale entries silently dropped) both to the

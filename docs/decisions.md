@@ -88,7 +88,8 @@ parallel threads of work each have a position. Only a task may carry it.
 
 *2026-08-30.*
 
-Every node carries a time-stamped activity log. The chrome provides both a
+Every opener and task carries a time-stamped activity log (a closer none,
+D11 as amended). The chrome provides both a
 viewer and an editor for it, and both users and AI agents may add entries and
 modify existing ones, for any reason.
 
@@ -243,7 +244,7 @@ concurrent reordering proves painful in practice, the migration is understood.
 
 ### D11. Titles on openers; status on tasks only
 
-*2026-08-30.*
+*2026-08-30; the closers amended 2026-09-03.*
 
 A `start` node and a `begin` node carry a title. A `finish` node and an `end`
 node carry none, so a boundary pair is named by the node that opens it. Only a
@@ -254,6 +255,13 @@ The rejected alternatives were a rolled-up status on boundaries, showing
 aggregate progress on a collapsed project, and an independently settable
 status on every node. The latter is the one arrangement in which the map can
 display a contradiction, a project marked done above unfinished contents.
+
+**Amended 2026-09-03.** A `finish` node and an `end` node carry no note, no
+flag, and no log either: a closer is its id and its kind, an end node its
+`pair` besides, and everything a pair records lives on its opener. The log
+entries that `attach_return` and `detach_return` wrote to a branch's finish
+node go to its start node, which holds the workflow's log; the finish node
+remains the handle for the return and the home of `Detach return` (D18).
 
 ### D12. A node's prose is its note; there is one field, not two
 
@@ -311,7 +319,7 @@ The lane step is the card width plus a horizontal gutter.
 
 ### D15. Folding applies to projects only
 
-*2026-08-30.*
+*2026-08-30; extended to workflows 2026-09-03.*
 
 A `begin`/`end` pair can be collapsed onto one card, the seam drawn as the two
 hull silhouettes crossing into a lens. A workflow's `start`/`finish` pair never
@@ -325,6 +333,17 @@ dismissed.
 
 Fold state is client-local view state keyed by the `begin` node's id, never a
 field of the stored record.
+
+**Amended 2026-09-03.** Folding applies to workflows as well, any workflow,
+main or branch. The two reasons for deferring it are answered: the pair is
+drawn shut by the construction in the mark geometry's 3.12, the start
+ellipse painted over the finish keystone at a seam of 35, and a folded
+branch's laterals arrive and leave exactly as they do when it is open, `L`
+beneath the start card's silhouette and `L` above the finish card's, the
+riser running behind the pair. A folded branch keeps its lane; a folded main
+workflow is one card in the row of mains. Fold state keys on the opener's
+id, `start` or `begin`. The candidate once recorded in the in-flight ideas
+is thereby settled.
 
 ### D16. On a cursor collision, the receiving workflow's cursor survives
 
@@ -513,6 +532,31 @@ geometry's implementation notes.
 
 ---
 
+### D27. Workflows stay; the unification of workflows and projects is declined
+
+*2026-09-03.*
+
+One record kind for every bounded run, with main, branch, and nested as its
+three placements, was considered on the evidence that a workflow and a
+project have the same shape and that the drag rules convert one into the
+other while preserving identity. Three drawings of one small domain were
+compared: the five kinds as written; one kind wearing the hulls everywhere
+and called a project in every placement; and one kind with the ellipse and
+keystone kept for main and branch runs by placement. The unified record
+shortens a line that is a single project by two cards and two gaps, and it
+makes the conversions plain moves.
+
+It was declined. The five-kind drawing is at a glance the clearer and the
+more specific, a start and a finish being unmistakable where a line begins
+and ends; and calling every run a project would put that name on runs that
+are not projects. Two costs are accepted knowingly: a line that holds one
+project carries its own start and finish around it, and a project becomes a
+branch, or a branch a project, by a conversion of kind rather than by a move.
+
+**Consequence.** D2 stands. The two properties the unification would have
+brought with it are taken on their own terms instead: a workflow folds (D15
+as amended), and a closer carries no note, flag, or log (D11 as amended).
+
 ## Proposed
 
 Each of these is written into the specification as if it held, so that the
@@ -562,8 +606,9 @@ unbounded; the viewer shows the newest entries first and pages.
 
 *Proposed 2026-09-02; persistence, chrome.*
 
-A bookmark is `{name, folded, nodes}`: the folded begin ids and the ids of
-every node drawn wholly inside the viewport when it was saved. A client frames
+A bookmark is `{name, folded, nodes}`: the folded opener ids, start or
+begin, and the ids of every node drawn wholly inside the viewport when it
+was saved. A client frames
 those nodes under its own maximum scale and minimum padding, so a bookmark
 survives a layout change and another window size by construction and degrades
 only when every node it names is gone.

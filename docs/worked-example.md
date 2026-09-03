@@ -130,13 +130,11 @@ structural model, section 1):
     "n_e1": {
       "id": "n_e1",
       "kind": "end",
-      "pair": "n_b1",
-      "log": []
+      "pair": "n_b1"
     },
     "n_f0": {
       "id": "n_f0",
-      "kind": "finish",
-      "log": []
+      "kind": "finish"
     },
     "n_s1": {
       "id": "n_s1",
@@ -168,13 +166,11 @@ structural model, section 1):
     "n_e2": {
       "id": "n_e2",
       "kind": "end",
-      "pair": "n_b2",
-      "log": []
+      "pair": "n_b2"
     },
     "n_f1": {
       "id": "n_f1",
-      "kind": "finish",
-      "log": []
+      "kind": "finish"
     },
     "n_s2": {
       "id": "n_s2",
@@ -191,8 +187,7 @@ structural model, section 1):
     },
     "n_f2": {
       "id": "n_f2",
-      "kind": "finish",
-      "log": []
+      "kind": "finish"
     }
   },
   "gaps": {

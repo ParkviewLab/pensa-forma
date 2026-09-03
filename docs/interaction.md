@@ -91,6 +91,12 @@ Dragging always moves. Nothing is ever copied by a drag; copying is the menu's
 In the flagged-only review mode nothing is draggable and no drop target
 exists.
 
+Folding changes none of this. A folded begin or start node drags the whole
+project or workflow exactly as when open, and a folded branch's finish node
+stays the handle for its return. The cards a fold hides, and the edge inside
+the folded pair, present no handle and no target; the pair's outer gaps
+remain targets.
+
 ## 4. The drop-target inventory
 
 A drop target is a hit region in the drawing paired with the command it would
@@ -380,8 +386,9 @@ log, status, flag, cursor, and every other field of every node it moves. A
 conversion between a workflow boundary and a project boundary (7.2, 7.3)
 changes `kind` and the pairing, and nothing else.
 
-One entry is appended to the activity log of the node that was dragged, and
-to no other node, with the event the catalogue assigns. A cancelled, invalid,
+One entry is appended to the activity log of the node that was dragged, or,
+when a finish node was dragged, to its workflow's start node, since a closer
+carries no log; and to no other node, with the event the catalogue assigns. A cancelled, invalid,
 stale, or no-op drop appends nothing.
 
 A drag is one command (command layer, section 3), so it is validated in full,

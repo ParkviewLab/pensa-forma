@@ -509,9 +509,9 @@ start inner, then the start's title. A start card of 58 and a finish card of
 pair's top and the start card's box top 17 below it. The keystone's lower
 part lies behind the ellipse and its upper part rises above it, the two
 tilts unchanged, so the pair reads as the keystone standing in the ellipse.
-The title stays where the start card puts it. Whether a workflow folds at
-all is the layout's and the decisions record's business (D15), not this
-document's; this is how one looks when it does.
+The title stays where the start card puts it, and an untitled start folds to
+an empty ellipse. Whether a workflow folds is the layout's business (D15);
+this is how one looks when it does.
 
 Golden master, the pair `188 by 75`, in paint order:
 
@@ -711,9 +711,8 @@ rules: line (5.5,7.5)->(10.5,7.5);  line (5.5,10)->(10.5,10);  line (5.5,12.5)->
 Where the glyph sits depends on the silhouette, because a card's corner is
 empty on a conic and a glyph placed there would land on the ground.
 
-On the four axis-aligned silhouettes (screen, marquee, hull, and the end
-node's half-turned hull), the box is inset 11 from the card's right edge and
-8 from its bottom, in the card frame.
+On the three axis-aligned silhouettes (screen, marquee, hull), the box is
+inset 11 from the card's right edge and 8 from its bottom, in the card frame.
 
 On the start node's ellipse, the box's bottom-right corner sits at the
 inscribed-rectangle corner of the *inner* ellipse, computed before the tilt
@@ -729,10 +728,8 @@ For the golden master (inner centre `(94.0, 26.5)`, semi-axes `(48.28,
 17.55)`) the corner is `(128.1, 38.9)` and the box `(114.1, 24.9)` before the
 rotation.
 
-On the finish node's keystone the glyph is centred on the inner shape,
-since the cap carries no label and the glyph is then its one piece of
-content: in the keystone's own frame the inner shape's centre is `(51.0,
-23.0)`, so the 14-box sits at `(44.0, 16.0)`, and it rotates with the mark.
+A finish node and an end node carry no note (D11 as amended), so neither
+ever wears the glyph.
 
 ### 11. The drop indicators
 
@@ -811,7 +808,7 @@ Underpass:       TUNE perpClear 3, breakMax 12, capLength 9.2, stripLength 30;
 Junction:        diamond side 12, rotate 45, at every branch and return point; halo r 13
 Note glyph:      design box 16 rendered at 14; body rect (3,3,10,11) corner radius 1.5 stroke 1.2; rings stroke 1.2; rules stroke 1.0;
                  placement: inset 11 right / 8 bottom on the axis-aligned silhouettes; the inner ellipse's
-                 inscribed corner on the start ellipse (rotating with it); centred on the inner shape of the finish keystone
+                 inscribed corner on the start ellipse (rotating with it); never on a finish or an end node
 Drop indicators: chevrons ±13 wide, ±6 tall, tips 7 from centre, stroke 2.4; bar stroke 3
 Ghost:           opacity 0.4 (ghost and original alike)
 Ground:          dot lattice pitch 40; dot radius ~1.2 (full --grid at 1px, transparent by 1.4px)
@@ -857,9 +854,9 @@ independently of the shapes.
 | task | screen | its status colour | `--panel` | status glyph; status tag |
 | task, marked "here" | marquee | its status colour | `--panel` | sputnik beside it; HERE pill |
 | start node | ellipse, tilted −3 | `--c-workflow` | `--panel` | workflow glyph; centred label |
-| finish node | keystone 100 by 52, tilted +2 | `--c-workflow` | `--panel` | no label or tag; the note glyph centred when noted |
+| finish node | keystone 100 by 52, tilted +2 | `--c-workflow` | `--panel` | no label, glyph, or tag; carries no note |
 | begin node | hull | `--c-project` | `--c-project-tint` | project glyph; centred label |
-| end node | hull, half-turned | `--c-project` | `--c-project-tint` | no label, glyph, or tag |
+| end node | hull, half-turned | `--c-project` | `--c-project-tint` | no label, glyph, or tag; carries no note |
 | any flagged node | (its shape) | (unchanged) | (unchanged) | orbits behind, in the node's colour |
 | folded begin node | hull | `--c-project` | `--c-project-tint` | end drawn shut on its card, painted over it (3.11); extra top spacing |
 | folded start node | ellipse over keystone | `--c-workflow` | `--panel` | finish drawn behind the start card by the workflow fold seam (3.12) |

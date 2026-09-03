@@ -13,13 +13,6 @@ there too, not here.*
 
 ## Design
 
-### Folding a branch
-
-A folded project hides its body (D15); a branch workflow cannot be folded. A
-busy map would be quieter if a branch could be shut onto its start card, but
-that needs a seam construction for the ellipse-and-circle pair and a rule for
-where a folded branch's return lateral arrives. Recorded as a candidate.
-
 ### Fractional sort keys for the three orderings
 
 Ordered arrays of ids (D10) are legible and simple; two writers inserting in

@@ -19,8 +19,8 @@ which run in parallel beside it and may rejoin it or not. Workflows are
 gathered into domains (HomeLab, Work, and so on), each a set of plain files on
 the user's own disk. The graph is drawn as a subway map, and it is
 restructured by dragging tasks, whole projects, and whole workflows. Every
-node may carry a written note and always carries an activity log, which
-people and agents both write.
+opener and every task may carry a written note and always carries an
+activity log, which people and agents both write; a closer carries neither.
 
 ## Why it exists
 
@@ -81,7 +81,7 @@ through one write path, so neither can put the graph into a state the other
 could not have. The window shows an agent's edits as they land, holding the
 camera where the person left it. A refusal names the rule and the legal
 alternative, so an agent learns the model from the tool surface rather than
-retrying blindly. And the activity log on every node is the shared worklog:
+retrying blindly. And the activity log on every opener and task is the shared worklog:
 the application records structural changes there, and people and agents add
 and amend entries at will.
 
@@ -137,7 +137,7 @@ and amend entries at will.
     change is one command, validated in full before anything is written, and
     where an edit would invalidate a connection the connection is detached and
     left visibly undone, never moved somewhere unasked.
-12. The log is a worklog: every node's activity log is written by the
+12. The log is a worklog: every opener's and task's activity log is written by the
     application, by people, and by agents, and any of them may amend it. It
     records what has been recorded.
 

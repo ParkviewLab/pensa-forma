@@ -121,11 +121,11 @@ in the arrays that name it. See section 2.6 for why.
 | `kind` | `start` \| `finish` \| `begin` \| `end` \| `task` | fixed at creation except by the two conversions the catalogue defines |
 | `title` | string | `start`, `begin`, and `task` only; may be empty |
 | `pair` | node id | `begin` and `end` only; each names the other |
-| `note` | filename or null | any kind; the reference to the node's note file, which holds its prose |
+| `note` | filename or null | `start`, `begin`, and `task` only; the reference to the node's note file, which holds its prose |
 | `status` | `todo` \| `doing` \| `done` \| `cancelled` | `task` only |
-| `flagged` | boolean | any kind |
+| `flagged` | boolean | `start`, `begin`, and `task` only |
 | `here` | boolean | `task` only; at most one true per workflow |
-| `log` | list of log entries | any kind; section 5 |
+| `log` | list of log entries | `start`, `begin`, and `task` only; section 5 |
 
 A field marked for one kind is absent on the others, not present and null. A
 validator rejects a `status` on a `begin` node rather than ignoring it,
@@ -134,7 +134,9 @@ because a field that is silently ignored is a field that silently diverges.
 The `title` rule is what makes a boundary pair legible: the node that opens
 the pair is named and the node that closes it is not, so a workflow is named
 by its start node and a project by its begin node. A `finish` node and an
-`end` node carry no label at all, in the model and on the canvas alike.
+`end` node carry no label, no note, no flag, and no log, in the model and on
+the canvas alike: a finish node is its id and its kind, and an end node its
+id, its kind, and its `pair`. Everything a pair records lives on its opener.
 
 ### 2.4 Gap, and the two points within it
 
@@ -282,9 +284,9 @@ not renumber.
 
 **State**
 
-- **I14.** Only a `start`, a `begin`, or a `task` node has a `title`; only a
-  `begin` or an `end` node has a `pair`; only a `task` has a `status` or a
-  `here`.
+- **I14.** Only a `start`, a `begin`, or a `task` node has a `title`, a
+  `note`, a `flagged`, or a `log`; only a `begin` or an `end` node has a
+  `pair`; only a `task` has a `status` or a `here`.
 - **I15.** At most one node in a workflow has `here` true.
 
 **References**
@@ -305,13 +307,13 @@ needed on the gesture.
 
 `status` takes one of four values, `todo`, `doing`, `done`, `cancelled`, and
 cycles in that order when the status glyph is clicked. `flagged` drives the
-flagged-only review mode and may be set on any node. `here` marks the current
+flagged-only review mode and may be set on any opener or task. `here` marks the current
 task within its workflow, at most one per workflow (I15), and is shared with
 other writers rather than being a local view state.
 
 A node's written prose is its **note**, and that is the only name for it.
-There is no second, shorter description field: a node has a note or it has
-none.
+There is no second, shorter description field: an opener or a task has a
+note or it has none, and a closer has none.
 
 The note is a markdown file in the domain's `notes/` directory, and the node
 record holds only its filename. Four consequences follow, each of which an
@@ -339,7 +341,8 @@ A node may hold a reference to an empty file. Emptying a note is not deleting
 it, so the reference and the glyph both remain; the glyph means a note exists
 here, not that it has text in it.
 
-The **activity log** is a list of entries on the node, oldest first.
+The **activity log** is a list of entries on an opener or a task, oldest
+first; a closer has none.
 
 | Field | Type | Notes |
 | --- | --- | --- |
@@ -463,7 +466,7 @@ departure index, so I11 holds; both are left-side, so I10 holds. Branch
 `w_docs` departs at gap 6, which lies in no project, and appears in no return
 list, so it is open, which I8 permits. Two nodes carry `here`, `n_t2` and
 `n_t5`, but in different workflows, so I15 holds. `n_f1`, `n_f2`, `n_f3`, and
-`n_e1` carry no title, per I14.
+`n_e1` carry no title, note, flag, or log, per I14.
 
 Three edits that must be refused, and why: moving `w_qa`'s return to gap 5
 breaks I12, since gap 5 lies outside the project while its departure lies

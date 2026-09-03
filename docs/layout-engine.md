@@ -390,9 +390,10 @@ span contains every span inside it. Where the application must place a
 branch automatically rather than being told where, an open branch goes
 outermost.
 
-## 7. Folded scopes
+## 7. Folded scopes and folded workflows
 
-A folded project (D15) is the one edge exempt from section 3. The client's
+A folded project (D15) is one of the two edges exempt from section 3; a
+folded workflow, below, is the other. The client's
 view keeps the `begin`/`end` pair and drops the body, and the `end` node is
 placed flush on the `begin` node's card, bottom edge to top edge, with no
 air at all: that edge reports an air of zero, and the two hulls overlap by
@@ -423,6 +424,19 @@ departure and return laterals are not drawn, and its lanes are not reserved.
 A branch departing inside the fold and returning inside it vanishes whole;
 by I12 no branch departs inside and returns outside, so nothing can be left
 dangling.
+
+A folded workflow (D15 as amended) is treated the same way. Its finish card
+sits on its start card, the two overlapping by `seamW`, a constant 35, since
+the ellipse and the keystone are fixed marks whose overlap does not vary
+with height (mark geometry, 3.12); that edge reports an air of zero. Every
+card between the two, and every branch attached at any of the workflow's
+gaps with its descendants, is hidden and reserves no lane. A folded branch
+keeps its own lane and its two laterals: the departure arrives `L` beneath
+the start card's silhouette and the return leaves `L` above the finish
+card's, exactly as when open, the riser running behind the pair, so the
+constraints of section 3 apply to the pair as to any first and last card. A
+folded main workflow is one card of `58 + 52 - seamW` in the row of mains,
+with nothing beside it.
 
 Fold state is client-local view state, so no stored record ever asks for
 this, and folding never changes the record.
@@ -470,7 +484,7 @@ packing; lifting is monotone. Which node is lifted follows the record of which
 constraint set each node's height, so a node whose height a lateral pins is
 repaired by lifting the host of the branch that pins it, rather than by
 bending that lateral off twelve degrees. A folded pair's closing node pins to
-its own begin node for the same reason: the pair is one object, and slack
+its own opener for the same reason: the pair is one object, and slack
 given to the close would come out of the seam rather than move anything.
 
 Two properties of the pass matter more than the mechanism. It is bounded by
@@ -539,7 +553,8 @@ L               the standard trunk-edge length: the outgoing edge, the incoming
                 (cardW/2)·tan12 + junctionMargin                             24
 minAir          2L, the shut gap; air is never inside the open band (2L, 3L)  48
 junctionMargin  the least clearance between a lateral and the card it passes   4
-seam            overlap of a folded pair                                    22
+seam            overlap of a folded project's pair                          22
+seamW           overlap of a folded workflow's pair                         35
 repairPasses    bound on the repair loop                                    8
 margin          drawing margin inside the bounds                            24
 ```
