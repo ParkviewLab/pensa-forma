@@ -52,8 +52,7 @@ of its parent, runs alongside, and either returns to a later point or runs
 open. The data model stores exactly this and nothing that contradicts it: five
 node kinds, each intrinsic; a gap record between every pair of consecutive
 nodes, owning the branch point where branches depart and the return point
-where they arrive; on each point two ordered sides. The action that creates a
-node decides the structure it takes, and ordering never does.
+where they arrive; on each point two ordered sides.
 
 ### 2. Structure is legible at a glance
 
@@ -110,9 +109,10 @@ and amend entries at will.
 
 ## Axioms
 
-1. The creating action decides structure, not order: inserting a task
-   continues the line at the edge it names; opening a branch starts a parallel
-   workflow off a point.
+1. A node's kind, and whether a workflow is a branch, are decided by the
+   action that creates them and stored; neither is ever inferred from
+   position. Inserting a task continues the line at the edge it names;
+   opening a branch starts a parallel workflow off a point.
 2. One way in, one way out, at every level: a workflow opens at its start node
    and closes at its finish node, a project opens at its begin node and closes
    at its end node, and growth rises between them.
