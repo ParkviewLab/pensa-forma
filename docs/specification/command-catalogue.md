@@ -104,7 +104,9 @@ These three act on the library rather than on a record, so they take no
 Tier read-write. Not undoable. Creates a directory in the library named for
 the new domain's id and a slug of its name ([persistence](persistence.md)),
 writes an empty record (`schema 1`, `revision 0`, empty `mains`, `workflows`,
-`nodes`, and `gaps`), and creates its `notes/` directory.
+`nodes`, and `gaps`), creates its `notes/` directory, and writes the schema
+file and the README that describe the record beside it (persistence, section
+3.1).
 
 Refusals. `bad_arguments`: "A domain name is one to sixty-four characters
 with no leading or trailing space and no control characters." `refused`: "A

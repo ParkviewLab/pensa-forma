@@ -648,6 +648,34 @@ proposed for main-workflow targets is withdrawn: one mark that says "here"
 serves every target, and its place in a gutter rather than on a line already
 says what the drop will do.
 
+### D36. The domain directory describes itself
+
+*2026-09-08.*
+
+The record is plain JSON, read tolerantly (JSON5 accepted) and written
+canonically. A reader with only the directory should not have to divine what
+the fields mean, and comments in the record cannot supply the description:
+the application rewrites the whole record on every save from its data model,
+so anything the text carried beyond the data would survive only until the
+next save. A format that invites annotation and then discards it is worse
+than one that says what it is.
+
+The description therefore travels beside the data, as two files the
+application writes into every domain directory: `domain.schema.json`, a JSON
+Schema with a description on every property, which the record names in a
+`$schema` field so that editors explain the fields and validators check them
+without the application; and `README.md`, the same description as a page for
+a person. Both are generated from the schema's descriptions, authored once
+beside the `store` crate and checked against the structural model by test,
+so the description cannot drift from the record; both are rewritten when the
+schema version changes and never read for data.
+
+**Consequence.** `$schema` is the record's first field; the persistence
+document's section 3.1 specifies the two files; the store writes them on
+`create_domain` and on migration; the tests validate the fixture against the
+schema and assert that every field in the structural model's tables carries
+a description.
+
 ## Proposed
 
 None at present.

@@ -80,6 +80,8 @@ Inside a domain directory:
 | Entry | What it is |
 | --- | --- |
 | `domain.json` | the record (section 3) |
+| `domain.schema.json` | the JSON Schema of the record, with a description of every field (section 3.1) |
+| `README.md` | a page of prose describing the directory and the record's fields (section 3.1) |
 | `bookmarks.json` | the saved views (section 5); absent until the first bookmark |
 | `notes/` | one markdown file per node note (section 4) |
 
@@ -116,6 +118,7 @@ are byte-identical and a diff shows only what changed.
 The top level:
 
 ```
+$schema     string       "domain.schema.json", the schema file beside the record
 schema      integer      1
 revision    integer
 id          d_…
@@ -126,7 +129,9 @@ nodes       { n_…: Node }
 gaps        { g_…: Gap }
 ```
 
-A workflow: `id`, `nodes` (list), `gaps` (list). A node: `id`, `kind`, then
+`$schema` is written first and names the schema file by its relative name; it
+is not model state, and a record that lacks it still loads. A workflow: `id`,
+`nodes` (list), `gaps` (list). A node: `id`, `kind`, then
 the fields its kind carries in the order `title`, `pair`, `status`, `completedAt`, `here`,
 `flagged`, `note`, `log`; a log entry: `id`, `at`, `author`, `origin`,
 `event`, `text`, `editedAt`, `editedBy`, with the last three omitted when
@@ -137,6 +142,7 @@ The worked instance of the structural model, section 8, in canonical form:
 
 ```json
 {
+  "$schema": "domain.schema.json",
   "schema": 1,
   "revision": 7,
   "id": "d_ex01",
@@ -198,6 +204,42 @@ exactly once, only when the migration changed something. A record whose
 `schema` is higher than the application understands is refused with a message
 that names both versions; the application never guesses at a format it does
 not know.
+
+### 3.1 The directory describes itself
+
+A domain is plain JSON and markdown so that it can be read without the
+application, and a reader with only the directory must not have to divine
+what the record's fields mean. The description therefore travels with the
+data, as two files the application writes beside the record (D36).
+
+`domain.schema.json` is a JSON Schema for `domain.json`, with a `description`
+on every property, taken from the structural model's tables. The record's
+first field, `$schema`, names it by relative name, so an editor that
+understands JSON Schema explains each field on hover and flags a hand edit
+that breaks the shape, and any JSON Schema validator can check a file with
+no application present.
+
+`README.md` is the same description for a person: a page of prose saying
+what the three kinds of file in the directory are, how the record is laid
+out, with a table of its fields, how a note file's name carries its node's
+id, and what the bookmarks file holds.
+
+Both are the application's. They are generated from one source, the
+schema's descriptions, which are authored once in the repository beside the
+`store` crate and checked against the structural model by test; the README
+is rendered from the schema. The application writes both when it creates a
+domain and rewrites both whenever the record's `schema` version changes,
+and never reads either for data: the record is the only authority, and a
+hand edit to these two files is overwritten at the next such write. Neither
+is part of section 8's atomic write of the record; each is written whole on
+its own.
+
+Comments in the record itself were considered and rejected. The application
+rewrites the whole record on every save, and a writer that reconstructs the
+text from the data model strips whatever the text carried that the model
+does not, so a comment would survive exactly until the next save. The
+tolerant read (section 3) still accepts a file with comments or trailing
+commas; it does not preserve them.
 
 ## 4. Note files
 

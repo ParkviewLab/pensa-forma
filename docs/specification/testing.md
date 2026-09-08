@@ -56,6 +56,13 @@ instance through a hand-edited JSON5 form (comments, unquoted keys, trailing
 commas) and asserting the canonical output is byte-identical to the fixture
 in the persistence document, section 3.
 
+**The self-describing directory** is tested two ways: the persistence
+fixture validates against `domain.schema.json`, and every field in the
+structural model's tables is asserted to carry a `description` in the schema,
+so that a field added to the model without a description fails the build.
+Creating a domain on a temporary library is asserted to write the schema and
+the README beside the record, and a migration to rewrite them.
+
 **Path safety** is tested with traversal attempts: a domain path outside the
 library root, a note filename with a separator, a sibling directory whose
 name begins with the root's, each refused.

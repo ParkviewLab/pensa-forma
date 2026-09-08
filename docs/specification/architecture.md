@@ -52,7 +52,9 @@ which is what makes its invariants and mutations testable headless and lets
 the interface's trial applications (interaction, section 5) run thousands of
 times a second. `store` is the only crate that touches the filesystem, and it
 knows nothing about what it stores beyond "a record's text" and "a note's
-text". `command` is the only crate that both understands the model and
+text"; it also carries, embedded, the record's JSON Schema and the README
+rendered from it, and writes both into a domain directory when the domain
+is created and when its schema version changes (persistence, section 3.1). `command` is the only crate that both understands the model and
 writes files, which is the one write path. `layout` is pure too: a validated
 record and a map of card sizes in, positions out. `server` and `app` are the
 two callers of `command` and never call each other.

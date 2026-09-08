@@ -79,6 +79,7 @@ A domain holds workflows and the gaps and nodes inside them.
 
 | Field | Type | Notes |
 | --- | --- | --- |
+| `$schema` | string | the relative name of the JSON Schema beside the record, `domain.schema.json`; written by the application, not model state (persistence, section 3.1) |
 | `schema` | integer | the record's schema version; `1` for this specification |
 | `revision` | integer | monotonic, incremented on every successful write (section 7) |
 | `id` | id | |

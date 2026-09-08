@@ -59,7 +59,7 @@ workflows = {
 gaps = {f'g_{i}': {} for i in range(13)}
 gaps['g_2'] = {'id': 'g_2', 'branchLeft': ['w_plan', 'w_111']}
 gaps['g_3'] = {'id': 'g_3', 'returnLeft': ['w_plan', 'w_111']}
-record = {'schema': 1, 'revision': 1, 'id': 'd_smalltest0', 'name': 'Small Test', 'mains': ['w_main'],
+record = {'$schema': 'domain.schema.json', 'schema': 1, 'revision': 1, 'id': 'd_smalltest0', 'name': 'Small Test', 'mains': ['w_main'],
           'workflows': workflows, 'nodes': nodes, 'gaps': gaps}
 record_json = json.dumps(record, indent=2, ensure_ascii=False)
 

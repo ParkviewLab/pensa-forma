@@ -33,6 +33,7 @@ structural model, section 1):
 
 ```json
 {
+  "$schema": "domain.schema.json",
   "schema": 1,
   "revision": 1,
   "id": "d_smalltest0",

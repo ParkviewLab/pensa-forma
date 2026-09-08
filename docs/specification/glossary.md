@@ -25,7 +25,8 @@ crate name. Documents refer to "the application" where the name itself is not
 the point.
 
 **Domain.** The unit of storage and of display: a set of workflows kept
-together (HomeLab, Work, and so on), held as one directory on disk. The
+together (HomeLab, Work, and so on), held as one directory on disk beside a
+schema file and a README that describe the record's format. The
 application shows one domain at a time. A domain has an `id` and a `name`; the
 name is unique within the library.
 
