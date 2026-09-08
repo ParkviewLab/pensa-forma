@@ -11,7 +11,7 @@ of them; a branch runs in parallel beside its workflow and may rejoin it. The
 graph is drawn as a mid-century retrofuturist systems diagram, a
 Googie-inspired Atomic Age flowchart laid out like a retro transit map; it is
 kept as plain files on your own disk, and is open to AI agents through a local
-automation MCP server while the application runs.
+Model Context Protocol (MCP) automation server while the application runs.
 
 ## Status
 

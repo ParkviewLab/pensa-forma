@@ -32,9 +32,11 @@ name is unique within the library.
 **Library.** The directory holding every domain directory. The library root is
 a user setting; its default is the application's data directory.
 
-**Automation server.** The application's programmatic interface: a local
-server, speaking the Model Context Protocol (MCP), through which external tools
-and AI agents read and write the open library while the application runs.
+**MCP automation server, automation server.** The application's
+programmatic interface: a local server speaking the Model Context Protocol
+(MCP), through which external tools and AI agents read and write the open
+library while the application runs. The other documents call it the
+automation server for short.
 
 ## Nodes
 
