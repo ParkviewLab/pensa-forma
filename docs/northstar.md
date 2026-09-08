@@ -126,9 +126,10 @@ and amend entries at will.
 3. A branch may return or not, and when it returns it rejoins the workflow it
    left, within the scope it left, so that any scope can be read, and folded,
    as a single block.
-4. Side and order are the author's: which side of its parent a branch runs on,
-   and its order among the branches sharing a point, are stored and set by
-   hand. The drawing obeys them.
+4. Placement is the author's: the order of a domain's main workflows from left
+   to right, and, for every branch, which side of its parent it runs on and
+   its order among the branches sharing a point, are stored and set by hand.
+   The drawing obeys them.
 5. Every workflow, main or branch, has its own place where the work is, set by
    hand.
 6. Status is shown, not inferred: a completed or cancelled task stays on the
