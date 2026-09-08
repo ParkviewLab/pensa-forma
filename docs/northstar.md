@@ -147,9 +147,9 @@ and amend entries at will.
 10. Decoration that does not clarify is cut.
 11. One write path: every change is one command, validated in full before
     anything is written.
-12. Nothing is rewritten behind the author's back: where an edit would
-    invalidate a connection, the connection is detached and left visibly
-    undone, never moved somewhere unasked.
+12. Nothing is rewritten by guesswork: an edit that would break a branch's
+    return detaches it and leaves the branch visibly open, never reconnected
+    somewhere unasked.
 13. The log is a worklog: every activity log is written by the application, by
     people, and by agents, and any of them may amend it. It records what has
     been recorded.
