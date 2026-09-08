@@ -31,7 +31,9 @@ project, and task may carry a written note and always carries an activity log,
 which people and agents both write. A task has a status: to do, in progress,
 done, or cancelled. On each workflow one task may be marked here, the place
 where the work is in that workflow; and any workflow, project, or task may be
-flagged for attention, so that a review can show the flagged items alone.
+flagged for attention, so that a review can show the flagged items alone. A
+domain may also keep bookmarks: named views, saved with it, that anyone who
+opens the domain can return to.
 
 ## Why it exists
 
@@ -140,8 +142,8 @@ and amend entries at will.
 8. The file is the source of truth, and it is the user's: plain JSON and
    markdown on disk, portable and legible without the application.
 9. View is not data: what a client has folded, where its camera rests, and its
-   zoom are that client's own state, kept out of the domain file. A named,
-   saved view may travel with the data; a client's live view never does.
+   zoom are that client's own state, kept out of the domain file. A bookmark
+   may travel with the data; a client's live view never does.
 10. Decoration that does not clarify is cut.
 11. One write path: every change is one command, validated in full before
     anything is written.
