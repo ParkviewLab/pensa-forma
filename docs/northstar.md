@@ -152,14 +152,16 @@ and amend entries at will.
 
 ## Guiding questions
 
-- Could a person or an agent, given only these documents, build the
-  application, and could a person, given only the README, use it?
-- Does the record store exactly what the author decided, and derive
-  everything else?
-- If this edit were made by an agent while the person watched, would the map
-  show it without moving under them, and would a refusal have told the agent
-  what to do instead?
-- Is there exactly one source of truth for this fact?
+One per intent, in the intents' order; a proposal answers all four.
+
+- Does the record store exactly what the author decided, and derive everything
+  else?
+- Can the shape of the work still be seen before a label is read?
+- Does this leave the domain as plain files the user can read, move, and keep
+  without the application?
+- If an agent made this edit while the person watched, would the map show it
+  without moving under them, and would a refusal have told the agent what to
+  do instead?
 
 ## What PensaForma is not
 
