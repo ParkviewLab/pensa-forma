@@ -130,8 +130,9 @@ and amend entries at will.
    to right, and, for every branch, which side of its parent it runs on and
    its order among the branches sharing a point, are stored and set by hand.
    The drawing obeys them.
-5. Every workflow, main or branch, has its own place where the work is, set by
-   hand.
+5. In every workflow, main or branch, one task may be marked here, the place
+   where the work is in that workflow. The mark is set by a person or an
+   agent, never inferred from the tasks' statuses.
 6. Status is shown, not inferred: a completed or cancelled task stays on the
    map, recoloured, and only deletion removes it.
 7. Structure lives in the visual channel: if the reader must read to see the
