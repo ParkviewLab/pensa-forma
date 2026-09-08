@@ -108,10 +108,10 @@ and amend entries at will.
   expects its writes to stand. Undo therefore reverses only the person's last
   command, and only while nothing has been written since; an agent's write
   empties the undo slot rather than being undone with it.
-- A worklog against a record of fact. An editable log is more useful to the
-  people and agents keeping it, and less trustworthy as evidence. The
-  application chooses the worklog and says so; it does not pretend the log is
-  an audit trail.
+- The activity log is a worklog, not an audit trail. It can be edited by
+  people and by agents, which is what makes it useful to them. An audit trail,
+  if one were ever wanted, would be a separate record that could not be
+  altered after its creation.
 
 ## Axioms
 
