@@ -19,6 +19,16 @@ authoritative, org-wide version of all of this is the
 - Releases are cut from **`main`** via the CLI (`git merge --no-ff develop`, then
   bump + tag), not a PR. See the handbook's `releases.md`.
 
+## The documents lead
+
+The northstar is the authority for intent and the specification for structure
+and behaviour (`docs/specification/decisions.md`, D1). A pull request that
+changes what the application is for, or how an axiom is honoured, amends
+`docs/northstar.md` in the same PR; one that changes structure or behaviour
+the specification states amends the specification in the same PR, the
+Markdown first and its HTML twin with it. An unintended disagreement between
+the code and either document is a defect in the code, not in the document.
+
 ## Commit / PR-title convention (this is what the changelog reads)
 
 Because PRs are squash-merged, **the PR title becomes the commit subject**, and

@@ -8,7 +8,9 @@ SPDX-License-Identifier: CC-BY-4.0
 The canonical statement of what this application is for. Design decisions and
 feature proposals are weighed against it. Where it and any other document
 disagree, this one is the authority and the other is the thing to fix; where
-it and the code disagree, the code is wrong.
+it and the code disagree, the code is wrong. A change of intent is therefore
+made here first, in the same pull request as the code that follows it, so
+that no disagreement is ever left standing by accident.
 
 ## What it is
 
