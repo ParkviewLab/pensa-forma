@@ -87,6 +87,12 @@ background decoration and draws none. If a real theming pass wants
 atmosphere, scatter them procedurally from the drawing's bounds, seeded by
 the domain id so they stay put.
 
+### Designed HTML for the northstar
+
+The handbook's dual-track convention asks for a designed HTML companion to
+the northstar. The two HTML siblings that matter most to an implementer, the
+mark geometry's and the chrome's, come first; the northstar's follows.
+
 ## Tooling
 
 ### Release packaging for a Rust desktop app
@@ -118,9 +124,3 @@ and clippy gates, the `rust-toolchain.toml` pin, the `test-rust.yml` shape,
 the version guard's Cargo branch, the workspace layout) are recorded only here
 for now. Once proven, propose a `rust-tooling.md` in the handbook, analogous
 to `node-tooling.md`, so the next Rust repo starts from the same shape.
-
-### Designed HTML for the northstar
-
-The handbook's dual-track convention asks for a designed HTML companion to
-the northstar. The two HTML siblings that matter most to an implementer, the
-mark geometry's and the chrome's, come first; the northstar's follows.
