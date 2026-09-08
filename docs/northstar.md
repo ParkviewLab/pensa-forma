@@ -102,8 +102,9 @@ and amend entries at will.
 - Local files against richer capability. Plain JSON and markdown are the
   floor; later richness (search, indexing, synchronisation) is added over the
   files, not by replacing them with something the user does not own.
-- Skin against clarity. The mid-century theme is a genuine pleasure, but any
-  decoration that does not clarify the structure is decoration to remove.
+- Visual clarity takes precedence over decoration. While the mid-century theme
+  is a genuine pleasure, any decoration that does not clarify the structure is
+  decoration to remove.
 - One authority against two writers. A person expects to undo; an agent
   expects its writes to stand. Undo therefore reverses only the person's last
   command, and only while nothing has been written since; an agent's write
