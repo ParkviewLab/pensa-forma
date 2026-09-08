@@ -20,8 +20,9 @@ together, as a living graph of workflows. A workflow orders tasks. It may
 contain projects, which group a contiguous run of its nodes, and branches,
 which run in parallel beside it and may rejoin it or not. Workflows are
 gathered into domains (HomeLab, Work, and so on), each a set of plain files on
-the user's own disk. The graph is drawn as a subway map, and it is
-restructured by dragging tasks, whole projects, and whole workflows. Every
+the user's own disk. The graph is drawn as a mid-century retrofuturist
+flowchart, and it is restructured by dragging tasks, whole projects, and
+whole workflows. Every
 opener and every task may carry a written note and always carries an
 activity log, which people and agents both write; a closer carries neither.
 
@@ -56,10 +57,9 @@ node decides the structure it takes, and ordering never does.
 
 ### 2. Structure is legible at a glance
 
-A domain is drawn as a mid-century retrofuturist systems diagram, a
-Googie-inspired Atomic Age flowchart laid out like a retro transit or
-control-system map: stations are nodes, tracks are the lines they sit on, and
-a junction between two stations is where a branch leaves or returns. Before reading a single label one can see the shape of the work:
+A domain is drawn as a mid-century retrofuturist flowchart laid out like a
+transit map: stations are nodes, tracks are the lines they sit on, and a
+junction between two stations is where a branch leaves or returns. Before reading a single label one can see the shape of the work:
 where one is (the cursor's card), what is done, in progress, or cancelled (the
 outline colour), where a line branches, where it comes back, and where it
 does not. The visual channel carries the structure; text only names it. The

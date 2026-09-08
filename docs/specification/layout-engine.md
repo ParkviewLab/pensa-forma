@@ -227,7 +227,7 @@ the return lateral. The return lateral stays exactly ramp-flat-ramp with the
 constant rise and no special case, which is what lets one construction serve
 both ends. And the branch's spine reads as one continuous heavy line with a
 lighter connector leaving its top, the riser being drawn heavier than a
-lateral, which is the subway idiom the whole mark vocabulary is built on.
+lateral, which is the transit-map idiom the whole mark vocabulary is built on.
 
 The tail is unbounded above and nothing caps it. A branch that leaves low on
 a tall parent and rejoins near its top runs most of that parent's height as
