@@ -14,7 +14,7 @@ The intent, the open questions, and how to work in this repository.
 
 | Document | What it is |
 |---|---|
-| [northstar.md](northstar.md) | Intent: what the application is for, its intents and axioms, and the trade-offs the design makes; the authority where intent and structure seem to disagree |
+| [northstar.md](northstar.md) · [.html](northstar.html) | Intent: what the application is for, its intents and axioms, and the trade-offs the design makes; the authority where intent and structure seem to disagree |
 | [in-flight_ideas.md](in-flight_ideas.md) | Questions under consideration, each a candidate to weigh against the northstar and promote or drop |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | How to work in this repository: branches, pull requests, releases |
 

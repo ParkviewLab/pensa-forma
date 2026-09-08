@@ -87,12 +87,6 @@ background decoration and draws none. If a real theming pass wants
 atmosphere, scatter them procedurally from the drawing's bounds, seeded by
 the domain id so they stay put.
 
-### Designed HTML for the northstar
-
-The handbook's dual-track convention asks for a designed HTML companion to
-the northstar. The two HTML siblings that matter most to an implementer, the
-mark geometry's and the chrome's, come first; the northstar's follows.
-
 ## Tooling
 
 What this repository settles as the family's first in Rust is fed back to the
