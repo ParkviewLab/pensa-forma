@@ -47,7 +47,24 @@ intended channel for other tools; revisit if a file-level consumer appears.
 
 Deferred from the first version (automation server, section 4). Generated
 once, kept in settings, shown in the pill, passed as a header; composes with
-the loopback binding and the Host and Origin allowlist.
+the loopback binding and the Host and Origin allowlist. It would close the one
+gap those leave: any process on the same machine can reach the port.
+
+Its standing in the protocol, checked against the specification's 2026-07-28
+revision: authorization is optional in MCP, and where an HTTP server requires
+it the specification's framework is OAuth 2.1, in which the token travels as
+`Authorization: Bearer <token>` but is issued by an authorization server the
+MCP server advertises, obtained through a browser flow, and bound to the
+server as its audience; a client must not send a token from anywhere else. A
+static per-install secret uses the same header and sits outside that
+framework. It works with clients that let a person configure a fixed header
+when registering a server, which is a client feature rather than conformance.
+The conformant alternative is for the application to act as its own
+authorization server, which the specification permits, at the cost of
+implementing the browser flow; the draft client-credentials extension is the
+nearest thing to a pre-shared secret and may be the fit if it stabilises. The
+choice, when it is made, is between the pragmatic header and the conformant
+flow.
 
 ### A server mode over a LAN
 
