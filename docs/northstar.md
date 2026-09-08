@@ -75,12 +75,14 @@ The visual channel carries the structure; text only names it.
 
 ### 3. It is yours, and it is local
 
-A domain is plain files on the user's own disk: one JSON file in a directory of
-its own, beside its per-node markdown notes. No account, no cloud, no lock-in.
-The files are grep-able, diff-able, and editable in any other tool; a note is
-just markdown. The application owns the formatting of the domain file, never
-the user's ability to read, move, or keep the data. The automation server
-serves the user's own machine and nothing beyond it.
+A domain is plain files on the user's own disk: one JSON file in a directory
+of its own, beside its per-node markdown notes. No account, no cloud, no
+lock-in. The files are grep-able, diff-able, and editable in any other tool; a
+note is just markdown; and the directory carries a description of its own
+format, so the record can be read without the application. The application
+owns the formatting of the domain file, never the user's ability to read,
+move, or keep the data. The automation server serves the user's own machine
+and nothing beyond it.
 
 ### 4. People and agents author it together
 
