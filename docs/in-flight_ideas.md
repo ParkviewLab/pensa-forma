@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 *Candidates under consideration. Each is a question, not a commitment: to
 research, weigh against the [northstar](northstar.md), and either promote to
 a plan or drop. Nothing here is acted on silently. Settled matters are in the
-[decisions record](decisions.md); the proposals awaiting a ruling are listed
+[decisions record](specification/decisions.md); the proposals awaiting a ruling are listed
 there too, not here.*
 
 ## Design
@@ -79,7 +79,7 @@ candidates are `cargo-dist` (which generates the dmg, msi, and AppImage
 targets and can drive the release itself) and a bespoke `release-rust.yml` in
 the handbook's shape (gate, a three-OS build matrix, the changelog job) with
 `cargo-packager` for the bundles and `apple-codesign` for macOS signing and
-notarisation from any CI runner. The [architecture](architecture.md) assumes
+notarisation from any CI runner. The [architecture](specification/architecture.md) assumes
 the latter; whichever is chosen must slot into the tag → CI → GitHub Release
 flow the handbook establishes for desktop apps. Also open: whether Windows
 signing is wanted for the first releases.

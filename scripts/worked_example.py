@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # SPDX-FileCopyrightText: 2026 Gary Frattarola <garyf@parkviewlab.ai>
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Regenerate docs/worked-example.md and docs/worked-example.html.
+"""Regenerate docs/specification/worked-example.md and its HTML twin.
 
 The Small Test domain carried through the specification: the record in canonical
 form, the layout the engine's rules compute for it, and the drawing the mark
 geometry makes of that layout. Every number here follows a rule stated in
-docs/layout-engine.md or docs/mark-geometry.md; when a rule changes, change it
+docs/specification/layout-engine.md or docs/specification/mark-geometry.md; when a rule changes, change it
 here and run this script, so the example never drifts from the documents.
 
 Usage:  python3 scripts/worked_example.py   (from the repo root)
@@ -288,7 +288,7 @@ and parting, the outer's flat lower; the two return laterals mirroring them;
 the gap above step Beta opened by the branches, its middle edge taking the
 slack, whilst everything at or below the departure stays put.
 """
-pathlib.Path('docs/worked-example.md').write_text(md)
+pathlib.Path('docs/specification/worked-example.md').write_text(md)
 
 # ---- the html -------------------------------------------------------------------------------------------
 def window(theme):
@@ -349,5 +349,5 @@ pre{{background:#161412;color:#ece5d4;padding:12px 14px;border-radius:8px;font-s
 <table><thead><tr><th>Riser</th><th>Extent (screen)</th></tr></thead><tbody>{ris_html}</tbody></table>
 <p>Canonical source: <code>worked-example.md</code>, beside this file. If they drift, the Markdown wins.</p>
 </div></body></html>'''
-pathlib.Path('docs/worked-example.html').write_text(html)
+pathlib.Path('docs/specification/worked-example.html').write_text(html)
 print(f'written: size {W}x{HGT}, baseY {baseY:.1f}, bp {bp:.1f}, arrive {arrive:.1f}, rp {rp:.1f}, leave {leave:.1f}')

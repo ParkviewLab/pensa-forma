@@ -16,7 +16,7 @@ Model Context Protocol (MCP) automation server while the application runs.
 ## Status
 
 Specification stage. The repository holds the specification before it holds
-the code: the documents in [`docs/`](docs/) are written to be complete enough
+the code: the documents in [`docs/specification/`](docs/specification/) are written to be complete enough
 that an implementation can be built from them alone. The application is
 written in Rust; the Cargo workspace lands with the first implementation
 milestone.
@@ -28,22 +28,22 @@ the application is for; everything else is downstream of it.
 
 | Document | What it is the authority for |
 |---|---|
-| [glossary.md](docs/glossary.md) | The vocabulary every document, menu, and tool speaks |
+| [glossary.md](docs/specification/glossary.md) | The vocabulary every document, menu, and tool speaks |
 | [northstar.md](docs/northstar.md) | Intent: four intents, their tensions, twelve axioms |
-| [decisions.md](docs/decisions.md) | Settled decisions with their reasoning; proposals awaiting a ruling |
-| [structural-model.md](docs/structural-model.md) | What exists, identity, the record, the seventeen invariants, the worked instance |
-| [command-layer.md](docs/command-layer.md) | The one write path: the pipeline, validation, undo, refusals |
-| [command-catalogue.md](docs/command-catalogue.md) | Every command: arguments, tier, effect, refusal text, log entry |
-| [interaction.md](docs/interaction.md) | Drag-and-drop: handles, targets, legality by trial application |
-| [layout-engine.md](docs/layout-engine.md) | Where every mark goes: heights, lanes, laterals, junctions, folding |
-| [mark-geometry.md](docs/mark-geometry.md) | How every mark is drawn, with golden masters |
-| [ui-chrome.md](docs/ui-chrome.md) | The shell: window, header, menus, dialogs, note editor, log panel |
-| [persistence.md](docs/persistence.md) | Locations, the on-disk record, notes, bookmarks, settings, atomic writes |
-| [automation-server.md](docs/automation-server.md) | The MCP server: binding, hardening, tiers, tools, prompts, live view |
-| [architecture.md](docs/architecture.md) | The workspace, threads, rendering, packaging, the crate inventory |
-| [worked-example.md](docs/worked-example.md) · [.html](docs/worked-example.html) | One domain carried through record, layout, and drawing: the fixture to build against |
-| [testing.md](docs/testing.md) | What is tested and how |
-| [implementation-plan.md](docs/implementation-plan.md) | The milestones, in order |
+| [decisions.md](docs/specification/decisions.md) | Settled decisions with their reasoning; proposals awaiting a ruling |
+| [structural-model.md](docs/specification/structural-model.md) | What exists, identity, the record, the seventeen invariants, the worked instance |
+| [command-layer.md](docs/specification/command-layer.md) | The one write path: the pipeline, validation, undo, refusals |
+| [command-catalogue.md](docs/specification/command-catalogue.md) | Every command: arguments, tier, effect, refusal text, log entry |
+| [interaction.md](docs/specification/interaction.md) | Drag-and-drop: handles, targets, legality by trial application |
+| [layout-engine.md](docs/specification/layout-engine.md) | Where every mark goes: heights, lanes, laterals, junctions, folding |
+| [mark-geometry.md](docs/specification/mark-geometry.md) | How every mark is drawn, with golden masters |
+| [ui-chrome.md](docs/specification/ui-chrome.md) | The shell: window, header, menus, dialogs, note editor, log panel |
+| [persistence.md](docs/specification/persistence.md) | Locations, the on-disk record, notes, bookmarks, settings, atomic writes |
+| [automation-server.md](docs/specification/automation-server.md) | The MCP server: binding, hardening, tiers, tools, prompts, live view |
+| [architecture.md](docs/specification/architecture.md) | The workspace, threads, rendering, packaging, the crate inventory |
+| [worked-example.md](docs/specification/worked-example.md) · [.html](docs/specification/worked-example.html) | One domain carried through record, layout, and drawing: the fixture to build against |
+| [testing.md](docs/specification/testing.md) | What is tested and how |
+| [implementation-plan.md](docs/specification/implementation-plan.md) | The milestones, in order |
 | [in-flight_ideas.md](docs/in-flight_ideas.md) | Questions under consideration |
 
 The mark geometry and the UI chrome each have a designed HTML sibling beside
