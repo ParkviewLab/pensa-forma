@@ -37,8 +37,7 @@ the same operations as a person and leaving the same record.
 
 ## Four intents
 
-These are complementary facets of one purpose, not a ranking; the tensions
-between them, below, are where the design is decided.
+These are complementary facets of one purpose, not a ranking.
 
 ### 1. The structure is the mental model
 
@@ -87,7 +86,7 @@ retrying blindly. And the activity log on every opener and task is the shared wo
 the application records structural changes there, and people and agents add
 and amend entries at will.
 
-## Tensions (these are design-revealing)
+## Trade-offs
 
 - Legibility against faithful structure. The picture must not distort the
   model to look tidy; when a layout choice and the data disagree, the data
