@@ -25,7 +25,7 @@ milestone.
 
 | Entry | What it holds |
 |---|---|
-| [`docs/`](docs/README.md) | Everything of substance: the northstar, the in-flight ideas, the contributing guide, and the specification |
+| [`docs/`](docs/README.md) | Everything of substance: `docs/northstar.md` (the intent), `docs/in-flight_ideas.md` (the open questions), `docs/CONTRIBUTING.md` (how to work here), and the `specification/` directory |
 | [`docs/specification/`](docs/specification/README.md) | The specification: the documents an implementation is built from, their HTML twins, and the worked example |
 | [`scripts/`](scripts/) | `worked_example.py`, which generates the worked example from the specification's rules; `generate_changelog.py`, which the release flow uses |
 | [`.github/workflows/`](.github/workflows/) | Continuous integration: the REUSE licensing check and the version guard |
@@ -48,9 +48,9 @@ The intent, the open questions, and how to work in this repository.
 
 | Document | What it is |
 |---|---|
-| [northstar.md](docs/northstar.md) | Intent: four intents, their tensions, twelve axioms; the authority where intent and structure seem to disagree |
-| [in-flight_ideas.md](docs/in-flight_ideas.md) | Questions under consideration, each a candidate to weigh against the northstar and promote or drop |
-| [CONTRIBUTING.md](docs/CONTRIBUTING.md) | How to work in this repository: branches, pull requests, releases |
+| [docs/northstar.md](docs/northstar.md) | Intent: four intents, their tensions, twelve axioms; the authority where intent and structure seem to disagree |
+| [docs/in-flight_ideas.md](docs/in-flight_ideas.md) | Questions under consideration, each a candidate to weigh against the northstar and promote or drop |
+| [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | How to work in this repository: branches, pull requests, releases |
 
 ### In `docs/specification/`
 
