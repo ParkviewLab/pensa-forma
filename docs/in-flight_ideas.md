@@ -95,6 +95,12 @@ mark geometry's and the chrome's, come first; the northstar's follows.
 
 ## Tooling
 
+What this repository settles as the family's first in Rust is fed back to the
+handbook and to dev-tools, in this order: the dev-tools change before the
+first release, which cannot be cut without it; the packaging choice at that
+release; and the handbook's Rust profile after it, once the conventions have
+carried a release.
+
 ### Release packaging for a Rust desktop app
 
 How per-OS installers get built and attached to the GitHub Release. The
