@@ -94,21 +94,22 @@ and amend entries at will.
 
 ## Trade-offs
 
-- Legibility against faithful structure. The picture must not distort the
-  model to look tidy; when a layout choice and the data disagree, the data
-  wins and the layout accommodates it. Side and order are the author's, so
-  crossings happen, and a crossing is drawn as an underpass rather than
-  avoided by reordering.
-- Local files against richer capability. Plain JSON and markdown are the
-  floor; later richness (search, indexing, synchronisation) is added over the
-  files, not by replacing them with something the user does not own.
+- The shape of a graph is determined by its data and its author rather than by
+  a tidying algorithm. The picture must not distort the model to look tidy:
+  when a layout choice and the data disagree, the data wins and the layout
+  accommodates it. Side and order are the author's, so crossings happen, and a
+  crossing is drawn as an underpass rather than avoided by reordering.
+- Richer capability is built over the plain files, never in place of them.
+  Plain JSON and markdown are the floor; search, indexing, or synchronisation,
+  if they come, are added over the files, not by replacing them with something
+  the user does not own.
 - Visual clarity takes precedence over decoration. While the mid-century theme
   is a genuine pleasure, any decoration that does not clarify the structure is
   decoration to remove.
-- One authority against two writers. A person expects to undo; an agent
-  expects its writes to stand. Undo therefore reverses only the person's last
-  command, and only while nothing has been written since; an agent's write
-  empties the undo slot rather than being undone with it.
+- A person's undo never reaches through an agent's write. A person expects to
+  undo; an agent expects its writes to stand. Undo therefore reverses only the
+  person's last command, and only while nothing has been written since; an
+  agent's write empties the undo slot rather than being undone with it.
 - The activity log is a worklog, not an audit trail. It can be edited by
   people and by agents, which is what makes it useful to them. An audit trail,
   if one were ever wanted, would be a separate record that could not be
