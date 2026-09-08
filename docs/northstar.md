@@ -19,15 +19,18 @@ PensaForma is a studio in which people and AI agents visually plan and track
 work together, as a living graph of workflows. A workflow orders tasks. It may
 contain projects (which group a contiguous run of its tasks and sub-projects)
 and branches (which are workflows that run in parallel beside it, and may or
-may not rejoin it). Main workflows are gathered into domains (HomeLab, Work,
-and so on), each a set of plain files on the user's own disk. A domain is
-drawn as a mid-century retrofuturist flowchart, and it is restructured by
-dragging tasks, whole projects, and whole workflows. Every workflow, project,
-and task may carry a written note and always carries an activity log, which
-people and agents both write. A task has a status: to do, in progress, done,
-or cancelled. On each workflow one task may be marked here, the place where
-the author is on that line; and any workflow, project, or task may be flagged
-for attention, so that a review can show the flagged items alone.
+may not rejoin it). Main workflows (those that are not branches) are gathered
+into domains (HomeLab, Work, and so on), each a set of plain files on the
+user's own disk.
+
+A domain is drawn as a mid-century retrofuturist flowchart, and it is
+restructured by dragging tasks, whole projects, and whole workflows. Every
+workflow, project, and task may carry a written note and always carries an
+activity log, which people and agents both write. A task has a status: to do,
+in progress, done, or cancelled. On each workflow one task may be marked here,
+the place where the work is in that workflow; and any workflow, project, or
+task may be flagged for attention, so that a review can show the flagged items
+alone.
 
 ## Why it exists
 
