@@ -30,8 +30,8 @@ the application is for; everything else is downstream of it.
 |---|---|
 | [glossary.md](docs/specification/glossary.md) | The vocabulary every document, menu, and tool speaks |
 | [northstar.md](docs/northstar.md) | Intent: four intents, their tensions, twelve axioms |
-| [decisions.md](docs/specification/decisions.md) | Settled decisions with their reasoning; proposals awaiting a ruling |
-| [structural-model.md](docs/specification/structural-model.md) | What exists, identity, the record, the seventeen invariants, the worked instance |
+| [decisions.md](docs/specification/decisions.md) | Every settled decision with its reasoning, by number |
+| [structural-model.md](docs/specification/structural-model.md) | What exists, identity, the record, the eighteen invariants, the worked instance |
 | [command-layer.md](docs/specification/command-layer.md) | The one write path: the pipeline, validation, undo, refusals |
 | [command-catalogue.md](docs/specification/command-catalogue.md) | Every command: arguments, tier, effect, refusal text, log entry |
 | [interaction.md](docs/specification/interaction.md) | Drag-and-drop: handles, targets, legality by trial application |
