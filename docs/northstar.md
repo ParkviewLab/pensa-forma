@@ -117,24 +117,22 @@ and amend entries at will.
 
 ## Axioms
 
-1. A node's kind, and whether a workflow is a branch, are decided by the
-   action that creates them and stored; neither is ever inferred from
-   position. Inserting a task continues the line at the edge it names;
-   opening a branch starts a parallel workflow off a point.
+1. The record stores the structure: a node's kind, and whether a workflow is a
+   branch, are set when they are made and never inferred from position or from
+   the drawing.
 2. One way in, one way out, at every level: a workflow opens at its start node
-   and closes at its finish node, a project opens at its begin node and closes
-   at its end node, and growth rises between them.
-3. A branch may return or not. When it returns, it rejoins the workflow it
-   left, at or above where it departed, on the side it departed from, and
-   inside exactly the same projects. No branch reaches out of its scope, so any
-   scope can be read, and folded, as a single block.
+   and closes at its finish node, and a project opens at its begin node and
+   closes at its end node.
+3. A branch may return or not, and when it returns it rejoins the workflow it
+   left, within the scope it left, so that any scope can be read, and folded,
+   as a single block.
 4. Side and order are the author's: which side of its parent a branch runs on,
    and its order among the branches sharing a point, are stored and set by
    hand. The drawing obeys them.
-5. One task marked here per workflow, set by hand and clearable; a branching
-   workflow may show several, one per branch.
-6. Status is shown, not inferred: completing or cancelling a task leaves it on
-   the map, recoloured; only delete removes it. Only a task has a status.
+5. Every workflow, main or branch, has its own place where the work is, set by
+   hand.
+6. Status is shown, not inferred: a completed or cancelled task stays on the
+   map, recoloured, and only deletion removes it.
 7. Structure lives in the visual channel: if the reader must read to see the
    shape of the work, the drawing has failed.
 8. The file is the source of truth, and it is the user's: plain JSON and
@@ -143,13 +141,14 @@ and amend entries at will.
    zoom are that client's own state, kept out of the domain file. A named,
    saved view may travel with the data; a client's live view never does.
 10. Decoration that does not clarify is cut.
-11. One write path, and nothing rewritten behind the author's back: every
-    change is one command, validated in full before anything is written, and
-    where an edit would invalidate a connection the connection is detached and
-    left visibly undone, never moved somewhere unasked.
-12. The log is a worklog: every opener's and task's activity log is written by the
-    application, by people, and by agents, and any of them may amend it. It
-    records what has been recorded.
+11. One write path: every change is one command, validated in full before
+    anything is written.
+12. Nothing is rewritten behind the author's back: where an edit would
+    invalidate a connection, the connection is detached and left visibly
+    undone, never moved somewhere unasked.
+13. The log is a worklog: every activity log is written by the application, by
+    people, and by agents, and any of them may amend it. It records what has
+    been recorded.
 
 ## Guiding questions
 
