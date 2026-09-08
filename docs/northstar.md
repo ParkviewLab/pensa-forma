@@ -24,13 +24,14 @@ into domains (HomeLab, Work, and so on), each a set of plain files on the
 user's own disk.
 
 A domain is drawn as a mid-century retrofuturist flowchart, and it is
-restructured by dragging tasks, whole projects, and whole workflows. Every
-workflow, project, and task may carry a written note and always carries an
-activity log, which people and agents both write. A task has a status: to do,
-in progress, done, or cancelled. On each workflow one task may be marked here,
-the place where the work is in that workflow; and any workflow, project, or
-task may be flagged for attention, so that a review can show the flagged items
-alone.
+restructured by dragging tasks, whole projects, and whole workflows. An AI
+agent works on a domain through a local Model Context Protocol (MCP)
+automation server that runs while the application does. Every workflow,
+project, and task may carry a written note and always carries an activity log,
+which people and agents both write. A task has a status: to do, in progress,
+done, or cancelled. On each workflow one task may be marked here, the place
+where the work is in that workflow; and any workflow, project, or task may be
+flagged for attention, so that a review can show the flagged items alone.
 
 ## Why it exists
 
