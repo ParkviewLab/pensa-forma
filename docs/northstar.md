@@ -106,8 +106,8 @@ and amend entries at will.
   decoration that does not clarify the structure is decoration to remove.
 - One authority against two writers. A person expects to undo; an agent
   expects its writes to stand. Undo therefore reverses only the person's last
-  command, and an agent's write invalidates it rather than being reversed
-  through.
+  command, and only while nothing has been written since; an agent's write
+  empties the undo slot rather than being undone with it.
 - A worklog against a record of fact. An editable log is more useful to the
   people and agents keeping it, and less trustworthy as evidence. The
   application chooses the worklog and says so; it does not pretend the log is
