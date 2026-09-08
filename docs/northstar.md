@@ -24,7 +24,10 @@ a set of plain files on the user's own disk. A domain is drawn as a
 mid-century retrofuturist flowchart, and it is restructured by dragging tasks,
 whole projects, and whole workflows. Every workflow, project, and task may
 carry a written note and always carries an activity log, which people and
-agents both write.
+agents both write. A task has a status: to do, in progress, done, or
+cancelled. On each workflow one task may be marked here, the place where the
+author is on that line; and any workflow, project, or task may be flagged for
+attention, so that a review can show the flagged alone.
 
 ## Why it exists
 
@@ -59,7 +62,7 @@ where they arrive; on each point two ordered sides.
 A domain is drawn as a mid-century retrofuturist flowchart laid out like a
 transit map: stations are nodes, tracks are the lines they sit on, and a
 junction between two stations is where a branch leaves or returns. Before reading a single label one can see the shape of the work:
-where one is (the cursor's card), what is done, in progress, or cancelled (the
+where one is (the card of the task marked here), what is done, in progress, or cancelled (the
 outline colour), where a line branches, where it comes back, and where it
 does not. The visual channel carries the structure; text only names it. The
 mid-century skin, the atomic-age decorators and the jaunty openers, is in
@@ -123,8 +126,8 @@ and amend entries at will.
 4. Side and order are the author's: which side of its parent a branch runs on,
    and its order among the branches sharing a point, are stored and set by
    hand. The drawing obeys them.
-5. One cursor per workflow, set by hand and clearable; a branching workflow
-   may show several, one per branch.
+5. One task marked here per workflow, set by hand and clearable; a branching
+   workflow may show several, one per branch.
 6. Status is shown, not inferred: completing or cancelling a task leaves it on
    the map, recoloured; only delete removes it. Only a task has a status.
 7. Structure lives in the visual channel: if the reader must read to see the
