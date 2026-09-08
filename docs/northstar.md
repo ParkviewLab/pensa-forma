@@ -64,12 +64,11 @@ where they arrive; on each point two ordered sides.
 
 A domain is drawn as a mid-century retrofuturist flowchart laid out like a
 transit map: stations are nodes, tracks are the lines they sit on, and a
-junction between two stations is where a branch leaves or returns. Before reading a single label one can see the shape of the work:
-where one is (the task marked here), what is done, in progress, or cancelled (the
-outline colour), where a line branches, where it comes back, and where it
-does not. The visual channel carries the structure; text only names it. The
-mid-century skin, the atomic-age decorators and the jaunty openers, is in
-service of this and not the reverse.
+junction between two stations is where a branch leaves or returns. Before
+reading a single label one can see the shape of the work: where one is (the
+task marked here), what is done, in progress, or cancelled (the outline
+colour), where a line branches, where it comes back, and where it does not.
+The visual channel carries the structure; text only names it.
 
 ### 3. It is yours, and it is local
 
