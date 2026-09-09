@@ -154,9 +154,11 @@ A node's kind is set when the node is made, and changes only under a [conversion
 ### Node title
 This is the name of a workflow (on its start node), a project (on its begin node), or a task.
 
-A title may be empty.
+A title may be empty. An empty title is exempt from the rule below and addresses nothing.
 
-A title must be unique within its domain.
+Within a domain, no two nodes with a non-empty title share it (invariant I19 in the [structural model](structural-model.md#4-the-invariants)). A command that would give a node a taken title gives it the next free `<title>-N` instead, never a refusal; the [command catalogue](command-catalogue.md) states the rule.
+
+A task or a project created without a title is titled `New task` or `New project`; a workflow created without one stays untitled.
 
 ### Node status
 This is a task's state, one of `todo`, `in-progress`, `completed`, `cancelled`, shown under a card as to do, in progress, done, cancelled and in the status menu as To do, In progress, Completed, Cancelled (D30). Only a task has a status. A completed task also carries `completedAt`, the time it became completed, present exactly while it is. Status is shown, not inferred: a done or cancelled task stays on the map, recoloured; only deletion removes it.
