@@ -60,7 +60,7 @@ This is a time-stamped list of entries on every start node, begin node, and task
 ## Workflows and projects
 
 **Workflow.**
-This is a linearly ordered run of nodes with the gaps between them: a `start` node first, a `finish` node last, and tasks, projects, and gaps between. A workflow is **main** when the domain's `mains` list names it, and a **branch** when some branch point's side list names it; it is exactly one of the two, and nothing on the workflow record itself says which.
+This is a linearly ordered run of nodes with the gaps between them: a `start` node first, a `finish` node last, and tasks, projects, and gaps between. It is drawn from the bottom up: the start node lowest, each node above its predecessor, and the finish node at the top. A workflow is **main** when the domain's `mains` list names it, and a **branch** when some branch point's side list names it; it is exactly one of the two, and nothing on the workflow record itself says which.
 
 **Main workflow.**
 This is a workflow that branches from no other. The domain orders its main workflows left to right in `mains`, and that order is the author's.
