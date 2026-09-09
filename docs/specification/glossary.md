@@ -9,79 +9,155 @@ To avoid ambiguity, this glossary defines the words and phrases that are used as
 
 By convention in these documents, unordered sets are denoted as `{…}`, ordered lists as `[…]`, and the names of fields or values stored in files are denoted with a monospaced font.
 
-## The application
+## PensaForma
 
-**PensaForma.**
-This is the product's name formal name. It is to be written with the capitalization as shown. `pensa-forma` is the repository, the binary, and the bundle identifier's last segment (`ai.parkviewlab.pensa-forma`). `pensa_forma` is the Rust workspace's root crate name. Specification documents should refer to it as "the application" so that any required future name changes are less costly.
+PensaForma is the product's formal name. It is to be written with the capitalization as shown.
 
-**Domain.**
-This is the unit of storage and of display. It is a set of workflows kept together (HomeLab, Work, and so on), stored on disk as a directory with a record JSON file, its JSON Schema file, and a README file that describes the record's format. The application shows one domain at a time. A domain has an `id` and a `name`. Domain names are unique within their library.
+`pensa-forma` is the repository, the binary, and the bundle identifier's last segment (`ai.parkviewlab.pensa-forma`). 
 
-**Library.**
+`pensa_forma` is the Rust workspace's root crate name.
+
+Specification documents should refer to it as "the application" so that any required future name changes are less costly.
+
+## Workflows and Projects
+
+### Workflow
+A workflow is a linearly ordered run of [nodes](#nodes) separated by [gaps](#gap).
+
+The first node in a workflow is a [`start` node](#start-node) and the last is a [`finish` node](#finish-node). Between those may be [task nodes](#task-node), [projects](#project), and branches.
+
+Workflows are drawn from the bottom up with the start node at the bottom, then each node is above its predecessor, and the finish node at the top.
+
+A workflow is either a main or a branch based on its location alone.
+
+### Main workflow
+
+A **main workflow** is not a branch of any other workflow and is included in the domain's `mains` list. The domain orders its main workflows left to right in its `mains` list. That is the order in which they are drawn, and that order is set by and may be changed by the author.
+
+### Branch workflow
+A **branch workflow** is a branch off of some other workflow and is included in some [branch point](#branch-point)'s side list.
+
+The workflow from which it branches is referred to as its **parent workflow**.
+
+A branch workflow runs beside its parent, and *may* return to it.
+
+A branch that returns is referred to as a **closed branch**. A branch that does not is referred to as an **open branch**. Both states (open and closed) are legal and persisted.
+
+### Project
+
+A project is used to group consecutive nodes together.
+
+A project can be drawn collapsed or not.
+
+The first node in a project is a [`begin` node](#begin-node) and the last is an [`end` node](#end-node). Between those may be tasks, [sub-projects](#sub-project), and branches.
+
+A project has no record of its own; its identity, title, note, and log are defined in its [begin node](#begin-node).
+
+Projects may be nested. Two projects in one workflow will either be disjoint or one will lie wholly within the other. Projects can never partially overlap.
+
+### Sub-project
+This is a project contained within another project.
+
+### Scope
+This is everything strictly between the two nodes that bound a workflow or a project: for a workflow, between its start node and its finish node; for a project, between its begin node and its end node. A scope comprises the nodes, the gaps, and every branch departing from those gaps. Every project scope lies within its workflow's scope, and project scopes may nest; the **innermost** scope containing a position is the one whose first node is highest. A branch is *part of* the innermost scope containing its branch point.
+
+### Extent
+This is what travels with a node when it is moved, copied, or deleted as a whole: a task alone; a project with its end node and its whole scope; a workflow with its finish node and its whole scope.
+
+## Domain
+
+This is the unit of storage and of display. It is a set of workflows kept together (such as HomeLab, Work, and so on). 
+
+Domains are stored on disk as a directory with a [record](#record) JSON file, its JSON Schema file, and a README file that describes the record's format.
+
+The application shows one domain at a time.
+
+A domain has an `id` and a `name`. Domain names are unique within their library.
+
+## Library
 This is the directory holding every domain. The library root is a user setting; its default is the application's data directory.
 
-**Record.**
+## Record
 This is file in which all graph data for all workflows in a single domain is stored. This is a JSON file and is accompanied by its JSON Schema file. The only workflow data not stored in this file are the notes' markdown files.
 
-**MCP automation server.**
-This is the application's programmatic interface. It's a local Model Context Protocol (MCP) server,  which external tools and AI agents can use to read and write domains in the library while the application is running. The other documents may refer to this as the automation server for short.
+## Automation server
+This is the application's programmatic interface. It is a local Model Context Protocol (MCP) server which external tools and AI agents can use to read and write domains in the library while the application is running. The other documents may refer to this as the automation server for short.
 
 ## Nodes
 
-**Node.**
-This is the building block of a workflow. There are task nodes, start & finish workflow nodes, and begin & end project nodes.
+Nodes are the building blocks of a workflow.
 
-**The five kinds.**
-These are the five kinds of node, with what each bounds and what it must carry and may carry as data, besides the `id` and `kind` that every node carries:
+### Start node
 
-| Kind | Bounds | Must carry | May carry |
-| --- | --- | --- | --- |
-| `start` | opens a workflow | a `title`, which may be empty, and an activity log (`log`) | a `note` and a flag (`flagged`) |
-| `finish` | closes a workflow | nothing | nothing |
-| `begin` | opens a project | a `title`, which may be empty, its `pair`, and an activity log (`log`) | a `note` and a flag (`flagged`) |
-| `end` | closes a project | its `pair` | nothing |
-| `task` | one thing to do | a `title`, which may be empty, a `status`, and an activity log (`log`) | a `note`, a flag (`flagged`), the here mark (`here`), and `completedAt` while its status is completed |
+The first node of every workflow is a start node.
 
-**Title.**
-This is the name of a workflow (on its start node), a project (on its begin node), or a task. A title may be empty.
+Start nodes may optionally have: a [title](#node-title), a note, and a flag.
 
-**Status.**
+Start nodes must have: an [ID](#node-id), and an activity log.
+
+### Finish node
+
+The last node of every workflow is a finish node.
+
+Finish nodes must have: an ID.
+
+
+### Begin node
+
+The first node of every project is a begin node.
+
+Begin nodes may optionally have: a [title](#node-title), a note, and a flag.
+
+Begin nodes must have: an ID, the ID of its matching [end node](#end-node), and an activity log.
+
+### End node
+
+The last node of every project is an end node.
+
+End nodes must have: an ID, and the ID of its matching [begin node](#begin-node).
+
+### Task node
+
+A task node defines a single task.
+
+Task nodes may optionally have: a [title](#node-title), a note, a flag, and a here mark.
+
+Task nodes must have: an ID, a [status](#status), and an activity log.
+
+
+
+## Node data
+
+### Node ID
+A unique identification string for a node. The schema for these IDs is defined in the [structural model document](structural-model.md#1-identity).
+
+### Node kind
+
+Every node has a kind: start, finish, begin, end, or task, stored in its `kind` field.
+
+A node's kind is set when the node is made, and changes only under the two conversions the [command catalogue](command-catalogue.md#convert_project_to_taskbegin) defines.
+
+### Node title
+This is the name of a workflow (on its start node), a project (on its begin node), or a task.
+
+A title may be empty.
+
+A title must be unique within its domain.
+
+### Node status
 This is a task's state, one of `todo`, `in-progress`, `completed`, `cancelled`, shown under a card as to do, in progress, done, cancelled and in the status menu as To do, In progress, Completed, Cancelled (D30). Only a task has a status. A completed task also carries `completedAt`, the time it became completed, present exactly while it is. Status is shown, not inferred: a done or cancelled task stays on the map, recoloured; only deletion removes it.
 
-**Here (the cursor).**
+### Here mark
 This is a mark on at most one task per workflow, set by hand, by which a person or an agent points that task out to the others working the workflow: where the workflow itself is being worked upon now, where the work is now, where it should be by some date, where a branch ought to be added, or whatever else its setter means by it. A main workflow and each of its branches carry their own, so parallel threads each have a pointer. It is shared model state, not view state.
 
-**Flag.**
+### Flag mark
 This is a mark on a start node, a begin node, or a task by which a person or an agent draws the others' attention to it, for whatever reason its setter has: the flagged-only review mode shows flagged nodes alone, and an agent's "work the flagged nodes" begins from them.
 
-**Note.**
+### Note
 This is a node's written prose: a markdown file in the domain's `notes/` directory, referenced from the node by filename. A start node, a begin node, or a task has a note or has none, and a finish node or an end node never has one; there is no second, shorter description field. The **note glyph** on a card means a note exists, not that it has text.
 
-**Activity log.**
+### Activity log
 This is a time-stamped list of entries on every start node, begin node, and task, oldest first, written by the application on structural changes and by people and agents at will. It is editable, and is therefore a worklog rather than an audit trail.
-
-## Workflows and projects
-
-**Workflow.**
-This is a linearly ordered run of nodes with the gaps between them: a `start` node first, a `finish` node last, and tasks, projects, and gaps between. It is drawn from the bottom up: the start node lowest, each node above its predecessor, and the finish node at the top. A workflow is **main** when the domain's `mains` list names it, and a **branch** when some branch point's side list names it; it is exactly one of the two, and nothing on the workflow record itself says which.
-
-**Main workflow.**
-This is a workflow that branches from no other. The domain orders its main workflows left to right in `mains`, and that order is the author's.
-
-**Branch workflow, branch.**
-This is a workflow that departs from a point on another workflow, its **parent**, runs beside it, and may return to it. A branch that returns is **closed**; one that does not is **open**, and open is a legal, persisted state.
-
-**Project.**
-This is a `begin` node, the `end` node it names in `pair`, and everything between them on one workflow. A project has no record of its own; its identity, title, note, and log are its begin node's. Projects nest: two projects on one workflow are disjoint or one lies wholly within the other, never partially overlapping.
-
-**Sub-project.**
-This is a project contained within another project.
-
-**Scope.**
-This is everything strictly between the two nodes that bound a workflow or a project: for a workflow, between its start node and its finish node; for a project, between its begin node and its end node. A scope comprises the nodes, the gaps, and every branch departing from those gaps. Every project scope lies within its workflow's scope, and project scopes nest; the **innermost** scope containing a position is the one whose first node is highest. A branch is *part of* the innermost scope containing its departure gap.
-
-**Extent.**
-This is what travels with a node when it is moved, copied, or deleted as a whole: a task alone; a project with its end node and its whole scope; a workflow with its finish node and its whole scope.
 
 ## Gaps, points, and edges
 
