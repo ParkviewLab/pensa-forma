@@ -10,9 +10,9 @@ as technical terms in the documents of this specification. A term is defined
 here because what it names is either constrained by a rule or acted upon by an
 operation.
 
-In these documents, unordered sets are represented as `{…}`, and ordered lists
-as `[…]`. The names of fields or values stored in files are identified in these
-documents by the use of a monospaced font.
+By convention in these documents, unordered sets are represented as `{…}` and
+ordered lists as `[…]`, and the names of fields or values stored in files are
+identified in these documents by the use of a monospaced font.
 
 ## The application
 
