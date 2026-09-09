@@ -26,18 +26,18 @@ This is the application's programmatic interface: a local server speaking the Mo
 ## Nodes
 
 **Node.**
-This is the building block of a workflow. Every node has an `id` and a `kind`; every start node, begin node, and task also has an optional **note**, a `flagged` mark, and an **activity log**, which a finish node and an end node never have. Kinds are intrinsic: a node's kind is a stored property, never inferred from its position.
+This is the building block of a workflow. Every node has an `id` and a `kind`. There are task nodes, start and finish workflow nodes, and begin and end project nodes.
 
 **The five kinds.**
-These are the five kinds of node, with what each bounds and what it carries:
+These are the five kinds of node, with what each bounds and what, besides its `id` and `kind`, it must carry and may carry as data:
 
-| Kind | Bounds | Carries |
-| --- | --- | --- |
-| `start` | opens a workflow | a `title` |
-| `finish` | closes a workflow | nothing: its id and its kind |
-| `begin` | opens a project | a `title` and a `pair` |
-| `end` | closes a project | a `pair`, and nothing else |
-| `task` | one thing to do | a `status`, and possibly the `here` cursor |
+| Kind | Bounds | Must carry | May carry |
+| --- | --- | --- | --- |
+| `start` | opens a workflow | a `title`, which may be empty, and an activity log (`log`) | a `note` and a flag (`flagged`) |
+| `finish` | closes a workflow | nothing more | nothing |
+| `begin` | opens a project | a `title`, which may be empty, its `pair`, and an activity log (`log`) | a `note` and a flag (`flagged`) |
+| `end` | closes a project | its `pair` | nothing |
+| `task` | one thing to do | a `title`, which may be empty, a `status`, and an activity log (`log`) | a `note`, a flag (`flagged`), the here mark (`here`), and `completedAt` while its status is completed |
 
 **Title.**
 This is the name of a workflow (on its start node), a project (on its begin node), or a task. A title may be empty.
