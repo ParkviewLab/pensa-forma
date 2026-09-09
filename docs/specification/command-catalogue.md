@@ -13,7 +13,7 @@ Vocabulary is the [glossary](glossary.md)'s; structure and invariants are the [s
 
 ## 1. Conventions
 
-**Arguments.** Every argument that names an object takes an id and nothing else. Titles change under a caller between its read and its write, so a title is never an address on a write. A `node` argument accepts a node of any kind unless the command says which; a command that takes one kind refuses the rest and names the command that would accept them.
+**Arguments.** Every argument of a write that names an object takes an id and nothing else: titles change under a caller between its read and its write, so a title is never an address on a write. A read's node argument takes an id or a non-empty title, since a non-empty title names exactly one node (structural model, I19); a title that names no node refuses `not_found`. A `node` argument accepts a node of any kind unless the command says which; a command that takes one kind refuses the rest and names the command that would accept them.
 
 **Positions.** Several commands place something. They share one target grammar:
 
@@ -48,6 +48,8 @@ State commands (title, flag, here mark, note text, log entries) write no `system
 
 **Refusal text.** Each command lists its refusals as the message a caller receives, with the code from the command layer's closed set. A message names the rule and, where one exists, the legal alternative. Placeholders in angle brackets are filled with the title of the node concerned, or its id when the title is empty.
 
+**Titles.** Within a domain no two nodes with a non-empty title share it (structural model, I19). Every command that sets a title passes it through one helper: a title that no other node carries stands; otherwise a trailing `-<digits>` is stripped and the lowest free `<base>-N`, N counting from 1, is used. An empty title is exempt. A task or a project created with an empty title is first titled `New task` or `New project`; a workflow created with an empty title stays untitled. No command refuses a collision; the result carries the node's final title, which the caller uses thereafter. A conversion or a move never changes a title.
+
 **Vacated positions.** Whenever a command removes a node from a workflow, the gap below it and the gap above it merge as the structural model, section 2.4, describes; nothing detaches, and each retained point keeps its own list in its own order with the orphaned list appended outward. Whenever a command removes a branch from a side list, the list closes up and the order of the rest is preserved. Nothing is deleted for being empty (D17). Where two here marks would meet in one workflow, the receiving workflow's survives and the arriving one is cleared (D16).
 
 ---
@@ -76,7 +78,7 @@ Tier destructive. Not undoable. Moves the whole domain directory, record, bookma
 
 ### `create_workflow(title, target?)`
 
-Tier read-write. Undoable. Subject: the new start node. Creates a main workflow of exactly a start node carrying `title` and a finish node, with one empty gap between them, and inserts its id in `mains` at the main target given or, absent one, at the end. Log: `created`, "Created workflow <title>."
+Tier read-write. Undoable. Subject: the new start node. Creates a main workflow of exactly a start node carrying `title` (which may be empty and, when not, is made unique) and a finish node, with one empty gap between them, and inserts its id in `mains` at the main target given or, absent one, at the end. Log: `created`, "Created workflow <title>."
 
 Refusal `bad_arguments`: "The target of a new workflow is a position among the domain's main workflows."
 
@@ -102,7 +104,7 @@ Refusals. `not_found`: "No workflow <id>." `bad_arguments`: "The argument is a w
 
 ### `set_title(node, title)`
 
-Tier read-write. Undoable. Subject: the node. Sets the title of a start, begin, or task node; may be empty. State, no log entry.
+Tier read-write. Undoable. Subject: the node. Sets the title of a start, begin, or task node; may be empty, and a non-empty title is made unique against every other node. State, no log entry.
 
 Refusal `bad_arguments`: "A finish node and an end node carry no title; a workflow is named by its start node and a project by its begin node."
 
@@ -112,7 +114,7 @@ Refusal `bad_arguments`: "A finish node and an end node carry no title; a workfl
 
 ### `insert_task(gap, position, title)`
 
-Tier read-write. Undoable. Subject: the new task. Creates a task with `title`, `status: todo`, in the named gap at the named position; the gap splits as the structural model, section 2.4, describes, the record following its branch point. If the gap lies inside projects, the task is part of the innermost. Log: `created`, "Created above <lower node title>."
+Tier read-write. Undoable. Subject: the new task. Creates a task with `title` (`New task` when empty, then made unique), `status: todo`, in the named gap at the named position; the gap splits as the structural model, section 2.4, describes, the record following its branch point. If the gap lies inside projects, the task is part of the innermost. Log: `created`, "Created above <lower node title>."
 
 The window's `Add task above <node>` issues this command for the gap above the node at its `outgoing` position (immediately above the node, below any departures there); `Add task below <node>` issues it for the gap below the node at its `incoming` position (immediately below the node, above any arrivals there). A finish or end node has no gap above it, and a start or begin node none below, which is why those items are absent on those nodes.
 
@@ -150,7 +152,7 @@ Refusal `bad_arguments`: "A finish node and an end node carry no flag."
 
 ### `wrap_run(from, to, title)`
 
-Tier read-write. Undoable. Subject: the new begin node. `from` and `to` are nodes of one workflow, `from` at or below `to`, neither a start nor a finish. A begin node carrying `title` is inserted immediately below `from` (the gap below `from`, at its incoming position) and an end node immediately above `to` (the gap above `to`, at its outgoing position), and the two are paired. Every branch departing from a gap inside the run becomes part of the new project. Log: `wrapped`, "Wrapped <from title> to <to title> as <title>."
+Tier read-write. Undoable. Subject: the new begin node. `from` and `to` are nodes of one workflow, `from` at or below `to`, neither a start nor a finish. A begin node carrying `title` (`New project` when empty, then made unique) is inserted immediately below `from` (the gap below `from`, at its incoming position) and an end node immediately above `to` (the gap above `to`, at its outgoing position), and the two are paired. Every branch departing from a gap inside the run becomes part of the new project. Log: `wrapped`, "Wrapped <from title> to <to title> as <title>."
 
 A run is legal while it neither straddles a project boundary nor cuts a branch's scope: it may not take in a begin node without its end or an end without its begin, and no branch may depart inside the run and return outside it, or depart outside and return inside. The window's `Wrap as sub-project` submenu offers each legal `to` from `from` upward, and ends where legality does.
 
@@ -193,7 +195,7 @@ Refusals. `bad_arguments`: "The argument is a begin node; a task moves with `mov
 
 ### `open_branch(gap, side, title)`
 
-Tier read-write. Undoable. Subject: the new start node. Creates a branch workflow of a start node carrying `title` and a finish node, with one empty gap between them, and appends its id outermost on the named side of the named gap's branch point. The branch is open. If the gap lies inside projects, the branch is part of the innermost. Log: `created`, "Opened off <lower node title> on the <side>."
+Tier read-write. Undoable. Subject: the new start node. Creates a branch workflow of a start node carrying `title` (which may be empty and, when not, is made unique) and a finish node, with one empty gap between them, and appends its id outermost on the named side of the named gap's branch point. The branch is open. If the gap lies inside projects, the branch is part of the innermost. Log: `created`, "Opened off <lower node title> on the <side>."
 
 The window's `Add branch above <node>` issues this for the gap above the node; `Add branch below <node>` for the gap below it; the side is the one the menu names, or the pointer's side when opened by a gesture.
 
@@ -265,7 +267,7 @@ dialog; an agent's call carries no confirmation and proceeds.)
 
 ### `paste(clip, target)`
 
-Tier read-write. Undoable. Subject: the new begin or start node. A clip is the value `copy_project` returns (section 9): a project's extent with fresh ids minted on paste and every note's text carried by value. Onto an edge target, the clip is spliced in as a project; onto a branch target, as a branch workflow whose start and finish nodes are the clip's begin and end; onto a main target, as a new main workflow likewise. Note files are written for every node that had a note, before the record. Log: `created`, "Pasted."
+Tier read-write. Undoable. Subject: the new begin or start node. A clip is the value `copy_project` returns (section 9): a project's extent with fresh ids minted on paste and every note's text carried by value; each pasted node's non-empty title is made unique against the destination and against the nodes already pasted from the clip. Onto an edge target, the clip is spliced in as a project; onto a branch target, as a branch workflow whose start and finish nodes are the clip's begin and end; onto a main target, as a new main workflow likewise. Note files are written for every node that had a note, before the record. Log: `created`, "Pasted."
 
 Refusals. `bad_arguments`: "The clip is malformed." Refusals of the target as for `move_project`.
 
@@ -273,7 +275,7 @@ Refusals. `bad_arguments`: "The clip is malformed." Refusals of the target as fo
 
 ## 9. Reads
 
-Reads take the lock, read the record, and answer from it with the domain's `revision`. They pass through no mutation and no validator, and every tier includes them.
+Reads take the lock, read the record, and answer from it with the domain's `revision`. They pass through no mutation and no validator, and every tier includes them. A read's `workflow`, `begin`, or `node` argument is an id or a non-empty title.
 
 | Read | Returns |
 | --- | --- |
@@ -293,7 +295,9 @@ The outline form is a nested text rendering of a workflow: one line per node wit
 
 ## 10. Required properties
 
-Every command either produces a record that satisfies all seventeen invariants or refuses, and a refusal leaves the stored record byte-identical.
+Every command either produces a record that satisfies all nineteen invariants or refuses, and a refusal leaves the stored record byte-identical.
+
+No command leaves two nodes with the same non-empty title (I19), and no conversion or move changes a title.
 
 A command's subject is the only node whose activity log changes, and only a structural command changes it.
 

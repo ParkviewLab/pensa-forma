@@ -54,15 +54,15 @@ The server's initialise response carries these instructions, which every client 
 
 > PensaForma is a LIVE store: its user, and other agents, can change it at any moment. Never rely on an earlier read. Treat anything you read (domains, workflows, flagged nodes, statuses, notes) as possibly stale the instant after you read it. Before you act, and always immediately before a write, re-read the current state with the relevant tool (find_flagged, read_domain, read_workflow, read_project, read_node, read_note) and resolve any description such as "the flagged one" or "the task marked here" against that fresh read, not against memory. Every read returns the domain's revision; pass it as `revision` on your write, and a write against a changed domain is refused as stale rather than landing on the wrong state. Every write returns the affected id, the new revision, and the re-rendered outline; treat that as your new ground truth.
 >
-> The model: a domain holds workflows. A workflow opens at a start node and closes at a finish node; between them sit tasks, projects (a begin node paired with an end node, and everything between), and gaps. Between every pair of consecutive nodes is one gap, which owns a branch point (lower) where branches depart and a return point (upper) where branches arrive; a node can be inserted on a gap's outgoing, middle, or incoming edge, which differ in whether it lands below, between, or above the gap's departures and arrivals. A branch is a workflow of its own; it departs from a branch point on one side, left or right, at an order position among its siblings, and it may return to a return point at or above its departure, on the same side, inside exactly the same projects, or it may run open. A finish node and an end node carry no title; a workflow is named by its start node and a project by its begin node. Only a task has a status or the here mark. Growth is upward.
+> The model: a domain holds workflows. A workflow opens at a start node and closes at a finish node; between them sit tasks, projects (a begin node paired with an end node, and everything between), and gaps. Between every pair of consecutive nodes is one gap, which owns a branch point (lower) where branches depart and a return point (upper) where branches arrive; a node can be inserted on a gap's outgoing, middle, or incoming edge, which differ in whether it lands below, between, or above the gap's departures and arrivals. A branch is a workflow of its own; it departs from a branch point on one side, left or right, at an order position among its siblings, and it may return to a return point at or above its departure, on the same side, inside exactly the same projects, or it may run open. A finish node and an end node carry no title; a workflow is named by its start node and a project by its begin node. Titles are unique within a domain, and a node may be untitled. Only a task has a status or the here mark. Growth is upward.
 >
-> The tools speak that vocabulary and no other. Every id-valued parameter takes an id; titles are not addresses, since a title can change between your read and your write. Positions are given as a gap id with an edge (outgoing, middle, incoming), a gap id with a side and index at its branch point, or an index among the domain's main workflows.
+> The tools speak that vocabulary and no other. A read takes an id or a title: titles are unique within a domain, and an untitled node is reached by id only. A write takes ids only, since a title can change between your read and your write. A create, a rename, or a paste returns the node's final title, which carries a `-N` suffix where the title you asked for was taken; use the returned title as the address thereafter. Positions are given as a gap id with an edge (outgoing, middle, incoming), a gap id with a side and index at its branch point, or an index among the domain's main workflows.
 
 ## 7. The tool surface
 
-Every tool takes an optional `domain` (an id, a name, or a path; default the last-opened domain) and every write takes an optional `revision`. A write returns `{ id, revision, outline }`: the id of the subject or new object, the new revision, and the outline of the affected workflow. A refusal returns the command layer's code and message as the tool error, so the agent reads the rule and the legal alternative.
+Every tool takes an optional `domain` (an id, a name, or a path; default the last-opened domain) and every write takes an optional `revision`. A write returns `{ id, title, revision, outline }`: the id of the subject or new object, its final title (which a create, a rename, or a paste may have suffixed), the new revision, and the outline of the affected workflow. A refusal returns the command layer's code and message as the tool error, so the agent reads the rule and the legal alternative.
 
-Parameter names follow one rule: a parameter that takes a node of any kind is `node_id`; one that takes a particular kind names it (`task_id`, `begin_id`, `start_id`, `workflow_id`); a gap is `gap_id`; a position is `target`, in the catalogue's grammar; a second node in a relation keeps its role name (`from_id`, `to_id`). A tool is named for the command it wraps, and a tool that takes one kind says so in its description and refuses the rest naming the tool that accepts them.
+Parameter names follow one rule. On a write, a parameter that takes a node of any kind is `node_id`, and one that takes a particular kind names it (`task_id`, `begin_id`, `start_id`, `workflow_id`); on a read, the same parameters drop the `_id` suffix (`node`, `workflow`, `begin`) and take an id or a non-empty title. A gap is `gap_id`; a position is `target`, in the catalogue's grammar; a second node in a relation keeps its role name (`from_id`, `to_id`). A tool is named for the command it wraps, and a tool that takes one kind says so in its description and refuses the rest naming the tool that accepts them.
 
 A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D11 as amended); `read_note`, `read_log`, `set_note`, `delete_note`, `set_flag`, and the three log tools refuse a finish or end node with the catalogue's message.
 
@@ -72,13 +72,13 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 | --- | --- |
 | `list_domains()` | `list_domains` |
 | `read_domain(domain?, include_notes?)` | `read_domain` |
-| `read_workflow(workflow_id, include_notes?)` | `read_workflow` |
-| `read_project(begin_id, include_notes?)` | `read_project` |
-| `read_node(node_id, include_note?)` | `read_node` |
-| `read_note(node_id)` | `read_note` |
-| `read_log(node_id)` | `read_log` |
+| `read_workflow(workflow, include_notes?)` | `read_workflow` |
+| `read_project(begin, include_notes?)` | `read_project` |
+| `read_node(node, include_note?)` | `read_node` |
+| `read_note(node)` | `read_note` |
+| `read_log(node)` | `read_log` |
 | `find_flagged(domain?)` | `find_flagged` |
-| `copy_project(begin_id)` | `copy_project`, returning a clip for `paste` |
+| `copy_project(begin)` | `copy_project`, returning a clip for `paste` |
 
 ### Read-write
 
