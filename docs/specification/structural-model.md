@@ -75,7 +75,7 @@ A workflow is a *main* workflow when its id appears in its domain's `mains`, and
 | --- | --- | --- |
 | `id` | id | |
 | `kind` | `start` \| `finish` \| `begin` \| `end` \| `task` | fixed at creation except by the two conversions the catalogue defines |
-| `title` | string | `start`, `begin`, and `task` only; may be empty |
+| `title` | string | `start`, `begin`, and `task` only; may be empty; a non-empty title is unique within the domain (I19) |
 | `endNode` | node id | `begin` only; the id of the project's `end` node |
 | `beginNode` | node id | `end` only; the id of the project's `begin` node |
 | `note` | filename or null | `start`, `begin`, and `task` only; the reference to the node's note file, which holds its prose |
@@ -87,7 +87,7 @@ A workflow is a *main* workflow when its id appears in its domain's `mains`, and
 
 A field marked for one kind is absent on the others, not present and null. A validator rejects a `status` on a `begin` node rather than ignoring it, because a field that is silently ignored is a field that silently diverges.
 
-The `title` rule is what makes a boundary pair legible: the node that opens the pair is named and the node that closes it is not, so a workflow is named by its start node and a project by its begin node. A `finish` node and an `end` node carry no label, no note, no flag, and no log, in the model and on the canvas alike: a finish node is its id and its kind, and an end node its id, its kind, and its `beginNode`. Everything a pair records lives on the node that opens it.
+The `title` rule is what makes a boundary pair legible: the node that opens the pair is named and the node that closes it is not, so a workflow is named by its start node and a project by its begin node. A `finish` node and an `end` node carry no label, no note, no flag, and no log, in the model and on the canvas alike: a finish node is its id and its kind, and an end node its id, its kind, and its `beginNode`. Everything a pair records lives on the node that opens it. A non-empty title is unique within its domain (I19), so a title names one node; an empty title names none, and any number of nodes may be untitled.
 
 ### 2.4 Gap, and the two points within it
 
@@ -141,7 +141,7 @@ A branch workflow is *part of* the innermost project containing its departure ga
 
 ## 4. The invariants
 
-The complete list of what must hold of a stored domain. An implementation builds one checker from this list, runs it on load and after every write, and refuses a write that would break any of them. Numbering is stable; add, do not renumber.
+The complete list of what must hold of a stored domain. An implementation builds one checker from this list, runs it on load and after every write, and refuses a write that would break any of them. A stored record that fails the check on load is not opened: the fault is reported with the invariant's number and the ids concerned, and the file is left untouched for the person to repair (persistence, section 10). Numbering is stable; add, do not renumber.
 
 **Structure**
 
@@ -170,6 +170,7 @@ The complete list of what must hold of a stored domain. An implementation builds
 - **I14.** Only a `start`, a `begin`, or a `task` node has a `title`, a `note`, a `flagged`, or a `log`; only a `begin` node has an `endNode`, and only an `end` node a `beginNode`; only a `task` has a `status`, a `completedAt`, or a `here`.
 - **I15.** At most one node in a workflow has `here` true.
 - **I18.** A task's `completedAt` is present if and only if its `status` is `completed`.
+- **I19.** Among the nodes of a domain whose `title` is non-empty, no two share a title (exact comparison).
 
 **References**
 

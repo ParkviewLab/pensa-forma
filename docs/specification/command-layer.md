@@ -72,24 +72,27 @@ The chrome's `Change not saved` dialog shows the message verbatim.
 
 ## 4. The pipeline
 
-Ten steps, in order, under one lock held for the whole sequence so that no two commands interleave. Any step may refuse, and a refusal before step nine has touched no storage.
+Eleven steps, in order, under one lock held for the whole sequence so that no two commands interleave. Any step may refuse, and a refusal before step ten has touched no storage.
 
 1. **Admit.** The command name is checked against the catalogue. For a command from the automation server, its scope tier is checked here (section 9). Refusals: `unknown_command`, `scope_denied`.
 2. **Resolve the domain.** An id, a name, or a path becomes a directory. Refusal: `not_found`.
 3. **Load.** The domain file's text is read. Refusal: `read_failed`.
 4. **Parse and migrate.** The text is parsed by the tolerant reader and brought to the current schema version (section 6). Refusal: `read_failed` with the parser's own message.
-5. **Check the revision.** If the command carries one and it differs from the loaded record's, refuse. Refusal: `stale`.
-6. **Apply.** The named mutation runs against the loaded record and returns a new one. A mutation refuses by returning an error whose message is the user-facing explanation. Refusals: `bad_arguments`, `not_found`, `refused`.
-7. **Validate.** The *result* is checked against every invariant in section 4 of the structural model. Refusal: `invalid`.
-8. **Write note files**, if the command produces any, before the record that names them (section 7). Refusal: `write_failed`.
-9. **Write the record**, atomically, with its revision incremented. Refusal: `write_failed`.
-10. **Return and notify.** The undo slot is set if the command qualifies (section 8), and observers are told (section 10).
+5. **Validate the loaded record.** The record as loaded is checked against every invariant in section 4 of the structural model, by the same checker as step eight. A stored record that fails is refused before anything is applied, and the file is left as it is. Refusal: `invalid`, naming the invariant and the ids concerned.
+6. **Check the revision.** If the command carries one and it differs from the loaded record's, refuse. Refusal: `stale`.
+7. **Apply.** The named mutation runs against the loaded record and returns a new one. A mutation refuses by returning an error whose message is the user-facing explanation. Refusals: `bad_arguments`, `not_found`, `refused`.
+8. **Validate the result.** The *result* is checked against every invariant in section 4 of the structural model. Refusal: `invalid`.
+9. **Write note files**, if the command produces any, before the record that names them (section 7). Refusal: `write_failed`.
+10. **Write the record**, atomically, with its revision incremented. Refusal: `write_failed`.
+11. **Return and notify.** The undo slot is set if the command qualifies (section 8), and observers are told (section 10).
 
-Two properties of this order are the point of it. Nothing is written until the result has been proved legal, so the stored record satisfies the invariants at every instant a reader could observe it. And because the pre-image is never mutated, a refusal at step six or seven needs no rollback: the working record is simply discarded.
+Two properties of this order are the point of it. Nothing is written until the result has been proved legal, so the stored record satisfies the invariants at every instant a reader could observe it. And because the pre-image is never mutated, a refusal at step seven or eight needs no rollback: the working record is simply discarded.
+
+**Titles.** One helper, used by every mutation that sets a title (`create_workflow`, `insert_task`, `wrap_run`, `open_branch`, `set_title`, `paste`), keeps titles unique within the domain (structural model, I19). A wanted title that no other node carries stands; otherwise a trailing `-<digits>` is stripped and the lowest free `<base>-N`, N counting from 1, is used. An empty title is exempt and stands. A task or a begin node created with an empty title is first given `New task` or `New project`; a start node created without a title stays untitled. No mutation refuses a collision, and the result reports the final title (the catalogue, section 1).
 
 ## 5. Two kinds of validation, and why both
 
-Step six and step seven check different things and neither replaces the other.
+Step seven and step eight check different things and neither replaces the other. Step five runs the same checker as step eight on the record as loaded, so a file that is illegal before any command runs is refused and never repaired: the pipeline validates what it read and what it will write, and nothing in between.
 
 A mutation's own precondition asks whether the command makes sense: does this node exist, is it of a kind this operation accepts, is the target on the same workflow, would this leave a branch reaching out of its scope. It knows the operation's intent, so it can say what would have been legal instead, and its message is written for a person or an agent to act on.
 
@@ -103,7 +106,7 @@ Both mutations and the validator read the stored record only. Neither may consul
 
 One file per domain, in the domain's own directory alongside its bookmarks file and its `notes/` directory. A domain is small enough that one file makes atomic replacement a single rename, which is the property worth optimising for. The schema in full is in the [persistence](persistence.md) document; the rules that shape the write path are these.
 
-**Tolerant read, canonical write.** The reader accepts a permissive superset (unquoted keys, trailing commas, comments), so a file edited by hand still opens; every write from the application is strict, canonical JSON with a stable key order and a trailing newline. The asymmetry is deliberate: it costs nothing to accept more than one emits, and it means a hand-edited file is repaired rather than rejected.
+**Tolerant read, canonical write.** The reader accepts a permissive superset (unquoted keys, trailing commas, comments), so a file edited by hand still opens; every write from the application is strict, canonical JSON with a stable key order and a trailing newline. The asymmetry is deliberate: it costs nothing to accept more than one emits, and it means a hand-edited file is repaired rather than rejected. The tolerance is of syntax only: a record that parses but fails an invariant is refused on load (section 4, step five), never repaired.
 
 **Canonical form.** Absent optional fields are omitted rather than written null, false booleans are omitted, and a gap whose four side lists are all empty is written as an empty object. That last one is most of the file: nearly every gap in a domain is an ordinary space between two nodes. The gap's identity and its position still come from the workflow's `gaps` list, which carries every gap id in order, so omitting the contents loses nothing.
 
@@ -119,7 +122,7 @@ The record is written to a temporary file in the destination directory, flushed 
 
 One slot, not a stack, holding the pre-image of the last human operation (D9).
 
-The slot is set at step ten, and only when the command's `origin` is `ui` and the command is marked undoable in the catalogue. Its contents are the record as loaded at step four, before the mutation ran, together with the command's name for the menu label and the revision the command produced. Undoing writes that record back through steps seven to nine as a command of its own, carrying the produced revision as its `revision`, so that an undo is validated like any other write and is refused as `stale` if anything has written since; it then clears the slot. There is no redo.
+The slot is set at step eleven, and only when the command's `origin` is `ui` and the command is marked undoable in the catalogue. Its contents are the record as loaded at step four and validated at step five, before the mutation ran, together with the command's name for the menu label and the revision the command produced. Undoing writes that record back through steps eight to ten as a command of its own, carrying the produced revision as its `revision`, so that an undo is validated like any other write and is refused as `stale` if anything has written since; it then clears the slot. There is no redo.
 
 Restoring a pre-image removes whatever activity-log entry the operation wrote, because the pre-image predates it. That is a property of snapshotting rather than a rule to implement, and it is the reason to snapshot rather than to compute an inverse: an inverse that is subtly wrong is worse than no undo, and nothing verifies an inverse the way the pre-image verifies itself.
 
@@ -165,4 +168,4 @@ Against the worked instance in section 8 of the structural model. The command mo
 
 **Steps 8 to 10.** No note files. The record is written atomically at revision 8. The undo slot takes the pre-image, since the origin is `ui` and the command is undoable. Observers are not notified, the origin being the window itself.
 
-**A refusal on the same fixture.** Moving `w_qa`'s return to `g_5` passes the mutation's own precondition if that precondition only checks the workflow, and is then caught at step seven by I12, since `g_5` lies outside the project whilst the departure lies inside. Better is for the mutation to refuse it at step six with the rule named, leaving I12 as the net that catches the case the mutation forgot.
+**A refusal on the same fixture.** Moving `w_qa`'s return to `g_5` passes the mutation's own precondition if that precondition only checks the workflow, and is then caught at step eight by I12, since `g_5` lies outside the project whilst the departure lies inside. Better is for the mutation to refuse it at step seven with the rule named, leaving I12 as the net that catches the case the mutation forgot.
