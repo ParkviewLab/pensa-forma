@@ -27,7 +27,7 @@ Proves: the store and command-layer tests, on a temporary library; the canonical
 
 ## 3. The layout engine
 
-`layout`: heights by longest path, the air rule, lanes by the band packer, the laterals with the fan split, junctions, underpass detection, folding, the repair pass, and the output structure.
+`layout`: heights by longest path, the air rule, lanes by the band packer, the laterals with the fan split, junctions, underpass detection, folding, the repair pass, and the output structure. The layout's constants (layout engine, section 12) are a run-time parameter set with those defaults, passed in with the record; the crate implements the formulas and computes every derived value from the set, with no derived number as a literal.
 
 Proves: the required properties over generated domains; the golden masters snapshotted, the [worked example](worked-example.md)'s numbers reproduced to the pixel.
 

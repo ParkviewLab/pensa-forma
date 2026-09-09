@@ -22,7 +22,7 @@ crates/
   model/      the record types, ids, the invariant checker, the title helper, and every mutation
   store/      the filesystem: locations, path safety, atomic writes, settings, view state
   command/    the command layer: the pipeline, the catalogue, undo, notification, reads
-  layout/     heights, lanes, junctions, underpasses, folding: record in, geometry out
+  layout/     heights, lanes, junctions, underpasses, folding: record and layout parameters in, geometry out
   server/     the MCP server: transport, hardening, tools, prompts, scope tiers
   app/        the eframe application: chrome, canvas, marks, interaction, note editor, dialogs
 ```
