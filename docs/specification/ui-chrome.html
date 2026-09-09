@@ -420,7 +420,7 @@ return point above, and "above"/"below" a node in a menu name the gap beside
 it. A branch is a workflow of its own departing from a branch point on the
 left or right, returning to a return point at or above it inside the same
 projects, or running open; its start node's title names it in every submenu.
-"Here" is a per-workflow cursor on a task, moved by <code>Make here</code>,
+"Here" is a per-workflow mark on a task, moved by <code>Make here</code>,
 removed by <code>Clear here</code>. A wrap run is a contiguous stretch of one
 workflow that neither straddles a project boundary nor cuts a branch's scope;
 <code>Return a branch here</code> and <code>Move a branch here</code> list the
@@ -467,7 +467,7 @@ main workflow.</p>
   <thead><tr><th>Item</th><th>Present when</th></tr></thead>
   <tbody>
   <tr><td><code>Status</code> ▸ To do / In progress / Completed / Cancelled</td><td>always (current status checked)</td></tr>
-  <tr><td><code>Clear here</code> / <code>Make here</code></td><td>by cursor state</td></tr>
+  <tr><td><code>Clear here</code> / <code>Make here</code></td><td>by here-mark state</td></tr>
   <tr><td><code>Make project</code></td><td>always</td></tr>
   <tr><td><code>Wrap as project</code> ▸ (<code>Just this one</code>, then <code>Up to “…”</code>)</td><td>legal runs exist</td></tr>
   <tr><td><code>Move up</code> · <code>Move down</code></td><td>a distinct position exists above / below</td></tr>
