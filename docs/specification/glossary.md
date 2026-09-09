@@ -11,9 +11,8 @@ here because what it names is either constrained by a rule or acted upon by an
 operation.
 
 In these documents, unordered sets are represented as `{…}`, and ordered lists
-as `[…]`. A name in monospace is a literal, reproduced exactly: a field or
-value as it is stored in the domain file, a name as it appears on disk, or a
-notation as these documents write it.
+as `[…]`. The names of fields or values stored in files are identified in these
+documents by the use of a monospaced font.
 
 ## The application
 
