@@ -5,23 +5,26 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Glossary
 
-To avoid ambiguity, this glossary defines the words and phrases that are used as technical terms in the documents of this specification. A term is defined here because what it names is either constrained by a rule or acted upon by an operation.
+To avoid ambiguity, this glossary defines the words and phrases that are used as technical terms in the documents of this specification. A term is defined here because what it defines is either constrained by a rule or acted upon by an operation.
 
-By convention in these documents, unordered sets are represented as `{…}` and ordered lists as `[…]`, and the names of fields or values stored in files are identified in these documents by the use of a monospaced font.
+By convention in these documents, unordered sets are denoted as `{…}`, ordered lists as `[…]`, and the names of fields or values stored in files are denoted with a monospaced font.
 
 ## The application
 
 **PensaForma.**
-This is the product's name in prose and on screen, written with the capitalization as shown. `pensa-forma` is the repository, the binary, and the bundle identifier's last segment (`ai.parkviewlab.pensa-forma`); `pensa_forma` is the Rust workspace's root crate name. Specification documents should refer to it as "the application" so that any required future name changes are less costly.
+This is the product's name formal name. It is to be written with the capitalization as shown. `pensa-forma` is the repository, the binary, and the bundle identifier's last segment (`ai.parkviewlab.pensa-forma`). `pensa_forma` is the Rust workspace's root crate name. Specification documents should refer to it as "the application" so that any required future name changes are less costly.
 
 **Domain.**
-This is the unit of storage and of display: a set of workflows kept together (HomeLab, Work, and so on), held as one directory on disk beside a schema file and a README that describe the record's format. The application shows one domain at a time. A domain has an `id` and a `name`; the name is unique within the library.
+This is the unit of storage and of display. It is a set of workflows kept together (HomeLab, Work, and so on), stored on disk as a directory with a record JSON file, its JSON Schema file, and a README file that describes the record's format. The application shows one domain at a time. A domain has an `id` and a `name`. Domain names are unique within their library.
 
 **Library.**
 This is the directory holding every domain. The library root is a user setting; its default is the application's data directory.
 
+**Record.**
+This is file in which all graph data for all workflows in a single domain is stored. This is a JSON file and is accompanied by its JSON Schema file. The only workflow data not stored in this file are the notes' markdown files.
+
 **MCP automation server.**
-This is the application's programmatic interface: a local server speaking the Model Context Protocol (MCP), through which external tools and AI agents read and write domains in the library while the application runs. The other documents call it the automation server for short.
+This is the application's programmatic interface. It's a local Model Context Protocol (MCP) server,  which external tools and AI agents can use to read and write domains in the library while the application is running. The other documents may refer to this as the automation server for short.
 
 ## Nodes
 
@@ -34,7 +37,7 @@ These are the five kinds of node, with what each bounds and what it must carry a
 | Kind | Bounds | Must carry | May carry |
 | --- | --- | --- | --- |
 | `start` | opens a workflow | a `title`, which may be empty, and an activity log (`log`) | a `note` and a flag (`flagged`) |
-| `finish` | closes a workflow | nothing more | nothing |
+| `finish` | closes a workflow | nothing | nothing |
 | `begin` | opens a project | a `title`, which may be empty, its `pair`, and an activity log (`log`) | a `note` and a flag (`flagged`) |
 | `end` | closes a project | its `pair` | nothing |
 | `task` | one thing to do | a `title`, which may be empty, a `status`, and an activity log (`log`) | a `note`, a flag (`flagged`), the here mark (`here`), and `completedAt` while its status is completed |
