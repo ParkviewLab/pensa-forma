@@ -5,8 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # The documents
 
-Start with [northstar.md](northstar.md), the statement of what the
-application is for; everything else is downstream of it.
+Start with [northstar.md](northstar.md), the statement of what the application is for; everything else is downstream of it.
 
 ## In `docs/`
 
@@ -20,9 +19,4 @@ The intent, the open questions, and how to work in this repository.
 
 ## In `docs/specification/`
 
-The specification: the documents complete enough that an implementation
-can be built from them alone, some with a designed HTML twin beside them,
-and a worked example generated from their rules. They stand on their
-own and answer to the northstar alone (D1, D23). Their
-[index](specification/README.md) lists each with what it is the authority
-for and gives the reading order.
+The specification: the documents complete enough that an implementation can be built from them alone, some with a designed HTML twin beside them, and a worked example generated from their rules. They stand on their own and answer to the northstar alone (D1, D23). Their [index](specification/README.md) lists each with what it is the authority for and gives the reading order.

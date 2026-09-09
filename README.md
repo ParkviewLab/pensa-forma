@@ -5,20 +5,11 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # PensaForma
 
-A desktop application for planning and tracking work as a graph of workflows,
-for humans and AI agents alike. A workflow orders tasks; a project groups a run
-of them; a branch runs in parallel beside its workflow and may rejoin it. The
-graph is drawn as a mid-century retrofuturist flowchart; it is kept as plain
-files on your own disk, and is open to AI agents through a local Model Context
-Protocol (MCP) automation server while the application runs.
+A desktop application for planning and tracking work as a graph of workflows, for humans and AI agents alike. A workflow orders tasks; a project groups a run of them; a branch runs in parallel beside its workflow and may rejoin it. The graph is drawn as a mid-century retrofuturist flowchart; it is kept as plain files on your own disk, and is open to AI agents through a local Model Context Protocol (MCP) automation server while the application runs.
 
 ## Status
 
-Specification stage. The repository holds the specification before it holds
-the code: the documents in [`docs/specification/`](docs/specification/) are written to be complete enough
-that an implementation can be built from them alone. The application is
-written in Rust; the Cargo workspace lands with the first implementation
-milestone.
+Specification stage. The repository holds the specification before it holds the code: the documents in [`docs/specification/`](docs/specification/) are written to be complete enough that an implementation can be built from them alone. The application is written in Rust; the Cargo workspace lands with the first implementation milestone.
 
 ## What is in this repository
 
@@ -32,15 +23,11 @@ milestone.
 | [`CHANGELOG.md`](CHANGELOG.md), [`cliff.toml`](cliff.toml) | The changelog and the configuration that generates it from pull-request titles |
 | [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md) | The conventions an AI collaborator follows here, pointing at the ParkviewLab handbook |
 
-The Cargo workspace is not here yet; it lands with the first implementation
-milestone (see the [implementation plan](docs/specification/implementation-plan.md)).
+The Cargo workspace is not here yet; it lands with the first implementation milestone (see the [implementation plan](docs/specification/implementation-plan.md)).
 
 ## The documents
 
-Start with [`docs/northstar.md`](docs/northstar.md), the statement of what
-the application is for; everything else is downstream of it. The documents
-are indexed in [`docs/README.md`](docs/README.md), and the specification's
-reading order in [`docs/specification/README.md`](docs/specification/README.md).
+Start with [`docs/northstar.md`](docs/northstar.md), the statement of what the application is for; everything else is downstream of it. The documents are indexed in [`docs/README.md`](docs/README.md), and the specification's reading order in [`docs/specification/README.md`](docs/specification/README.md).
 
 ## Building and testing
 
@@ -48,21 +35,13 @@ Not yet applicable. The build and test instructions arrive with the code.
 
 ## Releasing
 
-Tag-driven, per the
-[ParkviewLab handbook](https://github.com/ParkviewLab/handbook/blob/main/docs/releases.md):
-`git bump` then `git release` from `main`; per-OS installers attach to the
-GitHub Release. The release workflow lands with the first release.
+Tag-driven, per the [ParkviewLab handbook](https://github.com/ParkviewLab/handbook/blob/main/docs/releases.md): `git bump` then `git release` from `main`; per-OS installers attach to the GitHub Release. The release workflow lands with the first release.
 
 ## License
 
-PensaForma is dual-licensed: the code is free software under
-**AGPL-3.0-or-later** by default, with a **commercial license** available as an
-alternative for closed-source use without the AGPL's obligations.
-Documentation is **CC-BY-4.0**.
+PensaForma is dual-licensed: the code is free software under **AGPL-3.0-or-later** by default, with a **commercial license** available as an alternative for closed-source use without the AGPL's obligations. Documentation is **CC-BY-4.0**.
 
-See [LICENSING.md](LICENSING.md) for the full picture and the commercial-license
-contact. Canonical per-license texts live in [`LICENSES/`](LICENSES/)
-([REUSE](https://reuse.software)-compliant).
+See [LICENSING.md](LICENSING.md) for the full picture and the commercial-license contact. Canonical per-license texts live in [`LICENSES/`](LICENSES/) ([REUSE](https://reuse.software)-compliant).
 
 ---
 <sub>© 2026 Gary Frattarola · Code under [AGPL-3.0-or-later](LICENSE), docs under [CC-BY-4.0](LICENSES/CC-BY-4.0.txt)</sub>

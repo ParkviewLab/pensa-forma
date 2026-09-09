@@ -13,26 +13,17 @@ This project is **dual-licensed**:
 
 ### The open-source option (default)
 
-The code is free software under the GNU Affero General Public License,
-version 3 or (at your option) any later version (AGPL-3.0-or-later). You may
-use, study, modify, and redistribute it under those terms. The full text is in
-[`LICENSE`](LICENSE) and [`LICENSES/`](LICENSES/).
+The code is free software under the GNU Affero General Public License, version 3 or (at your option) any later version (AGPL-3.0-or-later). You may use, study, modify, and redistribute it under those terms. The full text is in [`LICENSE`](LICENSE) and [`LICENSES/`](LICENSES/).
 
-Note the AGPL's network clause (section 13): if you run a modified version and
-let users interact with it over a network, you must offer them the
-corresponding source.
+Note the AGPL's network clause (section 13): if you run a modified version and let users interact with it over a network, you must offer them the corresponding source.
 
 ### The commercial option
 
-If you cannot or prefer not to comply with the AGPL, for example to embed this
-work in a closed-source product or to avoid the source-disclosure obligation, a
-separate commercial license is available from the copyright holder.
-Inquiries: **garyf@parkviewlab.ai**.
+If you cannot or prefer not to comply with the AGPL, for example to embed this work in a closed-source product or to avoid the source-disclosure obligation, a separate commercial license is available from the copyright holder. Inquiries: **garyf@parkviewlab.ai**.
 
 ## Per-bucket licensing
 
-Different kinds of content carry different licenses, encoded in
-[`REUSE.toml`](REUSE.toml) and in per-file SPDX headers:
+Different kinds of content carry different licenses, encoded in [`REUSE.toml`](REUSE.toml) and in per-file SPDX headers:
 
 | Bucket | License |
 |---|---|
@@ -43,8 +34,7 @@ Different kinds of content carry different licenses, encoded in
 
 ## REUSE compliance
 
-This repo is [REUSE](https://reuse.software/)-compliant. Every file has a
-license via an SPDX header or a `REUSE.toml` annotation. Verify with:
+This repo is [REUSE](https://reuse.software/)-compliant. Every file has a license via an SPDX header or a `REUSE.toml` annotation. Verify with:
 
 ```bash
 uvx --from "reuse[charset-normalizer]" reuse lint
