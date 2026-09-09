@@ -161,83 +161,156 @@ This is a time-stamped list of entries on every start node, begin node, and task
 
 ## Gaps, points, and edges
 
-**Gap.**
-This is the stored record for the space between two consecutive nodes of one workflow. A workflow with n nodes has exactly n−1 gaps, interleaved with them, and gap `i` lies between node `i` and node `i+1`. A gap owns two points.
+### Gap
 
-**Branch point.**
-This is the lower of a gap's two points, at which branches depart. It is addressed as `(gap, branch)`. It has a left side and a right side, each an ordered list of branch workflows, inner to outer (`branchLeft`, `branchRight`).
+A gap is the stored record for the space between two consecutive nodes of one [workflow](#workflow).
 
-**Return point.**
-This is the upper of a gap's two points, at which branches arrive. It is addressed as `(gap, return)`, and it likewise has two sides (`returnLeft`, `returnRight`).
+A workflow with n nodes has exactly n-1 gaps, interleaved with the nodes: gap `i` lies between node `i` and node `i+1`.
 
-**Side.**
-This is the left or the right of the parent workflow's line. A branch's side is which list holds it, and its return is made on the same side as its departure.
+Every gap has an ID, in the scheme the [structural model](structural-model.md#1-identity) defines, and owns two points: a [branch point](#branch-point) and a [return point](#return-point).
 
-**Order.**
-This is a branch's index in its side list, counted from the innermost (nearest the parent's line) outward. The order is the author's and the drawing obeys it.
+### Branch point
 
-**Departure, arrival.**
-A branch's departure is its membership in a branch point's side list; its arrival, when it has one, is its membership in a return point's side list. A branch's **departure gap** and **return gap** are the gaps owning those points.
+A branch point is the lower of a [gap](#gap)'s two points. Branches depart from it.
 
-**The three edges of a gap.**
-These are, reading upward, the **outgoing edge**, from the lower node to the branch point; the **middle edge**, from the branch point to the return point; and the **incoming edge**, from the return point to the upper node. They are structural positions, not merely drawn objects: the three places a node can be inserted within one gap, differing in whether the inserted node sits below, between, or above the gap's departures and arrivals. The middle edge has length zero when nothing separates the two points, and is then no drop target.
+It is addressed as `(gap, branch)`.
 
-**Trunk edge.**
-This is any of the three edges of a gap, as distinct from a lateral.
+It has a left side and a right side. Each side is an ordered list of [branch workflows](#branch-workflow), from the innermost outward, stored as `branchLeft` and `branchRight`.
 
-**Branch edge, return edge.**
-A branch edge is the connection from a branch point to a branch workflow's start node; a return edge is the connection from a branch workflow's finish node to a return point. Neither carries nodes.
+### Return point
 
-**Junction.**
-This is a branch point or return point as drawn: a diamond at every point whether or not a branch attaches there, one where a gap's two points coincide and two where its middle edge has opened, shared by every branch meeting it.
+A return point is the upper of a [gap](#gap)'s two points. Branches arrive at it.
+
+It is addressed as `(gap, return)`.
+
+It has a left side and a right side, stored as `returnLeft` and `returnRight`.
+
+### Side
+
+A branch's side is the left or the right of its parent workflow's line. Which side list holds the branch decides its side.
+
+A branch returns on the same side as it departs.
+
+### Order
+
+A branch's order is its index in its side list, counted from the innermost (nearest the parent's line) outward.
+
+The order is set by the author, and the drawing obeys it.
+
+### Departure and arrival
+
+A branch's departure is its membership in a [branch point](#branch-point)'s side list.
+
+A branch's arrival, when it has one, is its membership in a [return point](#return-point)'s side list.
+
+A branch's **departure gap** and **return gap** are the gaps that own those two points.
+
+### The three edges of a gap
+
+Reading upward, a [gap](#gap) has three edges: the **outgoing edge**, from the lower node to the branch point; the **middle edge**, from the branch point to the return point; and the **incoming edge**, from the return point to the upper node.
+
+The edges are structural positions, not merely drawn objects. They are the three places a node can be inserted within one gap, and they differ in whether the inserted node sits below, between, or above the gap's departures and arrivals.
+
+The middle edge has length zero when nothing separates the two points, and is then no drop target.
+
+### Trunk edge
+
+A trunk edge is any of the three edges of a gap, as distinct from a [lateral](#lateral).
+
+### Branch edge and return edge
+
+A branch edge is the connection from a [branch point](#branch-point) to a branch workflow's [start node](#start-node).
+
+A return edge is the connection from a branch workflow's [finish node](#finish-node) to a [return point](#return-point).
+
+Neither carries nodes.
+
+### Junction
+
+A junction is a branch point or a return point as drawn: a diamond.
+
+A diamond is drawn at every point whether or not a branch attaches there: one where a gap's two points coincide, and two where its middle edge has opened.
+
+A junction is shared by every branch meeting it.
 
 ## The drawing
 
 The look is, in one phrase, a mid-century retrofuturist systems diagram: a Googie-inspired Atomic Age flowchart laid out like a retro transit or control-system map. The terms for a design brief or an image search are mid-century retrofuturism, Googie diagram, Atomic Age infographic, Jet Age schematic, retro systems map, and 1950s technical illustration.
 
-**Line.**
-This is a workflow as drawn: its nodes colinear at one x, lowest at the bottom, joined by a **riser**.
+### Line
 
-**Card.**
-This is the drawn body of a node, of fixed width and measured height, wearing the silhouette its kind and state assign.
+A line is a [workflow](#workflow) as drawn: its nodes colinear at one x, the lowest at the bottom, joined by a **riser**.
 
-**Station.**
-This is where a card sits on its line: the card itself, which is the mark; nothing separate is drawn there, and the layout measures each gap between the silhouettes where the line passes through them.
+### Card
 
-**Lateral.**
-This is the drawn track of a branch edge or a return edge: a ramp, a flat run, and a ramp, climbing a constant rise whatever its horizontal span.
+A card is the drawn body of a node. It has a fixed width and a measured height, and wears the silhouette its kind and state assign.
 
-**Lane.**
-This is a column one card wide plus a gutter; branches are placed a whole number of lanes from their parent's line.
+### Station
 
-**Underpass.**
-This is the drawn form of a crossing: the crossed line runs on and the crossing lateral is cut, each severed end capped parallel to the line it passes beneath.
+A station is where a card sits on its line. The card itself is the mark; nothing separate is drawn there.
 
-**Fold.**
-This is a project or a workflow drawn shut: its begin and end cards, or its start and finish cards, overlapping with the body hidden (mark geometry, 3.11 and 3.12). Fold state is client view state keyed by the id of the start or begin node, never a field of the record.
+The layout measures each gap between the silhouettes where the line passes through them.
 
-**Bookmark.**
-This is a named, saved view stored with the domain: a name, the set of folded scopes, and the set of nodes in view when it was saved.
+### Lateral
+
+A lateral is the drawn track of a branch edge or a return edge: a ramp, a flat run, and a ramp.
+
+A lateral climbs a constant rise whatever its horizontal span.
+
+### Lane
+
+A lane is a column one card wide plus a gutter.
+
+Branches are placed a whole number of lanes from their parent's line.
+
+### Underpass
+
+An underpass is the drawn form of a crossing. The crossed line runs on and the crossing lateral is cut, each severed end capped parallel to the line it passes beneath.
+
+### Fold
+
+A fold is a project or a workflow drawn shut: its begin and end cards, or its start and finish cards, overlap with the body hidden (mark geometry, 3.11 and 3.12).
+
+Fold state is client view state keyed by the ID of the start or begin node. It is never a field of the record.
+
+### Bookmark
+
+A bookmark is a named, saved view stored with the domain.
+
+It holds a name, the set of folded [scopes](#scope), and the set of nodes in view when it was saved.
 
 ## Change
 
-**Command.**
-This is the unit of change: a name, a domain, an argument list, an origin (`ui` or `automation`), and an actor. Every change to a domain is one command through one write path.
+### Command
 
-**Mutation.**
-This is a pure function from a record and arguments to a new record; it is the body of a command.
+A command is the unit of change: a name, a domain, an argument list, an origin (`ui` or `automation`), and an actor.
 
-**Precondition.**
-This is a mutation's own check that the command makes sense, whose refusal names the rule and, where one exists, the legal alternative.
+Every change to a domain is one command through one write path.
 
-**Invariant.**
-This is a property every stored domain satisfies, checked after every mutation and on every load; the list is in the structural model.
+### Mutation
 
-**Refusal.**
-This is a command's failure, carrying a code from a small closed set and a message written to be read by a person in a dialog or by an agent as a tool result.
+A mutation is a pure function from a record and arguments to a new record. It is the body of a command.
 
-**Undo.**
-This is one slot holding the pre-image of the last command that originated in the user interface. There is no redo.
+### Precondition
 
-**Scope tier.**
-This is the automation server's configured reach: `read-only`, `read-write`, or `destructive`, each including the ones before it.
+A precondition is a mutation's own check that the command makes sense.
+
+Its refusal names the rule and, where one exists, the legal alternative.
+
+### Invariant
+
+An invariant is a property every stored domain satisfies. Invariants are checked after every mutation and on every load.
+
+The list is in the [structural model](structural-model.md#4-the-invariants).
+
+### Refusal
+
+A refusal is a command's failure. It carries a code from a small closed set and a message written to be read by a person in a dialog or by an agent as a tool result.
+
+### Undo
+
+Undo is one slot holding the pre-image of the last command that originated in the user interface. There is no redo.
+
+### Scope tier
+
+The scope tier is the automation server's configured reach: `read-only`, `read-write`, or `destructive`, each including the ones before it.
