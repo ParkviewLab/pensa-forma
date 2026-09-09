@@ -51,7 +51,7 @@ A person at the window and an agent at the automation server are the same kind o
 2. One way in, one way out, at every level: a workflow opens at its start node and closes at its finish node, and a project opens at its begin node and closes at its end node.
 3. A branch may return or not, and when it returns it rejoins the workflow it left, within the scope it left, so that any scope can be read, and folded, as a single block.
 4. Placement is the author's: the order of a domain's main workflows from left to right, and, for every branch, which side of its parent it runs on and its order among the branches sharing a point, are stored and set by hand. The drawing obeys them.
-5. In every workflow, main or branch, one task may be marked here. The mark, like a flag, is one author pointing something out to the others: it is set by a person or an agent, it means what its setter means by it, and it is never inferred from the tasks' statuses.
+5. In every workflow, main or branch, one task may be marked here. The here mark is a convenient way for one author to point out a place in a workflow to the others. Any workflow, project, or task may be marked with a flag. A flag is a convenient way for one author to identify several nodes to the others. Both the here mark and the flags are set and cleared by a person or an agent, and never by the application on its own.
 6. Status is shown, not inferred: a completed or cancelled task stays on the map, recoloured, and only deletion removes it.
 7. Structure lives in the visual channel: if the reader must read to see the shape of the work, the drawing has failed.
 8. The file is the source of truth, and it is the user's: plain JSON and markdown on disk, portable and legible without the application.
