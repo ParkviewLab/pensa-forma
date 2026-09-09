@@ -100,14 +100,14 @@ def lateral_pts(x1, y1, x2, y2, rampJ):
     """Section 4.1: junction-side ramp, flat, branch-side ramp; the two ramps sum to one lane."""
     d = 1 if x2 > x1 else -1; dx = abs(x2 - x1)
     rampJ = min(rampJ, dx); rampB = min(LANE - rampJ, dx - rampJ); pts = [(x1, y1)]
-    if rampJ > 0: pts.append((x1 + d * rampJ, y1 - rampJ * TAN12))
-    if dx > rampJ + rampB: pts.append((x2 - d * rampB, y1 - rampJ * TAN12))
+    if rampJ > 0: pts.append((x1 + d * rampJ, y1 - rampJ * TAN_A))
+    if dx > rampJ + rampB: pts.append((x2 - d * rampB, y1 - rampJ * TAN_A))
     pts.append((x2, y2)); return pts
 
 def return_pts(x_branch, rampJ):
     pts = [(X0, Y(rp))]; dx = X0 - x_branch; rampB = min(LANE - rampJ, dx - rampJ)
-    pts.append((X0 - rampJ, Y(rp) + rampJ * TAN12))
-    if dx > rampJ + rampB: pts.append((x_branch + rampB, Y(rp) + rampJ * TAN12))
+    pts.append((X0 - rampJ, Y(rp) + rampJ * TAN_A))
+    if dx > rampJ + rampB: pts.append((x_branch + rampB, Y(rp) + rampJ * TAN_A))
     pts.append((x_branch, Y(leave))); return pts
 
 laterals = {
