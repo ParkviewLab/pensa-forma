@@ -10,12 +10,14 @@ as technical terms in the documents of this specification. A term is defined
 here because what it names is either constrained by a rule or acted upon by an
 operation.
 
-Three conventions run through the set. Growth is upward: a node's successor
-sits above it on the screen, and a smaller index is lower. Sets written `{…}`
-are unordered; lists written `[…]` are ordered, and their order is model state.
-A name in monospace is a literal, given exactly as it is stored or written: a
-field or value in the domain file, an identifier on disk, or a notation the
-documents use.
+Three conventions hold throughout these documents. A workflow is drawn
+upward: its start node is at the bottom, each node's successor sits above it,
+and a smaller index along a workflow is lower on the screen. A set, written
+`{…}`, has no order; a list, written `[…]`, is ordered, and its order is data,
+stored with the domain and preserved by the application. A name in monospace
+is a literal, reproduced exactly: a field or value as it is stored in the
+domain file, a name as it appears on disk, or a notation as these documents
+write it.
 
 ## The application
 
