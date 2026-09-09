@@ -19,7 +19,40 @@ PensaForma is the product's formal name. It is to be written with the capitaliza
 
 Specification documents should refer to it as "the application" so that any required future name changes are less costly.
 
-## Workflows and Projects
+## Domain
+
+This is the unit of storage and of display. It is a set of workflows kept together (such as HomeLab, Work, and so on). 
+
+Domains are stored on disk as a directory with a [record](#record) JSON file, its JSON Schema file, and a README file that describes the record's format.
+
+The application shows one domain at a time.
+
+A domain has an `id` and a `name`. Domain names are unique within their library.
+
+## Library
+This is the directory holding every domain. The library root is a user setting; its default is the application's data directory.
+
+## Record
+This is the file in which all graph data for all workflows in a single domain is stored. This is a JSON file and is accompanied by its JSON Schema file. The only workflow data not stored in this file are the notes' markdown files.
+
+### Revision
+
+The record carries a `revision`: an integer, incremented on every successful write.
+
+A write command may name the revision its caller last read. When the record has moved on since, the write is refused rather than merged (the [command layer](command-layer.md)).
+
+### Model state and view state
+
+Model state is what the record stores and every client and writer shares: the structure, the node data, and the three orderings.
+
+View state is what one client shows of the model: its camera, its zoom, and its fold state. It is kept in the client's own `viewstate.json`, never in the record. A [bookmark](#bookmark) is the one view that travels with the domain, because a name makes it shareable.
+
+Fold state is the set of scopes a client has folded, keyed by the ID of each scope's start or begin node.
+
+## Automation server
+This is the application's programmatic interface. It is a local Model Context Protocol (MCP) server which external tools and AI agents can use to read and write domains in the library while the application is running.
+
+## Workflows and projects
 
 ### Workflow
 A workflow is a linearly ordered run of [nodes](#nodes) separated by [gaps](#gap).
@@ -32,7 +65,7 @@ A workflow is either a main or a branch based on its location alone.
 
 ### Main workflow
 
-A **main workflow** is not a branch of any other workflow and is included in the domain's `mains` list. The domain orders its main workflows left to right in its `mains` list. That is the order in which they are drawn, and that order is set by and may be changed by the author.
+A **main workflow** is not a branch of any other workflow and is included in the [domain](#domain)'s `mains` list. The domain orders its main workflows left to right in its `mains` list. That is the order in which they are drawn, and that order is set by and may be changed by the author.
 
 ### Branch workflow
 A **branch workflow** is a branch off of some other workflow and is included in some [branch point](#branch-point)'s side list.
@@ -47,7 +80,7 @@ A branch that returns is referred to as a **closed branch**. A branch that does 
 
 A project is used to group consecutive nodes together.
 
-A project can be drawn collapsed or not.
+A project may be drawn [folded](#fold).
 
 The first node in a project is a [`begin` node](#begin-node) and the last is an [`end` node](#end-node). Between those may be tasks, [sub-projects](#sub-project), and branches.
 
@@ -64,25 +97,6 @@ This is everything strictly between the two nodes that bound a workflow or a pro
 ### Extent
 This is what travels with a node when it is moved, copied, or deleted as a whole: a task alone; a project with its end node and its whole scope; a workflow with its finish node and its whole scope.
 
-## Domain
-
-This is the unit of storage and of display. It is a set of workflows kept together (such as HomeLab, Work, and so on). 
-
-Domains are stored on disk as a directory with a [record](#record) JSON file, its JSON Schema file, and a README file that describes the record's format.
-
-The application shows one domain at a time.
-
-A domain has an `id` and a `name`. Domain names are unique within their library.
-
-## Library
-This is the directory holding every domain. The library root is a user setting; its default is the application's data directory.
-
-## Record
-This is file in which all graph data for all workflows in a single domain is stored. This is a JSON file and is accompanied by its JSON Schema file. The only workflow data not stored in this file are the notes' markdown files.
-
-## Automation server
-This is the application's programmatic interface. It is a local Model Context Protocol (MCP) server which external tools and AI agents can use to read and write domains in the library while the application is running. The other documents may refer to this as the automation server for short.
-
 ## Nodes
 
 Nodes are the building blocks of a workflow.
@@ -91,9 +105,9 @@ Nodes are the building blocks of a workflow.
 
 The first node of every workflow is a start node.
 
-Start nodes may optionally have: a [title](#node-title), a note, and a flag.
+Start nodes may optionally have: a note and a flag.
 
-Start nodes must have: an [ID](#node-id), and an activity log.
+Start nodes must have: an [ID](#node-id), a [title](#node-title) (which may be empty), and an activity log.
 
 ### Finish node
 
@@ -106,9 +120,9 @@ Finish nodes must have: an ID.
 
 The first node of every project is a begin node.
 
-Begin nodes may optionally have: a [title](#node-title), a note, and a flag.
+Begin nodes may optionally have: a note and a flag.
 
-Begin nodes must have: an ID, the ID of its matching [end node](#end-node), and an activity log.
+Begin nodes must have: an ID, a [title](#node-title) (which may be empty), the ID of its matching [end node](#end-node), and an activity log.
 
 ### End node
 
@@ -120,9 +134,9 @@ End nodes must have: an ID, and the ID of its matching [begin node](#begin-node)
 
 A task node defines a single task.
 
-Task nodes may optionally have: a [title](#node-title), a note, a flag, and a here mark.
+Task nodes may optionally have: a note, a flag, and a here mark.
 
-Task nodes must have: an ID, a [status](#node-status), and an activity log.
+Task nodes must have: an ID, a [title](#node-title) (which may be empty), a [status](#node-status), and an activity log.
 
 
 
@@ -135,7 +149,7 @@ A unique identification string for a node. The schema for these IDs is defined i
 
 Every node has a kind: start, finish, begin, end, or task, stored in its `kind` field.
 
-A node's kind is set when the node is made, and changes only under the two conversions the [command catalogue](command-catalogue.md#convert_project_to_taskbegin) defines.
+A node's kind is set when the node is made, and changes only under a [conversion](#conversion).
 
 ### Node title
 This is the name of a workflow (on its start node), a project (on its begin node), or a task.
@@ -158,6 +172,12 @@ This is a node's written prose: a markdown file in the domain's `notes/` directo
 
 ### Activity log
 This is a time-stamped list of entries on every start node, begin node, and task, oldest first, written by the application on structural changes and by people and agents at will. It is editable, and is therefore a worklog rather than an audit trail.
+
+### Log entry
+
+An activity log entry has an `id`, an `at` timestamp, an `author` (a user, an agent, or the system, with a name), an `origin` (`system` when the application wrote it, `manual` when a person or an agent did), an `event` code on a system entry (null on a manual one), its `text`, and `editedAt` and `editedBy` once it has been edited.
+
+Which commands write a system entry, to which node, and with which event, the [command catalogue](command-catalogue.md) specifies.
 
 ## Gaps, points, and edges
 
@@ -245,6 +265,12 @@ A line is a [workflow](#workflow) as drawn: its nodes colinear at one x, the low
 
 A card is the drawn body of a node. It has a fixed width and a measured height, and wears the silhouette its kind and state assign.
 
+### Silhouette
+
+A silhouette is the outline a card wears, assigned by the node's kind and state: a task wears a screen, and a task carrying the here mark a marquee; a start node wears a tilted ellipse and a finish node a tilted keystone; a begin node wears a hull and an end node a hull half-turned.
+
+The junction's diamond, the here mark's sputnik, and the drop indicator's chevron pair are marks drawn beside or between cards, not silhouettes. All are specified in the [mark geometry](mark-geometry.md).
+
 ### Station
 
 A station is where a card sits on its line. The card itself is the mark; nothing separate is drawn there.
@@ -279,6 +305,20 @@ A bookmark is a named, saved view stored with the domain.
 
 It holds a name, the set of folded [scopes](#scope), and the set of nodes in view when it was saved.
 
+## Interaction
+
+### Handle
+
+A handle is the card by which a drag moves a whole: a task moves itself; a begin node moves its project, and a start node its workflow, each with its whole [scope](#scope); a branch workflow's finish node moves only its return.
+
+An end node is never a handle, and a main workflow's finish node moves nothing.
+
+### Drop target
+
+A drop target is a hit region in the drawing paired with the command it would issue.
+
+The [command catalogue](command-catalogue.md)'s targets are the edge target (one of a [gap](#gap)'s three edges), the branch target (a side of a branch point or return point, at an order position), and the main target (a position in the domain's `mains` order). The [interaction](interaction.md#4-the-drop-target-inventory) document lists every target the drawing offers.
+
 ## Change
 
 ### Command
@@ -286,6 +326,20 @@ It holds a name, the set of folded [scopes](#scope), and the set of nodes in vie
 A command is the unit of change: a name, a domain, an argument list, an origin (`ui` or `automation`), and an actor.
 
 Every change to a domain is one command through one write path.
+
+### Clip
+
+A clip is the value `copy_project` returns: a project's extent, with every note's text carried by value.
+
+`paste` splices a clip in with fresh ids: onto an edge target as a project, onto a branch target as a branch workflow, and onto a main target as a main workflow.
+
+### Conversion
+
+A conversion changes a node's kind, and is the only way a kind changes.
+
+`convert_task_to_project` makes a task the begin node of a new, empty project; `convert_project_to_task` makes a begin node a task and removes its end node.
+
+A drag also converts: a branch workflow dropped onto an edge target in its parent becomes a project, and a project dropped onto a branch target becomes a branch workflow, its begin and end nodes becoming a start and a finish.
 
 ### Mutation
 

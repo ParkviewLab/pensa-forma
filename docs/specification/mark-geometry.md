@@ -49,7 +49,7 @@ Every fill and stroke is a role token, not a literal colour, and the token resol
 
 ## The marks
 
-Paint order, back to front: the ground grid; the track layer (tracks, junction diamonds, and cursor marks); then the cards, each drawn in this order: its orbits decorator first, then its outer silhouette, its inner silhouette, and its content, with the note glyph last atop its corner; then, during a drag, the drop indicator and the ghost. A card therefore covers the dots and tracks beneath it, and a decorator's overflow never covers a neighbouring card drawn after it.
+Paint order, back to front: the ground grid; the track layer (tracks, junction diamonds, and here marks); then the cards, each drawn in this order: its orbits decorator first, then its outer silhouette, its inner silhouette, and its content, with the note glyph last atop its corner; then, during a drag, the drop indicator and the ghost. A card therefore covers the dots and tracks beneath it, and a decorator's overflow never covers a neighbouring card drawn after it.
 
 ### 1. The ground
 
@@ -84,7 +84,7 @@ Golden master, `w = 188`, `h = 56` (so `R = 14`):
 
 (A rounded rectangle has parallel edges, and is the one exception to the splay rule: it is the quiet default against which the characterful shapes read.)
 
-#### 3.2 marquee (a task carrying the "here" cursor)
+#### 3.2 marquee (a task carrying the here mark)
 
 A concave cushion: the four corners sit at the box corners, and each of the four edges bows inward. The top and bottom bow by 0.14 of the height; the left and right bow by 0.05 of the width.
 
@@ -319,9 +319,9 @@ O = [ (72,12,-30,-38), (66,13,40,215), (68,11,103,-38) ]
 
 The three ball offsets from the card centre, evaluated: `(45.4, -34.8)`, `(-36.6, -40.5)`, `(-5.5, 53.7)`. The decorator is drawn behind the card so its rings overflow the card box.
 
-### 6. The cursor mark (the atomic starburst)
+### 6. The here mark (the atomic starburst)
 
-The "here" cursor (the per-workflow mark by which an author points a task out) is marked, beside the marquee card, by a sputnik: solid rays of irregular length at irregular angles, each tipped with a ball, around a solid centre. Its colour is `--ink` (near-black on azure, near-white on navy). The symbol is defined at a base ray length of 15; the cursor draws it at 1.15 times that. Ten rays are drawn, each a line from the centre to a tip, with a ball of radius 2.2 at the tip; a core ball of radius 2.8 sits at the centre.
+The here mark, by which an author points a task out, is drawn beside the marquee card as a sputnik: solid rays of irregular length at irregular angles, each tipped with a ball, around a solid centre. Its colour is `--ink` (near-black on azure, near-white on navy). The symbol is defined at a base ray length of 15; the here mark draws it at 1.15 times that. Ten rays are drawn, each a line from the centre to a tip, with a ball of radius 2.2 at the tip; a core ball of radius 2.8 sits at the centre.
 
 ```
 base = 15
@@ -332,7 +332,7 @@ for each (deg, f) in rays:
 core ball at (0,0)  r=2.8  fill=--ink
 rays = [ (-6,1.0),(30,0.66),(63,1.12),(99,0.58),(138,0.9),
          (177,1.2),(210,0.68),(246,1.02),(285,0.82),(318,1.08) ]
-cursor draws the whole symbol scaled by 1.15 about its centre
+the here mark draws the whole symbol scaled by 1.15 about its centre
 ```
 
 The ten tips, evaluated at base scale: `(14.9,-1.6)`, `(8.6,4.9)`, `(7.6,15)`, `(-1.4,8.6)`, `(-10,9)`, `(-18,0.9)`, `(-8.8,-5.1)`, `(-6.2,-14)`, `(3.2,-11.9)`, `(12,-10.8)`. (Tips are recorded to one decimal; the 30-degree ray's y evaluates to exactly 4.95 and is recorded as 4.9, the value the golden masters use.) A second symbol, the four-plus-spoke starburst (the "burst" atmosphere mark), is specified in the constants appendix as an optional decoration; it is not drawn by default.
@@ -429,7 +429,7 @@ Card box:        width 188 (fixed, the whole drawn box);  height measured
 Card metrics:    task inner spacing 11 (top/bottom) / 16 (left/right);
                  begin and start inner spacing 16 all round, minimum height 58;
                  folded begin top spacing 24; end minimum height 58; finish height 52;
-                 inter-element gap 3; glyph-to-label gap 7; cursor card left/right spacing 24
+                 inter-element gap 3; glyph-to-label gap 7; here-marked card left/right spacing 24
 Folded pair:     end card overlapping the begin card by the fold seam 22, painted after it (3.11);
                  start card overlapping the finish card by the workflow fold seam 35, painted after it (3.12)
 Silhouette:      margin m = 1.5
@@ -457,7 +457,7 @@ Orbits:          O = [(72,12,-30,-38),(66,13,40,215),(68,11,103,-38)];
                  ring stroke 2.4, opacity 0.7; ball r 4; core r 4
 Sputnik:         base 15; rays (deg,factor) =
                    (-6,1.0)(30,0.66)(63,1.12)(99,0.58)(138,0.9)(177,1.2)(210,0.68)(246,1.02)(285,0.82)(318,1.08);
-                 ray stroke 1.4 round cap; ball r 2.2; core r 2.8; cursor scale 1.15
+                 ray stroke 1.4 round cap; ball r 2.2; core r 2.8; here-mark scale 1.15
 Burst (optional decoration):  four full spokes: vertical and horizontal to ±26, the two diagonals
                  to (±18, ±18); four half spokes to ±14, rotated 22.5/67.5/112.5/157.5 degrees;
                  stroke 1.4; opacity 0.13; colours --burst-a (default) / --burst-b (variant)
@@ -481,7 +481,7 @@ Each token by role, and where relevant by hue, for both themes.
 | --- | --- | --- | --- |
 | `--ground` | canvas | `#d3e6ef` | `#0f2334` |
 | `--panel` | card panel (task, start, finish) | `#f8f3e8` | `#1a3a54` |
-| `--ink` | text, cursor mark | `#173242` | `#e8f1f6` |
+| `--ink` | text, here mark | `#173242` | `#e8f1f6` |
 | `--line` | tracks, dots, diamonds | `#365b6c` | `#6fb6c9` |
 | `--muted` | tags, note glyph | `#5f7d8b` | `#93b3c2` |
 | `--grid` | ground dots | `#173242` at 10 % | `#6fb6c9` at 13 % |
@@ -514,7 +514,7 @@ Which mark is drawn for which node. Policy, not geometry; changeable independent
 | folded begin node | hull | `--c-project` | `--c-project-tint` | end drawn shut on its card, painted over it (3.11); extra top spacing |
 | folded start node | ellipse over keystone | `--c-workflow` | `--panel` | finish drawn behind the start card by the workflow fold seam (3.12) |
 
-A begin node and a start node show no status glyph and no tag and can never be the cursor, so the teal hull and the line-coloured ellipse read unambiguously as boundaries rather than tasks. The orbits mark the flagged state alone and compose with any shape.
+A begin node and a start node show no status glyph and no tag and can never carry the here mark, so the teal hull and the line-coloured ellipse read unambiguously as boundaries rather than tasks. The orbits mark the flagged state alone and compose with any shape.
 
 ## Implementation notes, for any drawing target
 

@@ -11,7 +11,7 @@ The authority for the application's programmatic interface: a local server speak
 
 ## 1. Goal
 
-An agent should be able to read a domain's workflows and act on them the way a person does: see the tasks set up next, add or complete tasks, set a cursor, restructure, and leave a record in the activity log. The motivating case is "look in there and see the tasks I set up for you to do next," made easy for an agent. Read and write from the start, not read-only: every write passes the same validation gate, so a write is no more dangerous to data integrity than a read, and the residual risk is semantic, which is the agent's responsibility with any tool.
+An agent should be able to read a domain's workflows and act on them the way a person does: see the tasks set up next, add or complete tasks, set a here mark, restructure, and leave a record in the activity log. The motivating case is "look in there and see the tasks I set up for you to do next," made easy for an agent. Read and write from the start, not read-only: every write passes the same validation gate, so a write is no more dangerous to data integrity than a read, and the residual risk is semantic, which is the agent's responsibility with any tool.
 
 ## 2. Architecture
 
@@ -54,7 +54,7 @@ The server's initialise response carries these instructions, which every client 
 
 > PensaForma is a LIVE store: its user, and other agents, can change it at any moment. Never rely on an earlier read. Treat anything you read (domains, workflows, flagged nodes, statuses, notes) as possibly stale the instant after you read it. Before you act, and always immediately before a write, re-read the current state with the relevant tool (find_flagged, read_domain, read_workflow, read_project, read_node, read_note) and resolve any description such as "the flagged one" or "the task marked here" against that fresh read, not against memory. Every read returns the domain's revision; pass it as `revision` on your write, and a write against a changed domain is refused as stale rather than landing on the wrong state. Every write returns the affected id, the new revision, and the re-rendered outline; treat that as your new ground truth.
 >
-> The model: a domain holds workflows. A workflow opens at a start node and closes at a finish node; between them sit tasks, projects (a begin node paired with an end node, and everything between), and gaps. Between every pair of consecutive nodes is one gap, which owns a branch point (lower) where branches depart and a return point (upper) where branches arrive; a node can be inserted on a gap's outgoing, middle, or incoming edge, which differ in whether it lands below, between, or above the gap's departures and arrivals. A branch is a workflow of its own; it departs from a branch point on one side, left or right, at an order position among its siblings, and it may return to a return point at or above its departure, on the same side, inside exactly the same projects, or it may run open. A finish node and an end node carry no title; a workflow is named by its start node and a project by its begin node. Only a task has a status or the "here" cursor. Growth is upward.
+> The model: a domain holds workflows. A workflow opens at a start node and closes at a finish node; between them sit tasks, projects (a begin node paired with an end node, and everything between), and gaps. Between every pair of consecutive nodes is one gap, which owns a branch point (lower) where branches depart and a return point (upper) where branches arrive; a node can be inserted on a gap's outgoing, middle, or incoming edge, which differ in whether it lands below, between, or above the gap's departures and arrivals. A branch is a workflow of its own; it departs from a branch point on one side, left or right, at an order position among its siblings, and it may return to a return point at or above its departure, on the same side, inside exactly the same projects, or it may run open. A finish node and an end node carry no title; a workflow is named by its start node and a project by its begin node. Only a task has a status or the here mark. Growth is upward.
 >
 > The tools speak that vocabulary and no other. Every id-valued parameter takes an id; titles are not addresses, since a title can change between your read and your write. Positions are given as a gap id with an edge (outgoing, middle, incoming), a gap id with a side and index at its branch point, or an index among the domain's main workflows.
 
@@ -93,7 +93,7 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 | `add_task(node_id, above_or_below, title)` | `insert_task` at the derived gap and position |
 | `move_task(task_id, target)` | `move_task` |
 | `set_status(task_id, status)`, `cycle_status(task_id)` | the two status commands |
-| `set_here(task_id)`, `clear_here(task_id)` | the two cursor commands |
+| `set_here(task_id)`, `clear_here(task_id)` | the two here-mark commands |
 | `set_flag(node_id, flagged)` | `set_flag` |
 | `wrap_run(from_id, to_id, title)` | `wrap_run` |
 | `unwrap_project(begin_id)` | `unwrap_project` |

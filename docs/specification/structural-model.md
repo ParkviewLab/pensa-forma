@@ -241,7 +241,7 @@ An operation arriving from the automation server never fills the slot, and it *i
 
 ## 8. A worked instance
 
-One small domain in full, as a verification fixture. It exercises a project, a branch that returns inside that project, an open branch, and two "here" cursors in two workflows.
+One small domain in full, as a verification fixture. It exercises a project, a branch that returns inside that project, an open branch, and two here marks in two workflows.
 
 ```
 domain d_ex01  name "Example"  schema 1  revision 7  mains [w_main]

@@ -62,7 +62,7 @@ A message layer covering the viewport, its text centred both ways, `--muted`, 14
 | `No domains. Use “New domain…” in the switcher to create one.` | the last domain was deleted |
 | `No domain library found` | startup found no domains even after seeding samples |
 
-Whenever startup finds the library empty (the first launch, or a launch after every domain was deleted), the application seeds two sample domains, `HomeLab` and `Work`, so the ordinary first-run experience opens a populated map rather than an empty state. Each sample holds two or three main workflows with a project, a returning branch, an open branch, a cursor, a flagged task, and one node carrying a note, so that every mark in the vocabulary appears on the first screen. The sample content is suggested, not binding; the pattern (seed something real on an empty library) is the requirement.
+Whenever startup finds the library empty (the first launch, or a launch after every domain was deleted), the application seeds two sample domains, `HomeLab` and `Work`, so the ordinary first-run experience opens a populated map rather than an empty state. Each sample holds two or three main workflows with a project, a returning branch, an open branch, a here mark, a flagged task, and one node carrying a note, so that every mark in the vocabulary appears on the first screen. The sample content is suggested, not binding; the pattern (seed something real on an empty library) is the requirement.
 
 ---
 
@@ -143,7 +143,7 @@ A domain holds any number of workflows. A workflow opens at a start node and clo
 
 Between every pair of consecutive nodes is a gap, with a branch point below and a return point above; a node can be added at a gap's outgoing, middle, or incoming position, which differ in whether it lands below, between, or above the gap's departures and arrivals. "Above <node>" in a menu means the gap above the node at its outgoing position; "below <node>" means the gap below it at its incoming position. A branch departs on the left or the right of its parent's line, at an order position among its siblings, and either returns to a return point at or above its departure, on the same side and inside exactly the same projects, or runs open.
 
-`Make here` sets the "here" cursor on a task: a per-workflow pointer by which an author points one task out to the others, at most one per workflow, stored on the task itself and shared with other writers. Setting it clears the workflow's previous cursor; `Clear here` removes it. Only a task can carry it.
+`Make here` sets the here mark on a task: a per-workflow pointer by which an author points one task out to the others, at most one per workflow, stored on the task itself and shared with other writers. Setting it clears the workflow's previous here mark; `Clear here` removes it. Only a task can carry it.
 
 A flagged node is one marked (by double-click) for the flagged-only review mode; the flag is stored on the node and shared, unlike the toggle itself.
 
@@ -217,7 +217,7 @@ Right-click on a task card. Items in order; an empty condition column means alwa
 | Item | Condition |
 | --- | --- |
 | `Status` ▸ `To do` / `In progress` / `Completed` / `Cancelled` | the current status row is checked |
-| `Clear here` or `Make here` | `Clear here` when this task carries the cursor |
+| `Clear here` or `Make here` | `Clear here` when this task carries the here mark |
 | `Make project` | |
 | `Wrap as project` ▸ | legal runs exist; first entry `Just this one`, then `Up to “<title>”` per node further up (an end node shown as `the close of “<project>”`) |
 | `Move up` | a distinct position exists above |
@@ -246,7 +246,7 @@ Folded-scope withholdings: when the project is folded, `Add task above`, `Add br
 
 ### 6.4 The end-card menu
 
-Right-click on a project's close. It has no title, status, cursor, note, or log, so the menu is short: `Add task above`, `Add task below`, `Add branch above` ▸, `Add branch below` ▸, then `Return a branch here` ▸ and `Move a branch here` ▸ (only when candidate branches exist), then a separator, then `Expand` or `Collapse` (resolved against the begin node the close pairs with, so either end of the pair acts identically). No `Delete…`: an end node is deleted with its begin node.
+Right-click on a project's close. It has no title, status, here mark, note, or log, so the menu is short: `Add task above`, `Add task below`, `Add branch above` ▸, `Add branch below` ▸, then `Return a branch here` ▸ and `Move a branch here` ▸ (only when candidate branches exist), then a separator, then `Expand` or `Collapse` (resolved against the begin node the close pairs with, so either end of the pair acts identically). No `Delete…`: an end node is deleted with its begin node.
 
 ### 6.5 The start-card menu
 
@@ -459,7 +459,7 @@ In the choice dialog Enter does nothing and no button has focus. Inside the sour
 
 ## Appendix A: colour tokens
 
-The theme state selects azure (Light) or navy (Dark); every colour below is defined per theme. Fonts and the token names are theme-independent. The map's own role tokens (the status colours, the project and workflow colours, the cursor) are in the mark geometry's colour appendix; the chrome shares several.
+The theme state selects azure (Light) or navy (Dark); every colour below is defined per theme. Fonts and the token names are theme-independent. The map's own role tokens (the status colours, the project and workflow colours, the `--cursor` accent) are in the mark geometry's colour appendix; the chrome shares several.
 
 | Token | Azure (Light) | Navy (Dark) | Used in this document for |
 | --- | --- | --- | --- |

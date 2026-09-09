@@ -47,11 +47,11 @@ The alternative was to record only that a branch departs at one point and return
 
 **Consequence.** The drop-target inventory doubles (both sides of every point), and the layout engine obeys the stored order rather than choosing one.
 
-### D5. The "here" cursor is scoped one per workflow
+### D5. The here mark is scoped one per workflow
 
 *2026-08-30.*
 
-Each workflow, main or branch, carries at most one "here" cursor, by which a person or an agent points one task out to the others working it. A parent and its branch each hold their own, so parallel threads of work each have a position. Only a task may carry it.
+Each workflow, main or branch, carries at most one here mark, by which a person or an agent points one task out to the others working it. A parent and its branch each hold their own, so parallel threads of work each have a position. Only a task may carry it.
 
 ### D6. The activity log is editable, and is therefore a worklog
 
@@ -121,7 +121,7 @@ Fractional sort keys were considered, since they let two writers insert in diffe
 
 *2026-08-30; amended for the finish and end nodes 2026-09-03.*
 
-A `start` node and a `begin` node carry a title. A `finish` node and an `end` node carry none, so a boundary pair is named by the node that opens it. Only a task carries a status and only a task may hold the "here" cursor. Any node may be flagged, and every node has a note reference and an activity log.
+A `start` node and a `begin` node carry a title. A `finish` node and an `end` node carry none, so a boundary pair is named by the node that opens it. Only a task carries a status and only a task may hold the here mark. Any node may be flagged, and every node has a note reference and an activity log.
 
 The rejected alternatives were a rolled-up status on boundaries, showing aggregate progress on a collapsed project, and an independently settable status on every node. The latter is the one arrangement in which the map can display a contradiction, a project marked done above unfinished contents.
 
@@ -167,11 +167,11 @@ Fold state is client-local view state keyed by the `begin` node's id, never a fi
 
 **Amended 2026-09-03.** Folding applies to workflows as well, any workflow, main or branch. The two reasons for deferring it are answered: the pair is drawn shut by the construction in the mark geometry's 3.12, the start ellipse painted over the finish keystone at a seam of 35, and a folded branch's laterals arrive and leave exactly as they do when it is open, `L` beneath the start card's silhouette and `L` above the finish card's, the riser running behind the pair. A folded branch keeps its lane; a folded main workflow is one card in the row of mains. Fold state keys on the id of the node that opens the fold, `start` or `begin`. The candidate once recorded in the in-flight ideas is thereby settled.
 
-### D16. On a cursor collision, the receiving workflow's cursor survives
+### D16. On a here-mark collision, the receiving workflow's here mark survives
 
 *2026-08-30.*
 
-Two edits can bring two "here" cursors into one workflow: a branch becoming a project inside its parent, and a task carrying the cursor moving into a workflow that already has one. In both, the cursor already in the receiving workflow stays and the incoming one is cleared. A structural edit never moves where the author was working on the line they dropped into.
+Two edits can bring two here marks into one workflow: a branch becoming a project inside its parent, and a task carrying the here mark moving into a workflow that already has one. In both, the here mark already in the receiving workflow stays and the incoming one is cleared. A structural edit never moves where the author was working on the line they dropped into.
 
 ### D17. An emptied project scope and an emptied workflow scope both persist
 
@@ -285,7 +285,7 @@ The proposal's `doing` and `done`, shown as Doing and Done, were rejected: these
 
 *Proposed 2026-09-02; settled 2026-09-03 with status changes added.*
 
-The application writes one `system` entry to exactly one node per command, the node the command names as its subject, for a structural change and for a status change: creating a node, moving a node or an extent, converting a project to a branch or a branch to a project, attaching or detaching a departure or a return, reordering a branch or a main workflow, and setting or cycling a task's status (event `status`, naming the new status). A rename, a flag or cursor change, and a note edit write none; they are state that the record itself shows. Deletion writes nothing, the deleted node's log dying with it. An entry holds frozen prose in `text` and a machine-readable `event` code, so it reads at a glance and filters by kind. A `system` entry is editable on the same terms as any other and carries `editedAt` and `editedBy` once edited. The log is unbounded; the viewer shows the newest entries first and pages.
+The application writes one `system` entry to exactly one node per command, the node the command names as its subject, for a structural change and for a status change: creating a node, moving a node or an extent, converting a project to a branch or a branch to a project, attaching or detaching a departure or a return, reordering a branch or a main workflow, and setting or cycling a task's status (event `status`, naming the new status). A rename, a flag or here-mark change, and a note edit write none; they are state that the record itself shows. Deletion writes nothing, the deleted node's log dying with it. An entry holds frozen prose in `text` and a machine-readable `event` code, so it reads at a glance and filters by kind. A `system` entry is editable on the same terms as any other and carries `editedAt` and `editedBy` once edited. The log is unbounded; the viewer shows the newest entries first and pages.
 
 ### D32. Bookmarks hold a node set, not a camera
 

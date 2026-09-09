@@ -15,7 +15,7 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 **The invariant checker is exercised in both directions.** For each of the seventeen invariants in the structural model, section 4, a test constructs a record that violates exactly that invariant and asserts the checker names it; and the worked instance of section 8 passes clean. The three refusals the worked instance lists are tests.
 
-**Every mutation is a property test.** Using a generator that builds random legal domains (random workflows, projects nested properly, branches placed by the model's own rules, some open, some returning, cursors and flags scattered), each mutation is applied with random legal arguments and the result must satisfy every invariant; applied with random illegal arguments it must refuse with the documented code and leave its input untouched. The generator is itself checked: everything it produces passes the checker.
+**Every mutation is a property test.** Using a generator that builds random legal domains (random workflows, projects nested properly, branches placed by the model's own rules, some open, some returning, here marks and flags scattered), each mutation is applied with random legal arguments and the result must satisfy every invariant; applied with random illegal arguments it must refuse with the documented code and leave its input untouched. The generator is itself checked: everything it produces passes the checker.
 
 **The catalogue's required properties** (command catalogue, section 10) are property tests over the same generator: a command's subject is the only node whose log changed; every moved node keeps its fields except the ones the conversions change; no command creates a return; nothing is deleted for being empty.
 

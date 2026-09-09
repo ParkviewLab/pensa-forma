@@ -44,11 +44,11 @@ An edge target names a gap by id and one of its three positions (structural mode
 | `wrapped` | a command that closes a run of nodes into a new project |
 | `status` | a command that sets or cycles a task's status |
 
-State commands (title, flag, cursor, note text, log entries) write no `system` entry; they are not structural. A status change is the one exception (decisions, D31): when a task was started, completed, or cancelled is worth a line in its own log.
+State commands (title, flag, here mark, note text, log entries) write no `system` entry; they are not structural. A status change is the one exception (decisions, D31): when a task was started, completed, or cancelled is worth a line in its own log.
 
 **Refusal text.** Each command lists its refusals as the message a caller receives, with the code from the command layer's closed set. A message names the rule and, where one exists, the legal alternative. Placeholders in angle brackets are filled with the title of the node concerned, or its id when the title is empty.
 
-**Vacated positions.** Whenever a command removes a node from a workflow, the gap below it and the gap above it merge as the structural model, section 2.4, describes; nothing detaches, and each retained point keeps its own list in its own order with the orphaned list appended outward. Whenever a command removes a branch from a side list, the list closes up and the order of the rest is preserved. Nothing is deleted for being empty (D17). Where two "here" cursors would meet in one workflow, the receiving workflow's survives and the arriving one is cleared (D16).
+**Vacated positions.** Whenever a command removes a node from a workflow, the gap below it and the gap above it merge as the structural model, section 2.4, describes; nothing detaches, and each retained point keeps its own list in its own order with the orphaned list appended outward. Whenever a command removes a branch from a side list, the list closes up and the order of the rest is preserved. Nothing is deleted for being empty (D17). Where two here marks would meet in one workflow, the receiving workflow's survives and the arriving one is cleared (D16).
 
 ---
 
@@ -134,9 +134,9 @@ Refusal `bad_arguments`: "Only a task has a status." `bad_arguments`: "A status 
 
 ### `set_here(task)` and `clear_here(task)`
 
-Tier read-write. Undoable. Subject: the task. `set_here` sets the cursor on the task and clears it from any other task in the same workflow; `clear_here` clears it. State, no log entry.
+Tier read-write. Undoable. Subject: the task. `set_here` sets the here mark on the task and clears it from any other task in the same workflow; `clear_here` clears it. State, no log entry.
 
-Refusal `bad_arguments`: "Only a task can carry the cursor."
+Refusal `bad_arguments`: "Only a task can carry the here mark."
 
 ### `set_flag(node, flagged)`
 
