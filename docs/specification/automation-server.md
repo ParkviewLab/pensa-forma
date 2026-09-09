@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # The automation server
 
-The authority for the application's programmatic interface: a local server speaking the Model Context Protocol (MCP), through which external tools and AI agents read and write the open library while the application runs. It wraps the [command catalogue](command-catalogue.md) and nothing else; every tool is a call into the [command layer](command-layer.md), so an agent edits the live application exactly as a person does, through the one write path that validates before it persists.
+The authority for the application's programmatic interface: a local server speaking the Model Context Protocol (MCP), through which external tools and AI agents read and write domains in the library while the application runs. It wraps the [command catalogue](command-catalogue.md) and nothing else; every tool is a call into the [command layer](command-layer.md), so an agent edits the live application exactly as a person does, through the one write path that validates before it persists.
 
 ---
 
