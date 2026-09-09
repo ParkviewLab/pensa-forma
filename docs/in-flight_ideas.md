@@ -43,6 +43,10 @@ Reusing an external synchroniser (a synced folder, a git remote) over the librar
 
 The mark geometry defines an optional four-plus-spoke starburst as a background decoration and draws none. If a real theming pass wants atmosphere, scatter them procedurally from the drawing's bounds, seeded by the domain id so they stay put.
 
+### Render parameters as settings
+
+A few sliders in a settings dialog for the values that most govern the look of a drawing: the card width, the standard trunk-edge length, the angle of the laterals' ramps, perhaps the gutter. The layout is already a function of these constants (layout engine, section 12), and they are view state, so they would live in `settings.json` and never reach the record or an agent. The three are coupled: the incoming and outgoing edges must clear a card's near corner, so `L` is derived from the card's half-width, the angle, and the junction margin, and a dialog would derive or clamp rather than offer three free sliders; `L` also has a floor from the interaction document, where every drop zone is at least `L` tall. The angle would be offered within a limited range. The mark geometry's silhouettes are specified in a 188-wide box, so a width slider needs them parametric, with the golden masters kept at the defaults and property tests across the ranges. Not before the drawing is in daily use at the defaults.
+
 ## Tooling
 
 What this repository settles as the family's first in Rust is fed back to the handbook and to dev-tools, in this order: the dev-tools change before the first release, which cannot be cut without it; the packaging choice at that release; and the handbook's Rust profile after it, once the conventions have carried a release.

@@ -81,7 +81,7 @@ Every lateral in the drawing climbs the same amount, `rise`, whatever horizontal
 
 A rise proportional to the lanes a lateral spans would make a node's height depend on lane assignment, which depends on vertical extents, which depend on heights. The dependency is circular and there is no order in which to solve it. Fixing the rise breaks the cycle: heights first, lanes second, and neither reads back.
 
-The lateral itself is a **ramp, a flat run, and a ramp**. It leaves its junction at twelve degrees, runs flat across whatever span remains, and climbs the rest into its arrival. The two ramps together always cover exactly one lane of horizontal run, because the total climb is `rise = laneStep * tan 12` and both ramps are at twelve degrees; how that one lane is split between them is free, and section 4.3 uses the freedom. A branch one lane out is therefore a single straight twelve-degree diagonal; every wider branch climbs the same total over a longer flat middle.
+The lateral itself is a **ramp, a flat run, and a ramp**. It leaves its junction at twelve degrees, runs flat across whatever span remains, and climbs the rest into its arrival. The two ramps together always cover exactly one lane of horizontal run, because the total climb is `rise = laneStep · tan(rampAngle)` and both ramps are at that angle, twelve degrees by default; how that one lane is split between them is free, and section 4.3 uses the freedom. A branch one lane out is therefore a single straight twelve-degree diagonal; every wider branch climbs the same total over a longer flat middle.
 
 ### 4.1 The lateral, exactly
 
@@ -141,7 +141,7 @@ A middle edge is **either zero or at least L**, never between. At zero the two p
 `L` is sized so that the fixed edges do all the clearing on their own. A departing lateral leaves the branch point at the lower node's x and climbs as it goes outward, so the card it could vanish behind is the upper one, directly above the junction; it climbs `(cardW / 2) · tan 12` whilst crossing that card's half-width, and the incoming edge above the branch point must hold that climb plus a margin. An arriving lateral is the mirror, descending toward the lower card's top. So `L` satisfies
 
 ```
-L >= (cardW / 2) · tan12 + junctionMargin        # 19.98 + 4, so L = 24
+L >= (cardW / 2) · tan(rampAngle) + junctionMargin        # 19.98 + 4 at the defaults, so L = 24
 ```
 
 and neither case ever asks the middle edge to open. `L` is also more than a junction diamond's diagonal (17 at 12 on a side), so two diamonds `L` apart in a gap using both points stand clear of each other.
@@ -230,13 +230,13 @@ No two tracks properly cross without the crossing being marked as an underpass. 
 cardW           card width                             188
 gutter          horizontal gutter between lanes         40
 laneStep        cardW + gutter                          228
-tan12           tan(12°)                                0.2126
-rise            laneStep * tan12                        48.5
+rampAngle       the angle at which a lateral's ramps climb              12°
+rise            laneStep · tan(rampAngle)                            48.5
 rampFloor       the shortest junction-side ramp, as a fraction of a lane   0.2
 L               the standard trunk-edge length: the outgoing edge, the incoming
                 edge, the floor on a non-zero middle edge, and the least
-                separation of two junctions sharing a gap; at least
-                (cardW/2)·tan12 + junctionMargin                             24
+                separation of two junctions sharing a gap:
+                (cardW/2)·tan(rampAngle) + junctionMargin, rounded up       24
 minAir          2L, the shut gap; air is never inside the open band (2L, 3L)  48
 junctionMargin  the least clearance between a lateral and the card it passes   4
 seam            overlap of a folded project's pair                          22
@@ -245,7 +245,9 @@ repairPasses    bound on the repair loop                                    8
 margin          drawing margin inside the bounds                            24
 ```
 
-Where a number is derived, the derivation governs and the value is a consequence: `rise` from `laneStep` and the angle, `minAir` from the two fixed edges, `seam` from the margin and the hull's dip, and the two raised airs from the angle and the card's half-width.
+Where a number is derived, the derivation governs and the value is a consequence: `rise` from `laneStep` and the angle, `L` from the card's half-width, the angle, and the junction margin (section 5), `minAir` from the two fixed edges, `seam` from the margin and the hull's dip, and the two raised airs from the angle and the card's half-width. The derivation of `L` holds while the longest junction-side ramp, `laneStep · (1 - rampFloor)`, spans at least half a card, as it does at the defaults; were it shorter, that run would take the place of `cardW/2`.
+
+Every value in the table is a parameter of the layout, held in one place in the `layout` crate with the default shown, so that the angle, the padding, or the card width can be changed there and the whole drawing follows; a derived value is computed from the others and never restated. Exposing some of them in a settings dialog, within limited ranges, is recorded in the in-flight ideas.
 
 ## Lineage
 

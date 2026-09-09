@@ -16,9 +16,11 @@ import json, math, pathlib
 # ---- constants: layout engine section 12, mark geometry constants ------------------------------
 CARD_W, GUTTER = 188, 40
 LANE = CARD_W + GUTTER
-TAN12 = math.tan(math.radians(12))
-RISE = LANE * TAN12
-L, JMARGIN, RAMP_FLOOR, M, DIAMOND = 24, 4, 0.2, 1.5, 12
+RAMP_ANGLE = 12                                   # degrees; a parameter, changed in one place
+TAN_A = math.tan(math.radians(RAMP_ANGLE))
+RISE = LANE * TAN_A
+JMARGIN, RAMP_FLOOR, M, DIAMOND = 4, 0.2, 1.5, 12
+L = math.ceil((CARD_W / 2) * TAN_A + JMARGIN)     # layout engine section 5: 19.98 + 4, so 24 at the defaults
 H = {'start': 58, 'begin': 58, 'end': 58, 'task': 56, 'finish': 52}
 # the silhouette's insets at the centre x (mark geometry 3.9): how far the outline lies inside the box, top and bottom
 INSET = {'task': (1.5, 1.5), 'begin': (9.33, 2.95), 'end': (2.95, 9.33), 'start': (5.92, 5.92), 'finish': (5.77, 3.13)}
@@ -33,7 +35,7 @@ KPATH = "M10.54,19.73Q6.50,9.50 17.46,8.55L87.54,2.45Q98.50,1.50 95.88,12.18L89.
 
 def air(departs, arrives):
     """Layout engine section 5: the gap between the cards' edges; the fixed edges clear the laterals on their own."""
-    assert L >= (CARD_W / 2) * TAN12 + JMARGIN
+    assert L >= (CARD_W / 2) * TAN_A + JMARGIN
     return 3 * L if (departs and arrives) else 2 * L
 
 
