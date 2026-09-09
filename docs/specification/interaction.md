@@ -121,7 +121,7 @@ A project cannot be dropped inside itself or inside any project nested within it
 
 Onto a trunk-edge position, the project is spliced in as a task would be, nesting into the innermost project containing the target.
 
-Onto a branch-edge target, the project **becomes a branch workflow**. Its begin node becomes the workflow's start node and its end node becomes its finish node, with their identities, notes, logs, states, and every other field preserved; only `kind` changes, and `pair` is replaced by the two ends' membership of one workflow. The contents travel unchanged. The branch is attached at the target's side and order position. If the target's gap lies inside projects, the new branch is part of the innermost.
+Onto a branch-edge target, the project **becomes a branch workflow**. Its begin node becomes the workflow's start node and its end node becomes its finish node, with their identities, notes, logs, states, and every other field preserved; only `kind` changes, and `endNode` and `beginNode` are replaced by the two ends' membership of one workflow. The contents travel unchanged. The branch is attached at the target's side and order position. If the target's gap lies inside projects, the new branch is part of the innermost.
 
 No return is created. The new branch is open, and the author attaches its return by dragging the finish node. This is deliberate: the application does not know where the author wants it to rejoin, and guessing is the failure section 2 forbids.
 
@@ -209,4 +209,4 @@ No drag produces a record that fails any invariant in the structural model, sect
 
 A branch's side and order change only through its start node, and its return changes only through its finish node. No gesture changes both.
 
-Every node moved by a drag has the same field values afterwards as before, except `kind` and `pair` under the two conversions, and except the one appended log entry on the dragged node.
+Every node moved by a drag has the same field values afterwards as before, except `kind`, `endNode`, and `beginNode` under the two conversions, and except the one appended log entry on the dragged node.

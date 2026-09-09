@@ -181,7 +181,7 @@ Tier read-write. Undoable. Subject: the begin node. The whole project travels: i
 Onto an **edge target**, the project is removed from where it was, its vacated position repaired, and spliced in at the stated position, nesting in the innermost project containing the target. Log: `moved`, "Moved above
 <lower node title> in <workflow title>."
 
-Onto a **branch target**, the project **becomes a branch workflow**. Its begin node becomes the workflow's start node and its end node its finish node, with their identities, notes, logs, states, and every other field preserved; only `kind` changes, and `pair` is replaced by the two ends' membership of one workflow. The contents travel unchanged. The branch is attached at the target's side and order position, and if the target gap lies inside projects it is part of the innermost. No return is created; the new branch is open, and the author attaches its return with `attach_return`. Log: `converted`, "Became the branch <title> off <lower node title>."
+Onto a **branch target**, the project **becomes a branch workflow**. Its begin node becomes the workflow's start node and its end node its finish node, with their identities, notes, logs, states, and every other field preserved; only `kind` changes, and `endNode` and `beginNode` are replaced by the two ends' membership of one workflow. The contents travel unchanged. The branch is attached at the target's side and order position, and if the target gap lies inside projects it is part of the innermost. No return is created; the new branch is open, and the author attaches its return with `attach_return`. Log: `converted`, "Became the branch <title> off <lower node title>."
 
 Onto a **main target**, the project becomes the contents of a new main workflow: a start node with an empty title and a finish node are created around it, and the workflow is inserted at the indicated position. Log: `moved`, "Moved into a new workflow."
 
@@ -297,7 +297,7 @@ Every command either produces a record that satisfies all seventeen invariants o
 
 A command's subject is the only node whose activity log changes, and only a structural command changes it.
 
-Every field of every node a command moves is preserved, except `kind` and `pair` under the two conversions, `status` and `here` when a task becomes a begin node, and the one appended log entry on the subject.
+Every field of every node a command moves is preserved, except `kind`, `endNode`, and `beginNode` under the two conversions, `status` and `here` when a task becomes a begin node, and the one appended log entry on the subject.
 
 No command creates a return. Only `attach_return` does, and only where the author points.
 

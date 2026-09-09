@@ -125,7 +125,7 @@ A `start` node and a `begin` node carry a title. A `finish` node and an `end` no
 
 The rejected alternatives were a rolled-up status on boundaries, showing aggregate progress on a collapsed project, and an independently settable status on every node. The latter is the one arrangement in which the map can display a contradiction, a project marked done above unfinished contents.
 
-**Amended 2026-09-03.** A `finish` node and an `end` node carry no note, no flag, and no log either: a finish node is its id and its kind, an end node its `pair` besides, and everything a pair records lives on the node that opens it. The log entries that `attach_return` and `detach_return` wrote to a branch's finish node go to its start node, which holds the workflow's log; the finish node remains the handle for the return and the home of `Detach return` (D18).
+**Amended 2026-09-03.** A `finish` node and an `end` node carry no note, no flag, and no log either: a finish node is its id and its kind, an end node its `beginNode` besides, and everything a pair records lives on the node that opens it. The log entries that `attach_return` and `detach_return` wrote to a branch's finish node go to its start node, which holds the workflow's log; the finish node remains the handle for the return and the home of `Detach return` (D18).
 
 ### D12. A node's prose is its note; there is one field, not two
 
@@ -320,6 +320,16 @@ The record is plain JSON, read tolerantly (JSON5 accepted) and written canonical
 The description therefore travels beside the data, as two files the application writes into every domain directory: `domain.schema.json`, a JSON Schema with a description on every property, which the record names in a `$schema` field so that editors explain the fields and validators check them without the application; and `README.md`, the same description as a page for a person. Both are generated from the schema's descriptions, authored once beside the `store` crate and checked against the structural model by test, so the description cannot drift from the record; both are rewritten when the schema version changes and never read for data.
 
 **Consequence.** `$schema` is the record's first field; the persistence document's section 3.1 specifies the two files; the store writes them on `create_domain` and on migration; the tests validate the fixture against the schema and assert that every field in the structural model's tables carries a description.
+
+### D37. Key names in the record are lowerCamelCase, and say what they hold
+
+*2026-09-08.*
+
+The record's multi-word keys are lowerCamelCase (`completedAt`, `branchLeft`, `editedAt`, `libraryRoot`), the most common convention for keys in JSON. The application is Rust, whose own convention is snake_case, and serde maps a struct's fields to either spelling at no cost, so the code is indifferent and the file follows the wider convention.
+
+A key names what it holds. The reference between a project's two boundary nodes had been a single field, `pair`, on both, which did not say which way the reference pointed. It is now `endNode` on the begin node, holding the id of its end node, and `beginNode` on the end node, holding the id of its begin node; each still names the other, and the pairing invariant (I6) is unchanged. A start node and a finish node carry no such reference: a workflow's boundary is the first and last entry of its node list, and a stored copy of that would be a second statement of one fact, needing an invariant and a repair rule to keep it true.
+
+**Consequence.** The structural model's node fields table carries the two keys; the persistence fixture, the schema description, and the worked example are regenerated with them; the command catalogue and the interaction name them where the two conversions replace them.
 
 ## Proposed
 

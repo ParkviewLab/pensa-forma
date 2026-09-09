@@ -87,7 +87,7 @@ nodes       { n_…: Node }
 gaps        { g_…: Gap }
 ```
 
-`$schema` is written first and names the schema file by its relative name; it is not model state, and a record that lacks it still loads. A workflow: `id`, `nodes` (list), `gaps` (list). A node: `id`, `kind`, then the fields its kind carries in the order `title`, `pair`, `status`, `completedAt`, `here`, `flagged`, `note`, `log`; a log entry: `id`, `at`, `author`, `origin`, `event`, `text`, `editedAt`, `editedBy`, with the last three omitted when null. A gap: `id`, then whichever of `branchLeft`, `branchRight`, `returnLeft`, `returnRight` are non-empty.
+`$schema` is written first and names the schema file by its relative name; it is not model state, and a record that lacks it still loads. A workflow: `id`, `nodes` (list), `gaps` (list). A node: `id`, `kind`, then the fields its kind carries in the order `title`, `endNode`, `beginNode`, `status`, `completedAt`, `here`, `flagged`, `note`, `log`; a log entry: `id`, `at`, `author`, `origin`, `event`, `text`, `editedAt`, `editedBy`, with the last three omitted when null. A gap: `id`, then whichever of `branchLeft`, `branchRight`, `returnLeft`, `returnRight` are non-empty.
 
 The worked instance of the structural model, section 8, in canonical form:
 
@@ -109,8 +109,8 @@ The worked instance of the structural model, section 8, in canonical form:
     "w_qa": { "id": "w_qa", "nodes": ["n_s2", "n_t5", "n_f2"], "gaps": ["g_7", "g_8"] }
   },
   "nodes": {
-    "n_b1": { "id": "n_b1", "kind": "begin", "title": "Build", "pair": "n_e1", "log": [] },
-    "n_e1": { "id": "n_e1", "kind": "end", "pair": "n_b1" },
+    "n_b1": { "id": "n_b1", "kind": "begin", "title": "Build", "endNode": "n_e1", "log": [] },
+    "n_e1": { "id": "n_e1", "kind": "end", "beginNode": "n_b1" },
     "n_f1": { "id": "n_f1", "kind": "finish" },
     "n_f2": { "id": "n_f2", "kind": "finish" },
     "n_f3": { "id": "n_f3", "kind": "finish" },

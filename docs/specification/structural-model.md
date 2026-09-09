@@ -76,7 +76,8 @@ A workflow is a *main* workflow when its id appears in its domain's `mains`, and
 | `id` | id | |
 | `kind` | `start` \| `finish` \| `begin` \| `end` \| `task` | fixed at creation except by the two conversions the catalogue defines |
 | `title` | string | `start`, `begin`, and `task` only; may be empty |
-| `pair` | node id | `begin` and `end` only; each names the other |
+| `endNode` | node id | `begin` only; the id of the project's `end` node |
+| `beginNode` | node id | `end` only; the id of the project's `begin` node |
 | `note` | filename or null | `start`, `begin`, and `task` only; the reference to the node's note file, which holds its prose |
 | `status` | `todo` \| `in-progress` \| `completed` \| `cancelled` | `task` only |
 | `completedAt` | timestamp or null | `task` only; present exactly while `status` is `completed` (I18) |
@@ -86,7 +87,7 @@ A workflow is a *main* workflow when its id appears in its domain's `mains`, and
 
 A field marked for one kind is absent on the others, not present and null. A validator rejects a `status` on a `begin` node rather than ignoring it, because a field that is silently ignored is a field that silently diverges.
 
-The `title` rule is what makes a boundary pair legible: the node that opens the pair is named and the node that closes it is not, so a workflow is named by its start node and a project by its begin node. A `finish` node and an `end` node carry no label, no note, no flag, and no log, in the model and on the canvas alike: a finish node is its id and its kind, and an end node its id, its kind, and its `pair`. Everything a pair records lives on the node that opens it.
+The `title` rule is what makes a boundary pair legible: the node that opens the pair is named and the node that closes it is not, so a workflow is named by its start node and a project by its begin node. A `finish` node and an `end` node carry no label, no note, no flag, and no log, in the model and on the canvas alike: a finish node is its id and its kind, and an end node its id, its kind, and its `beginNode`. Everything a pair records lives on the node that opens it.
 
 ### 2.4 Gap, and the two points within it
 
@@ -114,9 +115,9 @@ Removing a node merges the gap below it with the gap above it, and both gaps' at
 
 ### 2.5 A project is a node pair, not a record
 
-A project is a `begin` node and the `end` node it names in `pair`, both in the same workflow, the begin below the end. Everything between them, and every branch departing from a gap between them, is inside its scope. There is no project record: a project has no state of its own beyond what its two nodes carry, and a folded project's fold state is per-client view state keyed by the begin node's id, not model state.
+A project is a `begin` node and the `end` node it names in `endNode`, both in the same workflow, the begin below the end. Everything between them, and every branch departing from a gap between them, is inside its scope. There is no project record: a project has no state of its own beyond what its two nodes carry, and a folded project's fold state is per-client view state keyed by the begin node's id, not model state.
 
-The `pair` reference is stored on both nodes rather than recovered by matching nesting like brackets, because a stored reference is checked in constant time and a scan is both slow and fragile under partial writes.
+The reference is stored on both nodes, `endNode` on the begin node and `beginNode` on the end node, rather than recovered by matching nesting like brackets, because a stored reference is checked in constant time and a scan is both slow and fragile under partial writes.
 
 ### 2.6 A branch attachment is array membership, and nothing else
 
@@ -152,7 +153,7 @@ The complete list of what must hold of a stored domain. An implementation builds
 
 **Projects**
 
-- **I6.** A `begin` node's `pair` is an `end` node in the same workflow at a higher index; an `end` node's `pair` is a `begin` node in the same workflow at a lower index; pairing is symmetric and one-to-one.
+- **I6.** A `begin` node's `endNode` is an `end` node in the same workflow at a higher index; an `end` node's `beginNode` is a `begin` node in the same workflow at a lower index; the two references are symmetric and one-to-one.
 - **I7.** Project ranges nest properly: any two projects in one workflow have ranges that are disjoint or nested, never partially overlapping.
 
 **Branches**
@@ -166,7 +167,7 @@ The complete list of what must hold of a stored domain. An implementation builds
 
 **State**
 
-- **I14.** Only a `start`, a `begin`, or a `task` node has a `title`, a `note`, a `flagged`, or a `log`; only a `begin` or an `end` node has a `pair`; only a `task` has a `status`, a `completedAt`, or a `here`.
+- **I14.** Only a `start`, a `begin`, or a `task` node has a `title`, a `note`, a `flagged`, or a `log`; only a `begin` node has an `endNode`, and only an `end` node a `beginNode`; only a `task` has a `status`, a `completedAt`, or a `here`.
 - **I15.** At most one node in a workflow has `here` true.
 - **I18.** A task's `completedAt` is present if and only if its `status` is `completed`.
 

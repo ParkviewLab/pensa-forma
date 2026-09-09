@@ -86,7 +86,7 @@ The domain: a main workflow whose start node is untitled, holding the project XY
       "id": "n_b1",
       "kind": "begin",
       "title": "XYZ-1",
-      "pair": "n_e1",
+      "endNode": "n_e1",
       "log": []
     },
     "n_a1": {
@@ -113,7 +113,7 @@ The domain: a main workflow whose start node is untitled, holding the project XY
     "n_e1": {
       "id": "n_e1",
       "kind": "end",
-      "pair": "n_b1"
+      "beginNode": "n_b1"
     },
     "n_f0": {
       "id": "n_f0",
@@ -129,7 +129,7 @@ The domain: a main workflow whose start node is untitled, holding the project XY
       "id": "n_b2",
       "kind": "begin",
       "title": "plan",
-      "pair": "n_e2",
+      "endNode": "n_e2",
       "log": []
     },
     "n_t1": {
@@ -149,7 +149,7 @@ The domain: a main workflow whose start node is untitled, holding the project XY
     "n_e2": {
       "id": "n_e2",
       "kind": "end",
-      "pair": "n_b2"
+      "beginNode": "n_b2"
     },
     "n_f1": {
       "id": "n_f1",
