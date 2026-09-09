@@ -46,7 +46,7 @@ This is the name of a workflow (on its start node), a project (on its begin node
 This is a task's state, one of `todo`, `in-progress`, `completed`, `cancelled`, shown under a card as to do, in progress, done, cancelled and in the status menu as To do, In progress, Completed, Cancelled (D30). Only a task has a status. A completed task also carries `completedAt`, the time it became completed, present exactly while it is. Status is shown, not inferred: a done or cancelled task stays on the map, recoloured; only deletion removes it.
 
 **Here (the cursor).**
-This is a mark on at most one task per workflow, set by hand, recording where the author is on that workflow. A main workflow and each of its branches carry their own, so parallel threads each have a position. It is shared model state, not view state.
+This is a mark on at most one task per workflow, set by hand, marking the place where the work is in that workflow. A main workflow and each of its branches carry their own, so parallel threads each have a position. It is shared model state, not view state.
 
 **Flag.**
 This is a mark on a start node, a begin node, or a task that selects it for attention: the flagged-only review mode shows flagged nodes alone, and an agent's "work the flagged nodes" begins from them.
