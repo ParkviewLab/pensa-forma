@@ -125,7 +125,7 @@ A `start` node and a `begin` node carry a title. A `finish` node and an `end` no
 
 The rejected alternatives were a rolled-up status on boundaries, showing aggregate progress on a collapsed project, and an independently settable status on every node. The latter is the one arrangement in which the map can display a contradiction, a project marked done above unfinished contents.
 
-**Amended 2026-09-03.** A `finish` node and an `end` node carry no note, no flag, and no log either: a finish node is its id and its kind, an end node its `beginNode` besides, and everything a pair records lives on the node that opens it. The log entries that `attach_return` and `detach_return` wrote to a branch's finish node go to its start node, which holds the workflow's log; the finish node remains the handle for the return and the home of `Detach return` (D18).
+**Amended 2026-09-03.** A `finish` node and an `end` node carry no note, no flag, and no log either: a finish node is its id and its kind, an end node its `beginNode` besides, and everything a pair records lives on the node that opens it. The log entries that `attach_return` and `detach_return` wrote to a branch's finish node go to its start node, which holds the workflow's log; the finish node remains the handle for the return and the home of `Detach return` (D18). The uniqueness of titles is D38.
 
 ### D12. A node's prose is its note; there is one field, not two
 
@@ -330,6 +330,22 @@ The record's multi-word keys are lowerCamelCase (`completedAt`, `branchLeft`, `e
 A key names what it holds. The reference between a project's two boundary nodes had been a single field, `pair`, on both, which did not say which way the reference pointed. It is now `endNode` on the begin node, holding the id of its end node, and `beginNode` on the end node, holding the id of its begin node; each still names the other, and the pairing invariant (I6) is unchanged. A start node and a finish node carry no such reference: a workflow's boundary is the first and last entry of its node list, and a stored copy of that would be a second statement of one fact, needing an invariant and a repair rule to keep it true.
 
 **Consequence.** The structural model's node fields table carries the two keys; the persistence fixture, the schema description, and the worked example are regenerated with them; the command catalogue and the interaction name them where the two conversions replace them.
+
+### D38. Titles are unique within a domain, kept so by suffix, never by refusal
+
+*2026-09-09.*
+
+A person names a node to an agent by its title, and an agent names one back; for that to be unambiguous, no two nodes in a domain may share a title. The prior application enforces this, and its mechanism is adopted whole: every path that sets a title (creation, rename, paste) runs it through one helper, which lets a free title stand and otherwise strips a trailing `-<digits>` and issues the lowest free `<base>-N`, N counting from 1, so a second "Build" becomes "Build-1" and a third "Build-2". The rule is invariant I19; comparison is exact.
+
+The empty title is exempt. An untitled workflow is a feature (its fold is an empty ellipse, D15 as amended), and a workflow made by a move onto a main target has no title to give; an empty title names nothing, so it need not be unique, and an untitled node is reached by id. A task or a begin node created without a title is first titled `New task` or `New project`, as in the prior application, so that a node meant to be worked on has an address from birth; a start node has no placeholder, since an untitled workflow is a legal state and the ellipse reads well empty. A rename to a blank title is accepted for any kind.
+
+A collision is resolved by suffix rather than refused. The prior application's rule is the author's; a refusal would make a paste, which can collide many times at once, fail whole; and a suffix loses nothing the person cannot see, since the card shows the result and every write's result carries the final title, so an agent learns that its address changed. The northstar's preference for a refusal that names the legal alternative was weighed: the alternative here is always the same suffix, so naming it and applying it come to the same thing.
+
+A duplicate in a stored record, which only a hand edit can produce, is not repaired. The checker names I19 and the ids on load, and the domain is not opened until the file is corrected; repairing by suffix would rewrite the person's file on their behalf, which the northstar's twelfth axiom forbids. The same rule now covers every invariant on load, which the set had not stated.
+
+Reads address a node by id or by title, since a non-empty title names exactly one node; writes take ids only, since a title can change between a read and a write. In the chrome an empty title reads `untitled` wherever a label is composed from a title; a tool result carries the empty string and the id.
+
+**Consequence.** I19 in the structural model; the command layer's step five, validating the loaded record; the catalogue's Titles convention, the per-command text, and the write result's `title`; the automation server's reads by id or title and writes by id; the chrome's `untitled` label and its `Could not open` message; the tests in the testing document.
 
 ## Proposed
 

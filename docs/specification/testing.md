@@ -13,15 +13,17 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 ## 1. The model
 
-**The invariant checker is exercised in both directions.** For each of the seventeen invariants in the structural model, section 4, a test constructs a record that violates exactly that invariant and asserts the checker names it; and the worked instance of section 8 passes clean. The three refusals the worked instance lists are tests.
+**The invariant checker is exercised in both directions.** For each of the nineteen invariants in the structural model, section 4, a test constructs a record that violates exactly that invariant and asserts the checker names it; and the worked instance of section 8 passes clean. The three refusals the worked instance lists are tests.
 
-**Every mutation is a property test.** Using a generator that builds random legal domains (random workflows, projects nested properly, branches placed by the model's own rules, some open, some returning, here marks and flags scattered), each mutation is applied with random legal arguments and the result must satisfy every invariant; applied with random illegal arguments it must refuse with the documented code and leave its input untouched. The generator is itself checked: everything it produces passes the checker.
+**Every mutation is a property test.** Using a generator that builds random legal domains (random workflows, projects nested properly, branches placed by the model's own rules, some open, some returning, here marks and flags scattered, every non-empty title distinct), each mutation is applied with random legal arguments and the result must satisfy every invariant; applied with random illegal arguments it must refuse with the documented code and leave its input untouched. The generator is itself checked: everything it produces passes the checker.
 
 **The catalogue's required properties** (command catalogue, section 10) are property tests over the same generator: a command's subject is the only node whose log changed; every moved node keeps its fields except the ones the conversions change; no command creates a return; nothing is deleted for being empty.
 
 **Gap split and merge** are tested exhaustively on the three insertion positions and on removal, against the structural model's section 2.4: which gap keeps its id, which lists move where, and that nothing detaches.
 
 **The id minter** is tested for width, prefix, lowercase, monotonicity under a clock stepped backwards, and the counter's behaviour at the 1296th id in a millisecond.
+
+**Titles** are tested four ways: the helper that keeps them unique yields `base-1` on a first collision and `base-2` on the next, and renumbers from the stripped base when a `-N` title collides; every title-setting mutation (`create_workflow`, `insert_task`, `wrap_run`, `open_branch`, `set_title`, `paste`), applied with a taken title, leaves every non-empty title in the domain distinct and reports the final title; a blank title yields `New task` or `New project` for a task or a project and stays empty for a workflow; and a paste of a clip into the domain it came from yields suffixed copies.
 
 ## 2. The store and the command layer
 
@@ -34,6 +36,8 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 **Path safety** is tested with traversal attempts: a domain path outside the library root, a note filename with a separator, a sibling directory whose name begins with the root's, each refused.
 
 **The pipeline** is tested end to end on a temporary library: each refusal code is provoked once; a refusal leaves the file byte-identical; a `stale` revision is refused; the revision increments by one per successful write; a command that writes a note file writes it before the record, verified by failing the record write and finding the orphan.
+
+**Validation on load** is tested with a hand-edited record carrying two nodes with one title: opening it is refused with I19 and both ids named, and the file is byte-identical afterwards; the same test is run for one other invariant, to prove that the check on load is general.
 
 **Undo** is tested for the slot's rules: filled by a `ui` command, not by an `automation` one; cleared by an automation write, a domain switch, and a delete; an undo restores the pre-image byte for byte including the log; and an undo after another write is refused as stale.
 
@@ -61,7 +65,7 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 ## 6. The automation server
 
-**End to end**, with an MCP client in the test speaking to a server bound to an ephemeral port on a temporary library: the tool list at each tier is exactly the catalogue's table for that tier; a tool above the tier is absent, not refused; every prompt names only tools present at its tier; a write returns the new revision and outline; a stale revision is refused; a request with a foreign `Host` or `Origin` is answered `403`; `GET /mcp` is answered `405`; `/health` answers.
+**End to end**, with an MCP client in the test speaking to a server bound to an ephemeral port on a temporary library: the tool list at each tier is exactly the catalogue's table for that tier; a tool above the tier is absent, not refused; every prompt names only tools present at its tier; a write returns the new revision, the final title, and the outline; a read addressed by title resolves, and one addressed by an empty or unknown title is refused `not_found`; a write addressed by title is refused `bad_arguments`; a stale revision is refused; a request with a foreign `Host` or `Origin` is answered `403`; `GET /mcp` is answered `405`; `/health` answers.
 
 **The instructions text** is tested to name only tools that exist.
 

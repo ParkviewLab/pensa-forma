@@ -15,7 +15,7 @@ Proves: CI green on an empty workspace.
 
 ## 1. The model
 
-`model`: the record types with serde derivations, the id minter, the seventeen invariants as one checker, the reverse index built at load, and every mutation the [catalogue](command-catalogue.md) names, each with its precondition and refusal text. The worked instance as a fixture. The property-test generator of legal domains.
+`model`: the record types with serde derivations, the id minter, the nineteen invariants as one checker, the reverse index built at load, the helper that keeps titles unique (the only path by which a title is set), and every mutation the [catalogue](command-catalogue.md) names, each with its precondition and refusal text. The worked instance as a fixture. The property-test generator of legal domains.
 
 Proves: every invariant test in both directions; every mutation as a property test; the catalogue's required properties; gap split and merge exhaustively.
 

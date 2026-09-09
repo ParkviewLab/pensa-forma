@@ -42,6 +42,7 @@ nodes = {}
 def node(id, kind, title=None, pair=None):
     n = {'id': id, 'kind': kind}
     if title is not None: n['title'] = title
+    if title: assert title not in {m.get('title') for m in nodes.values()}, f'duplicate title {title!r} (I19)'
     if pair: n['endNode' if kind == 'begin' else 'beginNode'] = pair
     if kind == 'task': n['status'] = 'todo'
     if kind in ('start', 'begin', 'task'): n['log'] = []        # a finish or end node carries no log (D11 as amended)

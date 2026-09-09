@@ -19,7 +19,7 @@ Six crates (D33), each with one job, arranged so that dependencies point one way
 
 ```
 crates/
-  model/      the record types, ids, the invariant checker, and every mutation
+  model/      the record types, ids, the invariant checker, the title helper, and every mutation
   store/      the filesystem: locations, path safety, atomic writes, settings, view state
   command/    the command layer: the pipeline, the catalogue, undo, notification, reads
   layout/     heights, lanes, junctions, underpasses, folding: record in, geometry out
