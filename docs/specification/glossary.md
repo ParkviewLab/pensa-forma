@@ -5,15 +5,17 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Glossary
 
-The vocabulary every document in this set uses, and the only vocabulary the
-application's menus, dialogs, refusal messages, and automation tools may speak.
-A term is admitted here when a rule constrains it or an operation touches it as
-a unit; a word that merely describes a region of the drawing does not earn a
-place. Where a term has a stored counterpart, the field is named beside it.
+To avoid ambiguity, this glossary defines the words and phrases that are used
+as technical terms in the documents of this specification. A term is defined
+here because what it names is either constrained by a rule or acted upon by an
+operation.
 
-Two conventions run through the set. Growth is upward: a node's successor sits
-above it on the screen, and a smaller index is lower. Sets written `{…}` are
-unordered; lists written `[…]` are ordered, and their order is model state.
+Three conventions run through the set. Growth is upward: a node's successor
+sits above it on the screen, and a smaller index is lower. Sets written `{…}`
+are unordered; lists written `[…]` are ordered, and their order is model state.
+A name in monospace is a literal, given exactly as it is stored or written: a
+field or value in the domain file, an identifier on disk, or a notation the
+documents use.
 
 ## The application
 
