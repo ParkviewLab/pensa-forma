@@ -31,7 +31,7 @@ Conventions: "PensaForma" is the application's name in exact strings. Colours ar
 Where the host provides a native menu bar, provide:
 
 1. An application menu (on platforms that have one): `About PensaForma` (opens the About window, section 9); `Open Source Licenses…` (opens the Licenses window, section 10); then the platform's conventional services/hide/quit entries.
-2. The platform's standard File, Edit, View, and Window menus, per its conventions. The Edit menu's first item is `Undo <command>`, labelled with the last command's subject title (for instance `Undo move “Backend”`) and disabled when the undo slot is empty; there is no Redo item. When a text field or the note source pane has focus, the platform's text undo applies instead, as the toolkit provides.
+2. The platform's standard File, Edit, View, and Window menus, per its conventions. The Edit menu's first item is `Undo <command>`, labelled with the last command's subject title, or `untitled` when it is empty (for instance `Undo move “Backend”`) and disabled when the undo slot is empty; there is no Redo item. When a text field or the note source pane has focus, the platform's text undo applies instead, as the toolkit provides.
 3. A Help menu: on platforms without an application menu, first `About PensaForma` and a separator; then `Open Source Licenses…`; then `Source Code`, opening the project's source-hosting page externally.
 
 On platforms with no native menu bar, surface About, Licenses, and Undo through some other modest affordance (a header overflow menu is one option); they must remain reachable.
@@ -58,11 +58,11 @@ A message layer covering the viewport, its text centred both ways, `--muted`, 14
 | --- | --- |
 | `No domain open yet` | at startup, until the first render |
 | `This domain has no workflows yet. Right-click the canvas to start one.` | an open domain whose record has no main workflows |
-| `Could not open “<name>”: <error>` | the domain file could not be read |
+| `Could not open “<name>”: <error>` | the domain file could not be read, or its record failed an invariant on load; `<error>` then names the invariant and the ids concerned, and the file is left as it is |
 | `No domains. Use “New domain…” in the switcher to create one.` | the last domain was deleted |
 | `No domain library found` | startup found no domains even after seeding samples |
 
-Whenever startup finds the library empty (the first launch, or a launch after every domain was deleted), the application seeds two sample domains, `HomeLab` and `Work`, so the ordinary first-run experience opens a populated map rather than an empty state. Each sample holds two or three main workflows with a project, a returning branch, an open branch, a here mark, a flagged task, and one node carrying a note, so that every mark in the vocabulary appears on the first screen. The sample content is suggested, not binding; the pattern (seed something real on an empty library) is the requirement.
+Whenever startup finds the library empty (the first launch, or a launch after every domain was deleted), the application seeds two sample domains, `HomeLab` and `Work`, so the ordinary first-run experience opens a populated map rather than an empty state. Each sample holds two or three main workflows with a project, a returning branch, an open branch, a here mark, a flagged task, and one node carrying a note, so that every mark in the vocabulary appears on the first screen. Every title in a sample is distinct. The sample content is suggested, not binding; the pattern (seed something real on an empty library) is the requirement.
 
 ---
 
@@ -139,6 +139,8 @@ The chrome also reacts to external writers (the automation server editing the sa
 
 The menus and dialogs name concepts from the glossary. The chrome does not implement them (the edit operations run in the command layer and the canvas draws the result), but a builder must know what each term means for the items' conditions and labels to make sense.
 
+Titles are unique within a domain (structural model, I19), so a menu that lists workflows or nodes by title never shows two entries alike. Wherever the chrome composes a label from a title, an empty title reads `untitled`; the card itself stays blank.
+
 A domain holds any number of workflows. A workflow opens at a start node and closes at a finish node; a main workflow is one the domain lists in its left-to-right order, and a branch workflow is one that departs from a branch point on another workflow, its parent. A project is a begin node, the end node paired with it, and everything between; a begin card is the project's handle for every operation, and an end card, having no title, is never named on its own. Start and begin nodes carry titles; finish and end nodes do not.
 
 Between every pair of consecutive nodes is a gap, with a branch point below and a return point above; a node can be added at a gap's outgoing, middle, or incoming position, which differ in whether it lands below, between, or above the gap's departures and arrivals. "Above <node>" in a menu means the gap above the node at its outgoing position; "below <node>" means the gap below it at its incoming position. A branch departs on the left or the right of its parent's line, at an order position among its siblings, and either returns to a return point at or above its departure, on the same side and inside exactly the same projects, or runs open.
@@ -149,7 +151,7 @@ A flagged node is one marked (by double-click) for the flagged-only review mode;
 
 `Wrap as project` acts on a contiguous run of the clicked node's workflow: the clicked node is the run's base, and the submenu offers each legal top, from `Just this one` upward; a run is legal while it neither straddles a project boundary nor cuts a branch's scope, and the submenu ends where legality does. `Unwrap…` removes a project's begin and end pair and leaves its contents in place.
 
-`Return a branch here` offers, on a node, the branches whose return could legally land on the gap above that node; `Move a branch here` offers those whose departure could legally move there, keeping the branch's side. Both name a branch by its start node's title. `Detach return`, on a branch's finish card, leaves the branch open.
+`Return a branch here` offers, on a node, the branches whose return could legally land on the gap above that node; `Move a branch here` offers those whose departure could legally move there, keeping the branch's side. Both name a branch by its start node's title, or `untitled` when it is empty; titles are unique within a domain, so no two entries read alike. `Detach return`, on a branch's finish card, leaves the branch open.
 
 `Move up` and `Move down` move the clicked node to the next distinct position above or below along its workflow; `Move left` and `Move right`, on a main workflow's start card, move it in the domain's order.
 
@@ -190,7 +192,7 @@ Every editing item routes through the command layer: the operation runs against 
 
 ### 5.1 Export to Markdown
 
-`Export to Markdown…` opens the platform's save dialog (title `Export to Markdown`, default name `<title>.md`, falling back to `export.md` for a blank title, filter `Markdown (*.md)`) and writes a one-way serialisation of the extent of the clicked start or begin node as a nested outline, two spaces per level. A workflow's start node is a plain bullet (`- <title>`) nesting everything in the workflow one level in; a begin node likewise nests its scope. A run of tasks along one line stays flat. A task is a checkbox item, `[x]` done, `[ ]` to do or in progress, with a cancelled task's title struck through (`~~title~~`) and no checkbox change. A branch opens a nested sub-list one level in beneath the lower node of the gap it departs from, headed by its start node's bullet and ending with an italic line: `*returns above “<title>”*` when it returns, naming the lower node of its return gap (an end node named as `the close of “<project title>”`), or `*runs open*` when it does not. A node's note is inlined beneath its bullet as an indented continuation paragraph. Finish and end nodes get no bullet. The full extent is exported regardless of the fold state.
+`Export to Markdown…` opens the platform's save dialog (title `Export to Markdown`, default name `<title>.md`, falling back to `export.md` for a blank title, filter `Markdown (*.md)`) and writes a one-way serialisation of the extent of the clicked start or begin node as a nested outline, two spaces per level. A workflow's start node is a plain bullet (`- <title>`, or `- untitled` for an empty title) nesting everything in the workflow one level in; a begin node likewise nests its scope. A run of tasks along one line stays flat. A task is a checkbox item, `[x]` done, `[ ]` to do or in progress, with a cancelled task's title struck through (`~~title~~`) and no checkbox change. A branch opens a nested sub-list one level in beneath the lower node of the gap it departs from, headed by its start node's bullet and ending with an italic line: `*returns above “<title>”*` when it returns, naming the lower node of its return gap (an end node named as `the close of “<project title>”`), or `*runs open*` when it does not. A node's note is inlined beneath its bullet as an indented continuation paragraph. Finish and end nodes get no bullet. The full extent is exported regardless of the fold state.
 
 ---
 
@@ -219,7 +221,7 @@ Right-click on a task card. Items in order; an empty condition column means alwa
 | `Status` ▸ `To do` / `In progress` / `Completed` / `Cancelled` | the current status row is checked |
 | `Clear here` or `Make here` | `Clear here` when this task carries the here mark |
 | `Make project` | |
-| `Wrap as project` ▸ | legal runs exist; first entry `Just this one`, then `Up to “<title>”` per node further up (an end node shown as `the close of “<project>”`) |
+| `Wrap as project` ▸ | legal runs exist; first entry `Just this one`, then `Up to “<title>”` per node further up (an end node shown as `the close of “<project>”`, an empty title as `untitled`) |
 | `Move up` | a distinct position exists above |
 | `Move down` | a distinct position exists below |
 | `Rename…` | |
@@ -228,7 +230,7 @@ Right-click on a task card. Items in order; an empty condition column means alwa
 | `Add task below` | |
 | `Add branch above` ▸ `Left` / `Right` | |
 | `Add branch below` ▸ `Left` / `Right` | |
-| `Return a branch here` ▸ | legal candidate branches exist; one entry per branch, labelled by its start node's title, or its id when the title is empty |
+| `Return a branch here` ▸ | legal candidate branches exist; one entry per branch, labelled by its start node's title, or `untitled` when the title is empty |
 | `Move a branch here` ▸ | same rule and labelling, for the branch's departure |
 | `Paste above` / `Paste below` | a Copy has been made this session |
 | separator | |
@@ -288,16 +290,16 @@ A dialog raised while the note editor is open must render above the editor. The 
 | Flow | Title | Label | Initial value | Blank input |
 | --- | --- | --- | --- | --- |
 | New workflow | `New workflow` | `Workflow name` | empty | accepted (an untitled workflow) |
-| Rename node | `Rename task` / `Rename project` / `Rename workflow` by kind | `Title` | current title | accepted (title cleared) |
-| Add task | `Add task above` / `Add task below` | `Title` | empty | accepted (an untitled task) |
+| Rename node | `Rename task` / `Rename project` / `Rename workflow` by kind | `Title` | current title | accepted (title cleared; the node is then untitled) |
+| Add task | `Add task above` / `Add task below` | `Title` | empty | accepted; the task is titled `New task`, suffixed if taken |
 | Add branch | `Add branch above` / `Add branch below` | `Branch name` | empty | accepted (an untitled branch) |
-| Wrap as project | `Wrap as project` | `Name` | `<from>` or `<from> to <to>` (an end node reads `the close of “<project>”`) | aborts |
+| Wrap as project | `Wrap as project` | `Name` | `<from>` or `<from> to <to>` (an end node reads `the close of “<project>”`) | accepted; the project is titled `New project`, suffixed if taken |
 | Add bookmark | `Add bookmark` | `Name` | empty | aborts (after trim) |
 | New domain | `New domain` | `Domain name` | empty | forwarded; the validator refuses it, surfacing `Could not create domain`. Cancel restores the switcher selection |
 | Add log entry | `Add entry` | `Text` | empty | aborts (after trim) |
 | Edit log entry | `Edit entry` | `Text` | current text | aborts (after trim) |
 
-Only Cancel/Escape distinguishes abandonment; OK with an empty field resolves the empty string, and each flow above says what it then does.
+Only Cancel/Escape distinguishes abandonment; OK with an empty field resolves the empty string, and each flow above says what it then does. A title that another node already carries is applied with a `-N` suffix by the command layer and shown on the card; no dialog reports it.
 
 ### 7.3 Choice dialogs, exact strings
 
@@ -307,7 +309,7 @@ Only Cancel/Escape distinguishes abandonment; OK with an empty field resolves th
 | Delete a project | `Delete “<title>”` | `Delete this project and everything in it, including its branches?` | `Cancel` (null) · `Delete project` (danger) |
 | Delete a workflow | `Delete “<title>”` | `Delete this workflow and everything in it, including its branches?` | `Cancel` · `Delete workflow` (danger) |
 | Unwrap a project | `Unwrap “<title>”` | `Remove the project’s begin and end and keep its contents in place? The begin node’s note and activity log are removed with it.` | `Cancel` · `Unwrap` (danger) |
-| Delete a note | `Delete note` | `Delete the note on “<title>”? The text is not recoverable.` (a blank-titled node substitutes its node id for `<title>`) | `Cancel` · `Delete note` (danger) |
+| Delete a note | `Delete note` | `Delete the note on “<title>”? The text is not recoverable.` (wherever a dialog quotes a title, an empty one reads `untitled`) | `Cancel` · `Delete note` (danger) |
 | Delete a log entry | `Delete entry` | `Delete this activity-log entry?` | `Cancel` · `Delete` (danger) |
 | Delete a bookmark | `Delete bookmark` | `Delete the bookmark “<name>”?` | `Cancel` · `Delete` (danger) |
 | Delete a domain | `Delete “<name>”` | `Move “<name>” and all its notes to the Trash? You can restore them from the Trash.` | `Cancel` · `Delete` (danger) |

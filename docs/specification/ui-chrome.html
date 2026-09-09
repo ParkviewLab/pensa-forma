@@ -474,7 +474,7 @@ main workflow.</p>
   <tr><td><code>Rename…</code>, then a separator</td><td>always</td></tr>
   <tr><td><code>Add task above</code> · <code>Add task below</code></td><td>always</td></tr>
   <tr><td><code>Add branch above</code> ▸ Left / Right · <code>Add branch below</code> ▸ Left / Right</td><td>always</td></tr>
-  <tr><td><code>Return a branch here</code> ▸ · <code>Move a branch here</code> ▸</td><td>candidate branches exist (labelled by the branch's start-node title, or its id when the title is empty)</td></tr>
+  <tr><td><code>Return a branch here</code> ▸ · <code>Move a branch here</code> ▸</td><td>candidate branches exist (labelled by the branch's start-node title, or untitled when the title is empty)</td></tr>
   <tr><td><code>Paste above</code> · <code>Paste below</code></td><td>a Copy has been made this session</td></tr>
   <tr><td>separator; <code>Edit note…</code>; <code>Delete note…</code>; <code>Activity log…</code></td><td>delete only when a note exists (its presence is the indicator)</td></tr>
   <tr><td>separator; <code>Delete…</code></td><td>always</td></tr>
@@ -552,10 +552,10 @@ silent.</p>
   <thead><tr><th>Flow</th><th>Title</th><th>Label</th><th>Initial</th><th>Blank input</th></tr></thead>
   <tbody>
   <tr><td>New workflow</td><td><code>New workflow</code></td><td><code>Workflow name</code></td><td>empty</td><td>accepted (untitled workflow)</td></tr>
-  <tr><td>Rename node</td><td><code>Rename task</code> / <code>Rename project</code> / <code>Rename workflow</code></td><td><code>Title</code></td><td>current title</td><td>accepted (title cleared)</td></tr>
-  <tr><td>Add task</td><td><code>Add task above/below</code></td><td><code>Title</code></td><td>empty</td><td>accepted</td></tr>
-  <tr><td>Add branch</td><td><code>Add branch above/below</code></td><td><code>Branch name</code></td><td>empty</td><td>accepted</td></tr>
-  <tr><td>Wrap as project</td><td><code>Wrap as project</code></td><td><code>Name</code></td><td><code>&lt;from&gt;</code> or <code>&lt;from&gt; to &lt;to&gt;</code></td><td>aborts</td></tr>
+  <tr><td>Rename node</td><td><code>Rename task</code> / <code>Rename project</code> / <code>Rename workflow</code></td><td><code>Title</code></td><td>current title</td><td>accepted (title cleared; then untitled)</td></tr>
+  <tr><td>Add task</td><td><code>Add task above/below</code></td><td><code>Title</code></td><td>empty</td><td>accepted; titled <code>New task</code>, suffixed if taken</td></tr>
+  <tr><td>Add branch</td><td><code>Add branch above/below</code></td><td><code>Branch name</code></td><td>empty</td><td>accepted (untitled branch)</td></tr>
+  <tr><td>Wrap as project</td><td><code>Wrap as project</code></td><td><code>Name</code></td><td><code>&lt;from&gt;</code> or <code>&lt;from&gt; to &lt;to&gt;</code></td><td>accepted; titled <code>New project</code>, suffixed if taken</td></tr>
   <tr><td>Add bookmark</td><td><code>Add bookmark</code></td><td><code>Name</code></td><td>empty</td><td>aborts (after trim)</td></tr>
   <tr><td>New domain</td><td><code>New domain</code></td><td><code>Domain name</code></td><td>empty</td><td>refused by the validator (<code>Could not create domain</code>)</td></tr>
   <tr><td>Add / edit log entry</td><td><code>Add entry</code> / <code>Edit entry</code></td><td><code>Text</code></td><td>empty / current text</td><td>aborts (after trim)</td></tr>
@@ -570,7 +570,7 @@ silent.</p>
   <tr><td>Delete a project</td><td><code>Delete “&lt;title&gt;”</code></td><td><code>Delete this project and everything in it, including its branches?</code></td><td>Cancel · Delete project (danger)</td></tr>
   <tr><td>Delete a workflow</td><td><code>Delete “&lt;title&gt;”</code></td><td><code>Delete this workflow and everything in it, including its branches?</code></td><td>Cancel · Delete workflow (danger)</td></tr>
   <tr><td>Unwrap a project</td><td><code>Unwrap “&lt;title&gt;”</code></td><td><code>Remove the project’s begin and end and keep its contents in place? The begin node’s note and activity log are removed with it.</code></td><td>Cancel · Unwrap (danger)</td></tr>
-  <tr><td>Delete a note</td><td><code>Delete note</code></td><td><code>Delete the note on “&lt;title&gt;”? The text is not recoverable.</code> (a blank-titled node substitutes its node id)</td><td>Cancel · Delete note (danger)</td></tr>
+  <tr><td>Delete a note</td><td><code>Delete note</code></td><td><code>Delete the note on “&lt;title&gt;”? The text is not recoverable.</code> (a blank-titled node reads untitled)</td><td>Cancel · Delete note (danger)</td></tr>
   <tr><td>Delete a log entry</td><td><code>Delete entry</code></td><td><code>Delete this activity-log entry?</code></td><td>Cancel · Delete (danger)</td></tr>
   <tr><td>Delete a bookmark</td><td><code>Delete bookmark</code></td><td><code>Delete the bookmark “&lt;name&gt;”?</code></td><td>Cancel · Delete (danger)</td></tr>
   <tr><td>Delete a domain</td><td><code>Delete “&lt;name&gt;”</code></td><td><code>Move “&lt;name&gt;” and all its notes to the Trash? You can restore them from the Trash.</code></td><td>Cancel · Delete (danger)</td></tr>
