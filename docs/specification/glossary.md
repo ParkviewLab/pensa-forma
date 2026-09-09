@@ -117,7 +117,7 @@ This is a branch point or return point as drawn: a diamond at every point whethe
 
 ## The drawing
 
-The look, in one phrase: a mid-century retrofuturist systems diagram; a Googie-inspired Atomic Age flowchart laid out like a retro transit or control-system map. For a design brief or an image search: mid-century retrofuturism, Googie diagram, Atomic Age infographic, Jet Age schematic, retro systems map, 1950s technical illustration.
+The look is, in one phrase, a mid-century retrofuturist systems diagram: a Googie-inspired Atomic Age flowchart laid out like a retro transit or control-system map. The terms for a design brief or an image search are mid-century retrofuturism, Googie diagram, Atomic Age infographic, Jet Age schematic, retro systems map, and 1950s technical illustration.
 
 **Line.**
 This is a workflow as drawn: its nodes colinear at one x, lowest at the bottom, joined by a **riser**.
