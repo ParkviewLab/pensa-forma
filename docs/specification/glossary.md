@@ -26,10 +26,10 @@ This is the application's programmatic interface: a local server speaking the Mo
 ## Nodes
 
 **Node.**
-This is the building block of a workflow. Every node has an `id` and a `kind`. There are task nodes, start and finish workflow nodes, and begin and end project nodes.
+This is the building block of a workflow. There are task nodes, start & finish workflow nodes, and begin & end project nodes.
 
 **The five kinds.**
-These are the five kinds of node, with what each bounds and what, besides its `id` and `kind`, it must carry and may carry as data:
+These are the five kinds of node, with what each bounds and what it must carry and may carry as data, besides the `id` and `kind` that every node carries:
 
 | Kind | Bounds | Must carry | May carry |
 | --- | --- | --- | --- |
