@@ -161,7 +161,7 @@ This is a property every stored domain satisfies, checked after every mutation a
 This is a command's failure, carrying a code from a small closed set and a message written to be read by a person in a dialog or by an agent as a tool result.
 
 **Undo.**
-One slot holding the pre-image of the last command that originated in the user interface. There is no redo.
+This is one slot holding the pre-image of the last command that originated in the user interface. There is no redo.
 
 **Scope tier.**
-The automation server's configured reach: `read-only`, `read-write`, or `destructive`, each including the ones before it.
+This is the automation server's configured reach: `read-only`, `read-write`, or `destructive`, each including the ones before it.
