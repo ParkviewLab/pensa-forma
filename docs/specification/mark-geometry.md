@@ -321,7 +321,7 @@ The three ball offsets from the card centre, evaluated: `(45.4, -34.8)`, `(-36.6
 
 ### 6. The cursor mark (the atomic starburst)
 
-The "here" cursor (the per-workflow marker of the current task) is marked, beside the marquee card, by a sputnik: solid rays of irregular length at irregular angles, each tipped with a ball, around a solid centre. Its colour is `--ink` (near-black on azure, near-white on navy). The symbol is defined at a base ray length of 15; the cursor draws it at 1.15 times that. Ten rays are drawn, each a line from the centre to a tip, with a ball of radius 2.2 at the tip; a core ball of radius 2.8 sits at the centre.
+The "here" cursor (the per-workflow mark by which an author points a task out) is marked, beside the marquee card, by a sputnik: solid rays of irregular length at irregular angles, each tipped with a ball, around a solid centre. Its colour is `--ink` (near-black on azure, near-white on navy). The symbol is defined at a base ray length of 15; the cursor draws it at 1.15 times that. Ten rays are drawn, each a line from the centre to a tip, with a ball of radius 2.2 at the tip; a core ball of radius 2.8 sits at the centre.
 
 ```
 base = 15

@@ -143,7 +143,7 @@ A domain holds any number of workflows. A workflow opens at a start node and clo
 
 Between every pair of consecutive nodes is a gap, with a branch point below and a return point above; a node can be added at a gap's outgoing, middle, or incoming position, which differ in whether it lands below, between, or above the gap's departures and arrivals. "Above <node>" in a menu means the gap above the node at its outgoing position; "below <node>" means the gap below it at its incoming position. A branch departs on the left or the right of its parent's line, at an order position among its siblings, and either returns to a return point at or above its departure, on the same side and inside exactly the same projects, or runs open.
 
-`Make here` sets the "here" cursor on a task: a per-workflow marker of the current task, at most one per workflow, stored on the task itself and shared with other writers. Setting it clears the workflow's previous cursor; `Clear here` removes it. Only a task can carry it.
+`Make here` sets the "here" cursor on a task: a per-workflow pointer by which an author points one task out to the others, at most one per workflow, stored on the task itself and shared with other writers. Setting it clears the workflow's previous cursor; `Clear here` removes it. Only a task can carry it.
 
 A flagged node is one marked (by double-click) for the flagged-only review mode; the flag is stored on the node and shared, unlike the toggle itself.
 

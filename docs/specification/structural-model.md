@@ -181,7 +181,7 @@ I13, together with I11 and proper nesting, is what makes the whole graph directe
 
 ## 5. Node state and the activity log
 
-`status` takes one of four values, `todo`, `in-progress`, `completed`, `cancelled`, and cycles in that order when the status glyph is clicked. A task entering `completed` is stamped with `completedAt`, the UTC RFC 3339 time of the change, and leaving `completed` clears it, so the field is present exactly while the status is (I18). `flagged` drives the flagged-only review mode and may be set on any start node, begin node, or task. `here` marks the current task within its workflow, at most one per workflow (I15), and is shared with other writers rather than being a local view state.
+`status` takes one of four values, `todo`, `in-progress`, `completed`, `cancelled`, and cycles in that order when the status glyph is clicked. A task entering `completed` is stamped with `completedAt`, the UTC RFC 3339 time of the change, and leaving `completed` clears it, so the field is present exactly while the status is (I18). `flagged` drives the flagged-only review mode and may be set on any start node, begin node, or task. `here` marks the task an author points out within its workflow, at most one per workflow (I15), and is shared with other writers rather than being a local view state.
 
 A node's written prose is its **note**, and that is the only name for it. There is no second, shorter description field: a start node, a begin node, or a task has a note or it has none, and a finish node or an end node has none.
 

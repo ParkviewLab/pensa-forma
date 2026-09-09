@@ -11,7 +11,7 @@ This northstar is the canonical statement of this application's purpose. It is h
 
 PensaForma is a studio in which people and AI agents visually plan and track work together, as a living graph of workflows. A workflow orders tasks. It may contain projects (which group a contiguous run of its tasks and sub-projects) and branches (which are workflows that run in parallel beside it, and may or may not rejoin it). Main workflows (those that are not branches) are gathered into domains (HomeLab, Work, and so on), each a set of plain files on the user's own disk.
 
-A domain is drawn as a mid-century retrofuturist flowchart, and it is restructured by dragging tasks, whole projects, and whole workflows. An AI agent works on a domain through a local Model Context Protocol (MCP) automation server that runs while the application does. Every workflow, project, and task may carry a written note and always carries an activity log, which people and agents both write. A task has a status: to do, in progress, done, or cancelled. On each workflow one task may be marked here, the place where the work is in that workflow; and any workflow, project, or task may be flagged for attention, so that a review can show the flagged items alone. A domain may also keep bookmarks: named views, saved with it, that anyone who opens the domain can return to.
+A domain is drawn as a mid-century retrofuturist flowchart, and it is restructured by dragging tasks, whole projects, and whole workflows. An AI agent works on a domain through a local Model Context Protocol (MCP) automation server that runs while the application does. Every workflow, project, and task may carry a written note and always carries an activity log, which people and agents both write. A task has a status: to do, in progress, done, or cancelled. Two marks exist for the people and agents working a domain to point things out to one another. On each workflow one task may be marked here: a pointer whose meaning is its setter's, whether that is where the work is now, where it should be by some date, or where a branch ought to be added. And any workflow, project, or task may be flagged for attention, for whatever reason its setter has, so that a review can show the flagged items alone. A domain may also keep bookmarks: named views, saved with it, that anyone who opens the domain can return to.
 
 ## Why it exists
 
@@ -27,7 +27,7 @@ Workflows, projects, tasks, and branches. A workflow opens at a start node and c
 
 ### 2. Structure is legible at a glance
 
-A domain is drawn as a mid-century retrofuturist flowchart laid out like a transit map: stations are nodes, tracks are the lines they sit on, and a junction between two stations is where a branch leaves or returns. Before reading a single label one can see the shape of the work: where one is (the task marked here), what is done, in progress, or cancelled (the outline colour), where a line branches, where it comes back, and where it does not. The visual channel carries the structure; text only names it.
+A domain is drawn as a mid-century retrofuturist flowchart laid out like a transit map: stations are nodes, tracks are the lines they sit on, and a junction between two stations is where a branch leaves or returns. Before reading a single label one can see the shape of the work: what has been pointed out (the task marked here, and the flagged items), what is done, in progress, or cancelled (the outline colour), where a line branches, where it comes back, and where it does not. The visual channel carries the structure; text only names it.
 
 ### 3. It is yours, and it is local
 
@@ -51,7 +51,7 @@ A person at the window and an agent at the automation server are the same kind o
 2. One way in, one way out, at every level: a workflow opens at its start node and closes at its finish node, and a project opens at its begin node and closes at its end node.
 3. A branch may return or not, and when it returns it rejoins the workflow it left, within the scope it left, so that any scope can be read, and folded, as a single block.
 4. Placement is the author's: the order of a domain's main workflows from left to right, and, for every branch, which side of its parent it runs on and its order among the branches sharing a point, are stored and set by hand. The drawing obeys them.
-5. In every workflow, main or branch, one task may be marked here, the place where the work is in that workflow. The mark is set by a person or an agent, never inferred from the tasks' statuses.
+5. In every workflow, main or branch, one task may be marked here. The mark, like a flag, is one author pointing something out to the others: it is set by a person or an agent, it means what its setter means by it, and it is never inferred from the tasks' statuses.
 6. Status is shown, not inferred: a completed or cancelled task stays on the map, recoloured, and only deletion removes it.
 7. Structure lives in the visual channel: if the reader must read to see the shape of the work, the drawing has failed.
 8. The file is the source of truth, and it is the user's: plain JSON and markdown on disk, portable and legible without the application.

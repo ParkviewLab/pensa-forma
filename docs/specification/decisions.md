@@ -51,7 +51,7 @@ The alternative was to record only that a branch departs at one point and return
 
 *2026-08-30.*
 
-Each workflow, main or branch, carries at most one "here" cursor, which marks the current task within it. A parent and its branch each hold their own, so parallel threads of work each have a position. Only a task may carry it.
+Each workflow, main or branch, carries at most one "here" cursor, by which a person or an agent points one task out to the others working it. A parent and its branch each hold their own, so parallel threads of work each have a position. Only a task may carry it.
 
 ### D6. The activity log is editable, and is therefore a worklog
 
