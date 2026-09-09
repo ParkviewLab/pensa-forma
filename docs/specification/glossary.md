@@ -122,7 +122,7 @@ A task node defines a single task.
 
 Task nodes may optionally have: a [title](#node-title), a note, a flag, and a here mark.
 
-Task nodes must have: an ID, a [status](#status), and an activity log.
+Task nodes must have: an ID, a [status](#node-status), and an activity log.
 
 
 
