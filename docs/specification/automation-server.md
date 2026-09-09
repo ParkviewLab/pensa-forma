@@ -64,7 +64,7 @@ Every tool takes an optional `domain` (an id, a name, or a path; default the las
 
 Parameter names follow one rule: a parameter that takes a node of any kind is `node_id`; one that takes a particular kind names it (`task_id`, `begin_id`, `start_id`, `workflow_id`); a gap is `gap_id`; a position is `target`, in the catalogue's grammar; a second node in a relation keeps its role name (`from_id`, `to_id`). A tool is named for the command it wraps, and a tool that takes one kind says so in its description and refuses the rest naming the tool that accepts them.
 
-A note, a flag, and a log belong to openers and tasks only (D11 as amended); `read_note`, `read_log`, `set_note`, `delete_note`, `set_flag`, and the three log tools refuse a finish or end node with the catalogue's message.
+A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D11 as amended); `read_note`, `read_log`, `set_note`, `delete_note`, `set_flag`, and the three log tools refuse a finish or end node with the catalogue's message.
 
 ### Read-only
 

@@ -35,7 +35,7 @@ A domain is plain files on the user's own disk: one JSON file in a directory of 
 
 ### 4. People and agents author it together
 
-A person at the window and an agent at the automation server are the same kind of author. Every change, from either, is one validated, atomic command through one write path, so neither can put the graph into a state the other could not have. The window shows an agent's edits as they land, holding the camera where the person left it. A refusal names the rule and the legal alternative, so an agent learns the model from the tool surface rather than retrying blindly. And the activity log on every opener and task is the shared worklog: the application records structural changes there, and people and agents add and amend entries at will.
+A person at the window and an agent at the automation server are the same kind of author. Every change, from either, is one validated, atomic command through one write path, so neither can put the graph into a state the other could not have. The window shows an agent's edits as they land, holding the camera where the person left it. A refusal names the rule and the legal alternative, so an agent learns the model from the tool surface rather than retrying blindly. And the activity log on every start node, begin node, and task is the shared worklog: the application records structural changes there, and people and agents add and amend entries at will.
 
 ## Trade-offs
 

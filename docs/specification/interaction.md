@@ -177,7 +177,7 @@ An author may also want a branch to stay open, work that spins off and does not 
 
 A successful drag preserves the identity, title, note reference, activity log, status, flag, cursor, and every other field of every node it moves. A conversion between a workflow boundary and a project boundary (7.2, 7.3) changes `kind` and the pairing, and nothing else.
 
-One entry is appended to the activity log of the node that was dragged, or, when a finish node was dragged, to its workflow's start node, since a closer carries no log; and to no other node, with the event the catalogue assigns. A cancelled, invalid, stale, or no-op drop appends nothing.
+One entry is appended to the activity log of the node that was dragged, or, when a finish node was dragged, to its workflow's start node, since a finish node carries no log; and to no other node, with the event the catalogue assigns. A cancelled, invalid, stale, or no-op drop appends nothing.
 
 A drag is one command (command layer, section 3), so it is validated in full, persisted atomically, and reversible through the undo slot, the pre-image restoring the log entry's absence along with the structure.
 
@@ -185,7 +185,7 @@ A drag is one command (command layer, section 3), so it is validated in full, pe
 
 A press on a handle becomes a drag when the pointer has moved five logical pixels from the press; before that threshold a release is a click, which the chrome interprets (a click on a status glyph cycles status, a double-click on a card body toggles the flag, and so on). The threshold prevents a click with a slight tremor from becoming a no-op drag.
 
-Hit-testing against cards is by the card's axis-aligned box, whatever silhouette it wears; the tilted openers of the mark geometry are inscribed in their boxes for exactly this reason. Hit-testing against drop targets is against the zones section 4 defines, computed from the layout output at drag start and transformed by the camera each frame. A junction diamond's halo (mark geometry, section 9) is a circular hit region of radius 13.
+Hit-testing against cards is by the card's axis-aligned box, whatever silhouette it wears; the tilted start ellipse and finish keystone of the mark geometry are inscribed in their boxes for exactly this reason. Hit-testing against drop targets is against the zones section 4 defines, computed from the layout output at drag start and transformed by the camera each frame. A junction diamond's halo (mark geometry, section 9) is a circular hit region of radius 13.
 
 When the pointer, during a drag, comes within 24 logical pixels of the viewport's edge, the viewport pans away from that edge at a rate proportional to the shortfall, up to 12 pixels per frame, so that a target off screen can be reached; the pan stops when the pointer leaves the band.
 

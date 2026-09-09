@@ -57,7 +57,7 @@ Each workflow, main or branch, carries at most one "here" cursor, which marks th
 
 *2026-08-30.*
 
-Every opener and task carries a time-stamped activity log (a closer none, D11 as amended). The chrome provides both a viewer and an editor for it, and both users and AI agents may add entries and modify existing ones, for any reason.
+Every start node, begin node, and task carries a time-stamped activity log (a finish or end node none, D11 as amended). The chrome provides both a viewer and an editor for it, and both users and AI agents may add entries and modify existing ones, for any reason.
 
 **Consequence, stated plainly because it is easy to lose.** An editable log cannot answer "what actually happened"; it answers "what has been recorded". It is a worklog, not an audit trail. If an audit trail is ever wanted, it is a second and immutable record, not a mode of this one. The entry schema must therefore carry an author, a distinction between system-written and hand-written entries, and a marker for a later revision, or a revised entry becomes indistinguishable from an original.
 
@@ -69,13 +69,13 @@ The start node wears a jaunty ellipse; the finish node wears a narrow keystone (
 
 **Amendment, 2026-09-02.** Renders at nine, minus five, and minus three degrees were compared, and the slight tilt was chosen: the range is two to six degrees either way, and the worked instance is minus three. At that tilt the ellipse all but fills its box and the lean reads as a hand-set card rather than a tilted one. The note glyph's placement was ruled at the same time, because a card's corner is empty on a conic: on the start ellipse the glyph anchors to the inner ellipse's inscribed corner and rotates with the mark; on the finish circle it sits beside the mark, to its right, centred. The mark geometry carries the constructions.
 
-**Third amendment, 2026-09-02.** The start ellipse's major axis is held to seven tenths of the width its box allows, after renders at 100, 90, 80, and 70 percent; the minor axis keeps the full fitted height. The opener then reads as a compact medallion rather than a bar across the card. The cost was accepted knowingly: a start title wraps to the inner ellipse's inscribed width, about 85 pixels, so long workflow titles make tall medallions.
+**Third amendment, 2026-09-02.** The start ellipse's major axis is held to seven tenths of the width its box allows, after renders at 100, 90, 80, and 70 percent; the minor axis keeps the full fitted height. The ellipse then reads as a compact medallion rather than a bar across the card. The cost was accepted knowingly: a start title wraps to the inner ellipse's inscribed width, about 85 pixels, so long workflow titles make tall medallions.
 
 **Second amendment, 2026-09-02.** The finish node's circle was replaced by a narrow keystone, 92 by 44, centred in the card box at an offset of 48 and tilted with the card, after renders of the circle beside keystones of 56, 72, and 92. A circle is the most generic mark on the map, the same figure as the station dots and the status glyphs only larger, so an unlabelled circle at the top of a line could be mistaken for a heavy dot; the keystone is a shape nothing else wears, and its asymmetry, wider at the top than at its base, reads as a cap set on the line. The note glyph is centred on the keystone's inner shape, the cap carrying no label. The keystone is therefore no longer held in reserve. An even width was chosen so that the mark centres on the even card box with its edges on whole pixels.
 
-**Fourth amendment, 2026-09-02.** The cap's size, shape, and tilt were settled after renders of five sizes beside a task card and the opener, four tilts, and three readings of a lifted corner: the keystone is built at 100 by 50 with its box grown 2 at the top and the top-right corner at the new top, so that the top edge still climbs to the right once tilted; the box is 100 by 52, centred at an offset of 44; and the tilt is fixed at +2 on every finish card, since the cap's own lean is cancelled by a negative tilt and exaggerated by a larger one. Only the start node's tilt varies with the id. The finish card is 52 high, between the opener's 54 and a task's 56.
+**Fourth amendment, 2026-09-02.** The cap's size, shape, and tilt were settled after renders of five sizes beside a task card and the start ellipse, four tilts, and three readings of a lifted corner: the keystone is built at 100 by 50 with its box grown 2 at the top and the top-right corner at the new top, so that the top edge still climbs to the right once tilted; the box is 100 by 52, centred at an offset of 44; and the tilt is fixed at +2 on every finish card, since the cap's own lean is cancelled by a negative tilt and exaggerated by a larger one. Only the start node's tilt varies with the id. The finish card is 52 high, between the start card's 54 and a task's 56.
 
-**Fifth amendment, 2026-09-02.** The start node's tilt is fixed at −3 on every card, and the per-id variation is withdrawn. A rendered domain with three openers at three angles showed that the variation reads as inconsistency rather than as hand placement once the shapes are this restrained, and a uniform opener is recognised faster. Both workflow boundaries are now constant marks: the ellipse at −3, the keystone at +2.
+**Fifth amendment, 2026-09-02.** The start node's tilt is fixed at −3 on every card, and the per-id variation is withdrawn. A rendered domain with three start ellipses at three angles showed that the variation reads as inconsistency rather than as hand placement once the shapes are this restrained, and a uniform ellipse is recognised faster. Both workflow boundaries are now constant marks: the ellipse at −3, the keystone at +2.
 
 **Sixth amendment, 2026-09-02.** The start ellipse is scaled to 0.85 on both axes, after a rendered domain showed it outweighing the finish keystone at the other end of the line; at seven tenths of the width and 0.85 of the fit it is 54.3 by 23.1 in the 188 by 58 card. Its band is now inset on the ellipse's own box rather than the card's, so the outline keeps its stated thickness at any size. The label's wrap width falls with the mark, to about 68 pixels, roughly ten characters a line, which was accepted.
 
@@ -117,15 +117,15 @@ The three explicit orderings (main workflows within a domain, branch workflows o
 
 Fractional sort keys were considered, since they let two writers insert in different places without conflicting, which matters given an automation server writing alongside a user. They were rejected for the first version as harder to read off the stored record and as requiring a rebalancing rule. If concurrent reordering proves painful in practice, the migration is understood.
 
-### D11. Titles on openers; status on tasks only
+### D11. Titles on start and begin nodes; status on tasks only
 
-*2026-08-30; the closers amended 2026-09-03.*
+*2026-08-30; amended for the finish and end nodes 2026-09-03.*
 
 A `start` node and a `begin` node carry a title. A `finish` node and an `end` node carry none, so a boundary pair is named by the node that opens it. Only a task carries a status and only a task may hold the "here" cursor. Any node may be flagged, and every node has a note reference and an activity log.
 
 The rejected alternatives were a rolled-up status on boundaries, showing aggregate progress on a collapsed project, and an independently settable status on every node. The latter is the one arrangement in which the map can display a contradiction, a project marked done above unfinished contents.
 
-**Amended 2026-09-03.** A `finish` node and an `end` node carry no note, no flag, and no log either: a closer is its id and its kind, an end node its `pair` besides, and everything a pair records lives on its opener. The log entries that `attach_return` and `detach_return` wrote to a branch's finish node go to its start node, which holds the workflow's log; the finish node remains the handle for the return and the home of `Detach return` (D18).
+**Amended 2026-09-03.** A `finish` node and an `end` node carry no note, no flag, and no log either: a finish node is its id and its kind, an end node its `pair` besides, and everything a pair records lives on the node that opens it. The log entries that `attach_return` and `detach_return` wrote to a branch's finish node go to its start node, which holds the workflow's log; the finish node remains the handle for the return and the home of `Detach return` (D18).
 
 ### D12. A node's prose is its note; there is one field, not two
 
@@ -165,7 +165,7 @@ Folding a branch workflow was considered as the natural way to quieten a busy ma
 
 Fold state is client-local view state keyed by the `begin` node's id, never a field of the stored record.
 
-**Amended 2026-09-03.** Folding applies to workflows as well, any workflow, main or branch. The two reasons for deferring it are answered: the pair is drawn shut by the construction in the mark geometry's 3.12, the start ellipse painted over the finish keystone at a seam of 35, and a folded branch's laterals arrive and leave exactly as they do when it is open, `L` beneath the start card's silhouette and `L` above the finish card's, the riser running behind the pair. A folded branch keeps its lane; a folded main workflow is one card in the row of mains. Fold state keys on the opener's id, `start` or `begin`. The candidate once recorded in the in-flight ideas is thereby settled.
+**Amended 2026-09-03.** Folding applies to workflows as well, any workflow, main or branch. The two reasons for deferring it are answered: the pair is drawn shut by the construction in the mark geometry's 3.12, the start ellipse painted over the finish keystone at a seam of 35, and a folded branch's laterals arrive and leave exactly as they do when it is open, `L` beneath the start card's silhouette and `L` above the finish card's, the riser running behind the pair. A folded branch keeps its lane; a folded main workflow is one card in the row of mains. Fold state keys on the id of the node that opens the fold, `start` or `begin`. The candidate once recorded in the in-flight ideas is thereby settled.
 
 ### D16. On a cursor collision, the receiving workflow's cursor survives
 
@@ -221,7 +221,7 @@ The cost is a quantisation confined to the open band between `2L` and `3L`; abov
 
 *2026-09-02.*
 
-The line carries no mark where a card attaches to it. The card is the station, and the only marks on a track are the junction diamonds, so every mark on a line means a junction. The anchor gap that once held the dot is gone with it: gaps are measured between the silhouettes where the line passes through them, so that two cards a shut gap apart look the same distance apart whatever shapes they wear, and each junction stands `L` clear of the silhouette on its side, at either end of a gap alike. A riser is drawn from card centre to card centre, behind the cards, so that it meets an ellipse or a keystone that does not fill its box. (The first renderings of the worked example measured the return point from the card's edge but the branch point from an anchor above the card, and stopped risers at the box edges, which put the arrival diamond nearly against its card and left the openers floating clear of their lines; both are corrected here.) The air rule's arrival case loses its dot-radius term, and a riser is drawn from card to card, an open branch's ending at its finish keystone. Decided on the northstar's tenth axiom: the dot clarified nothing the card and the diamonds do not. With the dot gone the diamond is the only mark on a line, and it grows from 8 to 12 pixels on a side, chosen from renders at 8, 10, 12, and 14: at 12 it reads as a junction at the ordinary zoom without reading as a node.
+The line carries no mark where a card attaches to it. The card is the station, and the only marks on a track are the junction diamonds, so every mark on a line means a junction. The anchor gap that once held the dot is gone with it: gaps are measured between the silhouettes where the line passes through them, so that two cards a shut gap apart look the same distance apart whatever shapes they wear, and each junction stands `L` clear of the silhouette on its side, at either end of a gap alike. A riser is drawn from card centre to card centre, behind the cards, so that it meets an ellipse or a keystone that does not fill its box. (The first renderings of the worked example measured the return point from the card's edge but the branch point from an anchor above the card, and stopped risers at the box edges, which put the arrival diamond nearly against its card and left the ellipses and keystones floating clear of their lines; both are corrected here.) The air rule's arrival case loses its dot-radius term, and a riser is drawn from card to card, an open branch's ending at its finish keystone. Decided on the northstar's tenth axiom: the dot clarified nothing the card and the diamonds do not. With the dot gone the diamond is the only mark on a line, and it grows from 8 to 12 pixels on a side, chosen from renders at 8, 10, 12, and 14: at 12 it reads as a junction at the ordinary zoom without reading as a node.
 
 *Amended 2026-09-03.* Every branch point and return point is drawn, whether or not a branch attaches there, after a render of the worked example with every point drawn was set beside one with occupied points only. Where the station dots had put a decorative mark in every gap, the point diamonds put a meaningful one there: each is a place a branch may depart or arrive, the drop positions are visible at rest, and a shut gap's single diamond at its midpoint reads as the gap's own mark. One diamond where a gap's two points coincide, two where its middle edge has opened.
 
@@ -259,7 +259,7 @@ One record kind for every bounded run, with main, branch, and nested as its thre
 
 It was declined. The five-kind drawing is at a glance the clearer and the more specific, a start and a finish being unmistakable where a line begins and ends; and calling every run a project would put that name on runs that are not projects. Two costs are accepted knowingly: a line that holds one project carries its own start and finish around it, and a project becomes a branch, or a branch a project, by a conversion of kind rather than by a move.
 
-**Consequence.** D2 stands. The two properties the unification would have brought with it are taken on their own terms instead: a workflow folds (D15 as amended), and a closer carries no note, flag, or log (D11 as amended).
+**Consequence.** D2 stands. The two properties the unification would have brought with it are taken on their own terms instead: a workflow folds (D15 as amended), and a finish or end node carries no note, flag, or log (D11 as amended).
 
 ### D28. "Plan" leaves the vocabulary; the domain orders its main workflows in `mains`
 
@@ -291,7 +291,7 @@ The application writes one `system` entry to exactly one node per command, the n
 
 *Proposed 2026-09-02; settled 2026-09-03.*
 
-A bookmark is `{name, folded, nodes}`: the folded opener ids, start or begin, and the ids of every node drawn wholly inside the viewport when it was saved. A client frames those nodes under its own maximum scale and minimum padding, so a bookmark survives a layout change and another window size by construction and degrades only when every node it names is gone.
+A bookmark is `{name, folded, nodes}`: the folded scopes as the ids of their start or begin nodes, and the ids of every node drawn wholly inside the viewport when it was saved. A client frames those nodes under its own maximum scale and minimum padding, so a bookmark survives a layout change and another window size by construction and degrades only when every node it names is gone.
 
 ### D33. The Cargo workspace
 

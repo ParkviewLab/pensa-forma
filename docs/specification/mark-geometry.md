@@ -129,7 +129,7 @@ transform = translate(188 58) scale(-1 -1)
 
 #### 3.5 ellipse (a start node)
 
-A workflow opens with an ellipse, tilted: the jaunty opener of the style. It is a medallion set on its wide card rather than a bar across it: its major axis is held to seven tenths of the width the box allows, and the whole ellipse is then scaled to 0.85, so that it sits closer in mass to the finish keystone at the other end of the line. First find the largest ellipse of the box's proportions that, once rotated by the card's tilt `θ` (section 3.8), still lies within the box inset by the margin: build it axis-aligned from the inscribed semi-axes and scale it down until its rotated bounding box fits. Then apply the two factors, and rotate the result about the card centre.
+A workflow opens with an ellipse, tilted: the style's jaunty opening mark. It is a medallion set on its wide card rather than a bar across it: its major axis is held to seven tenths of the width the box allows, and the whole ellipse is then scaled to 0.85, so that it sits closer in mass to the finish keystone at the other end of the line. First find the largest ellipse of the box's proportions that, once rotated by the card's tilt `θ` (section 3.8), still lies within the box inset by the margin: build it axis-aligned from the inscribed semi-axes and scale it down until its rotated bounding box fits. Then apply the two factors, and rotate the result about the card centre.
 
 ```
 rx0 = (w - 2m) / 2                      the inscribed semi-axes
@@ -205,7 +205,7 @@ Worked `innerT` for each golden master above: screen `translate(7, 3.5) scale(0.
 
 #### 3.8 the tilt
 
-Every start card is tilted −3 degrees and every finish card +2, the same on every card of its kind (D7). The two angles were chosen by looking: −3 is the slight lean at which the ellipse reads as a hand-set card rather than a tilted one while its band still pools to the lower right, and +2 is the angle at which the keystone's own lean, wider at the top and steeper on the right, is completed rather than cancelled or exaggerated. A tilt varied from card to card was tried and dropped: with shapes this restrained the variation bought nothing, and a uniform opener is recognised at a glance, which is what the openers are for.
+Every start card is tilted −3 degrees and every finish card +2, the same on every card of its kind (D7). The two angles were chosen by looking: −3 is the slight lean at which the ellipse reads as a hand-set card rather than a tilted one while its band still pools to the lower right, and +2 is the angle at which the keystone's own lean, wider at the top and steeper on the right, is completed rather than cancelled or exaggerated. A tilt varied from card to card was tried and dropped: with shapes this restrained the variation bought nothing, and a uniform ellipse is recognised at a glance, which is what a workflow's boundary marks are for.
 
 The tilt is a rotation of the finished mark, outer and inner together, about the card centre. The card's box, its label, its glyphs, its station anchor, and its hit region are unaffected; the fit rule of section 3.5 guarantees the rotated silhouette stays inside the box, so the layout and the interaction layer never see the tilt.
 
@@ -526,7 +526,7 @@ The variable-weight outline is two fills, never a stroke. Build the outer point 
 
 Concave fills may need tessellation. Two silhouettes are concave by design: the hull (its top edge bows inward) and the marquee (all four edges bow inward). A renderer that fills only convex polygons directly will produce artifacts on exactly these; triangulate the flattened point list first (any standard polygon tessellator) and submit triangles. The screen, the ellipse, the keystone, and the glyphs and dots are convex and need no such treatment; a single "fill this closed point list" helper that routes concave shapes through the tessellator and convex ones through the fast path keeps the call sites uniform.
 
-Apply transforms to points, not to a canvas state. The rotations and scales above (the end node's half turn, the openers' tilt, the junction diamond's 45-degree turn, the sputnik's 1.15 scale, the orbit ring rotations) compose as affine operations applied to the point list before flattening and tessellation; no retained transform stack is assumed.
+Apply transforms to points, not to a canvas state. The rotations and scales above (the end node's half turn, the tilts of the start ellipse and the finish keystone, the junction diamond's 45-degree turn, the sputnik's 1.15 scale, the orbit ring rotations) compose as affine operations applied to the point list before flattening and tessellation; no retained transform stack is assumed.
 
 Strokes take the tabulated width and colour with round caps and round joins; the tracks, the glyph rings, the orbit ellipses (themselves flattened to polylines), the sputnik rays, the note glyph, and the drop indicators are all strokes.
 

@@ -495,8 +495,8 @@ are absent.</p>
 below</code>, the two <code>Add branch</code> submenus, then <code>Return a
 branch here</code> ▸ and <code>Move a branch here</code> ▸ when candidates
 exist, a separator, <code>Expand</code>/<code>Collapse</code> (acting on the
-paired begin node). No note or log items: a closer carries neither. No
-<code>Delete…</code>: a closer is deleted with its opener.</p>
+paired begin node). No note or log items: an end node carries neither. No
+<code>Delete…</code>: an end node is deleted with its begin node.</p>
 <p class="small">Start card: <code>Rename…</code>; for a main workflow
 <code>Move left</code>/<code>Move right</code> when a neighbour exists;
 <code>Expand</code>/<code>Collapse</code> (a workflow folds like a project,
@@ -508,7 +508,7 @@ Markdown…</code>, the note items, <code>Activity log…</code>; a separator;
 return</code> when a branch returns; <code>Add task below</code>, <code>Add
 branch below</code> ▸, <code>Paste below</code> with a clip, absent while
 folded; a separator; <code>Expand</code>/<code>Collapse</code> (acting on
-the paired start node). No note or log items: a closer carries neither.</p>
+the paired start node). No note or log items: a finish node carries neither.</p>
 <p class="small">Canvas: <code>New workflow…</code>; <code>Paste as new
 workflow</code> (only with a session clipboard); separator; <code>Add
 bookmark…</code> (on an empty domain it silently does nothing); <code>Jump to
@@ -667,7 +667,7 @@ never removes note files; the orphans stay in <code>notes/</code>, unread,
 until the domain itself is deleted. Filenames
 <code>&lt;nodeId&gt;_&lt;slug&gt;.md</code> (in order: title lowercased,
 non-alphanumeric runs collapsed to hyphens, end hyphens stripped, cut to 12,
-a trailing hyphen stripped again); an empty slug or a closer gives
+a trailing hyphen stripped again); an empty slug gives
 <code>&lt;nodeId&gt;.md</code>. External change while open: node deleted →
 close with <code>The node whose note you were editing was removed by another
 writer, so the note was closed.</code>; file changed, editor clean → silent
@@ -786,7 +786,7 @@ from Help.</p>
 <!-- ============================================================ -->
 <h2><span class="n">8</span>Bookmarks</h2>
 <p class="small">Surfaced only in the canvas menu: add, jump by name, delete by
-name with confirmation. A bookmark stores a name, the folded-opener set (projects and workflows), and
+name with confirmation. A bookmark stores a name, the folded scopes (projects and workflows), and
 the ids of every node drawn wholly inside the viewport when it was saved, in a
 bookmarks file beside the domain file; no zoom and no camera coordinate, so it
 means the same thing on every client. Jumping applies the fold set to the live
@@ -866,7 +866,7 @@ above it); About and Licenses are separate windows.</p>
   <tr><td><code>settings.json</code> in the data directory</td><td><code>theme</code></td><td><code>azure</code> or <code>navy</code></td></tr>
   <tr><td><code>settings.json</code></td><td><code>note.split</code> · <code>note.wrap</code> · <code>note.fontSize</code></td><td>editor split fraction (default .5); soft wrap (default on); preview text px (12..28, default 16)</td></tr>
   <tr><td><code>settings.json</code></td><td><code>libraryRoot</code> · <code>lastDomain</code> · <code>server</code></td><td>the library root; the last domain by id; the automation server's enabled (default on), port (35899), scope (read-only / read-write / destructive; default read-write)</td></tr>
-  <tr><td><code>viewstate.json</code> in the data directory</td><td>per domain id</td><td>folded opener ids (begin or start)</td></tr>
+  <tr><td><code>viewstate.json</code> in the data directory</td><td>per domain id</td><td>ids of the begin or start nodes of folded scopes</td></tr>
   <tr><td>the domain directory</td><td><code>bookmarks.json</code> · <code>notes/*.md</code></td><td>bookmarks; note files</td></tr>
   </tbody>
 </table>

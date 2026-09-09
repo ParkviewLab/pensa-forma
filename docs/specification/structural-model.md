@@ -86,7 +86,7 @@ A workflow is a *main* workflow when its id appears in its domain's `mains`, and
 
 A field marked for one kind is absent on the others, not present and null. A validator rejects a `status` on a `begin` node rather than ignoring it, because a field that is silently ignored is a field that silently diverges.
 
-The `title` rule is what makes a boundary pair legible: the node that opens the pair is named and the node that closes it is not, so a workflow is named by its start node and a project by its begin node. A `finish` node and an `end` node carry no label, no note, no flag, and no log, in the model and on the canvas alike: a finish node is its id and its kind, and an end node its id, its kind, and its `pair`. Everything a pair records lives on its opener.
+The `title` rule is what makes a boundary pair legible: the node that opens the pair is named and the node that closes it is not, so a workflow is named by its start node and a project by its begin node. A `finish` node and an `end` node carry no label, no note, no flag, and no log, in the model and on the canvas alike: a finish node is its id and its kind, and an end node its id, its kind, and its `pair`. Everything a pair records lives on the node that opens it.
 
 ### 2.4 Gap, and the two points within it
 
@@ -181,9 +181,9 @@ I13, together with I11 and proper nesting, is what makes the whole graph directe
 
 ## 5. Node state and the activity log
 
-`status` takes one of four values, `todo`, `in-progress`, `completed`, `cancelled`, and cycles in that order when the status glyph is clicked. A task entering `completed` is stamped with `completedAt`, the UTC RFC 3339 time of the change, and leaving `completed` clears it, so the field is present exactly while the status is (I18). `flagged` drives the flagged-only review mode and may be set on any opener or task. `here` marks the current task within its workflow, at most one per workflow (I15), and is shared with other writers rather than being a local view state.
+`status` takes one of four values, `todo`, `in-progress`, `completed`, `cancelled`, and cycles in that order when the status glyph is clicked. A task entering `completed` is stamped with `completedAt`, the UTC RFC 3339 time of the change, and leaving `completed` clears it, so the field is present exactly while the status is (I18). `flagged` drives the flagged-only review mode and may be set on any start node, begin node, or task. `here` marks the current task within its workflow, at most one per workflow (I15), and is shared with other writers rather than being a local view state.
 
-A node's written prose is its **note**, and that is the only name for it. There is no second, shorter description field: an opener or a task has a note or it has none, and a closer has none.
+A node's written prose is its **note**, and that is the only name for it. There is no second, shorter description field: a start node, a begin node, or a task has a note or it has none, and a finish node or an end node has none.
 
 The note is a markdown file in the domain's `notes/` directory, and the node record holds only its filename. Four consequences follow, each of which an implementation will meet.
 
@@ -195,7 +195,7 @@ A note file with no node referencing it is a legal state, not an integrity fault
 
 A node may hold a reference to an empty file. Emptying a note is not deleting it, so the reference and the glyph both remain; the glyph means a note exists here, not that it has text in it.
 
-The **activity log** is a list of entries on an opener or a task, oldest first; a closer has none.
+The **activity log** is a list of entries on a start node, a begin node, or a task, oldest first; a finish node or an end node has none.
 
 | Field | Type | Notes |
 | --- | --- | --- |

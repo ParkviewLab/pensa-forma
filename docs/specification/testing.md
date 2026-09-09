@@ -47,7 +47,7 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 ## 4. The mark geometry
 
-**Golden paths.** Every silhouette's construction evaluated at its stated `(w, h)` must reproduce the golden-master path data in the mark geometry to two decimal places, and the inner transform likewise. The tilted openers are checked to lie within their card boxes at their fixed tilts.
+**Golden paths.** Every silhouette's construction evaluated at its stated `(w, h)` must reproduce the golden-master path data in the mark geometry to two decimal places, and the inner transform likewise. The tilted start ellipse and finish keystone are checked to lie within their card boxes at their fixed tilts.
 
 **The underpass** is tested on crossings at several angles: the cut's setback follows the formula, the caps lie parallel to the crossed line, and a near-parallel crossing is capped at `breakMax`.
 
@@ -67,4 +67,4 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 ## 7. What is not tested by machine
 
-Whether the drawing looks right. The fan rule, the tilt of the openers, and the seam of a folded pair are derived rather than observed, and only a render shows whether they read. Visual verification is a step in the implementation plan, done by running the application and looking, and a change to any of them is not claimed to work without a screenshot.
+Whether the drawing looks right. The fan rule, the tilts of the start ellipse and the finish keystone, and the seam of a folded pair are derived rather than observed, and only a render shows whether they read. Visual verification is a step in the implementation plan, done by running the application and looking, and a change to any of them is not claimed to work without a screenshot.

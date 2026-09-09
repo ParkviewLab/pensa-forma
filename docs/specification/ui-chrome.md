@@ -131,7 +131,7 @@ The map itself is out of scope, but four gestures on it invoke the chrome and mu
 - Right-click anywhere in the viewport opens a context menu (section 6): on a card, that node's menu; anywhere else (tracks, junction diamonds, bare canvas), the canvas menu. With no domain open, or in flagged-only mode, right-click does nothing.
 - Single click on a card's note glyph (the small memo-pad in its bottom-right corner) opens the note editor on that node.
 - Single click on a task card's status glyph cycles its status (todo → in-progress → completed → cancelled → todo), issuing `cycle_status`. A begin card's and a start card's glyphs carry no status and ignore the click.
-- Double-click on a card's body toggles the node's flag, issuing `set_flag`; the glyph and note-glyph sub-regions are excluded. An opener or a task may be flagged; a closer carries no flag, and a double-click on a finish or an end card does nothing.
+- Double-click on a card's body toggles the node's flag, issuing `set_flag`; the glyph and note-glyph sub-regions are excluded. A start node, a begin node, or a task may be flagged; a finish or end node carries no flag, and a double-click on a finish or an end card does nothing.
 
 The chrome also reacts to external writers (the automation server editing the same library) without user action. An edit to the open domain re-reads the record and re-renders in place, coalesced to at most one render per displayed frame, holding the camera, zoom, and fold state; there is no changed-node highlight; the undo slot clears. A domain created or deleted externally refreshes the switcher's entry list in place; if the open domain itself disappears, the note editor and any menu close, and the alphabetically first remaining domain opens (or the `No domains…` empty state shows). The open note editor and activity log panel reconcile on these refreshes as described in sections 8.6 and 8.7.
 
@@ -139,7 +139,7 @@ The chrome also reacts to external writers (the automation server editing the sa
 
 The menus and dialogs name concepts from the glossary. The chrome does not implement them (the edit operations run in the command layer and the canvas draws the result), but a builder must know what each term means for the items' conditions and labels to make sense.
 
-A domain holds any number of workflows. A workflow opens at a start node and closes at a finish node; a main workflow is one the domain lists in its left-to-right order, and a branch workflow is one that departs from a branch point on another workflow, its parent. A project is a begin node, the end node paired with it, and everything between; a begin card is the project's handle for every operation, and an end card, having no title, is never named on its own. Openers (start and begin) carry titles; closers (finish and end) do not.
+A domain holds any number of workflows. A workflow opens at a start node and closes at a finish node; a main workflow is one the domain lists in its left-to-right order, and a branch workflow is one that departs from a branch point on another workflow, its parent. A project is a begin node, the end node paired with it, and everything between; a begin card is the project's handle for every operation, and an end card, having no title, is never named on its own. Start and begin nodes carry titles; finish and end nodes do not.
 
 Between every pair of consecutive nodes is a gap, with a branch point below and a return point above; a node can be added at a gap's outgoing, middle, or incoming position, which differ in whether it lands below, between, or above the gap's departures and arrivals. "Above <node>" in a menu means the gap above the node at its outgoing position; "below <node>" means the gap below it at its incoming position. A branch departs on the left or the right of its parent's line, at an order position among its siblings, and either returns to a return point at or above its departure, on the same side and inside exactly the same projects, or runs open.
 
@@ -190,7 +190,7 @@ Every editing item routes through the command layer: the operation runs against 
 
 ### 5.1 Export to Markdown
 
-`Export to Markdown…` opens the platform's save dialog (title `Export to Markdown`, default name `<title>.md`, falling back to `export.md` for a blank title, filter `Markdown (*.md)`) and writes a one-way serialisation of the clicked opener's extent as a nested outline, two spaces per level. A workflow's start node is a plain bullet (`- <title>`) nesting everything in the workflow one level in; a begin node likewise nests its scope. A run of tasks along one line stays flat. A task is a checkbox item, `[x]` done, `[ ]` to do or in progress, with a cancelled task's title struck through (`~~title~~`) and no checkbox change. A branch opens a nested sub-list one level in beneath the lower node of the gap it departs from, headed by its start node's bullet and ending with an italic line: `*returns above “<title>”*` when it returns, naming the lower node of its return gap (an end node named as `the close of “<project title>”`), or `*runs open*` when it does not. A node's note is inlined beneath its bullet as an indented continuation paragraph. Closers get no bullet, though their notes are emitted at their scope's level. The full extent is exported regardless of the fold state.
+`Export to Markdown…` opens the platform's save dialog (title `Export to Markdown`, default name `<title>.md`, falling back to `export.md` for a blank title, filter `Markdown (*.md)`) and writes a one-way serialisation of the extent of the clicked start or begin node as a nested outline, two spaces per level. A workflow's start node is a plain bullet (`- <title>`) nesting everything in the workflow one level in; a begin node likewise nests its scope. A run of tasks along one line stays flat. A task is a checkbox item, `[x]` done, `[ ]` to do or in progress, with a cancelled task's title struck through (`~~title~~`) and no checkbox change. A branch opens a nested sub-list one level in beneath the lower node of the gap it departs from, headed by its start node's bullet and ending with an italic line: `*returns above “<title>”*` when it returns, naming the lower node of its return gap (an end node named as `the close of “<project title>”`), or `*runs open*` when it does not. A node's note is inlined beneath its bullet as an indented continuation paragraph. Closers get no bullet, though their notes are emitted at their scope's level. The full extent is exported regardless of the fold state.
 
 ---
 
@@ -198,7 +198,7 @@ Every editing item routes through the command layer: the operation runs against 
 
 ### 6.1 Widget
 
-One menu widget serves every opener (card menus, canvas menu, the automation pill). Items are a flat list of three shapes: an action (label, optionally checked, optionally disabled), a submenu (label plus nested items), or a separator.
+One menu widget serves every menu: the card menus, the canvas menu, and the automation pill. Items are a flat list of three shapes: an action (label, optionally checked, optionally disabled), a submenu (label plus nested items), or a separator.
 
 Visual spec. The menu floats above everything but dialogs and the note editor (Appendix C): at least 190px wide, `--panel` fill, `--ink` text at 12.5px, a 1px `--line` edge, corner radius 8, inner spacing 5px all round, drop shadow (0, 10) blur 30 in black at 28 % opacity; its text is unselectable. Each item is a row: inner spacing 6px vertical and 10px horizontal, corner radius 5, single-line, pointer cursor; contents left to right, 6px apart, are a 12px-wide centred check column (`--muted`, 11px; the text `✓` when checked, empty otherwise, so labels align), the label (taking the remaining width), and for submenus a `›` arrow (`--muted`, 10px to the label's right). Hovered rows fill `--line` at 20 % opacity. Disabled rows draw at 40 % opacity, no hover fill, no activation. A separator is a 1px `--line` rule at 50 % opacity with 5px above and below and 6px side insets.
 
@@ -246,15 +246,15 @@ Folded-scope withholdings: when the project is folded, `Add task above`, `Add br
 
 ### 6.4 The end-card menu
 
-Right-click on a project's close. It has no title, status, cursor, note, or log, so the menu is short: `Add task above`, `Add task below`, `Add branch above` ▸, `Add branch below` ▸, then `Return a branch here` ▸ and `Move a branch here` ▸ (only when candidate branches exist), then a separator, then `Expand` or `Collapse` (resolved against the begin node the close pairs with, so either end of the pair acts identically). No `Delete…`: a closer is deleted with its opener.
+Right-click on a project's close. It has no title, status, cursor, note, or log, so the menu is short: `Add task above`, `Add task below`, `Add branch above` ▸, `Add branch below` ▸, then `Return a branch here` ▸ and `Move a branch here` ▸ (only when candidate branches exist), then a separator, then `Expand` or `Collapse` (resolved against the begin node the close pairs with, so either end of the pair acts identically). No `Delete…`: an end node is deleted with its begin node.
 
 ### 6.5 The start-card menu
 
-Right-click on a workflow's opener: `Rename…`; for a main workflow `Move left` and `Move right` (each present when a neighbour exists in the domain's order); `Expand` or `Collapse` (by current fold state; D15 as amended); a separator; `Add task above`, `Add branch above` ▸, and, when a clip exists, `Paste above`, all three absent while the workflow is folded, since anything added on the gap above a folded start node would land invisibly inside the fold; a separator; `Copy` and `Export to Markdown…`; `Edit note…`, `Delete note…` when a note exists, `Activity log…`; a separator; `Delete…`, which deletes the whole workflow.
+Right-click on a workflow's start node: `Rename…`; for a main workflow `Move left` and `Move right` (each present when a neighbour exists in the domain's order); `Expand` or `Collapse` (by current fold state; D15 as amended); a separator; `Add task above`, `Add branch above` ▸, and, when a clip exists, `Paste above`, all three absent while the workflow is folded, since anything added on the gap above a folded start node would land invisibly inside the fold; a separator; `Copy` and `Export to Markdown…`; `Edit note…`, `Delete note…` when a note exists, `Activity log…`; a separator; `Delete…`, which deletes the whole workflow.
 
 ### 6.6 The finish-card menu
 
-Right-click on a workflow's close: for a branch workflow, `Detach return` when it returns (D18); `Add task below`, `Add branch below` ▸, and `Paste below` when a clip exists, all three absent while the workflow is folded; a separator; `Expand` or `Collapse` (resolved against the start node the close pairs with). A closer carries no note and no log, so there are no note or log items. A main workflow's finish card omits `Detach return`. No `Delete…`.
+Right-click on a workflow's close: for a branch workflow, `Detach return` when it returns (D18); `Add task below`, `Add branch below` ▸, and `Paste below` when a clip exists, all three absent while the workflow is folded; a separator; `Expand` or `Collapse` (resolved against the start node the close pairs with). A finish node carries no note and no log, so there are no note or log items. A main workflow's finish card omits `Detach return`. No `Delete…`.
 
 ### 6.7 The canvas menu
 
@@ -330,14 +330,14 @@ There is no toast layer anywhere; every notice is one of these modals, with a si
 
 ### 8.1 The note editor
 
-A full-window overlay above menus and dialogs raised from outside it (Appendix C), opaque on the ground colour; not a dialog. Opens from `Edit note…` on the menu of any opener or task and from a click on a card's note glyph; a closer has no note and offers neither. There is no keyboard shortcut to open it.
+A full-window overlay above menus and dialogs raised from outside it (Appendix C), opaque on the ground colour; not a dialog. Opens from `Edit note…` on the menu of any start node, begin node, or task and from a click on a card's note glyph; a finish or end node has no note and offers neither. There is no keyboard shortcut to open it.
 
 The editor fills the window as a column:
 
 - A head row: inner spacing 12px vertical and 16px horizontal, items 10px apart, a 1px `--line` edge below. Left to right: the title (taking the remaining width; 14px, weight 800, 0.02 tracking, truncated with `…`); a button `A−` (tooltip `Smaller view text`); a button `A+` (tooltip `Larger view text`); the `View`/`Edit` toggle; a close button `✕` (30 × 30, 13px).
 - A content row filling the rest: in edit mode, the source pane (a formatting toolbar above the text editing area), then a 6px divider, then the preview pane; in view mode, the preview pane alone fills the window.
 
-The title shows the node's own title; a closer has no note, so the editor never opens on one.
+The title shows the node's own title; a finish or end node has no note, so the editor never opens on one.
 
 The editor always opens in split edit mode (toggle button reading `View`). The toggle flips between edit (source + preview) and view (preview only); while editing, the toggle button is inverted ink-on-ground. `A−`/`A+` step the preview's text size by 2px within 12 to 28 (default 16, the `note.fontSize` setting), disabling at the ends; the source pane is fixed at 13px and unaffected.
 
@@ -391,7 +391,7 @@ Deleting a note from the menu first closes the editor if that note is open, disc
 
 ### 8.7 The activity log panel
 
-`Activity log…` on the menu of any opener or task opens a panel over the map: a card in the dialog's visual style but anchored to the right edge of the viewport, 380px wide, the viewport's full height, `--panel` fill, a 1px `--line` edge on its left, not modal (the map behind stays live, and a right-click on it closes the panel). Its head row shows the node's title (14px, weight 800, truncated) and a close button `✕`; below it, a primary button `Add entry…`; below that, the entries newest first, each a block: a first line in `--muted` 11px giving the time (local, `D Mon YYYY, HH:MM`) and the author (`<name>`, with `· system` for a `system` entry and `· edited` when `editedAt` is set), then the text in 12.5px with line height 1.5. Hovering an entry reveals two icon buttons at its right, `✎` (`Edit entry`) and `✕` (`Delete entry`), which open the `Edit entry` prompt and the `Delete entry` dialog and issue `edit_log_entry` and `delete_log_entry`. `Add entry…` opens the `Add entry` prompt and issues `add_log_entry`. Entries page in as the list scrolls; a `system` entry's `event` code is not shown, its text carrying the meaning.
+`Activity log…` on the menu of any start node, begin node, or task opens a panel over the map: a card in the dialog's visual style but anchored to the right edge of the viewport, 380px wide, the viewport's full height, `--panel` fill, a 1px `--line` edge on its left, not modal (the map behind stays live, and a right-click on it closes the panel). Its head row shows the node's title (14px, weight 800, truncated) and a close button `✕`; below it, a primary button `Add entry…`; below that, the entries newest first, each a block: a first line in `--muted` 11px giving the time (local, `D Mon YYYY, HH:MM`) and the author (`<name>`, with `· system` for a `system` entry and `· edited` when `editedAt` is set), then the text in 12.5px with line height 1.5. Hovering an entry reveals two icon buttons at its right, `✎` (`Edit entry`) and `✕` (`Delete entry`), which open the `Edit entry` prompt and the `Delete entry` dialog and issue `edit_log_entry` and `delete_log_entry`. `Add entry…` opens the `Add entry` prompt and issues `add_log_entry`. Entries page in as the list scrolls; a `system` entry's `event` code is not shown, its text carrying the meaning.
 
 The panel reconciles like the editor: an external write to the node reloads the list; an external deletion closes the panel silently. It closes on domain switch and on Escape.
 
@@ -432,7 +432,7 @@ If the licence inventory is missing (an unpackaged development build), the windo
 
 ## 11. Bookmarks
 
-Bookmarks appear only in the canvas menu (6.7): add, jump (by name), delete (by name, confirmed). A bookmark is a named saved view stored with the domain in its bookmarks file: its name, the set of folded openers (projects and workflows alike), and the set of nodes drawn wholly inside the viewport when it was saved (D32). It holds no zoom and no camera coordinate.
+Bookmarks appear only in the canvas menu (6.7): add, jump (by name), delete (by name, confirmed). A bookmark is a named saved view stored with the domain in its bookmarks file: its name, the set of folded scopes (projects and workflows alike), and the set of nodes drawn wholly inside the viewport when it was saved (D32). It holds no zoom and no camera coordinate.
 
 Jumping applies the fold set (stale entries silently dropped) both to the live view and to the client's persisted view state, so the restored fold state survives a restart; it then re-renders and frames the bookmark's surviving nodes: the smallest camera that shows all of them with a 24px padding, at a zoom no greater than 1.5, centred. If none survives, the map fits and the `Bookmark location is gone` dialog names the bookmark. There is no rename, no reorder, no update-in-place, and no indicator of which bookmark is active.
 

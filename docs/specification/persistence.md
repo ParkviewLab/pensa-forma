@@ -181,7 +181,7 @@ A note filename is validated on every use: a bare name with no path separators, 
 }
 ```
 
-A bookmark is a name, the opener ids (begin or start) folded when it was saved, and the ids of every node drawn wholly inside the viewport when it was saved (D32). It holds no zoom and no camera coordinate, because a field that travels must mean the same thing on every client, and a pixel-anchored camera is one screen's framing. Restoring a bookmark applies the fold set, drops ids that no longer exist, and frames the surviving nodes under a maximum scale and a minimum padding; only an empty survivor set is a broken bookmark. Names are unique within the domain.
+A bookmark is a name, the scopes folded when it was saved (as the ids of their begin or start nodes), and the ids of every node drawn wholly inside the viewport when it was saved (D32). It holds no zoom and no camera coordinate, because a field that travels must mean the same thing on every client, and a pixel-anchored camera is one screen's framing. Restoring a bookmark applies the fold set, drops ids that no longer exist, and frames the surviving nodes under a maximum scale and a minimum padding; only an empty survivor set is a broken bookmark. Names are unique within the domain.
 
 The file is absent until the first bookmark is added and is written atomically like every other file.
 

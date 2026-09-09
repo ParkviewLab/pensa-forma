@@ -114,7 +114,7 @@ Refusal `bad_arguments`: "A finish node and an end node carry no title; a workfl
 
 Tier read-write. Undoable. Subject: the new task. Creates a task with `title`, `status: todo`, in the named gap at the named position; the gap splits as the structural model, section 2.4, describes, the record following its branch point. If the gap lies inside projects, the task is part of the innermost. Log: `created`, "Created above <lower node title>."
 
-The window's `Add task above <node>` issues this command for the gap above the node at its `outgoing` position (immediately above the node, below any departures there); `Add task below <node>` issues it for the gap below the node at its `incoming` position (immediately below the node, above any arrivals there). A closer has no gap above it and an opener none below, which is why those items are absent on those nodes.
+The window's `Add task above <node>` issues this command for the gap above the node at its `outgoing` position (immediately above the node, below any departures there); `Add task below <node>` issues it for the gap below the node at its `incoming` position (immediately below the node, above any arrivals there). A finish or end node has no gap above it, and a start or begin node none below, which is why those items are absent on those nodes.
 
 Refusals. `not_found`: "No gap <id>." `bad_arguments`: "A position is outgoing, middle, or incoming."
 
@@ -227,7 +227,7 @@ Refusals. `bad_arguments`: "A finish node and an end node carry no note; a workf
 
 Tier destructive. Not undoable. Subject: the node. Deletes the note file and clears the node's reference. The text is not recoverable, which the window's dialog says before it asks. No log entry.
 
-Refusals. `bad_arguments`: the closers' message of `set_note`. `refused`: "<title> has no note."
+Refusals. `bad_arguments`: the message `set_note` gives for a finish or end node. `refused`: "<title> has no note."
 
 ### `add_log_entry(node, text)`
 
@@ -251,7 +251,7 @@ Tier read-write. Undoable. Subject: the node. Removes the entry.
 
 ### `delete_node(node)`
 
-Tier destructive. Undoable. Subject: none. What is removed depends on the kind, and a closer is refused outright.
+Tier destructive. Undoable. Subject: none. What is removed depends on the kind, and a finish or end node is refused outright.
 
 - A **task**: the node alone; its two gaps merge and every branch attached at either survives on the merged gap.
 - A **begin node**: the project's whole extent, its end node, its contents, and every branch that is part of it, with those branches' own descendants. To remove the pair and keep the contents, use `unwrap_project`.
@@ -265,7 +265,7 @@ dialog; an agent's call carries no confirmation and proceeds.)
 
 ### `paste(clip, target)`
 
-Tier read-write. Undoable. Subject: the new opener. A clip is the value `copy_project` returns (section 9): a project's extent with fresh ids minted on paste and every note's text carried by value. Onto an edge target, the clip is spliced in as a project; onto a branch target, as a branch workflow whose start and finish nodes are the clip's begin and end; onto a main target, as a new main workflow likewise. Note files are written for every node that had a note, before the record. Log: `created`, "Pasted."
+Tier read-write. Undoable. Subject: the new begin or start node. A clip is the value `copy_project` returns (section 9): a project's extent with fresh ids minted on paste and every note's text carried by value. Onto an edge target, the clip is spliced in as a project; onto a branch target, as a branch workflow whose start and finish nodes are the clip's begin and end; onto a main target, as a new main workflow likewise. Note files are written for every node that had a note, before the record. Log: `created`, "Pasted."
 
 Refusals. `bad_arguments`: "The clip is malformed." Refusals of the target as for `move_project`.
 
