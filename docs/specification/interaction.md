@@ -41,7 +41,7 @@ Four node kinds are grab handles, and each stands for a different object.
 
 A **task node** drags itself alone. A **begin node** drags the whole project it opens: its end node and every task, nested project, and branch within its scope. A **start node** drags the whole workflow it opens: its finish node and everything in it, including descendant branches. A **finish node** drags nothing at all; it is the handle for one connection, its workflow's return, and only a branch workflow's finish node is draggable, a main workflow having no return to move.
 
-An end node is never a handle. It is one half of a pair and sits where its scope ends, so moving it alone would quietly resize the scope while leaving the record well-formed, which is the kind of change nothing downstream would object to and the author never asked for. A scope moves by its begin node, which carries its close.
+An end node is never a handle. It is one half of a pair and sits where its scope ends, so moving it alone would quietly resize the scope while leaving the record well-formed, which is the kind of change nothing downstream would object to and the author never asked for. A scope moves by its first node, begin or start, which carries its close.
 
 Junction diamonds are not handles. A branch's departure is moved by its start node and its return by its finish node; the diamond is a target, not a grip.
 
@@ -193,7 +193,7 @@ The ghost is drawn on a layer above every card and track, at the pointer's posit
 
 Escape cancels; a release outside the viewport cancels; loss of window focus cancels. A cancelled drag restores the original's full opacity and draws no indicator.
 
-## 12. Domain scope
+## 12. Within the displayed domain
 
 A drag begins and ends within the currently displayed domain. Objects in other domains are not drawn, so they cannot be targets. A new main workflow created by a drag belongs to the current domain; a branch that becomes a main workflow, and a main workflow that becomes a branch, both stay in it.
 

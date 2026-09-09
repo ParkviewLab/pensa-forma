@@ -107,7 +107,7 @@ One slot, not a stack. It holds the most recent structural or state operation or
 
 An operation arriving from the automation server never fills the slot and is never undone. Such a write *invalidates* the pending slot rather than being reversed through, because reversing across another writer's change is how one silently destroys their work, and the check costs a revision comparison. Switching or deleting the domain also clears it, as does quitting.
 
-Note text is out of scope: the note editor keeps its own text undo.
+Note text is not covered: the note editor keeps its own text undo.
 
 ### D10. Orderings are ordered arrays of ids on the parent
 
@@ -173,7 +173,7 @@ Fold state is client-local view state keyed by the `begin` node's id, never a fi
 
 Two edits can bring two "here" cursors into one workflow: a branch becoming a project inside its parent, and a task carrying the cursor moving into a workflow that already has one. In both, the cursor already in the receiving workflow stays and the incoming one is cleared. A structural edit never moves where the author was working on the line they dropped into.
 
-### D17. An emptied scope and an emptied workflow both persist
+### D17. An emptied project scope and an emptied workflow scope both persist
 
 *2026-08-30.*
 

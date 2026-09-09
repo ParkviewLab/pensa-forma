@@ -174,7 +174,7 @@ Two unbounded spans on one side always nest, one inside the other, so an orderin
 
 So crossings are unavoidable in general, ordering is the author's, and every crossing is drawn as an underpass (section 8). One useful consequence falls out: an open branch placed outermost on its side crosses nothing, because its span contains every span inside it. Where the application must place a branch automatically rather than being told where, an open branch goes outermost.
 
-## 7. Folded scopes and folded workflows
+## 7. Folded scopes
 
 A folded project (D15) is one of the two edges exempt from section 3; a folded workflow, below, is the other. The client's view keeps the `begin`/`end` pair and drops the body, and the `end` node is placed flush on the `begin` node's card, bottom edge to top edge, with no air at all: that edge reports an air of zero, and the two hulls overlap by the seam below rather than standing apart.
 

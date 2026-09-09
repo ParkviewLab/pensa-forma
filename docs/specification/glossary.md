@@ -75,10 +75,10 @@ This is a `begin` node, the `end` node it names in `pair`, and everything betwee
 This is a project contained within another project.
 
 **Scope.**
-This is everything strictly between a project's begin node and its end node: the nodes, the gaps, and every branch departing from those gaps. The **innermost** scope containing a position is the one whose begin node is highest. A branch is *part of* the innermost project containing its departure gap, or of no project when that gap is in none.
+This is everything strictly between the two nodes that bound a workflow or a project: for a workflow, between its start node and its finish node; for a project, between its begin node and its end node. A scope comprises the nodes, the gaps, and every branch departing from those gaps. Every project scope lies within its workflow's scope, and project scopes nest; the **innermost** scope containing a position is the one whose first node is highest. A branch is *part of* the innermost scope containing its departure gap.
 
 **Extent.**
-This is what travels with a node when it is moved, copied, or deleted as a whole: a task alone; a project with its end node and its whole scope; a workflow with its finish node and everything in it, descendant branches included.
+This is what travels with a node when it is moved, copied, or deleted as a whole: a task alone; a project with its end node and its whole scope; a workflow with its finish node and its whole scope.
 
 ## Gaps, points, and edges
 

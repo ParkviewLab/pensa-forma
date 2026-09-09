@@ -126,7 +126,7 @@ A row, items 6px apart: icon button `−` (U+2212, accessible label `Zoom out`),
 
 ## 4. The canvas boundary
 
-The map itself is out of scope, but four gestures on it invoke the chrome and must be honoured as triggers:
+The map itself is outside this document, but four gestures on it invoke the chrome and must be honoured as triggers:
 
 - Right-click anywhere in the viewport opens a context menu (section 6): on a card, that node's menu; anywhere else (tracks, junction diamonds, bare canvas), the canvas menu. With no domain open, or in flagged-only mode, right-click does nothing.
 - Single click on a card's note glyph (the small memo-pad in its bottom-right corner) opens the note editor on that node.

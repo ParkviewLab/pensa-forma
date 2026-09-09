@@ -132,7 +132,7 @@ Positions within a workflow are given by index into its `nodes` and `gaps` lists
 
 A project whose `begin` is at node index `b` and whose `end` is at node index `e` contains the nodes at indices `b+1` through `e-1` and the gaps at indices `b` through `e-1`. The gap range is the useful one: gap `b` is the space immediately above the begin node, and gap `e-1` is the space immediately below the end node, and both are inside.
 
-The **scopes containing a gap** is the set of projects in that gap's workflow whose gap range includes it. The **innermost** of them is the one with the largest `b`, which by proper nesting (I7) is unique. The scopes containing a node are defined the same way over the node range.
+The **scopes containing a gap** are that gap's workflow and the projects on it whose gap range includes the gap. The **innermost** of them is the project with the largest `b`, which by proper nesting (I7) is unique, or the workflow itself when no project contains the gap. The scopes containing a node are defined the same way over the node range.
 
 A branch workflow is *part of* the innermost project containing its departure gap, or of no project when that gap is in none. This is derived, never stored.
 
@@ -232,7 +232,7 @@ Note text sits outside this. A note is a separate file with its own write path (
 
 **Undo** holds one operation, not a stack (D9). The slot takes the most recent structural or state operation that originated in the local user interface, and undoing it also removes the activity-log entry that operation created. There is no redo.
 
-An operation arriving from the automation server never fills the slot, and it *invalidates* whatever the slot holds rather than being undone through. Reversing across another writer's change is how one silently destroys their work, and the check costs no more than comparing a domain revision counter. Switching or deleting the open domain clears the slot, as does quitting. Note text is out of scope; the note editor keeps its own text undo.
+An operation arriving from the automation server never fills the slot, and it *invalidates* whatever the slot holds rather than being undone through. Reversing across another writer's change is how one silently destroys their work, and the check costs no more than comparing a domain revision counter. Switching or deleting the open domain clears the slot, as does quitting. Note text is not covered; the note editor keeps its own text undo.
 
 **Concurrent writers.** The automation server and the user write the same store. Each domain therefore carries the `revision` counter of section 2.1, incremented on every successful write. A writer holding a stale revision has its write refused rather than merged, and the refusal is what the chrome surfaces as its `Change not saved` dialog.
 
