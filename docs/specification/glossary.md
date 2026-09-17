@@ -23,7 +23,7 @@ Specification documents should refer to it as "the application" so that any requ
 
 This is the unit of storage and of display. It is a set of workflows kept together (such as HomeLab, Work, and so on). 
 
-Domains are stored on disk as a directory with a [record](#record) JSON file, its JSON Schema file, and a README file that describes the record's format.
+Domains are stored on disk as a directory with a [record](#record) [JSON](https://www.json.org) file, its [JSON Schema](https://json-schema.org) file, and a README file that describes the record's format.
 
 The application shows one domain at a time.
 
@@ -33,7 +33,7 @@ A domain has an `id` and a `name`. Domain names are unique within their library.
 This is the directory holding every domain. The library root is a user setting; its default is the application's data directory.
 
 ## Record
-This is the file in which all graph data for all workflows in a single domain is stored. This is a JSON file and is accompanied by its JSON Schema file. The only workflow data not stored in this file are the notes' markdown files.
+This is the file in which all graph data for all workflows in a single domain is stored. This is a [JSON](https://www.json.org) file and is accompanied by its [JSON Schema](https://json-schema.org) file. The only workflow data not stored in this file are the notes' markdown files.
 
 ### Revision
 
