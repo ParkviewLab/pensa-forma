@@ -23,7 +23,7 @@ Proves: every invariant test in both directions; every mutation as a property te
 
 `store`: the data directory, the library, domain directories and their labels, note files, bookmarks, settings, view state, the atomic write, path safety. `command`: the pipeline with its lock, the closed set of refusals, the revision check, the undo slot, notification, the reads, and the outline renderer.
 
-Proves: the store and command-layer tests, on a temporary library; the canonical fixture round-trips byte for byte.
+Proves: the store and command-layer tests, on a temporary library; the canonical fixture round-trips to the same data, and two writes of it are byte-identical.
 
 ## 3. The layout engine
 

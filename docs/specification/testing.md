@@ -29,7 +29,7 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 **The atomic write** is tested by interrupting it: a write whose rename step is made to fail must leave the old file intact and readable, and a temporary file left behind must be ignored by the next read.
 
-**Tolerant read, canonical write** is tested by round-tripping the worked instance through a hand-edited JSON5 form (comments, unquoted keys, trailing commas) and asserting the canonical output is byte-identical to the fixture in the persistence document, section 3.
+**Tolerant read, canonical write** is tested by round-tripping the worked instance through a hand-edited JSON5 form (comments, unquoted keys, trailing commas) and asserting that the canonical output parses to the same data as the fixture in the persistence document, section 3, and that a second write of it is byte-identical to the first.
 
 **The self-describing directory** is tested two ways: the persistence fixture validates against `domain.schema.json`, and every field in the structural model's tables is asserted to carry a `description` in the schema, so that a field added to the model without a description fails the build. Creating a domain on a temporary library is asserted to write the schema and the README beside the record, and a migration to rewrite them.
 

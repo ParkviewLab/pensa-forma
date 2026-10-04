@@ -66,7 +66,7 @@ Deleting a domain moves the whole directory to the system's Trash, record, bookm
 
 **Tolerant read.** The reader accepts JSON5: comments, unquoted keys, trailing commas, single-quoted strings. A file edited by hand still opens.
 
-**Canonical write.** Every write from the application is strict JSON, keys in the order the tables below give, two-space indentation, a trailing newline, and the omissions that follow, so that two writes of the same record are byte-identical and a diff shows only what changed.
+**Canonical write.** Every write from the application is strict JSON, keys in the order the tables below give, pretty-printed by the JSON library's standard writer with a trailing newline, and the omissions that follow, so that two writes of the same record are byte-identical and a diff shows only what changed. The whitespace is whatever that writer produces; no layout beyond it is specified.
 
 - An absent optional field is omitted, never written as `null`; a `false` boolean is omitted; an empty list on a gap is omitted.
 - A gap whose four lists are all empty is written as `{}`. Nearly every gap is such a gap, so the `gaps` map is mostly empty objects; each gap's identity and position still come from its workflow's `gaps` list.
@@ -145,7 +145,7 @@ The worked instance of the structural model, section 8, in canonical form:
 }
 ```
 
-(The fixture's ids are shortened for reading; real ids are the twelve characters of the structural model, section 1.)
+(The fixture's ids are shortened and its layout compacted for reading; real ids are the twelve characters of the structural model, section 1, and the application's own layout is its writer's.)
 
 **Schema version and migration.** `schema` is `1` for this specification. On load, a record whose `schema` is lower than the application's is brought up by the migration for each step, and the upgraded record is written back exactly once, only when the migration changed something. A record whose `schema` is higher than the application understands is refused with a message that names both versions; the application never guesses at a format it does not know.
 
