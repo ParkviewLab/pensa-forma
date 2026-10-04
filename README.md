@@ -16,8 +16,8 @@ Specification stage. The repository holds the specification before it holds the 
 | Entry | What it holds |
 |---|---|
 | [`docs/`](docs/README.md) | Everything of substance: `docs/northstar.md` (the intent), `docs/in-flight_ideas.md` (the open questions), `docs/CONTRIBUTING.md` (how to work here), and the `specification/` directory |
-| [`docs/specification/`](docs/specification/README.md) | The specification: the documents an implementation is built from, their HTML twins, and the worked example |
-| [`scripts/`](scripts/) | `worked_example.py`, which generates the worked example from the specification's rules; `generate_changelog.py`, which the release flow uses |
+| [`docs/specification/`](docs/specification/README.md) | The specification: the documents an implementation is built from, their HTML twins, the five style documents with the design page that draws them, and the worked example |
+| [`scripts/`](scripts/) | `worked_example.py`, which generates the worked example from the specification's rules; `style_masters.py`, which checks the design page's exported golden masters and writes them into the style documents; `generate_changelog.py`, which the release flow uses |
 | [`.github/workflows/`](.github/workflows/) | Continuous integration: the REUSE licensing check and the version guard |
 | [`LICENSING.md`](LICENSING.md), [`LICENSE`](LICENSE), [`LICENSES/`](LICENSES/), [`REUSE.toml`](REUSE.toml) | The licensing terms, the license texts, and the per-path license map |
 | [`CHANGELOG.md`](CHANGELOG.md), [`cliff.toml`](cliff.toml) | The changelog and the configuration that generates it from pull-request titles |

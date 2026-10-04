@@ -41,7 +41,7 @@ Reusing an external synchroniser (a synced folder, a git remote) over the librar
 
 ### The atmosphere burst
 
-The mark geometry defines an optional four-plus-spoke starburst as a background decoration and draws none. If a real theming pass wants atmosphere, scatter them procedurally from the drawing's bounds, seeded by the domain id so they stay put.
+Googie's style document defines an optional four-plus-spoke starburst as a background decoration and draws none; it is Googie's alone. If a real theming pass wants atmosphere, scatter them procedurally from the drawing's bounds, seeded by the domain id so they stay put.
 
 ### Render parameters as settings
 

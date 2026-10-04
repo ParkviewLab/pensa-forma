@@ -33,15 +33,15 @@ Proves: the required properties over generated domains; the golden masters snaps
 
 ## 4. The canvas
 
-`app`, first half: the eframe shell with the header bar, the domain switcher, the theme toggle, and the zoom cluster; the canvas painting every mark of the [mark geometry](mark-geometry.md) from the layout's output; measurement through the text engine with soft hyphens; the camera; the flagged-only mode; the sample domains seeded on an empty library.
+`app`, first half: the eframe shell with the header bar, the domain switcher, the theme toggle, the style control, and the zoom cluster; the canvas painting every mark of all five styles (the [style contract](style-contract.md) and the style documents) from the layout's output, with each style's insets and route passed to the layout and the tint by zoom; measurement through the text engine with soft hyphens; the camera; the flagged-only mode; the sample domains seeded on an empty library.
 
-Proves: the golden-path tests for the silhouettes; a screenshot of each sample domain in both themes, reviewed by eye against the geometry and the layout documents. This is the first milestone with something to look at, and looking is part of the acceptance.
+Proves: the golden-path tests for every style against `styles-masters.json`; a screenshot of each sample domain in every style and both themes, reviewed by eye against the style documents, the design page, and the layout document. This is the first milestone with something to look at, and looking is part of the acceptance.
 
 ## 5. Interaction
 
 `app`, second half: hit regions, the context menus with their inventories, the dialogs with their exact strings, the glyph clicks, the flag double-click, and drag-and-drop with trial-application legality, the drop indicator, the ghost, auto-pan, and the stale-drop dialog. Undo through the Edit menu.
 
-Proves: the drop-target enumeration test against the command layer; the gesture tests through the accessibility tree; the dialog strings verbatim.
+Proves: the drop-target enumeration test against the command layer; the gesture tests through the accessibility tree; the dialog strings verbatim; the hover looks, the drop indicator, and the ghost in all five styles.
 
 ## 6. Notes and the log
 

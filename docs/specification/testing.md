@@ -43,15 +43,25 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 ## 3. The layout engine
 
-**The required properties** (layout engine, section 11) are each a test over the generator's domains, run on the layout's output: no unmarked proper crossing; no lateral inside a card except as reported; every lateral segment flat or at twelve degrees; the two fixed edges to the pixel; sibling start nodes level; a tall branch stretching only above its return; lane order following the side lists; determinism under permuted key order; monotonicity under an added card.
+**The required properties** (layout engine, section 11) are each a test over the generator's domains, run on the layout's output: no unmarked proper crossing; no lateral inside a card except as reported; every lateral within the rectangle its ends span, in every style's route; in Googie's route every segment flat or at the ramp angle; the two fixed edges to the pixel; sibling start nodes level; a tall branch stretching only above its return; lane order following the side lists; determinism under permuted key order; monotonicity under an added card.
 
 **Golden masters.** A small set of hand-built domains (the [worked example](worked-example.md), whose record, positions, and lateral point lists are the first fixture; the structural model's worked instance; one with a shared branch point carrying three siblings on each side; one with an open branch outermost and a returning branch inside it; one with a folded project, and one with a folded branch workflow) has its layout output snapshotted, so a change in geometry is a visible diff in review rather than a surprise on screen.
 
-**The fan.** For a junction with `n` siblings the flats are at `n` distinct heights and no two siblings cross.
+**The fan.** For a junction with `n` siblings no two siblings cross, in every style's route; in Googie's the flats are at `n` distinct heights.
 
-## 4. The mark geometry
+**Fixtures.** The worked example's domain is the first fixture; the design page's Large domain, the worked example's domain with eighteen tasks added, is the second, for density.
 
-**Golden paths.** Every silhouette's construction evaluated at its stated `(w, h)` must reproduce the golden-master path data in the mark geometry to two decimal places, and the inner transform likewise. The tilted start ellipse and finish keystone are checked to lie within their card boxes at their fixed tilts.
+## 4. The styles
+
+**Golden paths.** In every style, every silhouette and mark evaluated at its stated box must reproduce the golden-master path data of [styles-masters.json](styles-masters.json) to two decimal places, and Googie's inner transforms likewise. Googie's tilted start ellipse and finish keystone are checked to lie within their card boxes at their fixed tilts. `scripts/style_masters.py --check` confirms that the masters file matches the design page and that the style documents carry it.
+
+**The contract.** Every item of the style contract's checklist is defined for every style: each style supplies every required token in both themes, its three faces, six silhouettes with their insets, both folds, label geometry for every kind, a glyph envelope, a here mark, a flag on a task, a begin node, and a start node, a route, a junction, and its tint participation. The four glyphs are the same shapes in every style. Toggling a flag or a here mark changes no position in the layout's output, in any style.
+
+**Tint.** In a style that tints, a body's fill at 72 % and above is `--panel`, at 45 % and below its tint token, and at 60 % the mix the curve gives (`k = 1 − (1 − t)²`, `t = 4/9`, so `k ≈ 0.69`); in a style that does not, the fill is the same at every zoom.
+
+**Settings.** A `theme` other than `light` or `dark`, or an unreadable settings file, gives light; a `style` the application does not ship, or none, gives Googie. The first paint uses the stored style's ground for the stored theme, and Googie's light ground when nothing can be read.
+
+**Screenshots.** Each sample domain is rendered in every style and both themes, and reviewed by eye against the style documents and the design page.
 
 **The underpass** is tested on crossings at several angles: the cut's setback follows the formula, the caps lie parallel to the crossed line, and a near-parallel crossing is capped at `breakMax`.
 
@@ -71,4 +81,4 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 ## 7. What is not tested by machine
 
-Whether the drawing looks right. The fan rule, the tilts of the start ellipse and the finish keystone, and the seam of a folded pair are derived rather than observed, and only a render shows whether they read. Visual verification is a step in the implementation plan, done by running the application and looking, and a change to any of them is not claimed to work without a screenshot.
+Whether the drawing looks right. The fan rule, Googie's tilts, each style's folds, and each style's reading at 60 % are derived rather than observed, and only a render shows whether they read. Visual verification is a step in the implementation plan, done by running the application and looking, and a change to any of them is not claimed to work without a screenshot.

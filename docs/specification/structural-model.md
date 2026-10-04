@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 The authority for the structure: what exists, how the parts are identified, which arrangements are legal, and what state a node carries. It is written so that an implementation in any language can build the store and the validator from it alone. The vocabulary is the [glossary](glossary.md)'s; the reasoning behind the settled choices is in the [decisions record](decisions.md) and is not restated here.
 
-It is not the authority for how the graph is changed (the [command layer](command-layer.md) and the [command catalogue](command-catalogue.md)), for where the marks are placed (the [layout engine](layout-engine.md)), for how they are drawn (the [mark geometry](mark-geometry.md)), or for the shell around the canvas (the [UI chrome](ui-chrome.md)). Where it is silent, choose any reasonable behaviour and record the choice.
+It is not the authority for how the graph is changed (the [command layer](command-layer.md) and the [command catalogue](command-catalogue.md)), for where the marks are placed (the [layout engine](layout-engine.md)), for how they are drawn (the [style contract](style-contract.md) and the style documents), or for the shell around the canvas (the [UI chrome](ui-chrome.md)). Where it is silent, choose any reasonable behaviour and record the choice.
 
 Two conventions. Growth is upward: a node's successor sits above it, and a smaller index is lower. Sets written `{…}` are unordered; lists written `[…]` are ordered and their order is model state.
 

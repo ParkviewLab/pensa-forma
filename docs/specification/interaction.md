@@ -95,7 +95,7 @@ On release, the drag issues exactly one command, carrying the revision the legal
 
 ## 6. Feedback and cancellation
 
-While an object is dragged, the pointer over a legal target shows an indicator; over anything else it shows none. One indicator exists (D35), specified in the [mark geometry](mark-geometry.md): the chevron pair, drawn at the point the drop would occupy, which for a main-workflow target is the centre of the gutter or margin the drop would occupy, at the pointer's height. It is drawn in the `--cursor` token and reads at any zoom.
+While an object is dragged, the pointer over a legal target shows an indicator; over anything else it shows none. One indicator exists (D35), specified in the [style contract](style-contract.md), section 10, and drawn the same way in every style: the chevron pair, drawn at the point the drop would occupy, which for a main-workflow target is the centre of the gutter or margin the drop would occupy, at the pointer's height. It is drawn in the `--cursor` token and reads at any zoom.
 
 The dragged object is shown by a ghost: its card at 40 percent opacity following the pointer, the original staying in place at 40 percent opacity until the drop lands. The cursor is the grabbing hand.
 
@@ -185,7 +185,7 @@ A drag is one command (command layer, section 3), so it is validated in full, pe
 
 A press on a handle becomes a drag when the pointer has moved five logical pixels from the press; before that threshold a release is a click, which the chrome interprets (a click on a status glyph cycles status, a double-click on a card body toggles the flag, and so on). The threshold prevents a click with a slight tremor from becoming a no-op drag.
 
-Hit-testing against cards is by the card's axis-aligned box, whatever silhouette it wears; the tilted start ellipse and finish keystone of the mark geometry are inscribed in their boxes for exactly this reason. Hit-testing against drop targets is against the zones section 4 defines, computed from the layout output at drag start and transformed by the camera each frame. A junction diamond's halo (mark geometry, section 9) is a circular hit region of radius 13.
+Hit-testing against cards is by the card's axis-aligned box, whatever silhouette it wears; every style draws within its cards' boxes, Googie's tilted start ellipse and finish keystone included, for exactly this reason. Hit-testing against drop targets is against the zones section 4 defines, computed from the layout output at drag start and transformed by the camera each frame. A junction diamond's halo (mark geometry, section 9) is a circular hit region of radius 13.
 
 When the pointer, during a drag, comes within 24 logical pixels of the viewport's edge, the viewport pans away from that edge at a rate proportional to the shortfall, up to 12 pixels per frame, so that a target off screen can be reached; the pan stops when the pointer leaves the band.
 
