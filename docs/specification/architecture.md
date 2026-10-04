@@ -69,7 +69,7 @@ Each frame in which the record or the view has changed runs, in order:
 
 Steps 2 and 3 run only when the record, the fold set, the style, or the fonts change; steps 4 and 5 run every painted frame. The camera transform is applied by mapping coordinates, not by a layer transform, so vector marks stay crisp and text is rasterised at its true size at every zoom.
 
-Fonts are bundled as bytes and installed into the toolkit's font definitions at start: the UI face, the display face, and the platform's monospace face by name, per the chrome's appendix. Card labels are soft-hyphenated by a Knuth-Liang hyphenator at measure time; where the text engine does not treat the soft hyphen as a break opportunity, the measure step chooses the wrap points itself and lays out the label line by line.
+Fonts are bundled as bytes and installed into the toolkit's font definitions at start, replacing the toolkit's own built-in faces, none of which is used: the UI face, the display face, and the platform's monospace face by name, per the chrome's appendix. Card labels are soft-hyphenated by a Knuth-Liang hyphenator at measure time; where the text engine does not treat the soft hyphen as a break opportunity, the measure step chooses the wrap points itself and lays out the label line by line.
 
 ## 5. The note pipeline
 
