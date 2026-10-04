@@ -52,6 +52,8 @@ State commands (title, flag, here mark, note text, log entries) write no `system
 
 **Vacated positions.** Whenever a command removes a node from a workflow, the gap below it and the gap above it merge as the structural model, section 2.4, describes; nothing detaches, and each retained point keeps its own list in its own order with the orphaned list appended outward. Whenever a command removes a branch from a side list, the list closes up and the order of the rest is preserved. Nothing is deleted for being empty (D17). Where two here marks would meet in one workflow, the receiving workflow's survives and the arriving one is cleared (D16).
 
+**The order of a move.** A command that moves a task or a project along the trunk first splices it in at its target, while every id the target names still exists, and only then removes it from where it was and repairs the vacated position. Where the target lies in a gap beside the moving object, removing first would merge that gap away and leave the target naming a gap that no longer exists; inserting first gives every such move a definite result, in which every branch stays attached and none passes the moved object except those the move itself steps over. Elsewhere the two places do not touch, and the order makes no difference.
+
 ---
 
 ## 2. Domains
@@ -122,7 +124,7 @@ Refusals. `not_found`: "No gap <id>." `bad_arguments`: "A position is outgoing, 
 
 ### `move_task(task, target)`
 
-Tier read-write. Undoable. Subject: the task. The task travels alone. Onto an edge target, it is removed from where it was, its vacated position repaired, and spliced in at the stated position; if the target lies inside projects, it becomes part of the innermost. Onto a main target, it becomes the sole task of a new main workflow: a start node with an empty title and a finish node are created around it, and the workflow is inserted at the indicated position. Log: `moved`, "Moved above <lower node title> in <workflow title>" or "Moved into a new workflow."
+Tier read-write. Undoable. Subject: the task. The task travels alone. Onto an edge target, it is spliced in at the stated position and then removed from where it was, its vacated position repaired (the order of a move, section 1); if the target lies inside projects, it becomes part of the innermost. Onto a main target, it becomes the sole task of a new main workflow: a start node with an empty title and a finish node are created around it, and the workflow is inserted at the indicated position. Log: `moved`, "Moved above <lower node title> in <workflow title>" or "Moved into a new workflow."
 
 The window's `Move up` and `Move down` issue this command for the next distinct position above or below the task along its workflow, where the positions of a workflow read, from the bottom, as each gap's outgoing, middle, and incoming positions in turn, and a zero-length middle edge is skipped.
 
@@ -180,7 +182,7 @@ Refusal `bad_arguments`: "Only a begin node becomes a task."
 
 Tier read-write. Undoable. Subject: the begin node. The whole project travels: its end node and every task, nested project, and branch within its scope.
 
-Onto an **edge target**, the project is removed from where it was, its vacated position repaired, and spliced in at the stated position, nesting in the innermost project containing the target. Log: `moved`, "Moved above
+Onto an **edge target**, the project is spliced in at the stated position and then removed from where it was, its vacated position repaired (the order of a move, section 1), nesting in the innermost project containing the target. Log: `moved`, "Moved above
 <lower node title> in <workflow title>."
 
 Onto a **branch target**, the project **becomes a branch workflow**. Its begin node becomes the workflow's start node and its end node its finish node, with their identities, notes, logs, states, and every other field preserved; only `kind` changes, and `endNode` and `beginNode` are replaced by the two ends' membership of one workflow. The contents travel unchanged. The branch is attached at the target's side and order position, and if the target gap lies inside projects it is part of the innermost. No return is created; the new branch is open, and the author attaches its return with `attach_return`. Log: `converted`, "Became the branch <title> off <lower node title>."

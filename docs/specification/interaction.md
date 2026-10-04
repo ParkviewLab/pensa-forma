@@ -109,7 +109,7 @@ Each subsection names the command each target issues. The catalogue holds the pr
 
 Targets: the three trunk-edge positions, and a main-workflow target. Each issues `move_task(task, target)`.
 
-Onto a trunk-edge position, the task is removed from where it was, its old position repaired (section 8), and spliced in at the stated position. If the target gap lies inside one or more projects, the task becomes part of the innermost.
+Onto a trunk-edge position, the task is spliced in at the stated position and then removed from where it was, its old position repaired (section 8); inserting first keeps a target beside the task meaningful (catalogue, section 1). If the target gap lies inside one or more projects, the task becomes part of the innermost.
 
 Onto a main-workflow target, the task becomes the sole task of a new main workflow. A start node and a finish node are created for it, and the workflow is inserted at the indicated position in the domain's order.
 
