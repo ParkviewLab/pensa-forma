@@ -19,7 +19,7 @@ The application is the server. While it is open, it hosts an MCP endpoint on the
 
 The server is a small module in the application process. It runs on its own runtime thread, separate from the interface's frame loop, and every request it handles ends in a call into the command layer, which serialises it under the same lock the window's own commands take. Reads take the lock too, so a read never observes a half-written record. Because the authority is in-process, a successful automation write notifies the window, which re-renders the open domain (section 8).
 
-The transport is Streamable HTTP, served by a loopback HTTP listener at a single `/mcp` path. The server is **stateless**: each request carries a complete JSON-RPC message, the endpoint accepts `POST` only, and it answers `405 Method Not Allowed` to `GET` and `DELETE`, since a stateless server has no server-initiated stream to open and no session to terminate. This is the MCP revision of 2026-07-28, which removed sessions and the `initialize` handshake: a client learns the server's capabilities and instructions from a `server/discover` request, and every request carries the client's protocol version, capabilities, and, optionally, its name in its own `_meta`. A `GET /health` beside it answers `{ ok, name, version, revisionOf }` for a liveness check, where `revisionOf` maps each open domain's id to its revision.
+The transport is Streamable HTTP, served by a loopback HTTP listener at a single `/mcp` path. The server is **stateless**: each request carries a complete JSON-RPC message, the endpoint accepts `POST` only, and it answers `405 Method Not Allowed` to `GET` and `DELETE`, since a stateless server has no server-initiated stream to open and no session to terminate. This is the MCP revision of 2026-07-28, which removed sessions and the `initialize` handshake: a client learns the server's capabilities and instructions from a `server/discover` request, and every request carries the client's protocol version, capabilities, and, optionally, its name in its own `_meta`. A client on an earlier revision is served too, and statelessly: its `initialize` is answered with an earlier version the server supports, its later requests are served one at a time without a session, and its every tool is available. Such a client sends its name only in the handshake, which the server does not keep, so its log entries are authored as `"agent"` (section 7). A `GET /health` beside it answers `{ ok, name, version, revisionOf }` for a liveness check, where `revisionOf` maps each open domain's id to its revision.
 
 ## 3. Binding and lifecycle
 
@@ -107,7 +107,7 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 | `add_log_entry(node_id, text)`, `edit_log_entry(node_id, entry_id, text)`, `delete_log_entry(node_id, entry_id)` | the three log commands |
 | `paste(clip, target)` | `paste` |
 
-An agent's log entries carry `author: { kind: agent, name }`, where `name` is the client's name from the request's `_meta` (`io.modelcontextprotocol/clientInfo`), or `"agent"` when the request carries none.
+An agent's log entries carry `author: { kind: agent, name }`, where `name` is the client's name from the request's `_meta` (`io.modelcontextprotocol/clientInfo`), or `"agent"` when the request carries none. The name is read from the request's `_meta` alone, never from a value the MCP library supplies in its place: rmcp's `client_info()` falls back, for a stateless request on an earlier revision, to a stand-in naming rmcp itself.
 
 ### Destructive
 
