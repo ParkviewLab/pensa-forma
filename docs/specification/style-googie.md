@@ -58,12 +58,12 @@ The margin `m = 1.5` is common to all six: every silhouette lies 1.5 inside the 
 
 ### 5.1 Screen (a task)
 
-A rounded rectangle, the quiet default, and the one exception to the splay rule. The corner radius is `R = min(14, (h − 2m)/2, (w − 2m)/2)`.
+A rounded rectangle, the quiet default, and the one exception to the splay rule. The corners are circular arcs of radius `R = min(14, (h − 2m)/2, (w − 2m)/2)`.
 
 ```
 R = min(14, (h-2m)/2, (w-2m)/2)
-M x0+R,y0  L x1-R,y0  Q x1,y0 x1,y0+R  L x1,y1-R  Q x1,y1 x1-R,y1
-L x0+R,y1  Q x0,y1 x0,y1-R  L x0,y0+R  Q x0,y0 x0+R,y0  Z
+M x0+R,y0  H x1-R  A R R 0 0 1 x1,y0+R  V y1-R  A R R 0 0 1 x1-R,y1
+H x0+R  A R R 0 0 1 x0,y1-R  V y0+R  A R R 0 0 1 x0+R,y0  Z
 ```
 
 ### 5.2 Marquee (a task carrying the here mark)
