@@ -858,7 +858,7 @@ function chevrons(x,y){return '<g fill="none" stroke="var(--cursor)" stroke-widt
   '<path d="M '+f(x+13)+','+f(y-6)+' L '+f(x+7)+','+f(y)+' L '+f(x+13)+','+f(y+6)+'"/></g>';}
 function junction(k,x,y){
   if(isA(k)) return '<rect x="'+(x-6)+'" y="'+(y-6)+'" width="12" height="12" fill="var(--line)" transform="rotate(45 '+x+' '+y+')"/>';
-  /* rail: concentric rounded squares — 13 outer on the ground with a 1.6 line, r 3; 6.4 solid navy centre, r 1.5 */
+  /* Suuronen: concentric rounded squares — 13 outer on the ground with a 1.6 line, r 3; 6.4 solid navy centre, r 1.5 */
   if(isR(k)) return '<rect x="'+(x-6.5)+'" y="'+(y-6.5)+'" width="13" height="13" rx="3" fill="var(--ground)" stroke="var(--line)" stroke-width="1.6"/>'+
                     '<rect x="'+(x-3.2)+'" y="'+(y-3.2)+'" width="6.4" height="6.4" rx="1.5" fill="var(--c-junction)"/>';
   if(isB(k)) return '<rect x="'+f(x-BH.jn/2)+'" y="'+f(y-BH.jn/2)+'" width="'+BH.jn+'" height="'+BH.jn+'" fill="var(--line)"/>';   /* a 9 square, axis-aligned */
