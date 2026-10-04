@@ -69,7 +69,7 @@ Each frame in which the record or the view has changed runs, in order:
 
 Steps 2 and 3 run only when the record, the fold set, the style, or the fonts change; steps 4 and 5 run every painted frame. The camera transform is applied by mapping coordinates, not by a layer transform, so vector marks stay crisp and text is rasterised at its true size at every zoom.
 
-Fonts are bundled as bytes and installed into the toolkit's font definitions at start, replacing the toolkit's own built-in faces, none of which is used: each style's display, interface, and data faces, and the note editor's and About window's Instrument Sans and Spline Sans Mono, per the chrome's appendix. The toolkit's font identifier carries a size and a family and no weight, so each weight a role uses is registered as a family of its own, from the face's variable file with its weight axis set; Boogaloo, which has one static weight, is registered once. Card labels are soft-hyphenated by a Knuth-Liang hyphenator at measure time; where the text engine does not treat the soft hyphen as a break opportunity, the measure step chooses the wrap points itself and lays out the label line by line.
+Fonts are bundled as bytes and installed into the toolkit's font definitions at start, replacing the toolkit's own built-in faces, none of which is used, with one font provider beside them, `egui-system-fonts`, which supplies a character no bundled face holds from an installed face found through the operating system's own fallback, and nothing else: each style's display, interface, and data faces, and the note editor's and About window's Instrument Sans and Spline Sans Mono, per the chrome's appendix. The toolkit's font identifier carries a size and a family and no weight, so each weight a role uses is registered as a family of its own, from the face's variable file with its weight axis set; Boogaloo, which has one static weight, is registered once. Card labels are soft-hyphenated by a Knuth-Liang hyphenator at measure time; where the text engine does not treat the soft hyphen as a break opportunity, the measure step chooses the wrap points itself and lays out the label line by line.
 
 ## 5. The note pipeline
 
@@ -114,6 +114,7 @@ Every runtime dependency is MIT and/or Apache-2.0 licensed, which is compatible 
 | `interprocess` | the local socket by which a second launch asks the first to bring its window forward, then exits | 0BSD OR Apache-2.0 |
 | `jiff` | timestamps: RFC 3339 in UTC with milliseconds in the record, local time in the log panel | Unlicense OR MIT (taken under MIT) |
 | `rfd` | native file and folder dialogs | MIT |
+| `egui-system-fonts` | the platform's fonts, for characters no bundled face holds | MIT OR Apache-2.0 |
 | `muda` | the native menu bar on macOS and Windows (not built on Linux, where it would need GTK; the chrome's header overflow menu serves there) | Apache-2.0 OR MIT |
 | `open` | opening external links in the system browser | MIT |
 | `arboard` | the system clipboard | MIT OR Apache-2.0 |
