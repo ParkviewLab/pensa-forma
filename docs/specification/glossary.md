@@ -164,10 +164,10 @@ A task or a project created without a title is titled `New task` or `New project
 This is a task's state, one of `todo`, `in-progress`, `completed`, `cancelled`, shown under a card as to do, in progress, done, cancelled and in the status menu as To do, In progress, Completed, Cancelled (D30). Only a task has a status. A completed task also carries `completedAt`, the time it became completed, present exactly while it is. Status is shown, not inferred: a done or cancelled task stays on the map, recoloured; only deletion removes it.
 
 ### Here mark
-This is a mark on at most one task per workflow, set by hand, by which a person or an agent points that task out to the others working the workflow: where the workflow itself is being worked upon now, where the work is now, where it should be by some date, where a branch ought to be added, or whatever else its setter means by it. A main workflow and each of its branches carry their own, so parallel threads each have a pointer. It is shared model state, not view state.
+This is a mark on at most one task per workflow, set by hand, by which a person or an agent points that task out to the others working the workflow: where the workflow itself is being worked upon now, where the work is now, where it should be by some date, where a branch ought to be added, or whatever else its setter means by it. A main workflow and each of its branches carry their own, so parallel threads each have a pointer. It is shared model state, not view state. The mark belongs to no status: every style draws it in a colour no status uses, and the layout never considers it.
 
 ### Flag mark
-This is a mark on a start node, a begin node, or a task by which a person or an agent draws the others' attention to it, for whatever reason its setter has: the flagged-only review mode shows flagged nodes alone, and an agent's "work the flagged nodes" begins from them.
+This is a mark on a start node, a begin node, or a task by which a person or an agent draws the others' attention to it, for whatever reason its setter has: the flagged-only review mode shows flagged nodes alone, and an agent's "work the flagged nodes" begins from them. Like the here mark, it belongs to no status, every style draws it in a colour no status uses, and the layout never considers it.
 
 ### Note
 This is a node's written prose: a markdown file in the domain's `notes/` directory, referenced from the node by filename. A start node, a begin node, or a task has a note or has none, and a finish node or an end node never has one; there is no second, shorter description field. The **note glyph** on a card means a note exists, not that it has text.
@@ -257,7 +257,19 @@ A junction is shared by every branch meeting it.
 
 ## The drawing
 
-The look is, in one phrase, a mid-century retrofuturist systems diagram: a Googie-inspired Atomic Age flowchart laid out like a retro transit or control-system map. The terms for a design brief or an image search are mid-century retrofuturism, Googie diagram, Atomic Age infographic, Jet Age schematic, retro systems map, and 1950s technical illustration.
+A domain is drawn as a stylized flowchart. The terms below name the parts every drawing has; how each part looks is the business of the [style](#style) in use.
+
+### Style
+
+A style is one complete way of drawing a domain: the silhouettes, the marks, the tracks' routes and weights, the colours for both themes, and the faces. The application ships a set of styles and the person chooses one; Googie is the default. A style changes how the drawing looks, never the record or the layout's rules. What every style must define is the [style contract](style-contract.md).
+
+The style is a durable setting, `style`, stored as one of `froebel`, `prairie`, `bauhaus`, `googie`, `suuronen`.
+
+### Theme
+
+A theme is the light or dark variant of the style in use. Every style defines its colours for both, and the person chooses one, independently of the style.
+
+The theme is a durable setting, `theme`, stored as `light` or `dark`.
 
 ### Line
 
@@ -265,13 +277,13 @@ A line is a [workflow](#workflow) as drawn: its nodes colinear at one x, the low
 
 ### Card
 
-A card is the drawn body of a node. It has a fixed width and a measured height, and wears the silhouette its kind and state assign.
+A card is the drawn body of a node. It has a fixed width and a measured height, and wears the silhouette its kind assigns in the style in use.
 
 ### Silhouette
 
-A silhouette is the outline a card wears, assigned by the node's kind and state: a task wears a screen, and a task carrying the here mark a marquee; a start node wears a tilted ellipse and a finish node a tilted keystone; a begin node wears a hull and an end node a hull half-turned.
+A silhouette is the outline a card wears. Every style defines six: one for a task, and one each for a start, a finish, a begin, and an end node, and one for a task carrying the here mark, which in every style but Googie is the task's own.
 
-The junction's diamond, the here mark's sputnik, and the drop indicator's chevron pair are marks drawn beside or between cards, not silhouettes. All are specified in the [mark geometry](mark-geometry.md).
+The junction mark, the here mark, the flag mark, and the drop indicator are marks drawn on, beside, or between cards, not silhouettes. All are specified in the [style contract](style-contract.md) and the style documents.
 
 ### Station
 
@@ -281,7 +293,7 @@ The layout measures each gap between the silhouettes where the line passes throu
 
 ### Lateral
 
-A lateral is the drawn track of a branch edge or a return edge: a ramp, a flat run, and a ramp.
+A lateral is the drawn track of a branch edge or a return edge. The layout fixes its two ends; the path between them is the style's route (in Googie, a ramp, a flat run, and a ramp).
 
 A lateral climbs a constant rise whatever its horizontal span.
 
@@ -297,7 +309,7 @@ An underpass is the drawn form of a crossing. The crossed line runs on and the c
 
 ### Fold
 
-A fold is a project or a workflow drawn shut: its begin and end cards, or its start and finish cards, overlap with the body hidden (mark geometry, 3.11 and 3.12).
+A fold is a project or a workflow drawn shut: its begin and end cards, or its start and finish cards, overlap with the body hidden (each style document, under its folds).
 
 Fold state is client view state keyed by the ID of the start or begin node. It is never a field of the record.
 
