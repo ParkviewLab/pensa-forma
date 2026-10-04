@@ -184,6 +184,8 @@ Quadratic and cubic Béziers, arcs, ellipses, and superellipses may lack native 
 
 A two-fill outline (Googie) is two fills, never a stroke. A stroked outline (Fröbel, Suuronen) is a stroke of the stated width centred on the path. A band clipped to a silhouette (Fröbel) is the intersection of a rectangle with the silhouette's polygon; compute it as a polygon intersection where the target cannot clip to a path.
 
+Every stroke keeps the ends and corners its style states; where the target's strokes carry none, stroke through a tessellator that does.
+
 Concave silhouettes need tessellation where the target fills only convex polygons; route concave fills through any standard tessellator and convex ones through the fast path, behind one helper.
 
 Apply transforms to points, not to a canvas state: the half turns, tilts, scales, and rotations compose as affine operations on the point list before flattening and tessellation.
