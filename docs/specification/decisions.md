@@ -112,6 +112,8 @@ An operation arriving from the automation server never fills the slot and is nev
 
 Note text is not covered: the note editor keeps its own text undo.
 
+**Amended 2026-10-04.** A write from the window that is not undoable (the first save of a note, deleting a note) also clears the slot, so that the menu never offers an undo the revision check would refuse. An undo's write takes the stored revision plus one, like every write: a change from revision 7 to 8, undone, leaves 9, so that no two different records ever share a revision.
+
 ### D10. Orderings are ordered arrays of ids on the parent
 
 *2026-08-30.*

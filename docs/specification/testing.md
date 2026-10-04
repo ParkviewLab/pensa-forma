@@ -41,7 +41,7 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 **Validation on load** is tested with a hand-edited record carrying two nodes with one title: opening it is refused with I19 and both ids named, and the file is byte-identical afterwards; the same test is run for one other invariant, to prove that the check on load is general.
 
-**Undo** is tested for the slot's rules: filled by a `ui` command, not by an `automation` one; cleared by an automation write, a domain switch, and a delete; an undo restores the pre-image byte for byte including the log; and an undo after another write is refused as stale.
+**Undo** is tested for the slot's rules: filled by a `ui` command, not by an `automation` one; cleared by an automation write, by a window write that is not undoable (the first save of a note), by a domain switch, and by a delete; an undo restores the pre-image, its revision aside, including the log, and writes the stored revision plus one, so a change from 7 to 8 undone leaves 9; a second undo in a row does nothing; and an undo after another write is refused as stale.
 
 ## 3. The layout engine
 

@@ -234,7 +234,7 @@ Note text sits outside this. A note is a separate file with its own write path (
 
 **Undo** holds one operation, not a stack (D9). The slot takes the most recent structural or state operation that originated in the local user interface, and undoing it also removes the activity-log entry that operation created. There is no redo.
 
-An operation arriving from the automation server never fills the slot, and it *invalidates* whatever the slot holds rather than being undone through. Reversing across another writer's change is how one silently destroys their work, and the check costs no more than comparing a domain revision counter. Switching or deleting the open domain clears the slot, as does quitting. Note text is not covered; the note editor keeps its own text undo.
+An operation arriving from the automation server never fills the slot, and it *invalidates* whatever the slot holds rather than being undone through. Reversing across another writer's change is how one silently destroys their work, and the check costs no more than comparing a domain revision counter. A write from the window that is not undoable (the first save of a note, deleting a note) clears the slot in the same way. Switching or deleting the open domain clears the slot, as does quitting. Note text is not covered; the note editor keeps its own text undo.
 
 **Concurrent writers.** The automation server and the user write the same store. Each domain therefore carries the `revision` counter of section 2.1, incremented on every successful write. A writer holding a stale revision has its write refused rather than merged, and the refusal is what the chrome surfaces as its `Change not saved` dialog.
 

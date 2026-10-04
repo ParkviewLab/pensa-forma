@@ -83,7 +83,7 @@ Eleven steps, in order, under one lock held for the whole sequence so that no tw
 7. **Apply.** The named mutation runs against the loaded record and returns a new one. A mutation refuses by returning an error whose message is the user-facing explanation. Refusals: `bad_arguments`, `not_found`, `refused`.
 8. **Validate the result.** The *result* is checked against every invariant in section 4 of the structural model. Refusal: `invalid`.
 9. **Write note files**, if the command produces any, before the record that names them (section 7). Refusal: `write_failed`.
-10. **Write the record**, atomically, with its revision incremented. Refusal: `write_failed`.
+10. **Write the record**, atomically, with its revision set to the stored revision plus one, whatever revision the record being written carries (an undo writes back a record whose own revision is older), so that revisions only ever rise. Refusal: `write_failed`.
 11. **Return and notify.** The undo slot is set if the command qualifies (section 8), and observers are told (section 10).
 
 Two properties of this order are the point of it. Nothing is written until the result has been proved legal, so the stored record satisfies the invariants at every instant a reader could observe it. And because the pre-image is never mutated, a refusal at step seven or eight needs no rollback: the working record is simply discarded.
@@ -122,13 +122,13 @@ The record is written to a temporary file in the destination directory, flushed 
 
 One slot, not a stack, holding the pre-image of the last human operation (D9).
 
-The slot is set at step eleven, and only when the command's `origin` is `ui` and the command is marked undoable in the catalogue. Its contents are the record as loaded at step four and validated at step five, before the mutation ran, together with the command's name for the menu label and the revision the command produced. Undoing writes that record back through steps eight to ten as a command of its own, carrying the produced revision as its `revision`, so that an undo is validated like any other write and is refused as `stale` if anything has written since; it then clears the slot. There is no redo.
+The slot is set at step eleven, and only when the command's `origin` is `ui` and the command is marked undoable in the catalogue. Its contents are the record as loaded at step four and validated at step five, before the mutation ran, together with the command's name for the menu label and the revision the command produced. Undoing writes that record back through steps eight to ten as a command of its own, carrying the produced revision as its `revision`, so that an undo is validated like any other write and is refused as `stale` if anything has written since; it then clears the slot. Like every write it takes the stored revision plus one (step ten): undoing a change that took the record from revision 7 to 8 leaves it at 9, never at 8 again, since two different records under one revision would let a writer that read the one land on the other. There is no redo, so a second undo in a row finds the slot empty and does nothing.
 
 Restoring a pre-image removes whatever activity-log entry the operation wrote, because the pre-image predates it. That is a property of snapshotting rather than a rule to implement, and it is the reason to snapshot rather than to compute an inverse: an inverse that is subtly wrong is worse than no undo, and nothing verifies an inverse the way the pre-image verifies itself.
 
-A command whose `origin` is `automation` never fills the slot, and it clears whatever the slot holds. Switching or deleting the open domain clears the slot, as does quitting.
+Every write that does not fill the slot clears it: every command whose `origin` is `automation`, and every command from the window that writes the record but is not undoable (the first save of a note, which records its filename on the node, and deleting a note). Otherwise the menu would offer an undo that the revision check then refuses. Switching or deleting the open domain clears the slot, as does quitting.
 
-Two commands are marked not undoable because their effect is outside the record: deleting a note, whose file is gone and whose text the chrome's dialog already warns is unrecoverable, and deleting a domain, which moves a directory to the system Trash and is recovered from there.
+Five commands are marked not undoable. Three act on the library rather than on a record: `create_domain`, `rename_domain`, and `delete_domain`, which moves a directory to the system Trash, from which it is recovered. Two act on note files: `set_note`, since the note editor keeps its own text undo, and `delete_note`, whose file is gone and whose text the chrome's dialog already warns is unrecoverable.
 
 ## 9. Scopes
 
