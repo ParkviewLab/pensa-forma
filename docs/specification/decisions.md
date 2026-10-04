@@ -449,6 +449,12 @@ The server follows MCP's 2026-07-28 revision, which removed sessions and the `in
 
 Only a main workflow is copied (`copy_workflow`, from its start card), and a clip is pasted only as a new main workflow, in the same domain or another. Its purpose is to carry a workflow from one domain to another. The copy is exact: statuses, completion dates, here marks, flags, and activity logs are all kept; only the ids are new, and a title is suffixed where it collides in the destination (D38). The one addition is a "Pasted." entry on the new start node's log, so the copy records where it came from. A clip is JSON in the record's own form, the copied workflows, nodes, and gaps with the notes' text beside them, so an agent meets nothing new in it. Copying a project, and pasting into a workflow as a project or at a branch point as a branch, are dropped: they served no need, and each needed rules of its own, such as turning a begin and end pair into a start and finish pair. A copy wanted inside another flow is pasted as a main workflow and dragged into place, since `move_workflow` makes a main workflow a branch.
 
+### D52. The note editor is egui's `TextEdit` with a syntax layouter, and `egui_commonmark` previews
+
+*2026-10-04.*
+
+The source pane is egui's multiline `TextEdit` over a `String`, coloured by a layouter that caches its result, with the line-number gutter and the caret line's tint painted beside it; the preview is `egui_commonmark`. A note is a short markdown file on one node, so what a full editor engine brings (a rope, virtual scrolling, several cursors) matters little, and `TextEdit` brings, maintained by egui, what a borrowed engine might not: input methods, accessibility, undo, and the platform's keyboard behaviour. The cost is one selection, and a layout of the whole text on each change. The alternatives weighed: the editor engine inside Ferrite (MIT, egui, about 15,600 lines, not a crate, so a vendored copy to port and maintain); `kode-core` with `kode-markdown` (MIT, a headless core on ropey, whose interface would be written whole); `egui_code_editor` (MIT, itself built on `TextEdit`); `egui_cosmic_text` (MIT, unmaintained since August 2024, without input methods or accessibility); and CodeMirror in a web view, which would bring a JavaScript runtime into the application.
+
 ## Proposed
 
 None at present.

@@ -351,7 +351,7 @@ A 6px column-resize handle whose visible rule is the middle 2px in `--line`, tur
 
 ### 8.3 The source pane
 
-A plain-text editing area with markdown syntax highlighting, standard text-editing behaviour (caret, selection, the toolkit's undo and input-method support), and an optional line-number gutter. Text: Spline Sans Mono at 13px, line height 1.6. Chrome: transparent background; the gutter, if drawn, transparent with `--muted` numbers and no edge; the caret's line tinted `--line` at 12 % opacity; the caret itself `--cursor`; selection `--cursor` at 24 % opacity; no focus outline. Soft line wrapping is toggled live by the toolbar's `Wrap` button (the `note.wrap` setting, default on).
+A plain-text editing area with markdown syntax highlighting, standard text-editing behaviour (caret, one selection, the toolkit's undo and input-method support), and an optional line-number gutter. Text: Spline Sans Mono at 13px, line height 1.6. Chrome: transparent background; the gutter, if drawn, transparent with `--muted` numbers and no edge; the caret's line tinted `--line` at 12 % opacity; the caret itself `--cursor`; selection `--cursor` at 24 % opacity; no focus outline. Soft line wrapping is toggled live by the toolbar's `Wrap` button (the `note.wrap` setting, default on).
 
 Syntax colours (all tokens, so they follow the theme): headings `--accent-b` bold; strong `--ink` bold; emphasis `--ink` italic; strikethrough `--muted` struck; inline code `--accent-a`; link text `--accent-a` underlined; URLs `--c-progress`; blockquote `--muted` italic; list markers and link labels `--c-todo`; horizontal rules and every markup marker (`#`, `**`, `>`, `-`, `1.`, backticks) dimmed `--muted`.
 
@@ -361,19 +361,19 @@ A wrapping row above the source (inner spacing 6px vertical and 8px horizontal, 
 
 | Button | Tooltip | Effect | Key |
 | --- | --- | --- | --- |
-| `B` (drawn bold) | `Bold (⌘B)` | wrap each selection in `**` | Mod-b |
+| `B` (drawn bold) | `Bold (⌘B)` | wrap the selection in `**` | Mod-b |
 | `I` (drawn italic) | `Italic (⌘I)` | wrap in `*` | Mod-i |
 | `S` (drawn struck) | `Strikethrough (⌘⇧X)` | wrap in `~~` | Mod-Shift-x |
 | `</>` | `Inline code (⌘E)` | wrap in `` ` `` | Mod-e |
 | `H` | `Heading` | prefix each selected line with `# ` | |
 | `Link` | `Link (⌘K)` | `[text](url)` around the selection, the literal `url` left selected for type-over | Mod-k |
 | `List` | `Bullet list` | prefix lines with `- ` | |
-| `1.` | `Numbered list` | prefix lines with `1. `, `2. `, … per range | |
+| `1.` | `Numbered list` | prefix lines with `1. `, `2. `, … | |
 | `Quote` | `Blockquote` | prefix lines with `> ` | |
 | `Code` | `Code block` | wrap in ```` ```\n … \n``` ```` | |
 | `Wrap` (pinned to the row's right end) | `Toggle line wrapping` | toggles soft wrap live; pressed state shown inverted; persists | |
 
-(The `⌘` in tooltips stands for the platform's `Mod` key; render the platform's own symbol or name.) The commands are insert-only: applying bold twice nests `**` rather than toggling, and there is no de-prefixing, list continuation, table, or image command. Wrapping commands operate per selection range; the line-prefix commands prefix each touched line once even when two ranges share a line.
+(The `⌘` in tooltips stands for the platform's `Mod` key; render the platform's own symbol or name.) The commands are insert-only: applying bold twice nests `**` rather than toggling, and there is no de-prefixing, list continuation, table, or image command. There is one selection: wrapping commands wrap it, and the line-prefix commands prefix each line it touches once.
 
 ### 8.5 The preview pane
 
