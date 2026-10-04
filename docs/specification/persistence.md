@@ -58,7 +58,7 @@ Inside a domain directory:
 
 A domain name is one to sixty-four characters, trimmed, with no control characters; separators are allowed ("AI/ML" is a reasonable name) because no path is ever derived from the name directly. Names are unique within the library.
 
-Deleting a domain moves the whole directory to the system's Trash, record, bookmarks, and notes together, from which it can be restored whole.
+Deleting a domain moves the whole directory to the system's Trash (`trash`), record, bookmarks, and notes together, from which it can be restored whole.
 
 ## 3. The domain record
 
@@ -71,7 +71,7 @@ Deleting a domain moves the whole directory to the system's Trash, record, bookm
 - An absent optional field is omitted, never written as `null`; a `false` boolean is omitted; an empty list on a gap is omitted.
 - A gap whose four lists are all empty is written as `{}`. Nearly every gap is such a gap, so the `gaps` map is mostly empty objects; each gap's identity and position still come from its workflow's `gaps` list.
 - `nodes`, `gaps`, and `workflows` are maps keyed by id, with the id repeated as the object's own `id` field for legibility. Map keys are written in ascending id order, which is creation order.
-- Timestamps are RFC 3339 in UTC with millisecond precision.
+- Timestamps are RFC 3339 in UTC with millisecond precision (written and read with `jiff`).
 
 The top level:
 

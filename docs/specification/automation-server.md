@@ -26,7 +26,7 @@ The transport is Streamable HTTP, served by a loopback HTTP listener at a single
 - Bind to `127.0.0.1` only, never to every interface. The endpoint is reachable by local clients and by nothing on the network.
 - Fixed default port `35899`, settable in `settings.json` (D29). It sits below the ephemeral port ranges of macOS and Windows; on Linux it falls inside the default ephemeral range, where a transient outbound socket could hold it at the moment the application starts, a low-probability case the fail-visible behaviour covers.
 - The port does not roam. A user registers the URL once with their client, so it must be stable across restarts; trying a port and falling back to the next free one would silently invalidate the registration. If the configured port is in use, the server does not start and says so in the chrome's automation pill, leaving the user to choose another port and register it once.
-- A single-instance lock, so only one process runs and therefore only one binds the port; a second launch focuses the existing window and exits.
+- A single-instance lock (an exclusive file lock in the data directory, `fs4`), so only one process runs and therefore only one binds the port; a second launch asks the first, over a local socket (`interprocess`), to focus its window, and exits.
 - Starts when the application is ready, if enabled; stops on quit; reachable at `http://127.0.0.1:35899/mcp` while running.
 - Enabled by default, with the pill in the header showing the URL, copying it, and switching the server off and on.
 

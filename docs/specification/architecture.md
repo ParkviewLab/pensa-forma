@@ -73,7 +73,7 @@ Fonts are bundled as bytes and installed into the toolkit's font definitions at 
 
 ## 5. The note pipeline
 
-The note editor is egui's own multiline `TextEdit` over a `String`, with the toolkit's own undo, input-method, and accessibility support; a layouter supplies the markdown syntax colours, caching its result and recomputing it only when the text changes, and the line-number gutter and the caret line's tint are painted beside and beneath it from the row positions it reports. A note is short, so laying the whole text out again on each change costs nothing noticeable. The preview is `egui_commonmark`, a markdown renderer to native widgets. Markdown is parsed by a CommonMark parser with the table, strikethrough, and task-list extensions. Math is a preview concern only: the source pane holds plain text, and the preview recognises `$…$` and `$$…$$` runs, typesets each to a vector image through a native TeX layout engine, caches the result keyed by source, size, and colour, and shows a malformed formula as visible error text. The editor's autosave, debounce, reconciliation, and dialogs are the chrome's.
+The note editor is egui's own multiline `TextEdit` over a `String`, with the toolkit's own undo, input-method, and accessibility support; a layouter supplies the markdown syntax colours, caching its result and recomputing it only when the text changes, and the line-number gutter and the caret line's tint are painted beside and beneath it from the row positions it reports. A note is short, so laying the whole text out again on each change costs nothing noticeable. The preview is `egui_commonmark`, a markdown renderer to native widgets. Markdown is parsed by a CommonMark parser with the table, strikethrough, and task-list extensions. Math is a preview concern only: the source pane holds plain text, and the preview recognises `$…$` and `$$…$$` runs, typesets each to a vector image through a native TeX layout engine, rasterises it with `resvg` for display, caches the result keyed by source, size, and colour, and shows a malformed formula as visible error text. The editor's autosave, debounce, reconciliation, and dialogs are the chrome's.
 
 The math typesetter's crates are vendored into the tree, so the build does not depend on a network registry serving them, with their own licence headers intact and their bundled fonts under the fonts' own licence.
 
@@ -107,6 +107,12 @@ Every runtime dependency is MIT and/or Apache-2.0 licensed, which is compatible 
 | `rmcp` | the MCP server SDK | Apache-2.0 |
 | `axum`, `tokio` | the loopback HTTP listener and the server's runtime | MIT |
 | `ureq` | the About window's release check, blocking, with a timeout | MIT OR Apache-2.0 |
+| `semver` | comparing the released version with the running one in that check | MIT OR Apache-2.0 |
+| `resvg` | rasterising the math renderer's SVG for display in the note preview | Apache-2.0 OR MIT |
+| `trash` | moving a deleted domain's directory to the system Trash | MIT |
+| `fs4` | the single-instance lock, an exclusive lock on a file in the data directory | MIT OR Apache-2.0 |
+| `interprocess` | the local socket by which a second launch asks the first to bring its window forward, then exits | 0BSD OR Apache-2.0 |
+| `jiff` | timestamps: RFC 3339 in UTC with milliseconds in the record, local time in the log panel | Unlicense OR MIT (taken under MIT) |
 | `rfd` | native file and folder dialogs | MIT |
 | `muda` | the native menu bar on macOS and Windows (not built on Linux, where it would need GTK; the chrome's header overflow menu serves there) | Apache-2.0 OR MIT |
 | `open` | opening external links in the system browser | MIT |
@@ -115,7 +121,9 @@ Every runtime dependency is MIT and/or Apache-2.0 licensed, which is compatible 
 | `egui_kittest` (dev) | interface tests through the accessibility tree | MIT OR Apache-2.0 |
 | `insta` (dev) | snapshot tests for layout and geometry | Apache-2.0 |
 | `proptest` (dev) | property tests over the invariants | MIT OR Apache-2.0 |
+| `svgtypes` (dev) | parsing the SVG path data of the golden masters in `styles-masters.json` | Apache-2.0 OR MIT |
 | `cargo-packager` (tool) | the installers | Apache-2.0 OR MIT |
+| `cargo-about` (tool) | generating the licence inventory the Licenses window reads, at package time | MIT OR Apache-2.0 |
 | `apple-codesign` (tool) | macOS signing and notarisation from any CI platform | MPL-2.0 |
 
 The two exceptions: `apple-codesign` is a build-time tool, not linked into the binary, so its licence does not touch the application's; and the vendored math crates bundle fonts under the SIL Open Font License 1.1, the same class as the interface's own bundled faces, which keep their upstream licence and are never relabelled.

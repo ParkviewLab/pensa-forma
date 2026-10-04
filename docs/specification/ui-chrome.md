@@ -428,7 +428,7 @@ A separate window, 720 × 640, minimum 460 × 360, background `#0a1622`, titled 
 
 Content: a header `OPEN SOURCE LICENSES` (13px, uppercase, 0.1 tracking) with the sub-line `PensaForma includes the open-source software below.`; a "Key components" card list naming the handful of components a user would recognise, each with a one-line role (the GUI toolkit, the markdown renderer, the math typesetter, the MCP SDK, the bundled fonts), with versions and links drawn from the licence inventory generated at package time; then `All bundled packages (<n>)` as a Package/Version/License table; and a footer linking the complete third-party notices, opened outside the window.
 
-If the licence inventory is missing (an unpackaged development build), the window explains that licence notices are generated at package time, with the project's regeneration step named, and asks the reader to reopen the window afterwards.
+If the licence inventory is missing (an unpackaged development build), the window explains that licence notices are generated at package time (by `cargo-about`), with the project's regeneration step named, and asks the reader to reopen the window afterwards.
 
 ---
 
