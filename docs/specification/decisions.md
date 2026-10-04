@@ -87,6 +87,9 @@ The tilt is genuinely new, since every other mark is axis-aligned, and it touche
 
 **Sixth amendment, 2026-09-03.** The finish node carries no note (D11 as amended), so the glyph placement on the keystone recorded above is withdrawn; only the start ellipse's placement stands.
 
+
+**Note, 2026-09-17.** The three rules of the style are Googie's (D39); they are stated in `style-googie.md`, and the other styles do not share them.
+
 ### D8. A gap is the stored record; its two points are addressed within it
 
 *2026-08-30.*
@@ -311,6 +314,9 @@ The application's data directory is the platform's per-user application-data dir
 
 The chevron pair, in the `--cursor` token, marks every legal target, a main-workflow target included, where it sits at the centre of the gutter or margin the drop would occupy at the pointer's height. The vertical bar proposed for main-workflow targets is withdrawn: one mark that says "here" serves every target, and its place in a gutter rather than on a line already says what the drop will do.
 
+
+**Note, 2026-09-17.** The chevron pair is one construction for every style, in each style's `--cursor`, specified in the style contract (D39).
+
 ### D36. The domain directory describes itself
 
 *2026-09-08.*
@@ -346,6 +352,86 @@ A duplicate in a stored record, which only a hand edit can produce, is not repai
 Reads address a node by id or by title, since a non-empty title names exactly one node; writes take ids only, since a title can change between a read and a write. In the chrome an empty title reads `untitled` wherever a label is composed from a title; a tool result carries the empty string and the id.
 
 **Consequence.** I19 in the structural model; the command layer's step five, validating the loaded record; the catalogue's Titles convention, the per-command text, and the write result's `title`; the automation server's reads by id or title and writes by id; the chrome's `untitled` label and its `Could not open` message; the tests in the testing document.
+
+### D39. The drawing comes in a set of styles, one contract, and one document each
+
+*2026-09-17; the documents' form settled 2026-10-03.*
+
+A domain is drawn in one of a set of visual styles, chosen by the person; Googie, the style the specification first described, is the default. Four further styles were designed and compared on a single design page that draws every style over the same domains, and all five are kept: people differ in what they will look at all day, the structure is one, and switching style changes nothing in the domain. The northstar says only that the drawing is a stylized flowchart; the number of styles and their names are this document's and the style contract's.
+
+The specification carries them as one common contract and one document per style: [style-contract.md](style-contract.md) says what every style must define and what is the same in all of them, and `style-froebel.md`, `style-prairie.md`, `style-bauhaus.md`, `style-googie.md`, and `style-suuronen.md` each define one style in the contract's order. The design page enters the specification as [styles.html](styles.html), and it is the authority for every drawing: how each mark looks, its shape, colour, type, and paint order. Where marks go stays with the layout engine, so the page's own simplified layout is not an authority. A change to a drawing is made on the page first; the page exports its golden masters as `styles-masters.json`, and `scripts/style_masters.py` checks the export against the page and writes the masters into the style documents. No further tooling language is introduced: the page exports data, Python checks it, and the Rust tests read the same file.
+
+**Consequence.** The mark geometry and its HTML twin are retired: their common parts are in the style contract, and their Googie constructions, tokens, and golden masters in `style-googie.md`. Earlier decisions that cite the mark geometry now read as citing those two documents.
+
+### D40. Five names, five stored values, one order
+
+*2026-09-17.*
+
+The styles are, in the order the style control lists them: Fröbel (`froebel`), Prairie (`prairie`), Bauhaus (`bauhaus`), Googie (`googie`), and Suuronen (`suuronen`). The order is chronological by the style's source, Fröbel first because the prairie school's own debt to him came before it. No date is attached to any style anywhere.
+
+No style is named for anything that is anyone's property: no living designer whose name is a studio's brand, no estate that trades under a name, no foundation, building, or licensed collection. The two styles named for people are named for the style alone, and no person, foundation, or building is named as a source in any drawing's definition. Historical references in the reasoning behind a choice are allowed. Earlier working names (Munich, Rail, Capsule, and others) are not used.
+
+### D41. A style governs colour and type; light and dark stay a setting of their own
+
+*2026-09-17; the reading of the setting and the switch settled 2026-10-04.*
+
+A style supplies every colour token for both light and dark and its three faces, display, interface, and data, so the chrome's colours and type follow it. The chrome's layout, sizes, strings, and behaviour are fixed, with the right reserved to vary them per style after the application window has been reviewed in every style and both themes.
+
+Light and dark remain a separate setting that every style serves. `theme` stores `light` or `dark`; since the application is new, anything else, or an unreadable file, reads as light, with no translation of older values. Azure and navy are now the names of Googie's two palettes. A new setting, `style`, defaults to `googie`, and anything unrecognised reads as Googie. The window's first paint is the stored style's ground in the stored theme, Googie's light ground when nothing can be read.
+
+Switching style re-measures every card in the new style's faces and re-runs the layout, and the camera and the zoom hold, as after any edit; switching theme stays a colour change alone. All faces are bundled under the SIL Open Font License 1.1 (Boogaloo, League Spartan, Spline Sans Mono, Familjen Grotesk, Instrument Sans, and Jost), and the Open Source Licenses window lists them under its existing rule. The note editor and the About window keep the platform's faces in every style.
+
+### D42. The style control
+
+*2026-09-17.*
+
+The style is chosen from a drop-down in the header, beside the light and dark toggle, built as the domain switcher is. There is no first-run gallery and no callout: the control is where a person looks for it, and the default needs no introduction.
+
+### D43. Only a task carries state, and each state has one glyph
+
+*2026-09-17.*
+
+A start node and a begin node carry their label alone; the project and workflow glyphs are dropped, since neither node has a status. In every style a state has one glyph shape, so it reads without its colour: a filled triangle for to do, a filled circle for in progress, a filled square for done, and a dashed open circle for cancelled, on the 11 envelope drawn 15 % larger, the triangle's centroid set 1 below centre so it looks centred. Prairie sets the set on a 9 envelope, and Suuronen's square has superellipse corners; nothing else varies.
+
+**Consequence.** Googie's old glyphs, a ring for to do and a filled disc for both done and in progress, are replaced.
+
+### D44. The marks people set belong to no state and never reach the layout
+
+*2026-09-17.*
+
+The here mark and the flag are pointers set by people and agents, and in every style, without exception, they are drawn in ink, in the panel colour under an ink edge, or in a colour of the style's own that no state uses. The layout never considers them, so toggling either moves nothing, and no rule limits how far a mark may reach into the gutter. Every style draws its flag on a task, a begin node, and a start node, and declares whether it paints the flag beneath its card or over it; the here mark is drawn last of all in every style. The numbers for each style's flag on the three kinds and for its here mark were settled by eye on study pages and are recorded in the style documents.
+
+**Consequence.** Googie's orbits, which took the node's own colour, become the atom in ink (D47).
+
+### D45. The layout is common; a style supplies its insets and its route
+
+*2026-09-17; the passage of the parameters and the sibling rule settled 2026-10-03 and 2026-10-04.*
+
+The layout engine and all its constants are the same in every style. A style supplies only its silhouettes' insets at the line and its lateral route, and the application passes both to the layout inside the parameters it already takes; the six crates of D33 are unchanged, and to the layout a style is six insets and a route. A lateral's two ends, and so its rise, are the layout's; the path between them is the style's, and each style states why its route clears the cards under the common `L`, whose derivation assumes Googie's route. Each of the four routes other than Googie's is kept exactly as the design page draws it: the S of Fröbel and Suuronen, whose siblings leave a junction together, and the orthogonal run of Prairie and Bauhaus, whose siblings share a horizontal. The rule that sibling flats sit at distinct heights becomes a property of Googie's route; that siblings never cross is common.
+
+### D46. Tint by zoom
+
+*2026-09-17.*
+
+A style may tint its bodies as the drawing recedes, by one mechanism in the contract: bodies are paper at and above 72 % and fully tinted at and below 45 %, the tint arriving front-loaded, `k = 1 − (1 − t)²`, so most of it is present by 60 %. At the default view of 80 % every body is paper and the outlines carry the state; zoomed out to fit, where a 2 outline thins to a hair, the bodies carry it. Fröbel and Suuronen take part; Googie, Bauhaus, and Prairie do not.
+
+### D47. Googie's two marks
+
+*2026-09-17.*
+
+Googie keeps the marquee for the here card; the other four styles keep the task's own shape for it, until evidence asks otherwise. The sputnik stands to the left of the here card, centred 17.5 left of the box's left edge and 32 below its top, at 1.20 times its base size, drawn last; the specification had never fixed its point, and the earlier drawing put it where the layout now draws the junction above. The flag becomes an atom: the three orbits drawn as one emblem in ink over the card at its right end, the rings at 0.60 of the orbits with their minor axes at 1.65 times, a weight of 1.8 at 70 %, the nucleus 2.75 and the electrons 1.80 times the old balls, centred 7.5 beyond the silhouette's right extent at mid-height and 0.5 below it, on the screen, the hull, and the ellipse alike. Both were judged over a two-line title.
+
+### D48. Bauhaus keeps its primaries, its tracked capitals, and an ungridded ground
+
+*2026-09-17.*
+
+Bauhaus binds the three live states to the three primaries on its state bars, a reference to Mondrian's later work that the reasoning may name; its tags stay in tracked capitals, as in the other styles; and it draws no grid, the sheet being an asymmetric field rather than a gridded one. The other four keep their grids.
+
+### D49. Colours are tokens; their derivations are reasons
+
+*2026-09-17.*
+
+A colour chosen by eye is a token per theme, and its derivation (an even spacing in OKLCh, a dark palette desaturated by a quarter) is recorded in the style document as its reason and as a constraint on retuning, not computed by the application. A colour defined as a relation between two tokens, Suuronen's keel mixed 12 % toward ink in OKLab, is a rule the application applies, like the tint curve. One set of token names serves the documents and the design page: the specification's `--c-*` names, with new colours named in the same pattern. Questions still open about particular styles (Fröbel's density and to-do colour, Suuronen's dark palette, Suuronen's adjacent flagged pieces, Fröbel's dark flag at fit) are kept in the in-flight ideas; the specification carries the design page's values.
 
 ## Proposed
 
