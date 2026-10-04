@@ -61,7 +61,7 @@ The first node in a workflow is a [`start` node](#start-node) and the last is a 
 
 Workflows are drawn from the bottom up with the start node at the bottom, then each node is above its predecessor, and the finish node at the top.
 
-A workflow is either a main or a branch based on its location alone.
+A workflow is main or branch according to which list holds it: the domain's `mains`, or a branch point's side list.
 
 ### Main workflow
 
