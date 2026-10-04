@@ -296,7 +296,7 @@ function roundedPolyV(P,R){
     d+=q.r?' L '+f(q.a[0])+','+f(q.a[1])+' Q '+f(q.v[0])+','+f(q.v[1])+' '+f(q.b[0])+','+f(q.b[1]):' L '+f(q.v[0])+','+f(q.v[1]);}
   return d+' Z';
 }
-function innerT(w,h,B){return 'translate('+f(B[3])+' '+f(B[0])+') scale('+f((w-B[3]-B[1])/w)+' '+f((h-B[0]-B[2])/h)+')'}
+function innerT(w,h,B){var f4=function(n){return Math.round(n*10000)/10000};return 'translate('+f(B[3])+' '+f(B[0])+') scale('+f4((w-B[3]-B[1])/w)+' '+f4((h-B[0]-B[2])/h)+')'}
 /* superellipse |x/a|^n + |y/b|^n = 1, sampled */
 function sup(x,y,w,h,n,st){n=n||4;st=st||88;var a=w/2,b=h/2,cx=x+a,cy=y+b,p=2/n,d='';
   for(var i=0;i<=st;i++){var t=i/st*Math.PI*2,ct=Math.cos(t),s2=Math.sin(t);
@@ -336,7 +336,10 @@ function env(w,h){return {cx:w/2,cy:h/2,rx:0.7*0.85*(w-2*M)/2,ry:0.85*(h-2*M)/2}
 var KEY={kw:100,kh0:50,lift:2,kh:52,off:44};
 var B55={screen:[3.5,8,3.5,7],marquee:[6,8,4,5],hull:[4,5,8,8],ellipse:[3,6,8,6],keystone:[3,5,9,7]};
 
-function a_screen(w,h){var R=Math.min(14,(h-2*M)/2,(w-2*M)/2);return rr2(M,M,w-2*M,h-2*M,R,R)}
+/* the screen: a rounded rectangle whose corners are quadratics through the box corner (the specification's 3.1, kept exactly) */
+function a_screen(w,h){var R=Math.min(14,(h-2*M)/2,(w-2*M)/2),x0=M,x1=w-M,y0=M,y1=h-M;
+  return 'M '+f(x0+R)+','+f(y0)+' L '+f(x1-R)+','+f(y0)+' Q '+f(x1)+','+f(y0)+' '+f(x1)+','+f(y0+R)+' L '+f(x1)+','+f(y1-R)+' Q '+f(x1)+','+f(y1)+' '+f(x1-R)+','+f(y1)+
+    ' L '+f(x0+R)+','+f(y1)+' Q '+f(x0)+','+f(y1)+' '+f(x0)+','+f(y1-R)+' L '+f(x0)+','+f(y0+R)+' Q '+f(x0)+','+f(y0)+' '+f(x0+R)+','+f(y0)+' Z';}
 function a_marquee(w,h){
   var x0=M,x1=w-M,y0=M,y1=h-M,cx=w/2,cy=h/2;
   return 'M '+f(x0)+','+f(y0)+' Q '+f(cx)+','+f(y0+0.14*h)+' '+f(x1)+','+f(y0)+
@@ -680,7 +683,9 @@ function joinOf(k){return S[k].join||'round'}
    in prairie inside the inner frame, the glyph at 24 and the label flush left at 36; in prairie+ the label takes
    the glyph's place at 24 and the glyph opens the tag line, centred at 28 with the tag text from 37 (the pill
    stays at 24) */
-function contentX(k){return isB(k)?{g:BH.gx,l:BH.lx,t:BH.lx}:isP2(k)?{g:PR2.gx,l:PR2.lx,t:PR2.tx,p:PR2.lx}:isP(k)?{g:PR.gx,l:PR.lx,t:PR.lx}:{g:29,l:41,t:18}}
+function contentX(k,here){return isB(k)?{g:BH.gx,l:BH.lx,t:BH.lx}:isP2(k)?{g:PR2.gx,l:PR2.lx,t:PR2.tx,p:PR2.lx}:isP(k)?{g:PR.gx,l:PR.lx,t:PR.lx}:isA(k)?(here?{g:35,l:47,t:24}:{g:27,l:39,t:16}):{g:29,l:41,t:18}}
+/* the tag's baseline: 15.5 below the last label line, in Googie 16.5 */
+function tagDy(k){return isA(k)?1:0}
 /* the glyph's centre line: 26 on the label line, or in prairie+ 3 above the tag's baseline */
 function glyphY(k,tagY){return isP2(k)?tagY-3:26}
 /* where the HERE pill's left edge sits: with the tag, unless the style says otherwise */
@@ -1233,7 +1238,7 @@ function canvasSVG(k){
       if(bf.over) g+='<g transform="'+pre+'">'+bf.over+'</g>';
     }
     else {
-      var here=c.here,S0=c.s||'todo',SC='var(--c-'+S0+')',n=c.lines.length,X=contentX(k);
+      var here=c.here,S0=c.s||'todo',SC='var(--c-'+S0+')',n=c.lines.length,X=contentX(k,here);
       if(c.flag&&flagBehind(k)) g+='<g transform="'+pre+'">'+flagMark(k,94,h/2,SC,188,h)+'</g>';
       g+=card(k,here?'here':'task',188,h,pre,S0);
       if(here&&isN(k)) hereMarks+='<g transform="'+pre+'">'+m_hereMark(188,h)+'</g>';
@@ -1243,7 +1248,7 @@ function canvasSVG(k){
       if(here&&isA(k)) hereMarks+='<g transform="'+pre+'">'+a_sputnik(-17.5,32,1.2)+'</g>';
       var st=glyphKind(k,S0);
       var cx0=(S0==='cancel'),tl='';for(var i=0;i<n;i++) tl+=txt(X.l,f(30.5+(isB(k)?16:15)*i),c.lines[i],cx0?'var(--muted)':'var(--ink)',isB(k)?14.5:null,null,cx0);
-      var tagY=30.5+15*(n-1)+15.5;
+      var tagY=30.5+15*(n-1)+15.5+tagDy(k);
       g+='<g transform="'+pre+'">'+glyph(k,X.g,glyphY(k,tagY),st,SC)+tl+
          tag(X.t,f(tagY),({done:'DONE',progress:'IN PROGRESS',cancel:'CANCELLED'}[S0]||'TO DO'),'var(--muted)')+
          (here?herePill(pillX(X),f(30.5+15*(n-1)+21)):'')+'</g>';
@@ -1258,7 +1263,7 @@ function canvasSVG(k){
 /* ================= plates ================= */
 function cell(n,w,i){return '<div class="cell"><div class="box">'+i+'</div><div class="nm">'+n+'</div><div class="was">'+w+'</div></div>'}
 function cardsPlate(k){
-  var H=72,X=contentX(k),B=isB(k),P=isP(k);   /* a here card measures 16 taller than a task, for the HERE pill */
+  var H=72,X=contentX(k),XH=contentX(k,true),B=isB(k),P=isP(k);   /* a here card measures 16 taller than a task, for the HERE pill */
   /* the start specimen carries a name: in bauhaus the name hangs below the disc, so its box is the layout's 58 + 8 + 15;
      in prairie the name sits below the armature and the box deepens by pad 10, to 68 */
   var sH=B?81:P?68:58,sG=B?23:P?10:0;
@@ -1267,7 +1272,7 @@ function cardsPlate(k){
     B?'a white plane, 188 by 56, with a 16 state bar down its left edge; no outline, no radius'
     :P?'a plane 180 wide framed by two hairlines 6 in from its edge, open at two corners; a 4 state band along the foot of the box, cantilevered 8 past the plane'
     :isN(k)?'a rounded rectangle, r = 14, a 2 outline in the state colour':'screen — a rounded rectangle',
-    svg(188,56,card(k,'task',188,56)+glyph(k,X.g,glyphY(k,46),'tri','var(--c-todo)')+txt(X.l,30.5,'step alpha','var(--ink)')+tag(X.t,46,'TO DO','var(--muted)'))),
+    svg(188,56,card(k,'task',188,56)+glyph(k,X.g,glyphY(k,46),'tri','var(--c-todo)')+txt(X.l,30.5,'step alpha','var(--ink)')+tag(X.t,46+tagDy(k),'TO DO','var(--muted)'))),
   cell('the here card',
     isR(k)?'the task silhouette unchanged, with the mark added'
     :isN(k)?'the task card unchanged, 16 taller for the pill; the pointer, a white, ink-edged triangle, laid over the left end'
@@ -1275,7 +1280,7 @@ function cardsPlate(k){
     :P?'the task plane unchanged, 16 taller for the pill; the red square on the top-left corner, half outside the plane, and a hairline HERE box'
     :'marquee — a concave cushion',
     svg(isN(k)?250:(B||P)?232:188,H+28,'<g transform="translate('+(isN(k)?62:B?32:P?22:0)+' 14)">'+card(k,'here',188,H,null,'progress')+(isR(k)?r_hereMark(188,H,'var(--c-progress)'):'')+(isN(k)?m_hereMark(188,H):'')+
-      glyph(k,X.g,glyphY(k,46),glyphKind(k,'progress'),'var(--c-progress)')+txt(X.l,30.5,'333','var(--ink)')+tag(X.t,46,'IN PROGRESS','var(--muted)')+herePill(pillX(X),51.5)+
+      glyph(k,XH.g,glyphY(k,46),glyphKind(k,'progress'),'var(--c-progress)')+txt(XH.l,30.5,'333','var(--ink)')+tag(XH.t,46+tagDy(k),'IN PROGRESS','var(--muted)')+herePill(pillX(XH),51.5)+
       (isA(k)?a_sputnik(-17.5,32,1.2):'')+(B?b_hereMark(188,H):'')+(P?p_hereMark(188,H):'')+'</g>')),
   cell('begin node',
     B?'a 14 black bar across the top of the box, the project’s name hanging below it, flush left'
@@ -1324,7 +1329,7 @@ function marksPlate(k){
   var fr=isR(k)
     ? svg(276,124,r_frames(138,62,'var(--c-done)',188,56)+'<g opacity="0.2">'+card(k,'task',188,56,'translate(44 34)')+'</g>')
     : isA(k)
-    ? svg(262,124,'<g transform="translate(12 34)">'+card(k,'task',188,56)+glyph(k,29,26,'tri','var(--c-todo)')+txt(41,30.5,'step alpha','var(--ink)')+tag(18,46,'TO DO','var(--muted)')+atom(195.5,28.5)+'</g>')
+    ? svg(262,124,'<g transform="translate(12 34)">'+card(k,'task',188,56)+glyph(k,27,26,'tri','var(--c-todo)')+txt(39,30.5,'step alpha','var(--ink)')+tag(16,47,'TO DO','var(--muted)')+atom(195.5,28.5)+'</g>')
     : svg(262,124,'<g transform="translate(12 34)">'+card(k,'task',188,56)+
         glyph(k,X.g,glyphY(k,46),'tri','var(--c-todo)')+txt(X.l,30.5,'step alpha','var(--ink)')+tag(X.t,46,'TO DO','var(--muted)')+flagMark(k,94,28,'var(--c-todo)',188,56)+'</g>');
   var hm=isA(k)? svg(120,120,a_sputnik(60,60))

@@ -58,12 +58,12 @@ The margin `m = 1.5` is common to all six: every silhouette lies 1.5 inside the 
 
 ### 5.1 Screen (a task)
 
-A rounded rectangle, the quiet default, and the one exception to the splay rule. The corners are circular arcs of radius `R = min(14, (h − 2m)/2, (w − 2m)/2)`.
+A rounded rectangle, the quiet default, and the one exception to the splay rule. Each corner is a quadratic whose control point is the box corner; the corner radius is `R = min(14, (h − 2m)/2, (w − 2m)/2)`.
 
 ```
 R = min(14, (h-2m)/2, (w-2m)/2)
-M x0+R,y0  H x1-R  A R R 0 0 1 x1,y0+R  V y1-R  A R R 0 0 1 x1-R,y1
-H x0+R  A R R 0 0 1 x0,y1-R  V y0+R  A R R 0 0 1 x0+R,y0  Z
+M x0+R,y0  L x1-R,y0  Q x1,y0 x1,y0+R  L x1,y1-R  Q x1,y1 x1-R,y1
+L x0+R,y1  Q x0,y1 x0,y1-R  L x0,y0+R  Q x0,y0 x0+R,y0  Z
 ```
 
 ### 5.2 Marquee (a task carrying the here mark)
@@ -135,7 +135,7 @@ sy = (h - t - b) / h
 innerT = translate(l, t) scale(sx, sy)
 ```
 
-For the ellipse the transform is built on the ellipse's own bounding box, so its band has the stated thicknesses whatever its size: the inner ellipse has semi-axes `rx − (l + r)/2` and `ry − (t + b)/2`, its centre offset by `((l − r)/2, (t − b)/2)`. For the keystone it is built on the keystone's own 100 by 52 box. Both are computed axis-aligned, and outer and inner are rotated together, so the heavy side of the band turns with the shape.
+For the ellipse the transform is built on the ellipse's own bounding box, so its band has the stated thicknesses whatever its size: the inner ellipse has semi-axes `rx − (l + r)/2` and `ry − (t + b)/2`, its centre offset by `((l − r)/2, (t − b)/2)`. For the keystone it is built on the keystone's own 100 by 52 box. Both are computed axis-aligned, and outer and inner are rotated together, so the heavy side of the band turns with the shape. Worked: screen `translate(7, 3.5) scale(0.9202, 0.8750)`; marquee `translate(5, 6) scale(0.9309, 0.8611)`; hull `translate(8, 4) scale(0.9309, 0.7931)`; keystone, in its own frame, `translate(7, 3) scale(0.8800, 0.7692)`.
 
 | shape | top | right | bottom | left |
 | --- | --- | --- | --- | --- |
@@ -172,7 +172,7 @@ A folded workflow: the start card overlaps the finish card by 35, and the order 
 
 ## 7. Card content and label geometry
 
-On a task card the glyph is centred at `(29, 26)`; the label is set from x 41, its first baseline at 30.5 and each further line 15 below; the tag (`TO DO`, `IN PROGRESS`, `DONE`, `CANCELLED`) at x 18 on the baseline `30.5 + 15(n − 1) + 15.5`, in the data face at 8 with 0.9 tracking, in `--muted`. A cancelled task's label is struck through and set in `--muted`. A begin node's label and a start node's are centred on the axis with no glyph: the begin's about `hh/2 + 5.5`, the start's about `h/2 + 4`, a multi-line label stacked about that centre.
+A task card's inner spacing is 11 at the top and bottom and 16 at the left and right, and a here card's 24 at the left and right; the inter-element gap is 3 and the glyph-to-label gap 7. On a task card the glyph is centred at `(27, 26)`; the label is set from x 39, its first baseline at 30.5 and each further line 15 below; the tag (`TO DO`, `IN PROGRESS`, `DONE`, `CANCELLED`) at x 16 on the baseline `30.5 + 15(n − 1) + 16.5`, in the data face at 8 with 0.9 tracking, in `--muted`. On a here card the same content stands 8 further right: the glyph at `(35, 26)`, the label from x 47, the tag and the HERE pill from x 24. A cancelled task's label is struck through and set in `--muted`. A begin node's label and a start node's are centred on the axis with no glyph: the begin's about `hh/2 + 5.5`, the start's about `h/2 + 4`, a multi-line label stacked about that centre.
 
 | kind | wrap width | size | line pitch | lines in the base height | growth per further line |
 | --- | --- | --- | --- | --- | --- |
@@ -188,7 +188,7 @@ The common set at the 11 envelope (style contract, section 3), with no variation
 
 ## 9. The here mark
 
-The here card wears the marquee (5.2) and carries the HERE pill: a 34 by 12 rounded rectangle of radius 6 in `--cursor`, its left edge at x 18 and its top at `30.5 + 15(n − 1) + 21`, the word `HERE` centred in it in the data face at 7.5 with 1 of tracking, in `--panel`.
+The here card wears the marquee (5.2) and carries the HERE pill: a 34 by 12 rounded rectangle of radius 6 in `--cursor`, its left edge at x 24 and its top at `30.5 + 15(n − 1) + 21`, the word `HERE` centred in it in the data face at 7.5 with 1 of tracking, in `--panel`.
 
 The mark itself is a sputnik in `--ink`: ten rays of irregular length at irregular angles, each tipped with a ball, around a solid centre, defined at a base ray length of 15 and drawn at 1.20 times that, centred 17.5 left of the box's left edge and 32 below its top, so it stands to the left of the card. It is drawn last, over everything.
 
@@ -277,31 +277,31 @@ Generated from [styles-masters.json](styles-masters.json) by `scripts/style_mast
 Task, box `188 56`:
 
 ```svg
-<g><path fill="var(--c-todo)" transform="" d="M 15.5,1.5 H 172.5 A 14 14 0 0 1 186.5,15.5 V 40.5 A 14 14 0 0 1 172.5,54.5 H 15.5 A 14 14 0 0 1 1.5,40.5 V 15.5 A 14 14 0 0 1 15.5,1.5 Z"/><path fill="var(--panel)" transform="translate(7 3.5) scale(0.92 0.88)" d="M 15.5,1.5 H 172.5 A 14 14 0 0 1 186.5,15.5 V 40.5 A 14 14 0 0 1 172.5,54.5 H 15.5 A 14 14 0 0 1 1.5,40.5 V 15.5 A 14 14 0 0 1 15.5,1.5 Z"/></g>
+<g><path fill="var(--c-todo)" transform="" d="M 15.5,1.5 L 172.5,1.5 Q 186.5,1.5 186.5,15.5 L 186.5,40.5 Q 186.5,54.5 172.5,54.5 L 15.5,54.5 Q 1.5,54.5 1.5,40.5 L 1.5,15.5 Q 1.5,1.5 15.5,1.5 Z"/><path fill="var(--panel)" transform="translate(7 3.5) scale(0.9202 0.875)" d="M 15.5,1.5 L 172.5,1.5 Q 186.5,1.5 186.5,15.5 L 186.5,40.5 Q 186.5,54.5 172.5,54.5 L 15.5,54.5 Q 1.5,54.5 1.5,40.5 L 1.5,15.5 Q 1.5,1.5 15.5,1.5 Z"/></g>
 ```
 
 Here card, box `188 72`:
 
 ```svg
-<g><path fill="var(--c-progress)" transform="" d="M 1.5,1.5 Q 94,11.58 186.5,1.5 Q 177.1,36 186.5,70.5 Q 94,60.42 1.5,70.5 Q 10.9,36 1.5,1.5 Z"/><path fill="var(--panel)" transform="translate(5 6) scale(0.93 0.86)" d="M 1.5,1.5 Q 94,11.58 186.5,1.5 Q 177.1,36 186.5,70.5 Q 94,60.42 1.5,70.5 Q 10.9,36 1.5,1.5 Z"/></g>
+<g><path fill="var(--c-progress)" transform="" d="M 1.5,1.5 Q 94,11.58 186.5,1.5 Q 177.1,36 186.5,70.5 Q 94,60.42 1.5,70.5 Q 10.9,36 1.5,1.5 Z"/><path fill="var(--panel)" transform="translate(5 6) scale(0.9309 0.8611)" d="M 1.5,1.5 Q 94,11.58 186.5,1.5 Q 177.1,36 186.5,70.5 Q 94,60.42 1.5,70.5 Q 10.9,36 1.5,1.5 Z"/></g>
 ```
 
 Begin node, box `188 58`:
 
 ```svg
-<g><path fill="var(--c-project)" transform="" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/><path fill="var(--c-project-tint)" transform="translate(8 4) scale(0.93 0.79)" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/></g>
+<g><path fill="var(--c-project)" transform="" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/><path fill="var(--c-project-tint)" transform="translate(8 4) scale(0.9309 0.7931)" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/></g>
 ```
 
 End node, box `188 58`:
 
 ```svg
-<g><path fill="var(--c-project)" transform="translate(188 58) scale(-1 -1) " d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/><path fill="var(--c-project-tint)" transform="translate(188 58) scale(-1 -1) translate(8 4) scale(0.93 0.79)" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/></g>
+<g><path fill="var(--c-project)" transform="translate(188 58) scale(-1 -1) " d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/><path fill="var(--c-project-tint)" transform="translate(188 58) scale(-1 -1) translate(8 4) scale(0.9309 0.7931)" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/></g>
 ```
 
 Folded project, box `188 94`:
 
 ```svg
-<g transform="translate(0 36)"><path fill="var(--c-project)" transform="" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/><path fill="var(--c-project-tint)" transform="translate(8 4) scale(0.93 0.79)" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/></g><g><path fill="var(--c-project)" transform="translate(188 58) scale(-1 -1) " d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/><path fill="var(--c-project-tint)" transform="translate(188 58) scale(-1 -1) translate(8 4) scale(0.93 0.79)" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/></g>
+<g transform="translate(0 36)"><path fill="var(--c-project)" transform="" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/><path fill="var(--c-project-tint)" transform="translate(8 4) scale(0.9309 0.7931)" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/></g><g><path fill="var(--c-project)" transform="translate(188 58) scale(-1 -1) " d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/><path fill="var(--c-project-tint)" transform="translate(188 58) scale(-1 -1) translate(8 4) scale(0.9309 0.7931)" d="M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"/></g>
 ```
 
 Start node, box `188 58`:
@@ -313,13 +313,13 @@ Start node, box `188 58`:
 Finish node, box `188 52`:
 
 ```svg
-<g><g transform="rotate(2 94 26) translate(44 0)"><path fill="var(--c-workflow)" d="M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z"/><path fill="var(--panel)" transform="translate(7 3) scale(0.88 0.77)" d="M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z"/></g></g>
+<g><g transform="rotate(2 94 26) translate(44 0)"><path fill="var(--c-workflow)" d="M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z"/><path fill="var(--panel)" transform="translate(7 3) scale(0.88 0.7692)" d="M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z"/></g></g>
 ```
 
 Folded workflow, box `188 75`:
 
 ```svg
-<g><g transform="rotate(2 94 26) translate(44 0)"><path fill="var(--c-workflow)" d="M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z"/><path fill="var(--panel)" transform="translate(7 3) scale(0.88 0.77)" d="M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z"/></g></g><g transform="translate(0 17)"><g transform="rotate(-3 94 29)"><ellipse fill="var(--c-workflow)" cx="94" cy="29" rx="54.28" ry="23.05"/><ellipse fill="var(--panel)" cx="94" cy="26.5" rx="48.28" ry="17.55"/></g></g>
+<g><g transform="rotate(2 94 26) translate(44 0)"><path fill="var(--c-workflow)" d="M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z"/><path fill="var(--panel)" transform="translate(7 3) scale(0.88 0.7692)" d="M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z"/></g></g><g transform="translate(0 17)"><g transform="rotate(-3 94 29)"><ellipse fill="var(--c-workflow)" cx="94" cy="29" rx="54.28" ry="23.05"/><ellipse fill="var(--panel)" cx="94" cy="26.5" rx="48.28" ry="17.55"/></g></g>
 ```
 
 Glyph to do, box `centred on 0 0`:

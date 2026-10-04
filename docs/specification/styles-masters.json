@@ -478,23 +478,23 @@
    "masters": {
     "task": {
      "box": "188 56",
-     "svg": "<g><path fill=\"var(--c-todo)\" transform=\"\" d=\"M 15.5,1.5 H 172.5 A 14 14 0 0 1 186.5,15.5 V 40.5 A 14 14 0 0 1 172.5,54.5 H 15.5 A 14 14 0 0 1 1.5,40.5 V 15.5 A 14 14 0 0 1 15.5,1.5 Z\"/><path fill=\"var(--panel)\" transform=\"translate(7 3.5) scale(0.92 0.88)\" d=\"M 15.5,1.5 H 172.5 A 14 14 0 0 1 186.5,15.5 V 40.5 A 14 14 0 0 1 172.5,54.5 H 15.5 A 14 14 0 0 1 1.5,40.5 V 15.5 A 14 14 0 0 1 15.5,1.5 Z\"/></g>"
+     "svg": "<g><path fill=\"var(--c-todo)\" transform=\"\" d=\"M 15.5,1.5 L 172.5,1.5 Q 186.5,1.5 186.5,15.5 L 186.5,40.5 Q 186.5,54.5 172.5,54.5 L 15.5,54.5 Q 1.5,54.5 1.5,40.5 L 1.5,15.5 Q 1.5,1.5 15.5,1.5 Z\"/><path fill=\"var(--panel)\" transform=\"translate(7 3.5) scale(0.9202 0.875)\" d=\"M 15.5,1.5 L 172.5,1.5 Q 186.5,1.5 186.5,15.5 L 186.5,40.5 Q 186.5,54.5 172.5,54.5 L 15.5,54.5 Q 1.5,54.5 1.5,40.5 L 1.5,15.5 Q 1.5,1.5 15.5,1.5 Z\"/></g>"
     },
     "here card": {
      "box": "188 72",
-     "svg": "<g><path fill=\"var(--c-progress)\" transform=\"\" d=\"M 1.5,1.5 Q 94,11.58 186.5,1.5 Q 177.1,36 186.5,70.5 Q 94,60.42 1.5,70.5 Q 10.9,36 1.5,1.5 Z\"/><path fill=\"var(--panel)\" transform=\"translate(5 6) scale(0.93 0.86)\" d=\"M 1.5,1.5 Q 94,11.58 186.5,1.5 Q 177.1,36 186.5,70.5 Q 94,60.42 1.5,70.5 Q 10.9,36 1.5,1.5 Z\"/></g>"
+     "svg": "<g><path fill=\"var(--c-progress)\" transform=\"\" d=\"M 1.5,1.5 Q 94,11.58 186.5,1.5 Q 177.1,36 186.5,70.5 Q 94,60.42 1.5,70.5 Q 10.9,36 1.5,1.5 Z\"/><path fill=\"var(--panel)\" transform=\"translate(5 6) scale(0.9309 0.8611)\" d=\"M 1.5,1.5 Q 94,11.58 186.5,1.5 Q 177.1,36 186.5,70.5 Q 94,60.42 1.5,70.5 Q 10.9,36 1.5,1.5 Z\"/></g>"
     },
     "begin node": {
      "box": "188 58",
-     "svg": "<g><path fill=\"var(--c-project)\" transform=\"\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/><path fill=\"var(--c-project-tint)\" transform=\"translate(8 4) scale(0.93 0.79)\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/></g>"
+     "svg": "<g><path fill=\"var(--c-project)\" transform=\"\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/><path fill=\"var(--c-project-tint)\" transform=\"translate(8 4) scale(0.9309 0.7931)\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/></g>"
     },
     "end node": {
      "box": "188 58",
-     "svg": "<g><path fill=\"var(--c-project)\" transform=\"translate(188 58) scale(-1 -1) \" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/><path fill=\"var(--c-project-tint)\" transform=\"translate(188 58) scale(-1 -1) translate(8 4) scale(0.93 0.79)\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/></g>"
+     "svg": "<g><path fill=\"var(--c-project)\" transform=\"translate(188 58) scale(-1 -1) \" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/><path fill=\"var(--c-project-tint)\" transform=\"translate(188 58) scale(-1 -1) translate(8 4) scale(0.9309 0.7931)\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/></g>"
     },
     "folded project": {
      "box": "188 94",
-     "svg": "<g transform=\"translate(0 36)\"><path fill=\"var(--c-project)\" transform=\"\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/><path fill=\"var(--c-project-tint)\" transform=\"translate(8 4) scale(0.93 0.79)\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/></g><g><path fill=\"var(--c-project)\" transform=\"translate(188 58) scale(-1 -1) \" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/><path fill=\"var(--c-project-tint)\" transform=\"translate(188 58) scale(-1 -1) translate(8 4) scale(0.93 0.79)\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/></g>"
+     "svg": "<g transform=\"translate(0 36)\"><path fill=\"var(--c-project)\" transform=\"\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/><path fill=\"var(--c-project-tint)\" transform=\"translate(8 4) scale(0.9309 0.7931)\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/></g><g><path fill=\"var(--c-project)\" transform=\"translate(188 58) scale(-1 -1) \" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/><path fill=\"var(--c-project-tint)\" transform=\"translate(188 58) scale(-1 -1) translate(8 4) scale(0.9309 0.7931)\" d=\"M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z\"/></g>"
     },
     "start node": {
      "box": "188 58",
@@ -502,11 +502,11 @@
     },
     "finish node": {
      "box": "188 52",
-     "svg": "<g><g transform=\"rotate(2 94 26) translate(44 0)\"><path fill=\"var(--c-workflow)\" d=\"M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z\"/><path fill=\"var(--panel)\" transform=\"translate(7 3) scale(0.88 0.77)\" d=\"M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z\"/></g></g>"
+     "svg": "<g><g transform=\"rotate(2 94 26) translate(44 0)\"><path fill=\"var(--c-workflow)\" d=\"M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z\"/><path fill=\"var(--panel)\" transform=\"translate(7 3) scale(0.88 0.7692)\" d=\"M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z\"/></g></g>"
     },
     "folded workflow": {
      "box": "188 75",
-     "svg": "<g><g transform=\"rotate(2 94 26) translate(44 0)\"><path fill=\"var(--c-workflow)\" d=\"M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z\"/><path fill=\"var(--panel)\" transform=\"translate(7 3) scale(0.88 0.77)\" d=\"M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z\"/></g></g><g transform=\"translate(0 17)\"><g transform=\"rotate(-3 94 29)\"><ellipse fill=\"var(--c-workflow)\" cx=\"94\" cy=\"29\" rx=\"54.28\" ry=\"23.05\"/><ellipse fill=\"var(--panel)\" cx=\"94\" cy=\"26.5\" rx=\"48.28\" ry=\"17.55\"/></g></g>"
+     "svg": "<g><g transform=\"rotate(2 94 26) translate(44 0)\"><path fill=\"var(--c-workflow)\" d=\"M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z\"/><path fill=\"var(--panel)\" transform=\"translate(7 3) scale(0.88 0.7692)\" d=\"M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z\"/></g></g><g transform=\"translate(0 17)\"><g transform=\"rotate(-3 94 29)\"><ellipse fill=\"var(--c-workflow)\" cx=\"94\" cy=\"29\" rx=\"54.28\" ry=\"23.05\"/><ellipse fill=\"var(--panel)\" cx=\"94\" cy=\"26.5\" rx=\"48.28\" ry=\"17.55\"/></g></g>"
     },
     "glyph to do": {
      "box": "centred on 0 0",
@@ -557,9 +557,9 @@
     "join": "round"
    },
    "content": {
-    "g": 29,
-    "l": 41,
-    "t": 18
+    "g": 27,
+    "l": 39,
+    "t": 16
    },
    "label": {
     "task": {
@@ -1080,5 +1080,5 @@
    "lo": 0.45
   }
  },
- "fingerprint": "1e018d65743fc68f9aafafa351ed4ac4f76d65389cc69d370e40363f989b219e"
+ "fingerprint": "3e87d5f9c230d9c4afbb0fe1de063af14cf0ebab15333fd88d702bdb5b8c4aea"
 }

@@ -30,7 +30,7 @@ PILL = 16                                         # a here card measures 16 tall
 INSET = {'task': (1.5, 1.5), 'here': (6.54, 6.54), 'begin': (9.33, 2.95), 'end': (2.95, 9.33), 'start': (5.92, 5.92), 'finish': (5.77, 3.13)}
 # the start ellipse (Googie 5.5, 5.7): fitted at -3 degrees, major axis 0.7, size 0.85, inset on its own box
 ELL = dict(rx=54.28, ry=23.05, irx=48.28, iry=17.55, icx=94.0, icy=26.5)
-SCREEN = "M 15.5,1.5 H 172.5 A 14 14 0 0 1 186.5,15.5 V 40.5 A 14 14 0 0 1 172.5,54.5 H 15.5 A 14 14 0 0 1 1.5,40.5 V 15.5 A 14 14 0 0 1 15.5,1.5 Z"
+SCREEN = "M15.5,1.5L172.5,1.5Q186.5,1.5 186.5,15.5L186.5,40.5Q186.5,54.5 172.5,54.5L15.5,54.5Q1.5,54.5 1.5,40.5L1.5,15.5Q1.5,1.5 15.5,1.5Z"
 MARQUEE = "M 1.5,1.5 Q 94,11.58 186.5,1.5 Q 177.1,36 186.5,70.5 Q 94,60.42 1.5,70.5 Q 10.9,36 1.5,1.5 Z"
 HULL = "M 1.5,7.3 Q 94,14.26 186.5,1.5 L 162.06,53.6 Q 94,56.5 25.94,53.6 Z"
 KPATH = "M 17.46,8.55 L 87.54,2.45 Q 98.5,1.5 95.88,12.18 L 89.12,39.82 Q 86.5,50.5 75.51,49.99 L 32.49,48.01 Q 21.5,47.5 17.46,37.27 L 10.54,19.73 Q 6.5,9.5 17.46,8.55 Z"
@@ -208,9 +208,10 @@ def card(nid, x, v):
         else:
             g += f'<path class="{st}" d="{SCREEN}"/><path class="inner" transform="translate(7 3.5) scale(0.9202 0.8750)" d="{SCREEN}"/>'
         cls = 'lbl struck' if st == 'cancel' else 'lbl'
-        g += glyph(st, 29, 26) + f'<text class="{cls}" x="41" y="30.5">{title}</text><text class="tag" x="18" y="46">{tag}</text>'
+        dx = 8 if n.get('here') else 0                                    # a here card's inner spacing is 24, a task's 16 (Googie, section 7)
+        g += glyph(st, 27 + dx, 26) + f'<text class="{cls}" x="{39 + dx}" y="30.5">{title}</text><text class="tag" x="{16 + dx}" y="47">{tag}</text>'
         if n.get('here'):
-            g += '<rect class="pill" x="18" y="51.5" width="34" height="12" rx="6"/><text class="pilltxt" x="35" y="60.3">HERE</text>'
+            g += '<rect class="pill" x="24" y="51.5" width="34" height="12" rx="6"/><text class="pilltxt" x="41" y="60.3">HERE</text>'
         if n.get('flagged'): over += atom(0, 0, CARD_W + 7.5, h / 2 + 0.5)
     elif kind == 'begin':
         g += (f'<path class="proj" d="{HULL}"/><path class="tint" transform="translate(8 4) scale(0.9309 0.7931)" d="{HULL}"/>'
