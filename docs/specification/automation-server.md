@@ -19,7 +19,7 @@ The application is the server. While it is open, it hosts an MCP endpoint on the
 
 The server is a small module in the application process. It runs on its own runtime thread, separate from the interface's frame loop, and every request it handles ends in a call into the command layer, which serialises it under the same lock the window's own commands take. Reads take the lock too, so a read never observes a half-written record. Because the authority is in-process, a successful automation write notifies the window, which re-renders the open domain (section 8).
 
-The transport is Streamable HTTP, served by a loopback HTTP listener at a single `/mcp` path. The server is **stateless**: each request carries a complete JSON-RPC message, the endpoint accepts `POST` only, and it answers `405 Method Not Allowed` to `GET` and `DELETE`, since a stateless server has no server-initiated stream to open and no session to terminate. A `GET /health` beside it answers `{ ok, name, version, revisionOf }` for a liveness check, where `revisionOf` maps each open domain's id to its revision.
+The transport is Streamable HTTP, served by a loopback HTTP listener at a single `/mcp` path. The server is **stateless**: each request carries a complete JSON-RPC message, the endpoint accepts `POST` only, and it answers `405 Method Not Allowed` to `GET` and `DELETE`, since a stateless server has no server-initiated stream to open and no session to terminate. This is the MCP revision of 2026-07-28, which removed sessions and the `initialize` handshake: a client learns the server's capabilities and instructions from a `server/discover` request, and every request carries the client's protocol version, capabilities, and, optionally, its name in its own `_meta`. A `GET /health` beside it answers `{ ok, name, version, revisionOf }` for a liveness check, where `revisionOf` maps each open domain's id to its revision.
 
 ## 3. Binding and lifecycle
 
@@ -44,13 +44,13 @@ A per-install bearer token, generated once, kept in settings, shown in the pill,
 
 ## 5. Scope tiers
 
-The server is configured at one of three tiers, `read-only`, `read-write`, and `destructive`, each including the ones before it, from `server.scope` in the settings or the `PENSAFORMA_SERVER_SCOPE` environment variable. Every tool is declared at the tier it needs, and a tool above the configured tier is **not registered**: an agent never sees a tool it cannot use, so it plans around the surface it actually has. The tier is read when a session's tool surface is built, so changing it takes effect for new sessions.
+The server is configured at one of three tiers, `read-only`, `read-write`, and `destructive`, each including the ones before it, from `server.scope` in the settings or the `PENSAFORMA_SERVER_SCOPE` environment variable. Every tool is declared at the tier it needs, and a tool above the configured tier is **not registered**: an agent never sees a tool it cannot use, so it plans around the surface it actually has. The tier is read on every request, so a change takes effect at the next one.
 
-`destructive` holds the three commands that remove nodes or files: `delete_node`, `delete_note`, `delete_domain`. Everything else that writes is `read-write`. Prompts that name write tools are registered at `read-write` and above, not at `read-only`, so a read-only session is never handed a recipe it cannot follow.
+`destructive` holds the three commands that remove nodes or files: `delete_node`, `delete_note`, `delete_domain`. Everything else that writes is `read-write`. Prompts that name write tools are registered at `read-write` and above, not at `read-only`, so a read-only client is never handed a recipe it cannot follow.
 
-## 6. What the client is told at connect
+## 6. What the client is told at discovery
 
-The server's initialise response carries these instructions, which every client shows its model:
+The server's `server/discover` response carries these instructions in its `instructions` field, which every client shows its model:
 
 > PensaForma is a LIVE store: its user, and other agents, can change it at any moment. Never rely on an earlier read. Treat anything you read (domains, workflows, flagged nodes, statuses, notes) as possibly stale the instant after you read it. Before you act, and always immediately before a write, re-read the current state with the relevant tool (find_flagged, read_domain, read_workflow, read_project, read_node, read_note) and resolve any description such as "the flagged one" or "the task marked here" against that fresh read, not against memory. Every read returns the domain's revision; pass it as `revision` on your write, and a write against a changed domain is refused as stale rather than landing on the wrong state. Every write returns the affected id, the new revision, and the re-rendered outline; treat that as your new ground truth.
 >
@@ -107,7 +107,7 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 | `add_log_entry(node_id, text)`, `edit_log_entry(node_id, entry_id, text)`, `delete_log_entry(node_id, entry_id)` | the three log commands |
 | `paste(clip, target)` | `paste` |
 
-An agent's log entries carry `author: { kind: agent, name }`, where `name` is the client's declared name from the MCP initialise handshake, or `"agent"` when it declares none.
+An agent's log entries carry `author: { kind: agent, name }`, where `name` is the client's name from the request's `_meta` (`io.modelcontextprotocol/clientInfo`), or `"agent"` when the request carries none.
 
 ### Destructive
 
@@ -125,7 +125,7 @@ The library root and the settings: user settings whose change needs a native dia
 
 A prompt is fetched by the client for the user's own menu and costs nothing unless invoked, and it is the one place the surface can state an **order** of operations rather than a rule. Two are offered, sparingly.
 
-**`work_flagged`.** For the common "work the flagged nodes" flow: call `find_flagged` first; for each flagged node call `read_node` (and `read_project` for the enclosing project's context when one is reported); plan; then, immediately before each write, re-read the node and pass the revision. Every tool the prompt names is a tool on the surface at the session's tier, and a test holds it there.
+**`work_flagged`.** For the common "work the flagged nodes" flow: call `find_flagged` first; for each flagged node call `read_node` (and `read_project` for the enclosing project's context when one is reported); plan; then, immediately before each write, re-read the node and pass the revision. Every tool the prompt names is a tool on the surface at the configured tier, and a test holds it there.
 
 **`decompose_project`.** For breaking a project into tasks, sub-projects, and branches, in the order that keeps every step legal: insert the tasks along the line first, then wrap runs of them as sub-projects, then open branches off the gaps and attach their returns last. The order matters because `wrap_run` refuses a run that a branch departs inside and returns outside, so opening branches before wrapping can make the intended wrap illegal, and an agent that branches first discovers that as a refusal after the work is done.
 

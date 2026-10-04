@@ -134,7 +134,7 @@ Two commands are marked not undoable because their effect is outside the record:
 
 The automation server is configured at one of three tiers, `read-only`, `read-write`, and `destructive`, each including the ones before it. Every tool is declared at the tier it needs, and a tool above the configured tier is **not registered** rather than registered and refused.
 
-Not registering is the better failure: an agent never sees a tool it cannot use, so it plans around the surface it actually has instead of discovering a prohibition by trying. The tier is read when a session's tool surface is built.
+Not registering is the better failure: an agent never sees a tool it cannot use, so it plans around the surface it actually has instead of discovering a prohibition by trying. The tier is read on every request.
 
 A command is `destructive` when it removes nodes or files: deleting a node or an extent, deleting a note, deleting a domain. Everything else that mutates is `read-write`. Reads do not pass through the pipeline, since a read cannot break an invariant; they take the lock, read the record, and answer from it, returning the revision with the answer.
 

@@ -79,7 +79,7 @@ The math typesetter's crates are vendored into the tree, so the build does not d
 
 ## 6. The automation server
 
-The `server` crate builds the tool surface from the catalogue at the configured tier when a session initialises, hosts the Streamable HTTP transport on an axum listener bound to loopback, applies the Host and Origin allowlist to every request, and answers `/health`. Tool parameters are typed Rust structures deriving their JSON schemas, so the schema an agent sees and the value the code receives cannot disagree.
+The `server` crate builds the tool surface from the catalogue at the configured tier on each request, hosts the Streamable HTTP transport on an axum listener bound to loopback, applies the Host and Origin allowlist to every request, and answers `/health`. Tool parameters are typed Rust structures deriving their JSON schemas, so the schema an agent sees and the value the code receives cannot disagree.
 
 ## 7. Packaging and signing
 
