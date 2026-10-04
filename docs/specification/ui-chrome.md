@@ -5,20 +5,20 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # UI chrome
 
-The shell around the map canvas: the application window and its menus, every widget on the header bar, the right-click menu system with its complete item inventory, every dialog with its exact strings, the note editor, the activity log panel, the About window, and the Open Source Licenses window. It is written so that the interface can be built from it, on the toolkit the [architecture](architecture.md) names, and it stands with the rest of the set: the vocabulary is the [glossary](glossary.md)'s, every editing item issues a command from the [command catalogue](command-catalogue.md), and the drawing of the canvas itself is the [mark geometry](mark-geometry.md) and the [layout engine](layout-engine.md).
+The shell around the map canvas: the application window and its menus, every widget on the header bar, the right-click menu system with its complete item inventory, every dialog with its exact strings, the note editor, the activity log panel, the About window, and the Open Source Licenses window. It is written so that the interface can be built from it, on the toolkit the [architecture](architecture.md) names, and it stands with the rest of the set: the vocabulary is the [glossary](glossary.md)'s, every editing item issues a command from the [command catalogue](command-catalogue.md), and the drawing of the canvas itself is the [style contract](style-contract.md), the style documents, and the [layout engine](layout-engine.md).
 
 Two boundaries are deliberate. The map canvas (the drawing of cards, tracks, and markers that fills the window below the header) is a black box here, and this document describes only the points where the canvas hands control to the chrome (a right-click, a click on a card's note glyph or status glyph, a double-click). Drag-and-drop is the [interaction](interaction.md) document's.
 
 Where the host platform provides a native facility (window chrome, menus, file dialogs, a clipboard), use it; where it does not, the stated behaviour is the contract to reproduce. An HTML sibling of this file renders each widget, menu, and dialog so the target can be seen as well as read.
 
-Conventions: "PensaForma" is the application's name in exact strings. Colours are given as a token name (for instance `--ink`) whose two values per theme appear in Appendix A. Sizes are logical pixels. `Mod` means the platform's primary command modifier (Cmd on macOS, Ctrl elsewhere). An "edge line" is a 1px line drawn along an element's boundary, inside its stated size; a "ring" is a line drawn outside the boundary, occupying no layout space; a drop shadow is given as offset (x, y), blur radius, and colour; "tracking" is extra letter spacing as a fraction of the font size; truncation means cutting overflowing text with a trailing `…`.
+Conventions: "PensaForma" is the application's name in exact strings. Colours are given as a token name (for instance `--ink`) whose value comes from the style in use and the theme (Appendix A). Sizes are logical pixels. `Mod` means the platform's primary command modifier (Cmd on macOS, Ctrl elsewhere). An "edge line" is a 1px line drawn along an element's boundary, inside its stated size; a "ring" is a line drawn outside the boundary, occupying no layout space; a drop shadow is given as offset (x, y), blur radius, and colour; "tracking" is extra letter spacing as a fraction of the font size; truncation means cutting overflowing text with a trailing `…`.
 
 ---
 
 ## 1. The application window
 
 - One main window, 1280 × 800 at first launch; no minimum size is enforced.
-- The window's first paint is the ground token of the theme that will apply on this launch (section 3.5): `#d3e6ef` (azure) unless the stored choice is navy, then `#0f2334`, so no foreign colour flashes before the interface draws. If the stored choice cannot be read before the first paint, paint azure.
+- The window's first paint is the `--ground` of the style and theme that will apply on this launch (section 3.5), so no foreign colour flashes before the interface draws. If the stored choices cannot be read before the first paint, paint Googie's light ground, `#d3e6ef`.
 - Standard platform window chrome and title bar; nothing custom. The window title is `PensaForma`.
 - Only one instance runs: launching a second focuses the first, restoring it if minimised.
 - Links to the outside world always open in the system's default web browser, never inside the application; the application itself opens only `http(s)` destinations and ignores any other scheme.
@@ -42,13 +42,13 @@ There is no menu item for the automation server; it is surfaced only through the
 
 ## 2. The shell
 
-The window is a single column: a header bar above a canvas viewport that fills the rest. The window's ground colour is `--ground`; all text defaults to `--ink` in the UI face (Appendix B).
+The window is a single column: a header bar above a canvas viewport that fills the rest. The window's ground colour is `--ground`; all text defaults to `--ink` in the style's interface face (Appendix B).
 
-The header bar: a full-width row, vertically centred, inner spacing 9px top and bottom and 14px left and right, a 1px `--line` edge along its bottom. Its children form two groups pinned to opposite ends, the items within each group spaced 12px apart. Left group, in order: brand, domain switcher, delete-domain button, automation pill. Right group, in order: mode label, Light/Dark segmented toggle, Flagged toggle, zoom cluster (minus, percent readout, plus, Fit).
+The header bar: a full-width row, vertically centred, inner spacing 9px top and bottom and 14px left and right, a 1px `--line` edge along its bottom. Its children form two groups pinned to opposite ends, the items within each group spaced 12px apart. Left group, in order: brand, domain switcher, delete-domain button, automation pill. Right group, in order: mode label, Light/Dark segmented toggle, style control, Flagged toggle, zoom cluster (minus, percent readout, plus, Fit).
 
-The canvas viewport fills the remaining height, clipping its content, ground `--ground`, with a grab-hand pointer cursor and unselectable text. It carries the dot grid of the mark geometry's section 1 on its own surface, so the grid neither pans nor zooms. Inside the viewport sit the transformed map world (a black box here) and an empty-state overlay (section 2.1).
+The canvas viewport fills the remaining height, clipping its content, ground `--ground`, with a grab-hand pointer cursor and unselectable text. It carries the style's ground grid (each style document, section 2), or none where the style draws none, on its own surface, so the grid neither pans nor zooms. Inside the viewport sit the transformed map world (a black box here) and an empty-state overlay (section 2.1).
 
-Shared button style, used by every header button: text 12px in the UI face at line height 1 (the line box exactly as tall as the text, so text, inner spacing, and edges alone set the button's height); a 1px `--line` edge; corner radius 5; inner spacing 6px vertical, 10px horizontal; transparent fill, text `--ink`; pointer cursor. On hover the fill becomes `--line` at 16 % opacity. Disabled: the whole button at 40 % opacity, default cursor, no hover fill. Variants: an icon button is 30px wide with centred 14px text and no horizontal padding; a primary button fills `--ink` with `--ground` text and an `--ink` edge; a danger button keeps the transparent fill but takes `--c-progress` text and an edge of the danger blend (Appendix A), and its hover fill is `--c-progress` at 16 %; a toggle button in its pressed state takes the primary look (filled `--ink`, `--ground` text).
+Shared button style, used by every header button: text 12px in the interface face at line height 1 (the line box exactly as tall as the text, so text, inner spacing, and edges alone set the button's height); a 1px `--line` edge; corner radius 5; inner spacing 6px vertical, 10px horizontal; transparent fill, text `--ink`; pointer cursor. On hover the fill becomes `--line` at 16 % opacity. Disabled: the whole button at 40 % opacity, default cursor, no hover fill. Variants: an icon button is 30px wide with centred 14px text and no horizontal padding; a primary button fills `--ink` with `--ground` text and an `--ink` edge; a danger button keeps the transparent fill but takes `--c-progress` text and an edge of the danger blend (Appendix A), and its hover fill is `--c-progress` at 16 %; a toggle button in its pressed state takes the primary look (filled `--ink`, `--ground` text).
 
 ### 2.1 Empty-state overlay
 
@@ -88,7 +88,7 @@ An icon button, danger-styled, glyph `✕` (U+2715), tooltip and accessible labe
 
 The application exposes a local automation server (its programmatic interface for external tools and agents; the [automation server](automation-server.md) document). The pill is that subsystem's one point of visibility in the chrome.
 
-A button labelled `MCP` with an 8 × 8 status dot before the text, 7px between dot and text. The dot: a circle, default fill `--c-cancel` (muted, off); `--accent-teal` when the server runs; `--c-progress` on error; an inward ring of `--ink` at 25 % opacity, 1px, keeps the dot legible on both grounds. Precedence: error beats running beats off.
+A button labelled `MCP` with an 8 × 8 status dot before the text, 7px between dot and text. The dot: a circle, default fill `--c-cancel` (muted, off); `--accent-a` when the server runs; `--c-progress` on error; an inward ring of `--ink` at 25 % opacity, 1px, keeps the dot legible on both grounds. Precedence: error beats running beats off.
 
 Tooltip, rebuilt on each refresh from segments joined with ` · ` (space, interpunct, space): `MCP server`, then `running at <url>` or `starting…` or `off`, then `scope: <scope>` when known, then `error: <error>` when present; assembled, for instance: `MCP server · running at http://127.0.0.1:35899/mcp · scope: read-write`.
 
@@ -101,11 +101,13 @@ Activating the pill refreshes the status, then opens the shared menu widget (sec
 
 Status is polled only at application start and on activation; a server that dies in between shows a stale dot until the next press. The endpoint has the form `http://127.0.0.1:<port>/mcp` (default port 35899), loopback only.
 
-### 3.5 Mode label and theme toggle
+### 3.5 Mode label, theme toggle, and style control
 
 A tiny uppercase label `Mode` (10px, 0.12 tracking, `--muted`), then a segmented control: a pill-shaped container (1px `--line` edge, fully rounded ends, contents clipped) holding two edge-less segments, `Light` and `Dark` (12px, inner spacing 6px vertical and 14px horizontal, text `--muted`), the active segment inverted (`--ink` fill, `--ground` text).
 
-Behaviour: choosing a segment sets the theme state to azure (Light) or navy (Dark) and persists the choice as the `theme` setting. Every colour in the application is a token resolved through the theme state, so switching repaints without any re-layout or re-measure; an open note editor re-themes instantly, syntax colours included. On startup the stored value applies; anything unrecognised (or an unreadable store) falls back to azure.
+Behaviour: choosing a segment sets the theme to light or dark and persists the choice as the `theme` setting, `light` or `dark`. Every colour in the application is a token resolved through the style and the theme, so switching theme repaints without any re-layout or re-measure; an open note editor re-themes instantly, syntax colours included. On startup the stored value applies; anything other than `light` or `dark` (or an unreadable store) falls back to light.
+
+The style control follows: a drop-down built as the domain switcher is (section 3.2), with tooltip and accessible label `Style`, listing the five styles in this order, `Fröbel`, `Prairie`, `Bauhaus`, `Googie`, `Suuronen`, the current one shown. Choosing one persists it as the `style` setting (`froebel`, `prairie`, `bauhaus`, `googie`, or `suuronen`), re-measures every card in the new style's faces, and re-runs the layout; the camera and the zoom hold, as after any edit, and the domain is redrawn in place in the new style. The chrome's colours and faces follow the style; its layout, sizes, strings, and behaviour do not change. On startup the stored value applies; anything else (or an unreadable store) falls back to Googie, the default.
 
 ### 3.6 Flagged toggle
 
@@ -353,7 +355,7 @@ A 6px column-resize handle whose visible rule is the middle 2px in `--line`, tur
 
 A plain-text editing area with markdown syntax highlighting, standard text-editing behaviour (caret, selection, the toolkit's undo and input-method support), and an optional line-number gutter. Text: the platform's monospace face at 13px, line height 1.6. Chrome: transparent background; the gutter, if drawn, transparent with `--muted` numbers and no edge; the caret's line tinted `--line` at 12 % opacity; the caret itself `--cursor`; selection `--cursor` at 24 % opacity; no focus outline. Soft line wrapping is toggled live by the toolbar's `Wrap` button (the `note.wrap` setting, default on).
 
-Syntax colours (all tokens, so they follow the theme): headings `--accent-violet` bold; strong `--ink` bold; emphasis `--ink` italic; strikethrough `--muted` struck; inline code `--accent-teal`; link text `--accent-teal` underlined; URLs `--c-progress`; blockquote `--muted` italic; list markers and link labels `--c-todo`; horizontal rules and every markup marker (`#`, `**`, `>`, `-`, `1.`, backticks) dimmed `--muted`.
+Syntax colours (all tokens, so they follow the theme): headings `--accent-b` bold; strong `--ink` bold; emphasis `--ink` italic; strikethrough `--muted` struck; inline code `--accent-a`; link text `--accent-a` underlined; URLs `--c-progress`; blockquote `--muted` italic; list markers and link labels `--c-todo`; horizontal rules and every markup marker (`#`, `**`, `>`, `-`, `1.`, backticks) dimmed `--muted`.
 
 ### 8.4 The toolbar
 
@@ -379,7 +381,7 @@ A wrapping row above the source (inner spacing 6px vertical and 8px horizontal, 
 
 The preview renders the note as CommonMark with the common extensions (tables, strikethrough, task-list checkboxes) plus math: `$…$` inline and `$$…$$` display, typeset properly, with a malformed formula rendering as visible error text rather than aborting the preview. Note text is untrusted input: rendering must not execute anything it contains, and links must be inert except explicit `http(s)` destinations. The preview re-renders on every keystroke, debounced to the frame.
 
-Styling (inner spacing 20px vertical and 24px horizontal; base text 16px, adjustable per 8.1; line height 1.62; `--ink`): headings at levels 1 to 3 in the display face at 1.7 / 1.4 / 1.18 times the base size, weight 400, line height 1.15, each with 1.3 times its own size above and 0.45 times its own size below; block elements share a bottom margin of 0.85 times the base; links `--accent-teal`, underlined on hover only; inline code in the monospace face at 0.88 of the base over `--line` at 16 % opacity, inner spacing 1px and 5px, radius 4; code blocks over `--line` at 14 %, inner spacing 12px and 14px, radius 8, scrollable; blockquotes carry a 3px `--line` left edge and `--muted` text; tables rule all cells with 1px `--line` lines, cells padded 5px and 10px; horizontal rules are a single 1px `--line` line; images never exceed the pane width.
+Styling (inner spacing 20px vertical and 24px horizontal; base text 16px, adjustable per 8.1; line height 1.62; `--ink`): headings at levels 1 to 3 in the platform's sans-serif at 1.7 / 1.4 / 1.18 times the base size, weight 700, line height 1.15, each with 1.3 times its own size above and 0.45 times its own size below; block elements share a bottom margin of 0.85 times the base; links `--accent-a`, underlined on hover only; inline code in the monospace face at 0.88 of the base over `--line` at 16 % opacity, inner spacing 1px and 5px, radius 4; code blocks over `--line` at 14 %, inner spacing 12px and 14px, radius 8, scrollable; blockquotes carry a 3px `--line` left edge and `--muted` text; tables rule all cells with 1px `--line` lines, cells padded 5px and 10px; horizontal rules are a single 1px `--line` line; images never exceed the pane width.
 
 Link activation in the preview opens externally (only `http(s)`; anything else is ignored); in-document anchor links behave as ordinary in-pane jumps.
 
@@ -461,9 +463,9 @@ In the choice dialog Enter does nothing and no button has focus. Inside the sour
 
 ## Appendix A: colour tokens
 
-The theme state selects azure (Light) or navy (Dark); every colour below is defined per theme. Fonts and the token names are theme-independent. The map's own role tokens (the status colours, the project and workflow colours, the `--cursor` accent) are in the mark geometry's colour appendix; the chrome shares several.
+Every colour below is a token whose value comes from the style in use and the theme, light or dark; each style document gives its values (section 3 of each). The values shown are Googie's, the default, for reference. Fonts and the token names are the same in every style and theme. The map's own tokens (the status colours, the project and workflow colours, `--cursor`) are in the style documents; the chrome shares several.
 
-| Token | Azure (Light) | Navy (Dark) | Used in this document for |
+| Token | Googie light | Googie dark | Used in this document for |
 | --- | --- | --- | --- |
 | `--ground` | `#d3e6ef` | `#0f2334` | window and note-editor background, inverted-button text |
 | `--panel` | `#f8f3e8` | `#1a3a54` | menu, dialog, and panel surfaces |
@@ -475,8 +477,10 @@ The theme state selects azure (Light) or navy (Dark); every colour below is defi
 | `--c-progress` | `#d75f2e` | `#f27a44` | danger buttons, error dot, URL syntax colour |
 | `--c-todo` | `#d9a53a` | `#f0bd55` | list-marker syntax colour |
 | `--c-cancel` | `#8aa0ab` | `#7590a0` | the automation dot's off state |
-| `--accent-teal` | `#1f8f8a` | `#37c2ba` | automation dot on; preview links; code/link syntax |
-| `--accent-violet` | `#7d54a6` | `#bd93e6` | heading syntax colour |
+| `--accent-a` | `#1f8f8a` | `#37c2ba` | automation dot on; preview links; code/link syntax |
+| `--accent-b` | `#7d54a6` | `#bd93e6` | heading syntax colour |
+
+The two accents are hue tokens for surfaces that want a particular colour rather than a particular meaning; they do not move if a style's role-to-hue assignment is ever exchanged. In Googie they are its project teal and its done violet; in every other style `--accent-a` takes the style's `--c-project` value and `--accent-b` its `--c-done` value.
 
 ### Derived colours, resolved
 
@@ -490,17 +494,25 @@ Every derived tint in this document is a named token drawn at an opacity; treat 
 | editor selection | `--cursor` at 24 % |
 | automation-dot inward ring | `--ink` at 25 % |
 
-One value blends two opaque colours, the danger button's edge, 55 % `--c-progress` with 45 % `--line`; resolved it is `#8f5d4a` on azure and `#b79580` on navy. The dialog backdrop is black at 35 % opacity; the shadows are black at 28 % (menus) and 40 % (dialogs), literal values with no token behind them.
+One value blends two opaque colours, the danger button's edge, 55 % `--c-progress` with 45 % `--line`; resolved in Googie it is `#8f5d4a` light and `#b79580` dark; in the other styles it is computed from their tokens. The dialog backdrop is black at 35 % opacity; the shadows are black at 28 % (menus) and 40 % (dialogs), literal values with no token behind them.
 
 ## Appendix B: fonts and text roles
 
-Two families are bundled with the application (both SIL Open Font License 1.1), plus the platform's monospace face:
+Each style names three faces, display, interface, and data (style contract, section 9), and the chrome is set in the style in use: its text in the interface face, and the brand, the dialog titles, and other display roles in the display face. The faces, all bundled with the application under the SIL Open Font License 1.1, are:
 
-- The UI face: League Spartan, a variable face, weights 100 to 900, latin and latin-ext coverage. Fall back to the host's standard sans-serif if the face is unavailable.
-- The display face: Boogaloo, weight 400 only, latin coverage. Fall back to League Spartan. Where this document asks for the display face at weight 800 (the brand), the face has no true 800; render a synthesised bold of Boogaloo or League Spartan 800, whichever the toolkit does naturally, and keep it consistent.
-- Monospace (the note source pane and code): the platform's standard monospace face; nothing bundled.
+| Style | Display | Interface | Data |
+| --- | --- | --- | --- |
+| Fröbel | Instrument Sans | Instrument Sans | Spline Sans Mono |
+| Prairie | Jost | Jost | Jost |
+| Bauhaus | Jost | Jost | Jost |
+| Googie | Boogaloo | League Spartan | Spline Sans Mono |
+| Suuronen | Familjen Grotesk | Familjen Grotesk | Spline Sans Mono |
 
-Chrome text roles: brand 13px/800 display uppercase; switcher and buttons 12px UI; icon buttons 14px; mode label and dialog field labels 10px uppercase with 0.12 tracking; percent readout 11px with equal-width digits; empty state 14px; menus 12.5px; dialog titles 14px/800; dialog messages 12.5px; dialog inputs 13px; note-editor title 14px/800; note toolbar 12px; note source 13px monospace; note preview 16px (user-adjustable 12 to 28) with display-face headings; log panel meta 11px and text 12.5px.
+Six families are therefore bundled: Boogaloo, League Spartan, Spline Sans Mono, Familjen Grotesk, Instrument Sans, and Jost. A face that is unavailable falls back to the host's standard sans-serif. Where this document asks for a weight the style's face lacks (the brand at 800 in Boogaloo, which has only 400), render a synthesised bold and keep it consistent.
+
+The note editor and the About window do not follow the style: their text is in the platform's standard sans-serif, and the note source and code in the platform's standard monospace, as before; nothing else is bundled for them.
+
+Chrome text roles: brand 13px/800 display uppercase; switcher and buttons 12px UI; icon buttons 14px; mode label and dialog field labels 10px uppercase with 0.12 tracking; percent readout 11px with equal-width digits; empty state 14px; menus 12.5px; dialog titles 14px/800; dialog messages 12.5px; dialog inputs 13px; note-editor title 14px/800; note toolbar 12px; note source 13px monospace; note preview 16px (user-adjustable 12 to 28) with bold headings; log panel meta 11px and text 12.5px.
 
 ## Appendix C: draw order
 
@@ -508,4 +520,4 @@ Within the main window, from back to front: the map world; the drop indicator an
 
 ## Appendix D: persistence
 
-Every stored value the chrome touches is specified in the [persistence](persistence.md) document: the theme, the note editor's split, wrap, and text size, the library root, the last domain, and the automation server's enablement, port, and scope in `settings.json`; the fold state per domain in `viewstate.json`; the bookmarks in each domain's `bookmarks.json`; the notes in each domain's `notes/`. The flagged filter, the copy clipboard, the zoom and pan, and the undo slot are session-only and never persist.
+Every stored value the chrome touches is specified in the [persistence](persistence.md) document: the theme, the style, the note editor's split, wrap, and text size, the library root, the last domain, and the automation server's enablement, port, and scope in `settings.json`; the fold state per domain in `viewstate.json`; the bookmarks in each domain's `bookmarks.json`; the notes in each domain's `notes/`. The flagged filter, the copy clipboard, the zoom and pan, and the undo slot are session-only and never persist.

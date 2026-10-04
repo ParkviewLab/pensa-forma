@@ -7,7 +7,7 @@ Presentation sibling of ui-chrome.md. The Markdown is canonical;
 if the two drift, the Markdown wins and this file is regenerated from it.
 
 One self-contained file: inline style, no script, no network dependency,
-system fonts. The app's own two grounds (azure / navy) appear as CONTENT in
+system fonts. Googie's two grounds (light / dark) appear as CONTENT in
 the widget mocks; the page's chrome keeps to three colours.
 
 Note on fonts: the widget mocks render in the specified faces, League
@@ -165,7 +165,7 @@ td code{ background:transparent; padding:0; }
 
 /* note editor schematic */
 .mock-note{ border:1px solid var(--g-line); border-radius:8px; overflow:hidden;
-  background:var(--g-ground); font-family:'League Spartan', var(--sans); min-width:560px; }
+  background:var(--g-ground); font-family:var(--sans); min-width:560px; }
 .mn-head{ display:flex; align-items:center; gap:10px; padding:12px 16px;
   border-bottom:1px solid var(--g-line); }
 .mn-title{ flex:1; font-size:14px; font-weight:800; letter-spacing:.02em;
@@ -191,7 +191,7 @@ td code{ background:transparent; padding:0; }
 .mn-div::before{ content:""; position:absolute; inset:0 2px; background:var(--g-line); }
 .mn-body{ flex:1; padding:20px 24px; font-size:16px; line-height:1.62; color:var(--g-ink);
   overflow:hidden; min-width:0; }
-.mn-body h4{ font-family:'Boogaloo','League Spartan',sans-serif; font-weight:400; font-size:1.35em; margin:.2em 0 .3em; }
+.mn-body h4{ font-family:var(--sans); font-weight:700; font-size:1.35em; margin:.2em 0 .3em; }
 .mn-body codebit{ font-family:var(--mono); font-size:.88em;
   background:color-mix(in srgb, var(--g-line) 16%, transparent);
   padding:1px 5px; border-radius:4px; }
@@ -255,16 +255,17 @@ exactly what it says, and where it is silent, choose any reasonable behaviour
 and record the choice. Nothing here presumes a rendering technology; every
 visual is geometry, colour, and behaviour any drawing target can honour.
 Every widget mock below is drawn with the specified measurements and colour
-tokens on both grounds (the note editor, for room, on azure alone), in the
-specified faces, League Spartan and Boogaloo, embedded in this file
-(SIL OFL 1.1).</div>
+tokens in Googie, the default style, light and dark (the note editor, for room,
+in light alone), in Googie's faces, League Spartan and Boogaloo, embedded in
+this file (SIL OFL 1.1). In every other style the chrome takes that style's
+colours and faces; its layout, sizes, strings, and behaviour do not change.</div>
 
 <!-- ============================================================ -->
 <h2><span class="n">1</span>The window and native menus</h2>
 <p>One main window, 1280 × 800 at first launch, no minimum size, standard
-platform window chrome, first paint in the ground colour of the theme that
-will apply on this launch (azure <code>#d3e6ef</code> when no choice is
-stored).
+platform window chrome, first paint in the ground colour of the style and
+theme that will apply on this launch (Googie's light <code>#d3e6ef</code> when
+no choice can be read).
 Only <code>http(s)</code> links open, always externally in the system's
 default web browser; the application itself never reaches the network except
 the About window's explicit check. A second launch focuses the first. On
@@ -286,14 +287,14 @@ No automation-server item; no custom accelerators.</p>
 <!-- ============================================================ -->
 <h2><span class="n">2</span>The shell and header bar</h2>
 <p>A single column: the header bar above a canvas viewport that fills the rest.
-The viewport carries a 40px dot grid on its own background (it neither pans nor
-zooms) and shows an empty-state message when there is nothing to draw. Below,
-the full header on both grounds, every measurement real: padding 9px 14px,
-gaps 12, buttons 12px with 1px <code>--line</code> borders and radius 5, the
-segmented Mode pill, the pressed Flagged toggle inverted ink-on-ground.</p>
+The viewport carries the style's ground grid on its own background (it neither
+pans nor zooms; Bauhaus draws none) and shows an empty-state message when there is nothing to draw. Below,
+the full header in Googie light and dark, every measurement real: padding
+9px 14px, gaps 12, buttons 12px with 1px <code>--line</code> borders and
+radius 5, the segmented Mode pill, the Style drop-down, the pressed Flagged toggle inverted ink-on-ground.</p>
 
 <div class="pair">
-  <div class="ground azure"><span class="glabel">azure</span>
+  <div class="ground azure"><span class="glabel">Googie · light</span>
     <div class="mock">
       <div class="mock-topbar">
         <div class="mock-group">
@@ -305,6 +306,7 @@ segmented Mode pill, the pressed Flagged toggle inverted ink-on-ground.</p>
         <div class="mock-group">
           <span class="mock-seglbl">Mode</span>
           <span class="mock-seg"><span class="on">Light</span><span>Dark</span></span>
+          <span class="mock-select">Googie <span class="chev">▾</span></span>
           <span class="mock-btn">Flagged</span>
           <span class="mock-btn icon">−</span>
           <span class="mock-pct">78%</span>
@@ -315,7 +317,7 @@ segmented Mode pill, the pressed Flagged toggle inverted ink-on-ground.</p>
       <div class="mock-canvas">No domain open yet</div>
     </div>
   </div>
-  <div class="ground navy"><span class="glabel">navy</span>
+  <div class="ground navy"><span class="glabel">Googie · dark</span>
     <div class="mock">
       <div class="mock-topbar">
         <div class="mock-group">
@@ -327,6 +329,7 @@ segmented Mode pill, the pressed Flagged toggle inverted ink-on-ground.</p>
         <div class="mock-group">
           <span class="mock-seglbl">Mode</span>
           <span class="mock-seg"><span>Light</span><span class="on">Dark</span></span>
+          <span class="mock-select">Googie <span class="chev">▾</span></span>
           <span class="mock-btn pressed">Flagged</span>
           <span class="mock-btn icon">−</span>
           <span class="mock-pct">100%</span>
@@ -338,9 +341,9 @@ segmented Mode pill, the pressed Flagged toggle inverted ink-on-ground.</p>
     </div>
   </div>
 </div>
-<p class="small">The navy mock shows the MCP dot's error state (orange) and the
-Flagged toggle pressed; the azure mock shows the dot running (teal). Dot
-states: off <code>--c-cancel</code>, running <code>--accent-teal</code>, error
+<p class="small">The dark mock shows the MCP dot's error state (orange) and the
+Flagged toggle pressed; the light mock shows the dot running (teal). Dot
+states: off <code>--c-cancel</code>, running <code>--accent-a</code>, error
 <code>--c-progress</code>; error beats running beats off.</p>
 
 <h3>The widgets, left to right</h3>
@@ -370,8 +373,15 @@ states: off <code>--c-cancel</code>, running <code>--accent-teal</code>, error
       form <code>http://127.0.0.1:35899/mcp</code></td></tr>
   <tr><td>Mode toggle</td><td><code>Mode</code> label 10px uppercase; a pill of
       two segments, active inverted</td>
-      <td>sets the theme state to azure or navy; persists as the
-      <code>theme</code> setting; pure token swap, no re-layout</td></tr>
+      <td>sets the theme to light or dark; persists as the
+      <code>theme</code> setting (<code>light</code> or <code>dark</code>;
+      anything else reads as light); pure token swap, no re-layout</td></tr>
+  <tr><td>Style control</td><td>a drop-down like the domain switcher, label
+      <code>Style</code>: <code>Fröbel</code>, <code>Prairie</code>,
+      <code>Bauhaus</code>, <code>Googie</code>, <code>Suuronen</code></td>
+      <td>sets the style; persists as the <code>style</code> setting (anything
+      unrecognised reads as Googie); re-measures and re-lays out, the camera
+      and zoom holding; the chrome's colours and faces follow</td></tr>
   <tr><td>Flagged toggle</td><td>toggle button; pressed state shown inverted and exposed to
       accessibility as a pressed toggle</td>
       <td>flagged-only review: only flagged cards visible, tracks and dots
@@ -430,7 +440,7 @@ along its workflow; <code>Move left</code>/<code>Move right</code> reorder a
 main workflow.</p>
 
 <div class="pair">
-  <div class="ground azure"><span class="glabel">azure · task menu (upper half)</span>
+  <div class="ground azure"><span class="glabel">Googie light · task menu (upper half)</span>
     <div class="mock-menu">
       <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Status</span><span class="mm-arrow">›</span></div>
       <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Make here</span></div>
@@ -444,7 +454,7 @@ main workflow.</p>
       <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Add branch above</span><span class="mm-arrow">›</span></div>
     </div>
   </div>
-  <div class="ground navy"><span class="glabel">navy · status submenu + MCP menu</span>
+  <div class="ground navy"><span class="glabel">Googie dark · status submenu + MCP menu</span>
     <div style="display:flex; gap:14px; flex-wrap:wrap;">
       <div class="mock-menu">
         <div class="mm-item"><span class="mm-check"></span><span class="mm-label">To do</span></div>
@@ -529,7 +539,7 @@ exists; every notice is one of these, except a failed note autosave, which is
 silent.</p>
 
 <div class="pair">
-  <div class="ground azure"><span class="glabel">azure · text prompt</span>
+  <div class="ground azure"><span class="glabel">Googie light · text prompt</span>
     <div class="mock-modal">
       <div class="md-title">Rename task</div>
       <span class="md-label">Title</span>
@@ -537,7 +547,7 @@ silent.</p>
       <div class="md-actions"><span class="md-btn">Cancel</span><span class="md-btn primary">OK</span></div>
     </div>
   </div>
-  <div class="ground navy"><span class="glabel">navy · choice (danger)</span>
+  <div class="ground navy"><span class="glabel">Googie dark · choice (danger)</span>
     <div class="mock-modal">
       <div class="md-title">Delete “Build”</div>
       <div class="md-msg">Delete this project and everything in it, including
@@ -595,7 +605,7 @@ Escape when focus is outside the source editor; domain switch or external
 deletion of the node also closes it.</p>
 
 <div class="pair">
-  <div class="ground azure" style="flex-basis:100%;"><span class="glabel">azure · edit mode</span>
+  <div class="ground azure" style="flex-basis:100%;"><span class="glabel">Googie light · edit mode</span>
     <div class="mock-note">
       <div class="mn-head">
         <span class="mn-title">Fix Plex transcoding</span>
@@ -692,7 +702,7 @@ stays live; a right-click on it, Escape, or a domain switch closes the panel.
 An external write to the node reloads the list; an external deletion closes
 it silently.</p>
 <div class="pair">
-  <div class="ground azure"><span class="glabel">azure</span>
+  <div class="ground azure"><span class="glabel">Googie · light</span>
     <div class="mock-log">
       <div class="ml-head">Backend <span class="x">✕</span></div>
       <span class="ml-add">Add entry…</span>
@@ -701,7 +711,7 @@ it silently.</p>
       <div class="ml-entry"><div class="ml-meta">31 Aug 2026, 22:40 · system</div><div class="ml-text">Moved above “Frontend” in “Ship v1”.</div></div>
     </div>
   </div>
-  <div class="ground navy"><span class="glabel">navy</span>
+  <div class="ground navy"><span class="glabel">Googie · dark</span>
     <div class="mock-log">
       <div class="ml-head">Backend <span class="x">✕</span></div>
       <span class="ml-add">Add entry…</span>
@@ -816,8 +826,9 @@ own. In the choice dialog Enter does nothing and no button has focus.</p>
 <!-- ============================================================ -->
 <h2><span class="n">10</span>Tokens, fonts, stacking, persistence</h2>
 <h3>Chrome colour tokens</h3>
+<p class="small">Every token takes its value from the style in use and the theme; the values below are Googie's, the default, and each style document gives its own. In every style but Googie, <code>--accent-a</code> takes the style's <code>--c-project</code> and <code>--accent-b</code> its <code>--c-done</code>.</p>
 <table>
-  <thead><tr><th>Token</th><th>Azure (Light)</th><th>Navy (Dark)</th><th>Chrome role</th></tr></thead>
+  <thead><tr><th>Token</th><th>Googie light</th><th>Googie dark</th><th>Chrome role</th></tr></thead>
   <tbody>
   <tr><td><code>--ground</code></td><td><span class="swatch" style="background:#d3e6ef"></span>#d3e6ef</td><td><span class="swatch" style="background:#0f2334"></span>#0f2334</td><td>window and editor background; inverted-button text</td></tr>
   <tr><td><code>--panel</code></td><td><span class="swatch" style="background:#f8f3e8"></span>#f8f3e8</td><td><span class="swatch" style="background:#1a3a54"></span>#1a3a54</td><td>menu, dialog, and panel surfaces</td></tr>
@@ -829,8 +840,8 @@ own. In the choice dialog Enter does nothing and no button has focus.</p>
   <tr><td><code>--c-progress</code></td><td><span class="swatch" style="background:#d75f2e"></span>#d75f2e</td><td><span class="swatch" style="background:#f27a44"></span>#f27a44</td><td>danger buttons, error dot, URL syntax</td></tr>
   <tr><td><code>--c-todo</code></td><td><span class="swatch" style="background:#d9a53a"></span>#d9a53a</td><td><span class="swatch" style="background:#f0bd55"></span>#f0bd55</td><td>list-marker syntax</td></tr>
   <tr><td><code>--c-cancel</code></td><td><span class="swatch" style="background:#8aa0ab"></span>#8aa0ab</td><td><span class="swatch" style="background:#7590a0"></span>#7590a0</td><td>MCP dot off</td></tr>
-  <tr><td><code>--accent-teal</code></td><td><span class="swatch" style="background:#1f8f8a"></span>#1f8f8a</td><td><span class="swatch" style="background:#37c2ba"></span>#37c2ba</td><td>MCP dot on; preview links; code/link syntax</td></tr>
-  <tr><td><code>--accent-violet</code></td><td><span class="swatch" style="background:#7d54a6"></span>#7d54a6</td><td><span class="swatch" style="background:#bd93e6"></span>#bd93e6</td><td>heading syntax</td></tr>
+  <tr><td><code>--accent-a</code></td><td><span class="swatch" style="background:#1f8f8a"></span>#1f8f8a</td><td><span class="swatch" style="background:#37c2ba"></span>#37c2ba</td><td>MCP dot on; preview links; code/link syntax</td></tr>
+  <tr><td><code>--accent-b</code></td><td><span class="swatch" style="background:#7d54a6"></span>#7d54a6</td><td><span class="swatch" style="background:#bd93e6"></span>#bd93e6</td><td>heading syntax</td></tr>
   </tbody>
 </table>
 
@@ -842,19 +853,21 @@ button's <code>--c-progress</code> at 16 %, the caret's line in the editor 12 %,
 code grounds 16 %/14 %, the editor selection <code>--cursor</code> at 24 %,
 the automation dot's inward ring <code>--ink</code> at 25 %. The one opaque
 blend, the danger button's edge (55 % <code>--c-progress</code> with 45 %
-<code>--line</code>), resolves to <code>#8f5d4a</code> on azure and
-<code>#b79580</code> on navy. The dialog backdrop is black at 35 % opacity;
+<code>--line</code>), resolves in Googie to <code>#8f5d4a</code> light and
+<code>#b79580</code> dark, and in other styles from their tokens. The dialog backdrop is black at 35 % opacity;
 the shadows are black at 28 % (menus) and 40 % (dialogs), literal values with
 no token behind them.</p>
 
 <h3>Fonts and stacking</h3>
-<p class="small">Bundled with the application:
-League Spartan (variable 100–900, the UI face) and Boogaloo (weight 400
-only, the display face), both SIL OFL 1.1; monospace is the platform's
-standard face. Chrome roles: brand 13px/800
+<p class="small">The chrome is set in the style's faces: Fröbel Instrument
+Sans with Spline Sans Mono; Prairie and Bauhaus Jost throughout; Googie
+Boogaloo (display), League Spartan (interface), and Spline Sans Mono; Suuronen
+Familjen Grotesk with Spline Sans Mono. All six families are bundled under the
+SIL OFL 1.1. The note editor and the About window keep the platform's
+sans-serif and monospace in every style. Chrome roles: brand 13px/800
 display uppercase; buttons and selects 12px; percent 11px tabular; menus
 12.5px; dialog titles 14px/800; note source 13px mono; note preview 16px
-(12–28 adjustable) with display-font headings. Draw order within the window, back to front: map world, the drop indicator and
+(12–28 adjustable) with bold headings. Draw order within the window, back to front: map world, the drop indicator and
 ghost during a drag, the activity log panel, context menu, dialog layer, note
 editor, then a dialog raised from within the open editor (which must paint
 above it); About and Licenses are separate windows.</p>
@@ -863,7 +876,7 @@ above it); About and Licenses are separate windows.</p>
 <table>
   <thead><tr><th>Where</th><th>Key / file</th><th>Holds</th></tr></thead>
   <tbody>
-  <tr><td><code>settings.json</code> in the data directory</td><td><code>theme</code></td><td><code>azure</code> or <code>navy</code></td></tr>
+  <tr><td><code>settings.json</code> in the data directory</td><td><code>theme</code> · <code>style</code></td><td><code>light</code> or <code>dark</code> (default light); <code>froebel</code>, <code>prairie</code>, <code>bauhaus</code>, <code>googie</code>, or <code>suuronen</code> (default googie)</td></tr>
   <tr><td><code>settings.json</code></td><td><code>note.split</code> · <code>note.wrap</code> · <code>note.fontSize</code></td><td>editor split fraction (default .5); soft wrap (default on); preview text px (12..28, default 16)</td></tr>
   <tr><td><code>settings.json</code></td><td><code>libraryRoot</code> · <code>lastDomain</code> · <code>server</code></td><td>the library root; the last domain by id; the automation server's enabled (default on), port (35899), scope (read-only / read-write / destructive; default read-write)</td></tr>
   <tr><td><code>viewstate.json</code> in the data directory</td><td>per domain id</td><td>ids of the begin or start nodes of folded scopes</td></tr>

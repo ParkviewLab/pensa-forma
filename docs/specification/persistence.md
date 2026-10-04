@@ -194,7 +194,8 @@ The file is absent until the first bookmark is added and is written atomically l
   "libraryRoot": "/Users/gary/Library/Application Support/ai.parkviewlab.pensa-forma/domains",
   "lastDomain": "d_mrtwgppt01",
   "server": { "enabled": true, "port": 35899, "scope": "read-write" },
-  "theme": "azure",
+  "theme": "light",
+  "style": "googie",
   "note": { "split": 0.5, "wrap": true, "fontSize": 16 }
 }
 ```
@@ -206,7 +207,8 @@ The file is absent until the first bookmark is added and is written atomically l
 | `server.enabled` | `true` | whether the automation server starts with the application |
 | `server.port` | `35899` | its loopback port; never roams |
 | `server.scope` | `read-write` | `read-only`, `read-write`, or `destructive` |
-| `theme` | `azure` | `azure` or `navy` |
+| `theme` | `light` | `light` or `dark`; anything else reads as `light` |
+| `style` | `googie` | `froebel`, `prairie`, `bauhaus`, `googie`, or `suuronen`; anything else reads as `googie` |
 | `note.split` | `0.5` | the note editor's divider fraction |
 | `note.wrap` | `true` | soft wrapping in the note source pane |
 | `note.fontSize` | `16` | the preview's base text size, 12 to 28 |
@@ -223,7 +225,7 @@ The environment variable `PENSAFORMA_SERVER_SCOPE`, when set to one of the three
 
 It is disposable: a corrupt or missing file reads as empty and is overwritten by the next write. It is kept out of the domain directory because it is this client's state, not the domain's (northstar, axiom 9).
 
-The theme, the flagged-only toggle, the copy clipboard, and the zoom and pan are not persisted here: the theme is a setting, and the rest are session state.
+The theme, the style, the flagged-only toggle, the copy clipboard, and the zoom and pan are not persisted here: the theme and the style are settings, and the rest are session state.
 
 ## 8. The atomic write
 
