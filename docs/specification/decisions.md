@@ -459,6 +459,12 @@ Only a main workflow is copied (`copy_workflow`, from its start card), and a cli
 
 The source pane is egui's multiline `TextEdit` over a `String`, coloured by a layouter that caches its result, with the line-number gutter and the caret line's tint painted beside it; the preview is `egui_commonmark`. A note is a short markdown file on one node, so what a full editor engine brings (a rope, virtual scrolling, several cursors) matters little, and `TextEdit` brings, maintained by egui, what a borrowed engine might not: input methods, accessibility, undo, and the platform's keyboard behaviour. The cost is one selection, and a layout of the whole text on each change. The alternatives weighed: an editor engine taken from another egui application (MIT, about 15,600 lines, not a crate, so a vendored copy to port and maintain); `kode-core` with `kode-markdown` (MIT, a headless core on ropey, whose interface would be written whole); `egui_code_editor` (MIT, itself built on `TextEdit`); `egui_cosmic_text` (MIT, unmaintained since August 2024, without input methods or accessibility); and a JavaScript editor in a web view, which would bring a JavaScript runtime into the application.
 
+### D53. A write names its domain by id; a read may name it by id, name, or path
+
+*2026-10-04.*
+
+Every write takes the domain's id and nothing else, as it takes a node's id and nothing else, because a domain can be renamed between a caller's read and its write and a write addressed by name could land in another domain. A read takes the domain's id, name, or directory path, and when it names none it reads the domain open in the window. The earlier default for every tool, "the last-opened domain", is dropped: it named no one's last opening, and a write that omitted its domain would have landed in whatever domain the person had last switched to.
+
 ## Proposed
 
 None at present.

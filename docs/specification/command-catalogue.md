@@ -13,7 +13,7 @@ Vocabulary is the [glossary](glossary.md)'s; structure and invariants are the [s
 
 ## 1. Conventions
 
-**Arguments.** Every argument of a write that names an object takes an id and nothing else: titles change under a caller between its read and its write, so a title is never an address on a write. A read's node argument takes an id or a non-empty title, since a non-empty title names exactly one node (structural model, I19); a title that names no node refuses `not_found`. A `node` argument accepts a node of any kind unless the command says which; a command that takes one kind refuses the rest and names the command that would accept them.
+**Arguments.** Every argument of a write that names an object takes an id and nothing else, the domain included: titles change under a caller between its read and its write, so a title is never an address on a write. A read's node argument takes an id or a non-empty title, since a non-empty title names exactly one node (structural model, I19); a title that names no node refuses `not_found`. A `node` argument accepts a node of any kind unless the command says which; a command that takes one kind refuses the rest and names the command that would accept them.
 
 **Positions.** Several commands place something. They share one target grammar:
 
@@ -70,7 +70,7 @@ Tier read-write. Not undoable. Sets the record's `name` and re-derives the direc
 
 ### `delete_domain(domain)`
 
-Tier destructive. Not undoable. Moves the whole domain directory, record, bookmarks, and notes, to the system's Trash, from which it can be restored. The argument is required; a caller may not delete "the open domain" by omission. Refusal `not_found`: "No domain named <domain>."
+Tier destructive. Not undoable. Moves the whole domain directory, record, bookmarks, and notes, to the system's Trash, from which it can be restored. The argument is required and is the domain's id; a caller may not delete "the open domain" by omission. Refusal `not_found`: "No domain named <domain>."
 
 ---
 

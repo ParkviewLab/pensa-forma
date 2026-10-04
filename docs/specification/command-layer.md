@@ -36,7 +36,7 @@ A command is a name, a domain, and an argument list, with its provenance.
 ```
 Command  { name, domain, args, origin, actor, revision? }
   name      a member of the catalogue
-  domain    a domain id, its name, or its directory path
+  domain    for a write, the domain's id; for a read, its id, its name, or its directory path
   args      the arguments the named mutation takes after the record
   origin    ui | automation
   actor     { kind: user | agent, name }   recorded on any log entry written
@@ -75,7 +75,7 @@ The chrome's `Change not saved` dialog shows the message verbatim.
 Eleven steps, in order, under one lock held for the whole sequence so that no two commands interleave. Any step may refuse, and a refusal before step ten has touched no storage.
 
 1. **Admit.** The command name is checked against the catalogue. For a command from the automation server, its scope tier is checked here (section 9). Refusals: `unknown_command`, `scope_denied`.
-2. **Resolve the domain.** An id, a name, or a path becomes a directory. Refusal: `not_found`.
+2. **Resolve the domain.** The domain becomes a directory: a write's by its id alone, a read's by its id, its name, or its path. Refusal: `not_found`.
 3. **Load.** The domain file's text is read. Refusal: `read_failed`.
 4. **Parse and migrate.** The text is parsed by the tolerant reader and brought to the current schema version (section 6). Refusal: `read_failed` with the parser's own message.
 5. **Validate the loaded record.** The record as loaded is checked against every invariant in section 4 of the structural model, by the same checker as step eight. A stored record that fails is refused before anything is applied, and the file is left as it is. Refusal: `invalid`, naming the invariant and the ids concerned.
