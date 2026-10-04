@@ -180,7 +180,7 @@ From back to front, in every style: the ground and its grid; the risers and late
 
 ## 14. Implementation notes, for any drawing target
 
-Quadratic and cubic Béziers, arcs, ellipses, and superellipses may lack native primitives. Flatten each curve to a short polyline by sampling (16 subdivisions per Bézier, 48 points per ellipse, and 88 to 176 per superellipse are ample at card scale), in world coordinates before any camera transform, so the density is chosen once at model scale.
+Quadratic and cubic Béziers, arcs, ellipses, and superellipses may lack native primitives. For painting, flatten each curve after the camera transform, in screen coordinates, to a tolerance of 0.1 pixel, so that a curve stays smooth at every zoom; the work is redone each frame. For the route delivered to the layout (section 5), which does not depend on the zoom, flatten once in world coordinates by sampling (16 subdivisions per Bézier, 48 points per ellipse, and 88 to 176 per superellipse are ample at card scale). The two differ by a fraction of a pixel, which no check depends on.
 
 A two-fill outline (Googie) is two fills, never a stroke. A stroked outline (Fröbel, Suuronen) is a stroke of the stated width centred on the path. A band clipped to a silhouette (Fröbel) is the intersection of a rectangle with the silhouette's polygon. Every such band spans its silhouette's full width at one edge, and every silhouette so banded is convex, so where the target cannot clip to a path the band is computed as the flattened silhouette cut by one straight line at the band's inner edge, keeping the part beyond it; the result is convex and fills on the fast path. A style that banded a concave silhouette, or a band short of the full width, would need a general polygon intersection.
 
