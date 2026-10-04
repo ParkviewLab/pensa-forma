@@ -421,7 +421,7 @@ The layout engine and all its constants are the same in every style. A style sup
 
 *2026-09-17.*
 
-A style may tint its bodies as the drawing recedes, by one mechanism in the contract: bodies are paper at and above 72 % and fully tinted at and below 45 %, the tint arriving front-loaded, `k = 1 − (1 − t)²`, so most of it is present by 60 %. At the default view of 80 % every body is paper and the outlines carry the state; zoomed out to fit, where a 2 outline thins to a hair, the bodies carry it. Fröbel and Suuronen take part; Googie, Bauhaus, and Prairie do not.
+A style may tint its bodies as the drawing recedes, by one mechanism in the contract: bodies are paper at and above 72 % and fully tinted at and below 45 %, the tint arriving front-loaded, `k = 1 − (1 − t)²`, so most of it is present by 60 %. At 80 % every body is paper and the outlines carry the state; zoomed out to fit, where a 2 outline thins to a hair, the bodies carry it. Fröbel and Suuronen take part; Googie, Bauhaus, and Prairie do not.
 
 ### D47. Googie's two marks
 

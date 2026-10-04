@@ -119,7 +119,7 @@ Pressed, it puts the map into flagged-only review: only flagged cards remain vis
 
 A row, items 6px apart: icon button `−` (U+2212, accessible label `Zoom out`), a percent readout, icon button `+` (`Zoom in`), and a primary button `Fit`.
 
-- The readout: 11px, `--muted`, at least 42px wide, centred, digits at equal widths so the number does not jitter; shows the zoom rounded to a whole percent, initially `100%`.
+- The readout: 11px, `--muted`, at least 42px wide, centred, digits at equal widths so the number does not jitter; shows the zoom rounded to a whole percent: `100%` before a domain is drawn and for an empty domain, which `Fit` has nothing to frame, and otherwise the zoom `Fit` chose on opening.
 - Zoom bounds 0.2 to 3.0, so the readout ranges `20%` to `300%`.
 - The buttons zoom by a factor of 1.2 (in) and 1/1.2 (out), anchored at the viewport centre. (Scroll-wheel input zooms by 1.1 per step anchored at the pointer; noted here because it moves the same readout.)
 - `Fit` frames the whole map: zoom = the smaller of viewport/bounds per axis, times 0.94 (a 3 % margin per side), clamped to the bounds above, centred both axes. Fit also runs on every window resize (discarding the user's pan/zoom), on opening a domain, and as the fallback when a bookmark's nodes no longer exist.

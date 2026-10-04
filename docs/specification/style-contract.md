@@ -104,7 +104,7 @@ k = 1 − (1 − t)²
 fill = mix in OKLab: k of the tint token, 1 − k of --panel
 ```
 
-Bodies are paper at and above 72 % and fully tinted at and below 45 %; the curve is front-loaded, so most of the tint has arrived by 60 %. The application's default view of 80 % is therefore untinted. The tint tokens are `--c-todo-tint`, `--c-progress-tint`, `--c-done-tint`, `--c-cancel-tint`, `--c-project-tint`, and `--c-workflow-tint`. Fröbel and Suuronen take part; Googie, Bauhaus, and Prairie do not. Specimens drawn at 100 % are paper.
+Bodies are paper at and above 72 % and fully tinted at and below 45 %; the curve is front-loaded, so most of the tint has arrived by 60 %. A drawing viewed at 80 % is therefore untinted; the application opens a domain fitted to the window (UI chrome, section 3.7), so a large domain opens tinted. The tint tokens are `--c-todo-tint`, `--c-progress-tint`, `--c-done-tint`, `--c-cancel-tint`, `--c-project-tint`, and `--c-workflow-tint`. Fröbel and Suuronen take part; Googie, Bauhaus, and Prairie do not. Specimens drawn at 100 % are paper.
 
 ## 9. Tokens and faces
 
