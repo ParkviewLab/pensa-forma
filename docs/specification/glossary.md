@@ -343,9 +343,9 @@ Every change to a domain is one command through one write path.
 
 ### Clip
 
-A clip is the value `copy_project` returns: a project's extent, with every note's text carried by value.
+A clip is the value `copy_workflow` returns: a main workflow's extent, with every field and every note's text carried by value.
 
-`paste` splices a clip in with fresh ids: onto an edge target as a project, onto a branch target as a branch workflow, and onto a main target as a main workflow.
+`paste` adds a clip as a new main workflow, in the same domain or another, as an exact copy: only the ids are new, and a title is suffixed where it collides in the destination. A clip is never pasted into a workflow.
 
 ### Conversion
 

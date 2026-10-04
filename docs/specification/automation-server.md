@@ -78,7 +78,7 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 | `read_note(node)` | `read_note` |
 | `read_log(node)` | `read_log` |
 | `find_flagged(domain?)` | `find_flagged` |
-| `copy_project(begin)` | `copy_project`, returning a clip for `paste` |
+| `copy_workflow(start)` | `copy_workflow`, returning a clip of a main workflow for `paste` |
 
 ### Read-write
 
@@ -105,7 +105,7 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 | `detach_return(start_id)` | `detach_return` |
 | `set_note(node_id, text)` | `set_note` |
 | `add_log_entry(node_id, text)`, `edit_log_entry(node_id, entry_id, text)`, `delete_log_entry(node_id, entry_id)` | the three log commands |
-| `paste(clip, target)` | `paste` |
+| `paste(clip, target?)` | `paste`, as a new main workflow |
 
 An agent's log entries carry `author: { kind: agent, name }`, where `name` is the client's name from the request's `_meta` (`io.modelcontextprotocol/clientInfo`), or `"agent"` when the request carries none. The name is read from the request's `_meta` alone, never from a value the MCP library supplies in its place: rmcp's `client_info()` falls back, for a stateless request on an earlier revision, to a stand-in naming rmcp itself.
 

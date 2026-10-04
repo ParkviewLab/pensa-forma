@@ -439,6 +439,12 @@ A colour chosen by eye is a token per theme, and its derivation (an even spacing
 
 The server follows MCP's 2026-07-28 revision, which removed sessions and the `initialize` handshake: a client calls `server/discover` for the capabilities and instructions, and every request carries the client's details in its `_meta`, its name among them, optionally. The name on an agent's log entry is read from that `_meta` and from nothing else, and is `"agent"` when absent. A client on an earlier revision is served as well, statelessly (rmcp's `legacy_session_mode` off): its handshake is answered, every tool is available to it, and its log entries say `"agent"`, since its name arrives only in a handshake the server does not keep. Refusing earlier clients was rejected because it would lock out agent tools that have not yet moved to the new revision, at no gain; serving them with sessions was rejected because it would need the `GET` and `DELETE` endpoints and a session store for no benefit beyond the name on their log entries.
 
+### D51. Copy and paste make an exact copy of a main workflow, and nothing more
+
+*2026-10-04.*
+
+Only a main workflow is copied (`copy_workflow`, from its start card), and a clip is pasted only as a new main workflow, in the same domain or another. Its purpose is to carry a workflow from one domain to another. The copy is exact: statuses, completion dates, here marks, flags, and activity logs are all kept; only the ids are new, and a title is suffixed where it collides in the destination (D38). Copying a project, and pasting into a workflow as a project or at a branch point as a branch, are dropped: they served no need, and each needed rules of its own, such as turning a begin and end pair into a start and finish pair. A copy wanted inside another flow is pasted as a main workflow and dragged into place, since `move_workflow` makes a main workflow a branch.
+
 ## Proposed
 
 None at present.

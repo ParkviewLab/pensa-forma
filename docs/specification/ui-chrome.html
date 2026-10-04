@@ -485,7 +485,6 @@ main workflow.</p>
   <tr><td><code>Add task above</code> · <code>Add task below</code></td><td>always</td></tr>
   <tr><td><code>Add branch above</code> ▸ Left / Right · <code>Add branch below</code> ▸ Left / Right</td><td>always</td></tr>
   <tr><td><code>Return a branch here</code> ▸ · <code>Move a branch here</code> ▸</td><td>candidate branches exist (labelled by the branch's start-node title, or untitled when the title is empty)</td></tr>
-  <tr><td><code>Paste above</code> · <code>Paste below</code></td><td>a Copy has been made this session</td></tr>
   <tr><td>separator; <code>Edit note…</code>; <code>Delete note…</code>; <code>Activity log…</code></td><td>delete only when a note exists (its presence is the indicator)</td></tr>
   <tr><td>separator; <code>Delete…</code></td><td>always</td></tr>
   </tbody>
@@ -495,7 +494,7 @@ main workflow.</p>
 <p class="small">Begin card: same as a task less the Status and here items;
 <code>Make project</code> becomes <code>Make task</code>; after the Wrap item
 it gains <code>Unwrap…</code>, <code>Expand</code>/<code>Collapse</code>,
-<code>Copy</code>, and <code>Export to Markdown…</code> (an OS save dialog,
+and <code>Export to Markdown…</code> (an OS save dialog,
 default name <code>&lt;title&gt;.md</code> or <code>export.md</code> for a
 blank title, writing the extent as a nested checkbox outline; the
 serialisation is the Markdown's section 5.1). Its <code>Delete…</code> deletes
@@ -510,17 +509,16 @@ paired begin node). No note or log items: an end node carries neither. No
 <p class="small">Start card: <code>Rename…</code>; for a main workflow
 <code>Move left</code>/<code>Move right</code> when a neighbour exists;
 <code>Expand</code>/<code>Collapse</code> (a workflow folds like a project,
-D15 as amended); a separator; <code>Add task above</code>, <code>Add branch
-above</code> ▸, <code>Paste above</code> with a clip, all three absent while
-the workflow is folded; a separator; <code>Copy</code>, <code>Export to
-Markdown…</code>, the note items, <code>Activity log…</code>; a separator;
+D15 as amended); a separator; <code>Add task above</code> and <code>Add branch
+above</code> ▸, both absent while the workflow is folded; a separator; for a
+main workflow <code>Copy</code>, then <code>Export to Markdown…</code>, the note items, <code>Activity log…</code>; a separator;
 <code>Delete…</code>, deleting the whole workflow. Finish card: <code>Detach
-return</code> when a branch returns; <code>Add task below</code>, <code>Add
-branch below</code> ▸, <code>Paste below</code> with a clip, absent while
-folded; a separator; <code>Expand</code>/<code>Collapse</code> (acting on
+return</code> when a branch returns; <code>Add task below</code> and <code>Add
+branch below</code> ▸, absent while folded; a separator; <code>Expand</code>/<code>Collapse</code> (acting on
 the paired start node). No note or log items: a finish node carries neither.</p>
 <p class="small">Canvas: <code>New workflow…</code>; <code>Paste as new
-workflow</code> (only with a session clipboard); separator; <code>Add
+workflow</code> (only with a session clipboard; an exact copy of the copied
+main workflow, with new ids and suffixed titles where they collide); separator; <code>Add
 bookmark…</code> (on an empty domain it silently does nothing); <code>Jump to
 bookmark</code> ▸ and <code>Delete bookmark</code> ▸ when bookmarks exist.
 Junction diamonds have no menu of their own; right-clicking one opens this

@@ -265,11 +265,11 @@ Refusals. `bad_arguments`: "A finish node and an end node are one half of a pair
 <n> nodes; confirm." (issued to the window only, which turns it into the
 dialog; an agent's call carries no confirmation and proceeds.)
 
-### `paste(clip, target)`
+### `paste(clip, target?)`
 
-Tier read-write. Undoable. Subject: the new begin or start node. A clip is the value `copy_project` returns (section 9): a project's extent with fresh ids minted on paste and every note's text carried by value; each pasted node's non-empty title is made unique against the destination and against the nodes already pasted from the clip. Onto an edge target, the clip is spliced in as a project; onto a branch target, as a branch workflow whose start and finish nodes are the clip's begin and end; onto a main target, as a new main workflow likewise. Note files are written for every node that had a note, before the record. Log: `created`, "Pasted."
+Tier read-write. Undoable. Subject: the new start node. A clip is the value `copy_workflow` returns (section 9): a main workflow's extent, with every field of every node, gap, and workflow in it and every note's text carried by value. Paste adds it as a new main workflow at the main target given or, absent one, at the end, in the domain it came from or in another; it is never spliced into a workflow. The copy is exact: statuses, completion dates, here marks, flags, the sides and orders of branches, and activity logs all travel unchanged. Only two things differ from the original. Every id is freshly minted (of nodes, gaps, workflows, and log entries), with every reference inside the clip rewritten to match, so that nothing collides with the destination. Each pasted node's non-empty title is made unique against the destination and against the nodes already pasted from the clip. Note files are written for every node that had a note, before the record. Log: `created`, "Pasted."
 
-Refusals. `bad_arguments`: "The clip is malformed." Refusals of the target as for `move_project`.
+Refusals. `bad_arguments`: "The clip is malformed." `bad_arguments`: "A workflow is pasted at a position among the domain's main workflows."
 
 ---
 
@@ -287,7 +287,9 @@ Reads take the lock, read the record, and answer from it with the domain's `revi
 | `read_note(node)` | the note's text, or empty when the node has none |
 | `read_log(node)` | the node's activity log, newest first |
 | `find_flagged(domain)` | every flagged node with its kind, title, workflow, and innermost project |
-| `copy_project(begin)` | a clip for `paste` |
+| `copy_workflow(start)` | a clip of a main workflow for `paste` |
+
+`copy_workflow` takes the start node of a main workflow and refuses any other node with `bad_arguments`: "Only a main workflow is copied; name its start node."
 
 The outline form is a nested text rendering of a workflow: one line per node with its kind glyph, title, and status, branches indented beneath the lower node of the gap they depart from and marked with the gap they return to, so that an agent can read a workflow in one call and address any node or gap by the id printed beside it.
 

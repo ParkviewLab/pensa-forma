@@ -180,8 +180,7 @@ Every editing item routes through the command layer: the operation runs against 
 | Move a branch here ▸ `<branch>` | `move_workflow` to this gap's branch point, same side, outermost |
 | Detach return | `detach_return` |
 | Expand / Collapse | fold state (client-local; no command) |
-| Copy | `copy_project` (session clipboard) |
-| Paste above / Paste below | `paste` at the derived edge target |
+| Copy | `copy_workflow` (session clipboard) |
 | Paste as new workflow | `paste` at the end of the domain's order |
 | Export to Markdown… | a read plus the export writer (section 5.1) |
 | Edit note… / Delete note… | the note editor / `delete_note` |
@@ -190,7 +189,7 @@ Every editing item routes through the command layer: the operation runs against 
 | New workflow… | `create_workflow` |
 | Add bookmark… / Jump to bookmark ▸ / Delete bookmark ▸ | the bookmarks file (section 11; no command) |
 
-`Copy` snapshots the project's extent and its notes by value into a session clipboard that survives a domain switch and not a quit.
+`Copy` snapshots a main workflow's extent and its notes by value into a session clipboard that survives a domain switch and not a quit, so that a workflow copied in one domain can be pasted into another. `Paste as new workflow` adds an exact copy, with new ids and with titles suffixed where they collide (the catalogue, section 8).
 
 ### 5.1 Export to Markdown
 
@@ -234,7 +233,6 @@ Right-click on a task card. Items in order; an empty condition column means alwa
 | `Add branch below` ▸ `Left` / `Right` | |
 | `Return a branch here` ▸ | legal candidate branches exist; one entry per branch, labelled by its start node's title, or `untitled` when the title is empty |
 | `Move a branch here` ▸ | same rule and labelling, for the branch's departure |
-| `Paste above` / `Paste below` | a Copy has been made this session |
 | separator | |
 | `Edit note…` | |
 | `Delete note…` | only when the node has a note (the item's presence is the indicator) |
@@ -244,7 +242,7 @@ Right-click on a task card. Items in order; an empty condition column means alwa
 
 ### 6.3 The begin-card menu
 
-Same builder, with these differences: no `Status` submenu and no here items (a begin node has neither); `Make project` becomes `Make task`; after the Wrap item it gains `Unwrap…`, then `Expand` or `Collapse` (by current fold state), `Copy`, and `Export to Markdown…`. Its `Delete…` deletes the whole project.
+Same builder, with these differences: no `Status` submenu and no here items (a begin node has neither); `Make project` becomes `Make task`; after the Wrap item it gains `Unwrap…`, then `Expand` or `Collapse` (by current fold state) and `Export to Markdown…`. Its `Delete…` deletes the whole project.
 
 Folded-scope withholdings: when the project is folded, `Add task above`, `Add branch above`, `Return a branch here`, and `Move a branch here` are absent (not disabled), because anything added on the gap above a folded begin node would land invisibly inside the fold; expanding restores them.
 
@@ -254,11 +252,11 @@ Right-click on a project's close. It has no title, status, here mark, note, or l
 
 ### 6.5 The start-card menu
 
-Right-click on a workflow's start node: `Rename…`; for a main workflow `Move left` and `Move right` (each present when a neighbour exists in the domain's order); `Expand` or `Collapse` (by current fold state; D15 as amended); a separator; `Add task above`, `Add branch above` ▸, and, when a clip exists, `Paste above`, all three absent while the workflow is folded, since anything added on the gap above a folded start node would land invisibly inside the fold; a separator; `Copy` and `Export to Markdown…`; `Edit note…`, `Delete note…` when a note exists, `Activity log…`; a separator; `Delete…`, which deletes the whole workflow.
+Right-click on a workflow's start node: `Rename…`; for a main workflow `Move left` and `Move right` (each present when a neighbour exists in the domain's order); `Expand` or `Collapse` (by current fold state; D15 as amended); a separator; `Add task above` and `Add branch above` ▸, both absent while the workflow is folded, since anything added on the gap above a folded start node would land invisibly inside the fold; a separator; for a main workflow `Copy`, then `Export to Markdown…`; `Edit note…`, `Delete note…` when a note exists, `Activity log…`; a separator; `Delete…`, which deletes the whole workflow.
 
 ### 6.6 The finish-card menu
 
-Right-click on a workflow's close: for a branch workflow, `Detach return` when it returns (D18); `Add task below`, `Add branch below` ▸, and `Paste below` when a clip exists, all three absent while the workflow is folded; a separator; `Expand` or `Collapse` (resolved against the start node the close pairs with). A finish node carries no note and no log, so there are no note or log items. A main workflow's finish card omits `Detach return`. No `Delete…`.
+Right-click on a workflow's close: for a branch workflow, `Detach return` when it returns (D18); `Add task below` and `Add branch below` ▸, both absent while the workflow is folded; a separator; `Expand` or `Collapse` (resolved against the start node the close pairs with). A finish node carries no note and no log, so there are no note or log items. A main workflow's finish card omits `Detach return`. No `Delete…`.
 
 ### 6.7 The canvas menu
 
