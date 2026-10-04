@@ -351,7 +351,7 @@ A 6px column-resize handle whose visible rule is the middle 2px in `--line`, tur
 
 ### 8.3 The source pane
 
-A plain-text editing area with markdown syntax highlighting, standard text-editing behaviour (caret, selection, the toolkit's undo and input-method support), and an optional line-number gutter. Text: the platform's monospace face at 13px, line height 1.6. Chrome: transparent background; the gutter, if drawn, transparent with `--muted` numbers and no edge; the caret's line tinted `--line` at 12 % opacity; the caret itself `--cursor`; selection `--cursor` at 24 % opacity; no focus outline. Soft line wrapping is toggled live by the toolbar's `Wrap` button (the `note.wrap` setting, default on).
+A plain-text editing area with markdown syntax highlighting, standard text-editing behaviour (caret, selection, the toolkit's undo and input-method support), and an optional line-number gutter. Text: Spline Sans Mono at 13px, line height 1.6. Chrome: transparent background; the gutter, if drawn, transparent with `--muted` numbers and no edge; the caret's line tinted `--line` at 12 % opacity; the caret itself `--cursor`; selection `--cursor` at 24 % opacity; no focus outline. Soft line wrapping is toggled live by the toolbar's `Wrap` button (the `note.wrap` setting, default on).
 
 Syntax colours (all tokens, so they follow the theme): headings `--accent-b` bold; strong `--ink` bold; emphasis `--ink` italic; strikethrough `--muted` struck; inline code `--accent-a`; link text `--accent-a` underlined; URLs `--c-progress`; blockquote `--muted` italic; list markers and link labels `--c-todo`; horizontal rules and every markup marker (`#`, `**`, `>`, `-`, `1.`, backticks) dimmed `--muted`.
 
@@ -379,7 +379,7 @@ A wrapping row above the source (inner spacing 6px vertical and 8px horizontal, 
 
 The preview renders the note as CommonMark with the common extensions (tables, strikethrough, task-list checkboxes) plus math: `$…$` inline and `$$…$$` display, typeset properly, with a malformed formula rendering as visible error text rather than aborting the preview. Note text is untrusted input: rendering must not execute anything it contains, and links must be inert except explicit `http(s)` destinations. The preview re-renders on every keystroke, debounced to the frame.
 
-Styling (inner spacing 20px vertical and 24px horizontal; base text 16px, adjustable per 8.1; line height 1.62; `--ink`): headings at levels 1 to 3 in the platform's sans-serif at 1.7 / 1.4 / 1.18 times the base size, weight 700, line height 1.15, each with 1.3 times its own size above and 0.45 times its own size below; block elements share a bottom margin of 0.85 times the base; links `--accent-a`, underlined on hover only; inline code in the monospace face at 0.88 of the base over `--line` at 16 % opacity, inner spacing 1px and 5px, radius 4; code blocks over `--line` at 14 %, inner spacing 12px and 14px, radius 8, scrollable; blockquotes carry a 3px `--line` left edge and `--muted` text; tables rule all cells with 1px `--line` lines, cells padded 5px and 10px; horizontal rules are a single 1px `--line` line; images never exceed the pane width.
+Styling (inner spacing 20px vertical and 24px horizontal; base text Instrument Sans at 16px, adjustable per 8.1; line height 1.62; `--ink`): headings at levels 1 to 3 in Instrument Sans at 1.7 / 1.4 / 1.18 times the base size, weight 700, line height 1.15, each with 1.3 times its own size above and 0.45 times its own size below; block elements share a bottom margin of 0.85 times the base; links `--accent-a`, underlined on hover only; inline code in Spline Sans Mono at 0.88 of the base over `--line` at 16 % opacity, inner spacing 1px and 5px, radius 4; code blocks over `--line` at 14 %, inner spacing 12px and 14px, radius 8, scrollable; blockquotes carry a 3px `--line` left edge and `--muted` text; tables rule all cells with 1px `--line` lines, cells padded 5px and 10px; horizontal rules are a single 1px `--line` line; images never exceed the pane width.
 
 Link activation in the preview opens externally (only `http(s)`; anything else is ignored); in-document anchor links behave as ordinary in-pane jumps.
 
@@ -403,7 +403,7 @@ The panel reconciles like the editor: an external write to the node reloads the 
 
 Opened from the application menu (where one exists) or the Help menu. A singleton; opening again focuses the existing window.
 
-A separate window, 420 × 300, fixed size (not resizable, minimisable, maximisable, or full-screenable), no menu bar of its own, titled `About PensaForma`. It has its own fixed dark palette independent of the application's themes: background `#111116`, text `#e9e9ec`, the platform's standard UI face, text unselectable, content centred with inner spacing 30px vertical and 34px horizontal.
+A separate window, 420 × 300, fixed size (not resizable, minimisable, maximisable, or full-screenable), no menu bar of its own, titled `About PensaForma`. It has its own fixed dark palette independent of the application's themes: background `#111116`, text `#e9e9ec`, Instrument Sans, text unselectable, content centred with inner spacing 30px vertical and 34px horizontal.
 
 Content, top to bottom: `PensaForma` (21px, weight 600); `Version <x.y.z>` (12px, `#9494a0`); an update line (12px, `#9494a0`, held at a fixed minimum height of 16px so the network answer never shifts the layout); `© 2026 Gary Frattarola` (11px, `#858590` at 56 % opacity, rendering near `#53535a` over the `#111116` ground); and a link `Source code` (`#4fc3f7`, 12px, underlined on hover) to the project's source-hosting page, opened externally.
 
@@ -508,7 +508,7 @@ Each style names three faces, display, interface, and data (style contract, sect
 
 Six families are therefore bundled: Boogaloo, League Spartan, Spline Sans Mono, Familjen Grotesk, Instrument Sans, and Jost. No platform font is used anywhere, as a face or as a fallback: a character that no bundled face holds shows as the face's empty box (an in-flight idea records the remedies). Where this document asks for a weight the style's face lacks (the brand at 800 in Boogaloo, which has only 400), render a synthesised bold and keep it consistent.
 
-The note editor and the About window do not follow the style: their text is in the platform's standard sans-serif, and the note source and code in the platform's standard monospace, as before; nothing else is bundled for them.
+The note editor and the About window do not follow the style: their text is in Instrument Sans, and the note source and code in Spline Sans Mono, in every style. Both faces are among the six bundled.
 
 Chrome text roles: brand 13px/800 display uppercase; switcher and buttons 12px UI; icon buttons 14px; mode label and dialog field labels 10px uppercase with 0.12 tracking; percent readout 11px with equal-width digits; empty state 14px; menus 12.5px; dialog titles 14px/800; dialog messages 12.5px; dialog inputs 13px; note-editor title 14px/800; note toolbar 12px; note source 13px monospace; note preview 16px (user-adjustable 12 to 28) with bold headings; log panel meta 11px and text 12.5px.
 

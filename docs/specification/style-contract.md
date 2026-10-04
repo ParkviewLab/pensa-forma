@@ -125,7 +125,7 @@ A style supplies a value for every required token in both themes, light and dark
 
 and, where it uses them, the optional tokens: `--c-project-tint` and `--c-workflow-tint` (a boundary's body), the four state tints of section 8, `--c-here` (a here mark in a colour of its own), `--c-junction` (a junction's centre where it differs from `--line`), and `--c-shade` (a shadow on a card's body). A colour chosen by eye is a token per theme; its derivation is recorded in the style document as its reason and as a constraint on retuning, not computed. A colour defined as a relation between two tokens (Suuronen's keel, a mix toward `--ink`) is a rule the application applies, like the tint curve.
 
-A style names three faces by role: the display face, in which card labels are set; the interface face, in which the chrome is set; and the data face, in which tags, the HERE pill, and numbers are set. Every face is bundled with the application under the SIL Open Font License 1.1. The chrome's type follows the style's interface face; the About window and the note editor keep the platform's faces (UI chrome, Appendix B).
+A style names three faces by role: the display face, in which card labels are set; the interface face, in which the chrome is set; and the data face, in which tags, the HERE pill, and numbers are set. Every face is bundled with the application under the SIL Open Font License 1.1. The chrome's type follows the style's interface face; the About window and the note editor keep faces of their own in every style, Instrument Sans and, for note source and code, Spline Sans Mono (UI chrome, Appendix B). No platform font is used.
 
 ## 10. The common constructions
 

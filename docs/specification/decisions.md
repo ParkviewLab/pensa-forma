@@ -383,6 +383,8 @@ Light and dark remain a separate setting that every style serves. `theme` stores
 
 Switching style re-measures every card in the new style's faces and re-runs the layout, and the camera and the zoom hold, as after any edit; switching theme stays a colour change alone. All faces are bundled under the SIL Open Font License 1.1 (Boogaloo, League Spartan, Spline Sans Mono, Familjen Grotesk, Instrument Sans, and Jost), and the Open Source Licenses window lists them under its existing rule. The note editor and the About window keep the platform's faces in every style.
 
+**Amended 2026-10-04.** No platform font is used anywhere. The note editor and the About window keep fixed faces in every style, chosen from the six already bundled: Instrument Sans for text, and Spline Sans Mono for note source and code. A character no bundled face holds shows as an empty box in the first release; the remedies are an in-flight idea.
+
 ### D42. The style control
 
 *2026-09-17.*
