@@ -25,7 +25,7 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 **Titles** are tested four ways: the helper that keeps them unique yields `base-1` on a first collision and `base-2` on the next, and renumbers from the stripped base when a `-N` title collides; every title-setting mutation (`create_workflow`, `insert_task`, `wrap_run`, `open_branch`, `set_title`, `paste`), applied with a taken title, leaves every non-empty title in the domain distinct and reports the final title; a blank title yields `New task` or `New project` for a task or a project and stays empty for a workflow; and a paste of a clip into the domain it came from yields suffixed copies.
 
-**Paste** is tested for exactness: a main workflow copied and pasted into an empty domain equals the original once ids are mapped, field for field (statuses, completion dates, here marks, flags, branch sides and orders, logs, and note texts), and shares no id with it.
+**Paste** is tested for exactness: a main workflow copied and pasted into an empty domain equals the original once ids are mapped, field for field (statuses, completion dates, here marks, flags, branch sides and orders, logs, and note texts), but for the one "Pasted." entry on its start node, and shares no id with it.
 
 ## 2. The store and the command layer
 

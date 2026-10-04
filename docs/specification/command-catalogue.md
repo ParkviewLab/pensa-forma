@@ -267,7 +267,20 @@ dialog; an agent's call carries no confirmation and proceeds.)
 
 ### `paste(clip, target?)`
 
-Tier read-write. Undoable. Subject: the new start node. A clip is the value `copy_workflow` returns (section 9): a main workflow's extent, with every field of every node, gap, and workflow in it and every note's text carried by value. Paste adds it as a new main workflow at the main target given or, absent one, at the end, in the domain it came from or in another; it is never spliced into a workflow. The copy is exact: statuses, completion dates, here marks, flags, the sides and orders of branches, and activity logs all travel unchanged. Only two things differ from the original. Every id is freshly minted (of nodes, gaps, workflows, and log entries), with every reference inside the clip rewritten to match, so that nothing collides with the destination. Each pasted node's non-empty title is made unique against the destination and against the nodes already pasted from the clip. Note files are written for every node that had a note, before the record. Log: `created`, "Pasted."
+Tier read-write. Undoable. Subject: the new start node. A clip is the value `copy_workflow` returns (section 9): a main workflow's extent, with every field of every node, gap, and workflow in it and every note's text carried by value. Paste adds it as a new main workflow at the main target given or, absent one, at the end, in the domain it came from or in another; it is never spliced into a workflow. The copy is exact: statuses, completion dates, here marks, flags, the sides and orders of branches, and activity logs all travel unchanged. Only two things differ from the original. Every id is freshly minted (of nodes, gaps, workflows, and log entries), with every reference inside the clip rewritten to match, so that nothing collides with the destination. Each pasted node's non-empty title is made unique against the destination and against the nodes already pasted from the clip. Note files are written for every node that had a note, before the record, each under the name the persistence document (section 4) builds from the new id and the pasted title. Log: `created`, "Pasted.", appended to the new start node's log after the entries it carried; it is the one addition to the copy, and records where it came from.
+
+A clip is JSON in the record's own form (persistence, section 3), so an agent meets nothing new in it:
+
+```
+schema      integer             the record's schema version
+root        w_…                 the copied main workflow
+workflows   { w_…: Workflow }   the root and every branch workflow in its extent
+nodes       { n_…: Node }       every node in those workflows
+gaps        { g_…: Gap }        every gap in those workflows
+notes       { n_…: string }     the text of each note, keyed by its node's id
+```
+
+A clip is malformed when it does not parse, when it names an id it does not contain, or when the workflow it pastes would fail validation.
 
 Refusals. `bad_arguments`: "The clip is malformed." `bad_arguments`: "A workflow is pasted at a position among the domain's main workflows."
 
