@@ -47,7 +47,7 @@ A person at the window and an agent at the automation server are the same kind o
 
 ## Axioms
 
-1. The record stores the structure: a node's kind, and whether a workflow is a branch, are stored in the record and changed only by a command.
+1. The record stores the structure, exactly as the author decided it; everything else, the drawing included, is derived from it.
 2. One way in, one way out, at every level: a workflow opens at its start node and closes at its finish node, and a project opens at its begin node and closes at its end node.
 3. A branch may return or not, and when it returns it rejoins the workflow it left, within the scope it left, so that any scope can be read, and folded, as a single block.
 4. Placement is the author's: the order of a domain's main workflows from left to right, and, for every branch, which side of its parent it runs on and its order among the branches sharing a point, are stored and set by hand. The drawing obeys them.
