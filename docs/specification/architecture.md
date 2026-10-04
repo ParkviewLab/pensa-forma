@@ -108,6 +108,7 @@ Every runtime dependency is MIT and/or Apache-2.0 licensed, which is compatible 
 | `axum`, `tokio` | the loopback HTTP listener and the server's runtime | MIT |
 | `ureq` | the About window's release check, blocking, with a timeout | MIT OR Apache-2.0 |
 | `rfd` | native file and folder dialogs | MIT |
+| `muda` | the native menu bar on macOS and Windows (not built on Linux, where it would need GTK; the chrome's header overflow menu serves there) | Apache-2.0 OR MIT |
 | `open` | opening external links in the system browser | MIT |
 | `arboard` | the system clipboard | MIT OR Apache-2.0 |
 | `log`, `env_logger` | logging | MIT OR Apache-2.0 |

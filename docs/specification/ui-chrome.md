@@ -34,7 +34,7 @@ Where the host provides a native menu bar, provide:
 2. The platform's standard File, Edit, View, and Window menus, per its conventions. The Edit menu's first item is `Undo <command>`, labelled with the last command's subject title, or `untitled` when it is empty (for instance `Undo move “Backend”`) and disabled when the undo slot is empty; there is no Redo item. When a text field or the note source pane has focus, the platform's text undo applies instead, as the toolkit provides.
 3. A Help menu: on platforms without an application menu, first `About PensaForma` and a separator; then `Open Source Licenses…`; then `Source Code`, opening the project's source-hosting page externally.
 
-On platforms with no native menu bar, surface About, Licenses, and Undo through some other modest affordance (a header overflow menu is one option); they must remain reachable.
+The menus are native on macOS and Windows. On Linux, and on any other platform without a native menu bar, About, Licenses, Source Code, and Undo are reached through a header overflow menu instead; they must remain reachable.
 
 There is no menu item for the automation server; it is surfaced only through the header-bar pill (section 3.4). The only keyboard shortcuts in the product are the accelerators the platform's standard menus carry by convention, the platform's standard text-editing keys, and those listed in section 12.
 

@@ -97,7 +97,7 @@ On release, the drag issues exactly one command, carrying the revision the legal
 
 While an object is dragged, the pointer over a legal target shows an indicator; over anything else it shows none. One indicator exists (D35), specified in the [style contract](style-contract.md), section 10, and drawn the same way in every style: the chevron pair, drawn at the point the drop would occupy, which for a main-workflow target is the centre of the gutter or margin the drop would occupy, at the pointer's height. It is drawn in the `--cursor` token and reads at any zoom.
 
-The dragged object is shown by a ghost: its card at 40 percent opacity following the pointer, the original staying in place at 40 percent opacity until the drop lands. The cursor is the grabbing hand.
+The dragged object is shown by a ghost: its card at 40 percent opacity following the pointer, the original staying in place at 40 percent opacity until the drop lands. The cursor is the grabbing hand. The view does not zoom while a drag is in progress.
 
 Release over no indicator cancels, and the record is untouched. A drop that would leave the object in its existing structural position is a no-op: it is not an error, nothing is written, and no log entry is made. Escape during a drag cancels it, as does the window losing focus.
 
