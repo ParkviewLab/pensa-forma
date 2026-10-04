@@ -24,7 +24,7 @@ Conventions: "PensaForma" is the application's name in exact strings. Colours ar
 - Links to the outside world always open in the system's default web browser, never inside the application; the application itself opens only `http(s)` destinations and ignores any other scheme.
 - The application never reaches the network on its own; the single exception is the About window's explicit update check (section 9).
 - No tray icon, no dock badge. The application has no whole-window zoom of its own; the only zoom is the map viewport's (section 3.7).
-- On platforms whose conventions keep applications resident with no windows (macOS-style), follow the convention and recreate the window on activation; elsewhere, closing the window quits.
+- Closing the window quits the application, on every platform, macOS included, and the automation server stops with it. (eframe passes no Dock-icon click to the application, so a window hidden on close could not be brought back from the Dock.)
 
 ### 1.1 The application menu
 
