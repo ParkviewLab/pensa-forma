@@ -506,7 +506,7 @@ Each style names three faces, display, interface, and data (style contract, sect
 | Googie | Boogaloo | League Spartan | Spline Sans Mono |
 | Suuronen | Familjen Grotesk | Familjen Grotesk | Spline Sans Mono |
 
-Six families are therefore bundled: Boogaloo, League Spartan, Spline Sans Mono, Familjen Grotesk, Instrument Sans, and Jost. No platform font is used anywhere, as a face or as a fallback: a character that no bundled face holds shows as the face's empty box (an in-flight idea records the remedies). Where this document asks for a weight the style's face lacks (the brand at 800 in Boogaloo, which has only 400), render a synthesised bold and keep it consistent.
+Six families are therefore bundled: Boogaloo, League Spartan, Spline Sans Mono, Familjen Grotesk, Instrument Sans, and Jost. No platform font is used anywhere, as a face or as a fallback: a character that no bundled face holds shows as the face's empty box (an in-flight idea records the remedies). Where this document asks for a weight heavier than the face has, the face's heaviest weight is used and no bold is synthesised: the brand at 800 is set in Boogaloo's single weight, 400, and a title at 800 in Instrument Sans or Familjen Grotesk at 700, their heaviest.
 
 The note editor and the About window do not follow the style: their text is in Instrument Sans, and the note source and code in Spline Sans Mono, in every style. Both faces are among the six bundled.
 
