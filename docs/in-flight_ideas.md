@@ -45,7 +45,23 @@ Googie's style document defines an optional four-plus-spoke starburst as a backg
 
 ### Render parameters as settings
 
-A few sliders in a settings dialog for the values that most govern the look of a drawing: the card width, the standard trunk-edge length, the angle of the laterals' ramps, perhaps the gutter. The layout is already a function of these constants (layout engine, section 12), and they are view state, so they would live in `settings.json` and never reach the record or an agent. The three are coupled: the incoming and outgoing edges must clear a card's near corner, so `L` is derived from the card's half-width, the angle, and the junction margin, and a dialog would derive or clamp rather than offer three free sliders; `L` also has a floor from the interaction document, where every drop zone is at least `L` tall. The angle would be offered within a limited range. The mark geometry's silhouettes are specified in a 188-wide box, so a width slider needs them parametric, with the golden masters kept at the defaults and property tests across the ranges. Not before the drawing is in daily use at the defaults.
+A few sliders in a settings dialog for the values that most govern the look of a drawing: the card width, the standard trunk-edge length, the angle of the laterals' ramps, perhaps the gutter. The layout is already a function of these constants (layout engine, section 12), and they are view state, so they would live in `settings.json` and never reach the record or an agent. The three are coupled: the incoming and outgoing edges must clear a card's near corner, so `L` is derived from the card's half-width, the angle, and the junction margin, and a dialog would derive or clamp rather than offer three free sliders; `L` also has a floor from the interaction document, where every drop zone is at least `L` tall. The angle would be offered within a limited range; it governs Googie's route, from which `L` is derived, and every other style's route must still clear the cards at the `L` it gives. Every style's silhouettes are specified in a 188-wide box, so a width slider needs them parametric in all five, with the golden masters kept at the defaults and property tests across the ranges. Not before the drawing is in daily use at the defaults.
+
+### Fröbel's density on a large domain, and its to-do colour
+
+On the design page's Large domain at 60 % and below, Fröbel's white cards with thin outlines read as busier than the other styles, and its cadmium yellow for to do is the weakest of its three state colours on white. Whether a heavier outline at low zoom, an earlier tint, or a deeper yellow would serve better is open; the specification carries the design page's values until a comparison is made.
+
+### Suuronen's dark palette
+
+Suuronen's dark palette was derived from its light palette rather than tuned by eye, as the other styles' were. It is to be compared in use and tuned if it reads poorly; the derivation is recorded in its style document as the constraint any retuning keeps.
+
+### Suuronen's adjacent flagged pieces
+
+Suuronen draws a flag as two frames standing off the node. Where two flagged nodes stand a shut gap apart, their frames come close to each other and may read as one. How such neighbours should be drawn is open.
+
+### Fröbel's flag in the dark at fit
+
+In Fröbel's dark theme, zoomed out to fit, the flag circle's panel fill under its ink edge may read too faintly against the tinted bodies. Whether it needs a different treatment at low zoom in the dark is open.
 
 ## Tooling
 
