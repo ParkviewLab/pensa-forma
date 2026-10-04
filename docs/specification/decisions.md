@@ -433,6 +433,12 @@ Bauhaus binds the three live states to the three primaries on its state bars, a 
 
 A colour chosen by eye is a token per theme, and its derivation (an even spacing in OKLCh, a dark palette desaturated by a quarter) is recorded in the style document as its reason and as a constraint on retuning, not computed by the application. A colour defined as a relation between two tokens, Suuronen's keel mixed 12 % toward ink in OKLab, is a rule the application applies, like the tint curve. One set of token names serves the documents and the design page: the specification's `--c-*` names, with new colours named in the same pattern. Questions still open about particular styles (Fröbel's density and to-do colour, Suuronen's dark palette, Suuronen's adjacent flagged pieces, Fröbel's dark flag at fit) are kept in the in-flight ideas; the specification carries the design page's values.
 
+### D50. The automation server keeps no sessions, for clients on any MCP revision
+
+*2026-10-04.*
+
+The server follows MCP's 2026-07-28 revision, which removed sessions and the `initialize` handshake: a client calls `server/discover` for the capabilities and instructions, and every request carries the client's details in its `_meta`, its name among them, optionally. The name on an agent's log entry is read from that `_meta` and from nothing else, and is `"agent"` when absent. A client on an earlier revision is served as well, statelessly (rmcp's `legacy_session_mode` off): its handshake is answered, every tool is available to it, and its log entries say `"agent"`, since its name arrives only in a handshake the server does not keep. Refusing earlier clients was rejected because it would lock out agent tools that have not yet moved to the new revision, at no gain; serving them with sessions was rejected because it would need the `GET` and `DELETE` endpoints and a session store for no benefit beyond the name on their log entries.
+
 ## Proposed
 
 None at present.
