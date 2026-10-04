@@ -178,6 +178,8 @@ Fold state is client-local view state keyed by the `begin` node's id, never a fi
 
 Two edits can bring two here marks into one workflow: a branch becoming a project inside its parent, and a task carrying the here mark moving into a workflow that already has one. In both, the here mark already in the receiving workflow stays and the incoming one is cleared. A structural edit never moves where the author was working on the line they dropped into.
 
+**Amended 2026-10-04.** The rule covers every way two here marks can meet, a third being a project moved into another workflow while one of its tasks carries the here mark and the receiving workflow has one of its own: the receiving workflow's mark stays and the project's task loses its mark.
+
 ### D17. An emptied project scope and an emptied workflow scope both persist
 
 *2026-08-30.*

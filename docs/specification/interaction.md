@@ -175,7 +175,7 @@ An author may also want a branch to stay open, work that spins off and does not 
 
 ## 10. What a drag preserves
 
-A successful drag preserves the identity, title, note reference, activity log, status, flag, here mark, and every other field of every node it moves. A conversion between a workflow boundary and a project boundary (7.2, 7.3) changes `kind` and the pairing, and nothing else. A drag never alters a title, so a move cannot collide with another node's.
+A successful drag preserves the identity, title, note reference, activity log, status, flag, here mark, and every other field of every node it moves, with one exception: where the drag would bring a second here mark into a workflow, the receiving workflow's mark stays and the arriving one is cleared (D16). A conversion between a workflow boundary and a project boundary (7.2, 7.3) changes `kind` and the pairing, and nothing else. A drag never alters a title, so a move cannot collide with another node's.
 
 One entry is appended to the activity log of the node that was dragged, or, when a finish node was dragged, to its workflow's start node, since a finish node carries no log; and to no other node, with the event the catalogue assigns. A cancelled, invalid, stale, or no-op drop appends nothing.
 
