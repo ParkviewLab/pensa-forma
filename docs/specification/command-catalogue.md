@@ -154,7 +154,7 @@ Refusal `bad_arguments`: "A finish node and an end node carry no flag."
 
 Tier read-write. Undoable. Subject: the new begin node. `from` and `to` are nodes of one workflow, `from` at or below `to`, neither a start nor a finish. A begin node carrying `title` (`New project` when empty, then made unique) is inserted immediately below `from` (the gap below `from`, at its incoming position) and an end node immediately above `to` (the gap above `to`, at its outgoing position), and the two are paired. Every branch departing from a gap inside the run becomes part of the new project. Log: `wrapped`, "Wrapped <from title> to <to title> as <title>."
 
-A run is legal while it neither straddles a project boundary nor cuts a branch's scope: it may not take in a begin node without its end or an end without its begin, and no branch may depart inside the run and return outside it, or depart outside and return inside. The window's `Wrap as sub-project` submenu offers each legal `to` from `from` upward, and ends where legality does.
+A run is legal while it neither straddles a project boundary nor cuts a branch's scope: it may not take in a begin node without its end or an end without its begin, and no branch may depart inside the run and return outside it, or depart outside and return inside. The window's `Wrap as project` submenu offers each legal `to` from `from` upward, and ends where legality does.
 
 Refusals. `bad_arguments`: "A run is bounded by two nodes of one workflow, the lower first, and neither may be its start or finish." `refused`: "The run would take in the begin node of <title> without its end; a project is wrapped whole or not at all." `refused`: "The branch <title> departs inside the run and returns outside it; a branch cannot reach out of its scope. Move its return inside the run, detach it, or shorten the run."
 
@@ -205,7 +205,7 @@ Refusals. `not_found`: "No gap <id>." `bad_arguments`: "A side is left or right.
 
 Tier read-write. Undoable. Subject: the branch's start node, which holds the workflow's log (D11 as amended); the finish node is the handle, not the record. Makes the branch return at the named gap's return point, on the same side as its departure, at the order position the structural model's automatic-return rule assigns (section 6). If the branch already returns, the old return is removed only after the new one has validated, and the old list closes up. Log: `attached`, "Returns above <lower node title>."
 
-The legal gaps are those of the branch's parent workflow at or above its departure gap and inside exactly the same projects as that gap. The window's `Merge a branch here` submenu on a node lists the open or returning branches for which the gap above that node is legal; the finish node's drag targets are the same set.
+The legal gaps are those of the branch's parent workflow at or above its departure gap and inside exactly the same projects as that gap. The window's `Return a branch here` submenu on a node lists the open or returning branches for which the gap above that node is legal; the finish node's drag targets are the same set.
 
 Refusals. `bad_arguments`: "The argument is a branch workflow; a main workflow has no return." `refused`: "The return point is below the branch's departure; a branch returns at or above where it left." `refused`: "The return would land outside the project <title> that the branch departs from; a branch cannot reach out of its scope." `refused`: "The return point is on another workflow; a branch returns to the workflow it left."
 
@@ -314,7 +314,7 @@ Every command either produces a record that satisfies all nineteen invariants or
 
 No command leaves two nodes with the same non-empty title (I19), and no conversion or move changes a title.
 
-A command's subject is the only node whose activity log changes, and only a structural command changes it.
+A command's subject is the only node whose activity log changes, and only a command whose entry here names a log entry, or one of the three log commands, changes it.
 
 Every field of every node a command moves is preserved, except `kind`, `endNode`, and `beginNode` under the two conversions, `status` and `here` when a task becomes a begin node, and the one appended log entry on the subject.
 

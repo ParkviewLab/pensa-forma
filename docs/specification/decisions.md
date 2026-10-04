@@ -254,6 +254,8 @@ The application reads and writes its own domain format and nothing else. It has 
 
 The user interface is an immediate-mode Rust GUI built on egui, hosted by eframe. The application's interface is not document layout but a bespoke vector scene with pan, zoom, custom silhouettes, and per-frame interaction state, which is what an immediate-mode painter under a camera transform is built for; the toolkit also supplies pan and zoom, a text editor with undo, accessibility through AccessKit, and a markdown preview widget without further dependencies. The two places its painter needs help, filling concave silhouettes and cutting the underpass, are answered by a tessellator and by drawing the lateral as an explicit ribbon; both are recorded in the mark geometry's implementation notes.
 
+**Amended 2026-10-04.** The markdown preview is `egui_commonmark`, a separate crate rather than part of egui, and the note editor is egui's `TextEdit` (D52). The mark geometry is retired; its implementation notes are now the style contract's, section 14.
+
 ---
 
 ### D27. Workflows stay; the unification of workflows and projects is declined

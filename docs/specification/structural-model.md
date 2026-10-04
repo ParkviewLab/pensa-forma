@@ -17,7 +17,7 @@ Two conventions. Growth is upward: a node's successor sits above it, and a small
 
 Every domain, workflow, node, and gap carries an id: an opaque string, stable for the object's whole life and never reused after deletion.
 
-The form is twelve characters, fixed width: a two-character kind prefix, then a base-36 millisecond timestamp of exactly eight characters, then a two-character base-36 counter that resets each millisecond. So `n_mrtwgppt01`. The prefixes are `d_` for a domain, `w_` for a workflow, `n_` for a node, and `g_` for a gap; the counter is shared across all four, so two objects minted in one millisecond differ whatever their kinds.
+The form is twelve characters, fixed width: a two-character kind prefix, then a base-36 millisecond timestamp of exactly eight characters, then a two-character base-36 counter that resets each millisecond. So `n_mrtwgppt01`. The prefixes are `d_` for a domain, `w_` for a workflow, `n_` for a node, `g_` for a gap, and `e_` for an activity-log entry (section 5); the counter is shared across all five, so two objects minted in one millisecond differ whatever their kinds.
 
 Five properties are deliberate.
 

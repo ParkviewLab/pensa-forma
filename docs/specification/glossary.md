@@ -30,7 +30,7 @@ The application shows one domain at a time.
 A domain has an `id` and a `name`. Domain names are unique within their library.
 
 ## Library
-This is the directory holding every domain. The library root is a user setting; its default is the application's data directory.
+This is the directory holding every domain. The library root is a user setting; its default is the `domains/` directory inside the application's data directory.
 
 ## Record
 This is the file in which all graph data for all workflows in a single domain is stored. This is a [JSON](https://www.json.org) file and is accompanied by its [JSON Schema](https://json-schema.org) file. The only workflow data not stored in this file are the notes' markdown files.
