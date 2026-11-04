@@ -153,7 +153,7 @@ A flagged node is one marked (by double-click) for the flagged-only review mode;
 
 `Wrap as project` acts on a contiguous run of the clicked node's workflow: the clicked node is the run's base, and the submenu offers each legal top, from `Just this one` upward; a run is legal while it neither straddles a project boundary nor cuts a branch's scope, and the submenu ends where legality does. `Unwrap…` removes a project's begin and end pair and leaves its contents in place.
 
-`Return a branch here` offers, on a node, the branches whose return could legally land on the gap above that node; `Move a branch here` offers those whose departure could legally move there, keeping the branch's side. Both name a branch by its start node's title, or `untitled` when it is empty; titles are unique within a domain, so no two entries read alike. `Detach return`, on a branch's finish card, leaves the branch open.
+A branch's departure and return are moved, or a return attached, only by dragging the branch's start node or finish node (interaction, section 7). `Detach return`, on a branch's finish card, leaves the branch open.
 
 No menu moves a node: a node, a project, or a workflow is moved in the window only by dragging it (interaction, section 7).
 
@@ -174,8 +174,6 @@ Every editing item routes through the command layer: the operation runs against 
 | Rename… | `set_title` |
 | Add task above / below | `insert_task` |
 | Add branch above / below ▸ Left / Right | `open_branch` |
-| Return a branch here ▸ `<branch>` | `attach_return` |
-| Move a branch here ▸ `<branch>` | `move_workflow` to this gap's branch point, same side, outermost |
 | Detach return | `detach_return` |
 | Expand / Collapse | fold state (client-local; no command) |
 | Copy | `copy_workflow` (session clipboard) |
@@ -227,8 +225,6 @@ Right-click on a task card. Items in order; an empty condition column means alwa
 | `Add task below` | |
 | `Add branch above` ▸ `Left` / `Right` | |
 | `Add branch below` ▸ `Left` / `Right` | |
-| `Return a branch here` ▸ | legal candidate branches exist; one entry per branch, labelled by its start node's title, or `untitled` when the title is empty |
-| `Move a branch here` ▸ | same rule and labelling, for the branch's departure |
 | separator | |
 | `Edit note…` | |
 | `Delete note…` | only when the node has a note (the item's presence is the indicator) |
@@ -240,11 +236,11 @@ Right-click on a task card. Items in order; an empty condition column means alwa
 
 Same builder, with these differences: no `Status` submenu and no here items (a begin node has neither); `Make project` becomes `Make task`; after the Wrap item it gains `Unwrap…`, then `Expand` or `Collapse` (by current fold state) and `Export to Markdown…`. Its `Delete…` deletes the whole project.
 
-Folded-scope withholdings: when the project is folded, `Add task above`, `Add branch above`, `Return a branch here`, and `Move a branch here` are absent (not disabled), because anything added on the gap above a folded begin node would land invisibly inside the fold; expanding restores them.
+Folded-scope withholdings: when the project is folded, `Add task above` and `Add branch above` are absent (not disabled), because anything added on the gap above a folded begin node would land invisibly inside the fold; expanding restores them.
 
 ### 6.4 The end-card menu
 
-Right-click on a project's close. It has no title, status, here mark, note, or log, so the menu is short: `Add task above`, `Add task below`, `Add branch above` ▸, `Add branch below` ▸, then `Return a branch here` ▸ and `Move a branch here` ▸ (only when candidate branches exist), then a separator, then `Expand` or `Collapse` (resolved against the begin node the close pairs with, so either end of the pair acts identically). No `Delete…`: an end node is deleted with its begin node.
+Right-click on a project's close. It has no title, status, here mark, note, or log, so the menu is short: `Add task above`, `Add task below`, `Add branch above` ▸, `Add branch below` ▸, then a separator, then `Expand` or `Collapse` (resolved against the begin node the close pairs with, so either end of the pair acts identically). No `Delete…`: an end node is deleted with its begin node.
 
 ### 6.5 The start-card menu
 

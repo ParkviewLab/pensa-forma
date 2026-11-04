@@ -206,7 +206,7 @@ Refusals. `not_found`: "No gap <id>." `bad_arguments`: "A side is left or right.
 
 Tier read-write. Undoable. Subject: the branch's start node, which holds the workflow's log (D11 as amended); the finish node is the handle, not the record. Makes the branch return at the named gap's return point, on the same side as its departure, at the order position the structural model's placement procedure gives (section 6). If the branch already returns, the old return is removed only after the new one has validated, and the old list closes up. Log: `attached`, "Returns above <lower node title>."
 
-The legal gaps are those of the branch's parent workflow at or above its departure gap and inside exactly the same projects as that gap. The window's `Return a branch here` submenu on a node lists the open or returning branches for which the gap above that node is legal; the finish node's drag targets are the same set.
+The legal gaps are those of the branch's parent workflow at or above its departure gap and inside exactly the same projects as that gap. In the window a return is attached or moved only by dragging the branch's finish node, whose drop targets are exactly the legal gaps.
 
 Refusals. `bad_arguments`: "The argument is a branch workflow; a main workflow has no return." `refused`: "The return point is below the branch's departure; a branch returns at or above where it left." `refused`: "The return would land outside the project <title> that the branch departs from; a branch cannot reach out of its scope." `refused`: "The return point is on another workflow; a branch returns to the workflow it left."
 

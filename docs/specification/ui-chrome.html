@@ -442,9 +442,8 @@ projects, or running open; its start node's title names it in every submenu.
 "Here" is a per-workflow mark on a task, moved by <code>Make here</code>,
 removed by <code>Clear here</code>. A wrap run is a contiguous stretch of one
 workflow that neither straddles a project boundary nor cuts a branch's scope;
-<code>Return a branch here</code> and <code>Move a branch here</code> list the
-branches for which the gap above the node is legal. No menu moves a
-node: nodes, projects, and workflows are moved only by dragging.</p>
+No menu moves a node or attaches a return: nodes, projects, workflows,
+departures, and returns are moved only by dragging.</p>
 
 <div class="pair">
   <div class="ground azure"><span class="glabel">Googie light · task menu (upper half)</span>
@@ -489,7 +488,6 @@ node: nodes, projects, and workflows are moved only by dragging.</p>
   <tr><td><code>Rename…</code>, then a separator</td><td>always</td></tr>
   <tr><td><code>Add task above</code> · <code>Add task below</code></td><td>always</td></tr>
   <tr><td><code>Add branch above</code> ▸ Left / Right · <code>Add branch below</code> ▸ Left / Right</td><td>always</td></tr>
-  <tr><td><code>Return a branch here</code> ▸ · <code>Move a branch here</code> ▸</td><td>candidate branches exist (labelled by the branch's start-node title, or untitled when the title is empty)</td></tr>
   <tr><td>separator; <code>Edit note…</code>; <code>Delete note…</code>; <code>Activity log…</code></td><td>delete only when a note exists (its presence is the indicator)</td></tr>
   <tr><td>separator; <code>Delete…</code></td><td>always</td></tr>
   </tbody>
@@ -503,12 +501,10 @@ and <code>Export to Markdown…</code> (an OS save dialog,
 default name <code>&lt;title&gt;.md</code> or <code>export.md</code> for a
 blank title, writing the extent as a nested checkbox outline; the
 serialisation is the Markdown's section 5.1). Its <code>Delete…</code> deletes
-the whole project. Folded: the four add/return/move items on the hidden gap
+the whole project. Folded: the two add items on the hidden gap
 are absent.</p>
 <p class="small">End card: <code>Add task above</code>, <code>Add task
-below</code>, the two <code>Add branch</code> submenus, then <code>Return a
-branch here</code> ▸ and <code>Move a branch here</code> ▸ when candidates
-exist, a separator, <code>Expand</code>/<code>Collapse</code> (acting on the
+below</code>, the two <code>Add branch</code> submenus, a separator, <code>Expand</code>/<code>Collapse</code> (acting on the
 paired begin node). No note or log items: an end node carries neither. No
 <code>Delete…</code>: an end node is deleted with its begin node.</p>
 <p class="small">Start card: <code>Rename…</code>;

@@ -469,7 +469,7 @@ Every write takes the domain's id and nothing else, as it takes a node's id and 
 
 *2026-11-03.*
 
-The window offers no menu item that moves a node: `Move up`, `Move down`, `Move left`, and `Move right` are withdrawn from every right-click menu. A task node, a project, or a workflow is moved by dragging it, which reaches every position the model allows and shows each legal target before the drop. The application is therefore not usable without a pointer that can drag; keyboard-only use is not a goal. Agents are unaffected: they move nodes through `move_task`, `move_project`, and `move_workflow`.
+The window offers no menu item that moves a node: `Move up`, `Move down`, `Move left`, `Move right`, `Move a branch here`, and `Return a branch here` are withdrawn from every right-click menu, and a branch's departure and return are moved, or a return attached, by dragging the branch's start node or finish node. A task node, a project, or a workflow is moved by dragging it, which reaches every position the model allows and shows each legal target before the drop. The application is therefore not usable without a pointer that can drag; keyboard-only use is not a goal. Agents are unaffected: they move nodes through `move_task`, `move_project`, and `move_workflow`.
 
 ## Proposed
 

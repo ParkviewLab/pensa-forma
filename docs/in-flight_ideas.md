@@ -49,7 +49,7 @@ A few sliders in a settings dialog for the values that most govern the look of a
 
 ### Use without a pointer
 
-The application is not usable without a pointer that can drag, and keyboard-only use is not a goal (decisions, D54): nodes, projects, and workflows move in the window by drag and drop alone, and the menu items `Move up`, `Move down`, `Move left`, and `Move right` were withdrawn for that reason. If the application is ever to be usable without a mouse, those decisions are to be revisited, with a keyboard route to every move a drag can make.
+The application is not usable without a pointer that can drag, and keyboard-only use is not a goal (decisions, D54): nodes, projects, and workflows move in the window by drag and drop alone, and the menu items `Move up`, `Move down`, `Move left`, `Move right`, `Move a branch here`, and `Return a branch here` were withdrawn for that reason. If the application is ever to be usable without a mouse, those decisions are to be revisited, with a keyboard route to every move a drag can make.
 
 ### Fröbel's density on a large domain, and its to-do colour
 
