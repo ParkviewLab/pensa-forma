@@ -97,7 +97,7 @@ Activating the pill refreshes the status, then opens the shared menu widget (sec
 1. A disabled status row: `● ` (running) or `○ ` (not), followed by the endpoint URL or `unavailable`.
 2. Separator.
 3. `Copy endpoint URL` (present only when a URL exists): copies it to the system clipboard; if the clipboard write fails, a dialog titled `MCP endpoint` shows the URL with an OK button instead.
-4. `Turn off` or `Turn on` (by current enabled state): toggles the server and refreshes.
+4. `Turn off` or `Turn on` (by current enabled state): toggles the server, saves the new state as `server.enabled` in the settings (persistence, section 6), so that the next launch starts the server or leaves it off accordingly, and refreshes.
 
 Status is polled only at application start and on activation; a server that dies in between shows a stale dot until the next press. The endpoint has the form `http://127.0.0.1:<port>/mcp` (default port 35899), loopback only.
 

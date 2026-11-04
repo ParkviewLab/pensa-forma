@@ -204,7 +204,7 @@ The file is absent until the first bookmark is added and is written atomically l
 | --- | --- | --- |
 | `libraryRoot` | the data directory's `domains/` | where the domain directories live |
 | `lastDomain` | none | the domain to reopen at launch, by id |
-| `server.enabled` | `true` | whether the automation server starts with the application |
+| `server.enabled` | `true` | whether the automation server starts with the application; written by the pill's `Turn off` and `Turn on` |
 | `server.port` | `35899` | its loopback port; never roams |
 | `server.scope` | `read-write` | `read-only`, `read-write`, or `destructive` |
 | `theme` | `light` | `light` or `dark`; anything else reads as `light` |
