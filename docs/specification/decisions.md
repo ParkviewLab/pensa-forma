@@ -465,6 +465,12 @@ The source pane is egui's multiline `TextEdit` over a `String`, coloured by a la
 
 Every write takes the domain's id and nothing else, as it takes a node's id and nothing else, because a domain can be renamed between a caller's read and its write and a write addressed by name could land in another domain. A read takes the domain's id, name, or directory path, and when it names none it reads the domain open in the window. The earlier default for every tool, "the last-opened domain", is dropped: it named no one's last opening, and a write that omitted its domain would have landed in whatever domain the person had last switched to.
 
+### D54. In the window, nodes move by drag and drop alone
+
+*2026-11-03.*
+
+The window offers no menu item that moves a node: `Move up`, `Move down`, `Move left`, and `Move right` are withdrawn from every right-click menu. A task node, a project, or a workflow is moved by dragging it, which reaches every position the model allows and shows each legal target before the drop. The application is therefore not usable without a pointer that can drag; keyboard-only use is not a goal. Agents are unaffected: they move nodes through `move_task`, `move_project`, and `move_workflow`.
+
 ## Proposed
 
 None at present.

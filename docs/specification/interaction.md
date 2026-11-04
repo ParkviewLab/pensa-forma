@@ -45,7 +45,7 @@ An end node is never a handle. It is one half of a pair and sits where its scope
 
 Junction diamonds are not handles. A branch's departure is moved by its start node and its return by its finish node; the diamond is a target, not a grip.
 
-Dragging always moves. Nothing is ever copied by a drag; copying is the menu's `Copy` and `Paste`, and a paste makes each pasted node's non-empty title unique in the destination (the catalogue, section 1).
+Dragging is the only way to move a node, a project, or a workflow in the window: no menu item moves one, and the application requires a pointer that can drag (D54). Dragging always moves. Nothing is ever copied by a drag; copying is the menu's `Copy` and `Paste`, and a paste makes each pasted node's non-empty title unique in the destination (the catalogue, section 1).
 
 In the flagged-only review mode nothing is draggable and no drop target exists.
 

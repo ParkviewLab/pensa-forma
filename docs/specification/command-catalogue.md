@@ -126,7 +126,6 @@ Refusals. `not_found`: "No gap <id>." `bad_arguments`: "A position is outgoing, 
 
 Tier read-write. Undoable. Subject: the task. The task travels alone. Onto an edge target, it is spliced in at the stated position and then removed from where it was, its vacated position repaired (the order of a move, section 1); if the target lies inside projects, it becomes part of the innermost. Onto a main target, it becomes the sole task of a new main workflow: a start node with an empty title and a finish node are created around it, and the workflow is inserted at the indicated position. Log: `moved`, "Moved above <lower node title> in <workflow title>" or "Moved into a new workflow."
 
-The window's `Move up` and `Move down` move the task node past its nearest neighbour on the line, and only past a task node: `Move up` issues this command with the outgoing position of the gap above the task node directly above, so that the moved task node lands immediately above it; `Move down` issues it with the incoming position of the gap below the task node directly below, so that it lands immediately below it. A start, finish, begin, or end node is never moved past, so neither item is offered when the neighbour in its direction is one of those.
 
 Refusals. `bad_arguments`: "The argument is a task; a project moves with `move_project` and a workflow with `move_workflow`." `bad_arguments`: "A task cannot be dropped at a branch point; open a branch there instead, or move a project or a workflow." `refused`: the no-op message.
 
