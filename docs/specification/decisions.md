@@ -497,6 +497,12 @@ A placeholder in a `system` entry's text names its node as a person reads it, wi
 
 A drag with the primary button that begins anywhere on the canvas but a card pans the map. Scrolling never pans: each scroll event, from a mouse wheel or a trackpad, whatever its size or modifier, zooms one step of 1.1 at the pointer, in when the scroll is upward and out otherwise, and each pinch event zooms one step likewise. The rule is one for every device, needs no telling a wheel from a trackpad, and keeps the two pointer gestures apart: the drag moves the view, the scroll sizes it. A device that sends events faster zooms faster, which is accepted.
 
+### D59. One written form for a domain: the record's own JSON
+
+*2026-11-04.*
+
+The domain file's canonical JSON is the only written form of a domain. Reads, write results, and clips all carry it: a write returns the id and final title of its subject, the new revision, and each workflow it changed, as that workflow's entry with the entries of its nodes and gaps. The text outline once specified for agents is withdrawn. One form means one schema, one implementation, and one set of tests; it is exact, carrying every field the file does; and its ordered `nodes` and `gaps` lists give an agent the order it needs. The cost is size, the JSON being larger than a text outline of the same workflow, which is accepted.
+
 ## Proposed
 
 None at present.

@@ -77,7 +77,7 @@ What is tested, how, and what a passing suite proves. The tests are organised by
 
 ## 6. The automation server
 
-**End to end**, with an MCP client in the test speaking to a server bound to an ephemeral port on a temporary library: the tool list at each tier is exactly the catalogue's table for that tier; a tool above the tier is absent, not refused; every prompt names only tools present at its tier; a write returns the new revision, the final title, and the outline; a read addressed by title resolves, and one addressed by an empty or unknown title is refused `not_found`; a write addressed by title is refused `bad_arguments`; a stale revision is refused; a request with a foreign `Host` or `Origin` is answered `403`; `GET /mcp` is answered `405`; `/health` answers.
+**End to end**, with an MCP client in the test speaking to a server bound to an ephemeral port on a temporary library: the tool list at each tier is exactly the catalogue's table for that tier; a tool above the tier is absent, not refused; every prompt names only tools present at its tier; a write returns the new revision, the final title, and each changed workflow in the record's form; a read addressed by title resolves, and one addressed by an empty or unknown title is refused `not_found`; a write addressed by title is refused `bad_arguments`; a stale revision is refused; a request with a foreign `Host` or `Origin` is answered `403`; `GET /mcp` is answered `405`; `/health` answers.
 
 **The instructions text** is tested to name only tools that exist.
 

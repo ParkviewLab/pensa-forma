@@ -290,8 +290,8 @@ Reads take the lock, read the record, and answer from it with the domain's `revi
 | Read | Returns |
 | --- | --- |
 | `list_domains()` | each domain's id, name, and path |
-| `read_domain(domain, notes?)` | every workflow in outline plus the structured record, and the revision; with `notes` true, each note's text |
-| `read_workflow(workflow, notes?)` | one workflow in outline and in structure, with its branches' ids, its departure and return if a branch, and the id of the innermost project containing its departure |
+| `read_domain(domain, notes?)` | the record, and the revision; with `notes` true, each note's text |
+| `read_workflow(workflow, notes?)` | one workflow in the record's form, with its branches' ids, its departure and return if a branch, and the id of the innermost project containing its departure |
 | `read_project(begin, notes?)` | the project's extent, bounded by its end node, with the ids of the enclosing project and the containing workflow |
 | `read_node(node, note?)` | one node in structure, with its workflow's id, its index, the innermost project containing it, and for a task its two neighbouring gaps' ids and their positions |
 | `read_note(node)` | the note's text, or empty when the node has none |
@@ -301,7 +301,7 @@ Reads take the lock, read the record, and answer from it with the domain's `revi
 
 `copy_workflow` takes the start node of a main workflow and refuses any other node with `bad_arguments`: "Only a main workflow is copied; name its start node."
 
-The outline form is a nested text rendering of a workflow: one line per node with its kind glyph, title, and status, branches indented beneath the lower node of the gap they depart from and marked with the gap they return to, so that an agent can read a workflow in one call and address any node or gap by the id printed beside it.
+Every read, every write result, and every clip uses the record's own form (persistence, section 3), the canonical JSON the file is written in; there is no second written form. A workflow in that form is its entry from `workflows`, with the entries of its nodes from `nodes` and of its gaps from `gaps`. Its `nodes` and `gaps` lists give the order from start to finish, a project's contents are the nodes between its begin and end, and a branch's attachment is its id in a gap's side lists, so every node and gap is addressed by the id it carries.
 
 ---
 
