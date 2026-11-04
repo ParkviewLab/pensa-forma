@@ -489,6 +489,12 @@ The window offers no menu item that moves a node: `Move up`, `Move down`, `Move 
 
 A placeholder in a `system` entry's text names its node as a person reads it, with the node's id in brackets after it: `“<title>” (<id>)`, `the close of “<project title>” (<id>)` for an end node, and `untitled (<id>)` for an untitled node. A log entry is stored as written, so a name alone goes stale after a rename and an id alone tells a person nothing; both together serve the person reading the log now and the agent that a person asks, when the logs have grown long, to read and work with them. Refusal messages keep their own rule, the title or the id when the title is empty.
 
+### D58. Drag empty canvas to pan; scroll or pinch to zoom
+
+*2026-11-03.*
+
+A drag with the primary button that begins anywhere on the canvas but a card pans the map. Scrolling never pans: each scroll event, from a mouse wheel or a trackpad, whatever its size or modifier, zooms one step of 1.1 at the pointer, in when the scroll is upward and out otherwise, and each pinch event zooms one step likewise. The rule is one for every device, needs no telling a wheel from a trackpad, and keeps the two pointer gestures apart: the drag moves the view, the scroll sizes it. A device that sends events faster zooms faster, which is accepted.
+
 ## Proposed
 
 None at present.
