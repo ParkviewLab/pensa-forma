@@ -47,6 +47,10 @@ Googie's style document defines an optional four-plus-spoke starburst as a backg
 
 A few sliders in a settings dialog for the values that most govern the look of a drawing: the card width, the standard trunk-edge length, the angle of the laterals' ramps, perhaps the gutter. The layout is already a function of these constants (layout engine, section 12), and they are view state, so they would live in `settings.json` and never reach the record or an agent. The three are coupled: the incoming and outgoing edges must clear a card's near corner, so `L` is derived from the card's half-width, the angle, and the junction margin, and a dialog would derive or clamp rather than offer three free sliders; `L` also has a floor from the interaction document, where every drop zone is at least `L` tall. The angle would be offered within a limited range; it governs Googie's route, from which `L` is derived, and every other style's route must still clear the cards at the `L` it gives. Every style's silhouettes are specified in a 188-wide box, so a width slider needs them parametric in all five, with the golden masters kept at the defaults and property tests across the ranges. Not before the drawing is in daily use at the defaults.
 
+### Use without a pointer
+
+The application is not usable without a pointer that can drag, and keyboard-only use is not a goal (decisions, D54): nodes, projects, and workflows move in the window by drag and drop alone, and the menu items `Move up`, `Move down`, `Move left`, and `Move right` were withdrawn for that reason. If the application is ever to be usable without a mouse, those decisions are to be revisited, with a keyboard route to every move a drag can make.
+
 ### Fröbel's density on a large domain, and its to-do colour
 
 On the design page's Large domain at 60 % and below, Fröbel's white cards with thin outlines read as busier than the other styles, and its cadmium yellow for to do is the weakest of its three state colours on white. Whether a heavier outline at low zoom, an earlier tint, or a deeper yellow would serve better is open; the specification carries the design page's values until a comparison is made.
