@@ -222,6 +222,8 @@ Three orderings are model state, each an ordered array on the containing record 
 
 Where the application must place a return automatically rather than being told where, it uses this rule, which is model-side and deterministic: within one return-point side list, order the branches by the index of their departure gap, highest first, and break a tie by their order in that departure list.
 
+The rule ranks branches; it does not re-sort a list. A list can stand out of the rule's order (two departure points merge when the nodes between them are deleted, or a file is edited by hand), and no command reorders a side list but at the author's instruction. Whenever the application places a return itself, whether attaching one or keeping one through a move, it therefore uses this procedure: take the branch out of the return-point side list if it is there; then insert it immediately before the first branch remaining in the list that the rule ranks further out than it, or outermost if there is none. Every other branch keeps its place, so the result is defined in any list; and where every branch in the list shares one departure point, it reproduces the order of that departure list.
+
 The reasoning is worth keeping. A branch departing higher up its parent's line runs a shorter distance alongside it, so it belongs nearer that line; a branch departing lower must span more of the line, and placing it inside a shorter one would force their lines to cross. A rule stated in terms of graphical distance from the parent would make the stored order depend on a layout that then has to read the stored order; departure-gap index is the model-side quantity that graphical distance stands for.
 
 ---

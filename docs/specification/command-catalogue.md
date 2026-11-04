@@ -90,8 +90,8 @@ Tier read-write. Undoable. Subject: the workflow's start node. The whole workflo
 
 Onto a **branch target**, the workflow is attached at that gap's branch point, on that side, at that order position. What happens to an existing return depends on where the workflow was:
 
-- Reordered on the same side of the same point: the return is preserved, and its order position at the return point is set to correspond to the new departure order.
-- Moved to the other side of the same point: the return is preserved and moves to the matching side of its return point, its order set to correspond.
+- Reordered on the same side of the same point: the return is preserved, and is re-placed in its return-point side list by the structural model's placement procedure (section 6), under the new departure order.
+- Moved to the other side of the same point: the return is preserved and moves to the matching side of its return point, where the structural model's placement procedure (section 6) places it.
 - Moved to a different branch point, in this workflow's parent or in any other workflow: the old departure and, if it had one, the old return are removed only after the new attachment has validated, and no new return is created. The branch is now open, and the author attaches its return with `attach_return`. The application does not guess where a branch should rejoin.
 
 A main workflow moved onto a branch target leaves `mains` and becomes a branch. If the target gap lies inside projects, the workflow becomes part of the innermost.
@@ -205,7 +205,7 @@ Refusals. `not_found`: "No gap <id>." `bad_arguments`: "A side is left or right.
 
 ### `attach_return(branch, gap)`
 
-Tier read-write. Undoable. Subject: the branch's start node, which holds the workflow's log (D11 as amended); the finish node is the handle, not the record. Makes the branch return at the named gap's return point, on the same side as its departure, at the order position the structural model's automatic-return rule assigns (section 6). If the branch already returns, the old return is removed only after the new one has validated, and the old list closes up. Log: `attached`, "Returns above <lower node title>."
+Tier read-write. Undoable. Subject: the branch's start node, which holds the workflow's log (D11 as amended); the finish node is the handle, not the record. Makes the branch return at the named gap's return point, on the same side as its departure, at the order position the structural model's placement procedure gives (section 6). If the branch already returns, the old return is removed only after the new one has validated, and the old list closes up. Log: `attached`, "Returns above <lower node title>."
 
 The legal gaps are those of the branch's parent workflow at or above its departure gap and inside exactly the same projects as that gap. The window's `Return a branch here` submenu on a node lists the open or returning branches for which the gap above that node is legal; the finish node's drag targets are the same set.
 

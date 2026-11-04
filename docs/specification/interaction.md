@@ -78,7 +78,7 @@ The hit region for a branch's lateral is the part of it that is **not shared wit
 
 ### 4.3 Return-point targets
 
-A return point is a target for a finish node alone, and issues `attach_return(branch, gap)`. A finish node cannot choose a side or an order: the return is made on the same side as its branch's departure, at the order position the structural model's rule assigns. So a return point offers one target, its diamond (drawn at every point, so the target is visible before the drag begins) and the lane-width band of the incoming edge above it, and only the gaps the catalogue lists as legal for that branch are ever targets.
+A return point is a target for a finish node alone, and issues `attach_return(branch, gap)`. A finish node cannot choose a side or an order: the return is made on the same side as its branch's departure, at the order position the structural model's placement procedure gives (section 6). So a return point offers one target, its diamond (drawn at every point, so the target is visible before the drag begins) and the lane-width band of the incoming edge above it, and only the gaps the catalogue lists as legal for that branch are ever targets.
 
 ### 4.4 Main-workflow targets
 
@@ -140,8 +140,8 @@ Onto a trunk-edge position in the parent, the branch workflow **becomes a projec
 
 Onto a branch-edge target, the workflow is attached at that side and order position. Three cases differ, and the difference is the whole reason a start node is a handle:
 
-- **Reordered on the same side of the same point.** The return is preserved, and its order position at the return point is updated to correspond to the new departure order.
-- **Moved to the other side of the same point.** The return is preserved and moves to the matching side of its return point, its order updated to correspond.
+- **Reordered on the same side of the same point.** The return is preserved, and it is re-placed in its return-point side list by the structural model's placement procedure (section 6), under the new departure order.
+- **Moved to the other side of the same point.** The return is preserved and moves to the matching side of its return point, where the structural model's placement procedure places it.
 - **Moved to a different branch point.** The old departure and the old return are removed only after the new attachment has validated, and no new return is created. The branch is now open, and the author attaches its return by dragging the finish node.
 
 If the target gap lies inside projects, the moved workflow becomes part of the innermost.
@@ -152,7 +152,7 @@ Onto a main-workflow target, a branch workflow's departure and return are remove
 
 Only a branch workflow's finish node is a handle, and dragging it moves nothing. It does not reposition the branch, change its side, or change its order; it changes only where the branch returns, by issuing `attach_return(branch, gap)`. Those other changes are made by dragging the start node, and keeping the two handles disjoint is what makes either predictable.
 
-The only legal targets are return points in the branch's current parent workflow, at or above the gap holding its departure, and inside exactly the same projects as that gap. The return is made on the side matching the departure, at the order position the structural model's rule assigns.
+The only legal targets are return points in the branch's current parent workflow, at or above the gap holding its departure, and inside exactly the same projects as that gap. The return is made on the side matching the departure, at the order position the structural model's placement procedure gives (section 6).
 
 If the branch already returns, the existing return is removed only after the new one has validated; the old list closes up with the remaining branches' order preserved.
 
