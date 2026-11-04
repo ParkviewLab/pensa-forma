@@ -155,7 +155,7 @@ A flagged node is one marked (by double-click) for the flagged-only review mode;
 
 `Return a branch here` offers, on a node, the branches whose return could legally land on the gap above that node; `Move a branch here` offers those whose departure could legally move there, keeping the branch's side. Both name a branch by its start node's title, or `untitled` when it is empty; titles are unique within a domain, so no two entries read alike. `Detach return`, on a branch's finish card, leaves the branch open.
 
-`Move up` and `Move down` move the clicked node to the next distinct position above or below along its workflow; `Move left` and `Move right`, on a main workflow's start card, move it in the domain's order.
+`Move up` and `Move down` move the clicked node past the task node directly above or below it (the catalogue, `move_task`); `Move left` and `Move right`, on a main workflow's start card, move it in the domain's order.
 
 ---
 
@@ -171,7 +171,7 @@ Every editing item routes through the command layer: the operation runs against 
 | Make task | `convert_project_to_task` |
 | Wrap as project ▸ `Just this one` / `Up to “<title>”` | `wrap_run` |
 | Unwrap… | `unwrap_project` |
-| Move up / Move down | `move_task` or `move_project` to the next position |
+| Move up / Move down | `move_task` or `move_project` past the neighbouring task node |
 | Move left / Move right | `move_workflow` to the neighbouring main position |
 | Rename… | `set_title` |
 | Add task above / below | `insert_task` |
@@ -223,8 +223,8 @@ Right-click on a task card. Items in order; an empty condition column means alwa
 | `Clear here` or `Make here` | `Clear here` when this task carries the here mark |
 | `Make project` | |
 | `Wrap as project` ▸ | legal runs exist; first entry `Just this one`, then `Up to “<title>”` per node further up (an end node shown as `the close of “<project>”`, an empty title as `untitled`) |
-| `Move up` | a distinct position exists above |
-| `Move down` | a distinct position exists below |
+| `Move up` | the node directly above is a task node (absent when it is a finish or end node) |
+| `Move down` | the node directly below is a task node (absent when it is a start or begin node) |
 | `Rename…` | |
 | separator | |
 | `Add task above` | |

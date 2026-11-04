@@ -444,8 +444,9 @@ removed by <code>Clear here</code>. A wrap run is a contiguous stretch of one
 workflow that neither straddles a project boundary nor cuts a branch's scope;
 <code>Return a branch here</code> and <code>Move a branch here</code> list the
 branches for which the gap above the node is legal. <code>Move
-up</code>/<code>Move down</code> move a node to the next distinct position
-along its workflow; <code>Move left</code>/<code>Move right</code> reorder a
+up</code>/<code>Move down</code> move a node past the task node directly
+above or below it, and are absent when that neighbour is a start, finish,
+begin, or end node; <code>Move left</code>/<code>Move right</code> reorder a
 main workflow.</p>
 
 <div class="pair">
@@ -489,7 +490,7 @@ main workflow.</p>
   <tr><td><code>Clear here</code> / <code>Make here</code></td><td>by here-mark state</td></tr>
   <tr><td><code>Make project</code></td><td>always</td></tr>
   <tr><td><code>Wrap as project</code> ▸ (<code>Just this one</code>, then <code>Up to “…”</code>)</td><td>legal runs exist</td></tr>
-  <tr><td><code>Move up</code> · <code>Move down</code></td><td>a distinct position exists above / below</td></tr>
+  <tr><td><code>Move up</code> · <code>Move down</code></td><td>the node directly above / below is a task node</td></tr>
   <tr><td><code>Rename…</code>, then a separator</td><td>always</td></tr>
   <tr><td><code>Add task above</code> · <code>Add task below</code></td><td>always</td></tr>
   <tr><td><code>Add branch above</code> ▸ Left / Right · <code>Add branch below</code> ▸ Left / Right</td><td>always</td></tr>
