@@ -44,7 +44,7 @@ A per-install bearer token, generated once, kept in settings, shown in the pill,
 
 ## 5. Scope tiers
 
-The server is configured at one of three tiers, `read-only`, `read-write`, and `destructive`, each including the ones before it, from `server.scope` in the settings or the `PENSAFORMA_SERVER_SCOPE` environment variable. Every tool is declared at the tier it needs, and a tool above the configured tier is **not registered**: an agent never sees a tool it cannot use, so it plans around the surface it actually has. The tier is read on every request, so a change takes effect at the next one.
+The server is configured at one of three tiers, `read-only`, `read-write`, and `destructive`, each including the ones before it, from `server.scope` in the settings, which the pill's `Permissions` submenu sets (UI chrome, section 3), or the `PENSAFORMA_SERVER_SCOPE` environment variable, which overrides it. Every tool is declared at the tier it needs, and a tool above the configured tier is **not registered**: an agent never sees a tool it cannot use, so it plans around the surface it actually has. The tier is read on every request, so a change takes effect at the next one.
 
 `destructive` holds the three commands that remove nodes or files: `delete_node`, `delete_note`, `delete_domain`. Everything else that writes is `read-write`. Prompts that name write tools are registered at `read-write` and above, not at `read-only`, so a read-only client is never handed a recipe it cannot follow.
 

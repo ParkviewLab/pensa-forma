@@ -98,6 +98,8 @@ Activating the pill refreshes the status, then opens the shared menu widget (sec
 2. Separator.
 3. `Copy endpoint URL` (present only when a URL exists): copies it to the system clipboard; if the clipboard write fails, a dialog titled `MCP endpoint` shows the URL with an OK button instead.
 4. `Turn off` or `Turn on` (by current enabled state): toggles the server, saves the new state as `server.enabled` in the settings (persistence, section 6), so that the next launch starts the server or leaves it off accordingly, and refreshes.
+5. Separator.
+6. `Permissions` ▸, a submenu of the three scope tiers (automation server, section 5): `Read only` (`read-only`), `Read and write` (`read-write`), and `Read, write and delete` (`destructive`), the tier in force checked. Choosing one sets the server's tier at once, saves it as `server.scope` in the settings, and closes the menu; the next request an agent makes sees the new tool surface. When the environment variable `PENSAFORMA_SERVER_SCOPE` sets the tier, the three items are shown disabled with that tier checked, since the menu cannot change a tier the environment imposes.
 
 Status is polled only at application start and on activation; a server that dies in between shows a stale dot until the next press. The endpoint has the form `http://127.0.0.1:<port>/mcp` (default port 35899), loopback only.
 

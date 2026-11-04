@@ -206,7 +206,7 @@ The file is absent until the first bookmark is added and is written atomically l
 | `lastDomain` | none | the domain to reopen at launch, by id |
 | `server.enabled` | `true` | whether the automation server starts with the application; written by the pill's `Turn off` and `Turn on` |
 | `server.port` | `35899` | its loopback port; never roams |
-| `server.scope` | `read-write` | `read-only`, `read-write`, or `destructive` |
+| `server.scope` | `read-write` | `read-only`, `read-write`, or `destructive`; written by the pill's `Permissions` submenu |
 | `theme` | `light` | `light` or `dark`; anything else reads as `light` |
 | `style` | `googie` | `froebel`, `prairie`, `bauhaus`, `googie`, or `suuronen`; anything else reads as `googie` |
 | `note.split` | `0.5` | the note editor's divider fraction |

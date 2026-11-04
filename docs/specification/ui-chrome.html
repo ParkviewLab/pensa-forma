@@ -378,7 +378,7 @@ states: off <code>--c-cancel</code>, running <code>--accent-a</code>, error
       <td>click refreshes status then opens a menu under the button (offset
       4px): a disabled <code>●/○ url-or-unavailable</code> row, separator,
       <code>Copy endpoint URL</code> (URL only; clipboard, dialog fallback),
-      <code>Turn on/off</code>, which saves the choice for the next launch. Status polls only at start and on click. URL
+      <code>Turn on/off</code>, which saves the choice for the next launch, separator, <code>Permissions</code> ▸ (<code>Read only</code>, <code>Read and write</code>, <code>Read, write and delete</code>; the tier in force checked, saved as <code>server.scope</code>; disabled when the environment sets the tier). Status polls only at start and on click. URL
       form <code>http://127.0.0.1:35899/mcp</code></td></tr>
   <tr><td>Mode toggle</td><td><code>Mode</code> label 10px uppercase; a pill of
       two segments, active inverted</td>
@@ -471,6 +471,8 @@ departures, and returns are moved only by dragging.</p>
         <div class="mm-sep"></div>
         <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Copy endpoint URL</span></div>
         <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Turn off</span></div>
+        <div class="mm-sep"></div>
+        <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Permissions</span><span class="mm-arrow">›</span></div>
       </div>
     </div>
   </div>

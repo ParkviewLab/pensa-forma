@@ -503,6 +503,12 @@ A drag with the primary button that begins anywhere on the canvas but a card pan
 
 The domain file's canonical JSON is the only written form of a domain. Reads, write results, and clips all carry it: a write returns the id and final title of its subject, the new revision, and each workflow it changed, as that workflow's entry with the entries of its nodes and gaps. The text outline once specified for agents is withdrawn. One form means one schema, one implementation, and one set of tests; it is exact, carrying every field the file does; and its ordered `nodes` and `gaps` lists give an agent the order it needs. The cost is size, the JSON being larger than a text outline of the same workflow, which is accepted.
 
+### D60. The automation server's tier is chosen from the MCP pill
+
+*2026-11-04.*
+
+The MCP pill's menu gains `Permissions` ▸, a submenu of the three tiers, `Read only`, `Read and write`, and `Read, write and delete`, with the tier in force checked. Choosing one sets the tier at once and saves it as `server.scope`, as `Turn off` and `Turn on` save `server.enabled`. The tier is the person's main control over what agents may do, so it is placed beside the on and off switch rather than left to a hand edit of the settings file. Where the environment variable sets the tier, the items are shown disabled with that tier checked, so that the menu never claims a tier that is not in force.
+
 ## Proposed
 
 None at present.
