@@ -133,7 +133,7 @@ These are drawn the same way in every style, at that style's track widths, line 
 
 The underpass. Where a lateral crosses another line, the crossed line runs on and the lateral is cut, each cut end capped parallel to the line it passes under. The gap gives `perpClear = 3` of air plus the crossed line's half-width; for a crossing whose angle has sine `s`, the cut ends sit back along the lateral by `half = min(breakMax, (perpClear + crossedHalf) / s)`, `breakMax = 12`, and each cut end carries a cap of length 9.2 centred on the cut and parallel to the crossed line, stroked at 1.6 in `--line` with the style's line end. The strip removing the ink is centred on the crossed line, 30 long along it and `2·half·s` across it. `crossedHalf` is half the crossed line's width in the style. The layout decides which line yields (layout engine, section 8).
 
-The drop indicator (D35). Two chevrons facing each other across the target point, in `--cursor`, stroke 2.4, round caps and joins, drawn on the topmost layer during a drag and only over a legal target:
+The drop indicator (D35). At a branch target it is the preview of the dragged branch's departure lateral: the style's own route through the points the layout gives for the drop's result, stroked in `--cursor` at 2.5 times the style's lateral width, at 60 % opacity, on the topmost layer (interaction, section 6). At every other legal target it is two chevrons facing each other across the target point, in `--cursor`, stroke 2.4, round caps and joins, drawn on the topmost layer during a drag and only over a legal target:
 
 ```
 left:  M -13,-6  L -7,0  L -13,6

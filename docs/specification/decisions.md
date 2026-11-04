@@ -323,6 +323,8 @@ The chevron pair, in the `--cursor` token, marks every legal target, a main-work
 
 **Note, 2026-09-17.** The chevron pair is one construction for every style, in each style's `--cursor`, specified in the style contract (D39).
 
+**Amended 2026-11-04.** At a branch target the chevron pair is replaced by a preview of the dragged branch's departure lateral, drawn where the layout of the drop's result places it, in `--cursor`, at 2.5 times the style's lateral width and 60 % opacity: it shows the side, the lane, and the junction a drop there decides, exactly as the line will run. Only the departure lateral is drawn. A branch target's hit region is a lane-wide rectangle, cut off at the next branch point up, rather than the drawn lateral, so that one rule serves every style's route.
+
 ### D36. The domain directory describes itself
 
 *2026-09-08.*
