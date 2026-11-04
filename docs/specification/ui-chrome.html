@@ -454,9 +454,7 @@ departures, and returns are moved only by dragging.</p>
       <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Rename…</span></div>
       <div class="mm-sep"></div>
       <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Add task above</span></div>
-      <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Add task below</span></div>
       <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Add project above</span></div>
-      <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Add project below</span></div>
       <div class="mm-item"><span class="mm-check"></span><span class="mm-label">Add branch above</span><span class="mm-arrow">›</span></div>
     </div>
   </div>
@@ -486,9 +484,9 @@ departures, and returns are moved only by dragging.</p>
   <tr><td><code>Clear here</code> / <code>Make here</code></td><td>by here-mark state</td></tr>
   <tr><td><code>Wrap as project</code> ▸ (<code>Just this one</code>, then <code>Up to “…”</code>)</td><td>legal runs exist</td></tr>
   <tr><td><code>Rename…</code>, then a separator</td><td>always</td></tr>
-  <tr><td><code>Add task above</code> · <code>Add task below</code></td><td>always</td></tr>
-  <tr><td><code>Add project above</code> · <code>Add project below</code></td><td>always</td></tr>
-  <tr><td><code>Add branch above</code> ▸ Left / Right · <code>Add branch below</code> ▸ Left / Right</td><td>always</td></tr>
+  <tr><td><code>Add task above</code></td><td>always</td></tr>
+  <tr><td><code>Add project above</code></td><td>always</td></tr>
+  <tr><td><code>Add branch above</code> ▸ Left / Right</td><td>always</td></tr>
   <tr><td>separator; <code>Edit note…</code>; <code>Delete note…</code>; <code>Activity log…</code></td><td>delete only when a note exists (its presence is the indicator)</td></tr>
   <tr><td>separator; <code>Delete…</code></td><td>always</td></tr>
   </tbody>
@@ -504,8 +502,7 @@ blank title, writing the extent as a nested checkbox outline; the
 serialisation is the Markdown's section 5.1). Its <code>Delete…</code> deletes
 the whole project. Folded: the three add items on the hidden gap
 are absent.</p>
-<p class="small">End card: <code>Add task above</code>, <code>Add task
-below</code>, <code>Add project above</code>, <code>Add project below</code>, the two <code>Add branch</code> submenus, a separator, <code>Expand</code>/<code>Collapse</code> (acting on the
+<p class="small">End card: <code>Add task above</code>, <code>Add project above</code>, <code>Add branch above</code> ▸, a separator, <code>Expand</code>/<code>Collapse</code> (acting on the
 paired begin node). No note or log items: an end node carries neither. No
 <code>Delete…</code>: an end node is deleted with its begin node.</p>
 <p class="small">Start card: <code>Rename…</code>;
@@ -514,8 +511,7 @@ D15 as amended); a separator; <code>Add task above</code>, <code>Add project abo
 above</code> ▸, all three absent while the workflow is folded; a separator; for a
 main workflow <code>Copy</code>, then <code>Export to Markdown…</code>, the note items, <code>Activity log…</code>; a separator;
 <code>Delete…</code>, deleting the whole workflow. Finish card: <code>Detach
-return</code> when a branch returns; <code>Add task below</code>, <code>Add project below</code>, and <code>Add
-branch below</code> ▸, absent while folded; a separator; <code>Expand</code>/<code>Collapse</code> (acting on
+return</code> when a branch returns, then a separator; <code>Expand</code>/<code>Collapse</code> (acting on
 the paired start node). No note or log items: a finish node carries neither.</p>
 <p class="small">Canvas: <code>New workflow…</code>; <code>Paste as new
 workflow</code> (only with a session clipboard; an exact copy of the copied
@@ -562,9 +558,9 @@ silent.</p>
   <tbody>
   <tr><td>New workflow</td><td><code>New workflow</code></td><td><code>Workflow name</code></td><td>empty</td><td>accepted (untitled workflow)</td></tr>
   <tr><td>Rename node</td><td><code>Rename task</code> / <code>Rename project</code> / <code>Rename workflow</code></td><td><code>Title</code></td><td>current title</td><td>accepted (title cleared; then untitled)</td></tr>
-  <tr><td>Add task</td><td><code>Add task above/below</code></td><td><code>Title</code></td><td>empty</td><td>accepted; titled <code>New task</code>, suffixed if taken</td></tr>
-  <tr><td>Add project</td><td><code>Add project above/below</code></td><td><code>Title</code></td><td>empty</td><td>accepted; titled <code>New project</code>, suffixed if taken</td></tr>
-  <tr><td>Add branch</td><td><code>Add branch above/below</code></td><td><code>Branch name</code></td><td>empty</td><td>accepted (untitled branch)</td></tr>
+  <tr><td>Add task</td><td><code>Add task above</code></td><td><code>Title</code></td><td>empty</td><td>accepted; titled <code>New task</code>, suffixed if taken</td></tr>
+  <tr><td>Add project</td><td><code>Add project above</code></td><td><code>Title</code></td><td>empty</td><td>accepted; titled <code>New project</code>, suffixed if taken</td></tr>
+  <tr><td>Add branch</td><td><code>Add branch above</code></td><td><code>Branch name</code></td><td>empty</td><td>accepted (untitled branch)</td></tr>
   <tr><td>Wrap as project</td><td><code>Wrap as project</code></td><td><code>Name</code></td><td><code>&lt;from&gt;</code> or <code>&lt;from&gt; to &lt;to&gt;</code></td><td>accepted; titled <code>New project</code>, suffixed if taken</td></tr>
   <tr><td>Add bookmark</td><td><code>Add bookmark</code></td><td><code>Name</code></td><td>empty</td><td>aborts (after trim)</td></tr>
   <tr><td>New domain</td><td><code>New domain</code></td><td><code>Domain name</code></td><td>empty</td><td>refused by the validator (<code>Could not create domain</code>)</td></tr>

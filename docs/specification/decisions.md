@@ -477,6 +477,12 @@ The window offers no menu item that moves a node: `Move up`, `Move down`, `Move 
 
 `Make project` and `Make task`, with the commands `convert_task_to_project` and `convert_project_to_task`, are withdrawn. A project is created in one of two ways: `Add project above` or `Add project below` (`insert_project`, and `add_project` for agents) adds an empty begin and end pair immediately above or below a node, at the positions `Add task above` and `Add task below` use; `Wrap as project` puts a pair around a run of existing nodes. `Remove project wrapper…` (`unwrap_project`, formerly the `Unwrap…` item) removes a pair and leaves its contents in place. Adding a pair at a fixed position always yields an empty project with no branch inside, where converting a task node in place had to decide on which side of the branches above it the new end node should go. A task node that turns out to be larger is wrapped, so its note and activity log stay with it inside the new project. The only remaining change of kind is the one a drag makes, a branch workflow becoming a project or a project a branch workflow.
 
+### D56. The menus add above a node, never below it
+
+*2026-11-03.*
+
+`Add task below`, `Add project below`, and `Add branch below` are withdrawn from every right-click menu; `Add task above`, `Add project above`, and `Add branch above` remain. A branch leaves from the junction point between two nodes, so adding one below a node attaches it where adding one above the next node down already does, and every junction point is reached from the node directly above it. A task node or a project added above a node lands below the branches attached in that gap; the one placement the menus no longer reach in a click, between those branches and the node above them, is reached by adding the node and dragging it there. The finish node's menu therefore has no add items, and a workflow is extended at its top from its topmost node. Agents are unaffected: `add_task`, `add_project`, and `add_branch` still take above or below, and `insert_task`, `insert_project`, and `open_branch` take any exact position.
+
 ## Proposed
 
 None at present.

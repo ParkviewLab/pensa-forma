@@ -118,7 +118,7 @@ Refusal `bad_arguments`: "A finish node and an end node carry no title; a workfl
 
 Tier read-write. Undoable. Subject: the new task. Creates a task with `title` (`New task` when empty, then made unique), `status: todo`, in the named gap at the named position; the gap splits as the structural model, section 2.4, describes, the record following its branch point. If the gap lies inside projects, the task is part of the innermost. Log: `created`, "Created above <lower node title>."
 
-The window's `Add task above <node>` issues this command for the gap above the node at its `outgoing` position (immediately above the node, below any departures there); `Add task below <node>` issues it for the gap below the node at its `incoming` position (immediately below the node, above any arrivals there). A finish or end node has no gap above it, and a start or begin node none below, which is why those items are absent on those nodes.
+The window's `Add task above <node>` issues this command for the gap above the node at its `outgoing` position (immediately above the node, below any departures there). A finish node has no gap above it, so the item is absent on it. The window offers no `Add task below` (D56); an agent places a node below another with `add_task` or at any exact position with `insert_task`.
 
 Refusals. `not_found`: "No gap <id>." `bad_arguments`: "A position is outgoing, middle, or incoming."
 
@@ -126,7 +126,7 @@ Refusals. `not_found`: "No gap <id>." `bad_arguments`: "A position is outgoing, 
 
 Tier read-write. Undoable. Subject: the new begin node. Creates an empty project: a begin node carrying `title` (`New project` when empty, then made unique) and, immediately above it, its end node, paired with it, the two inserted together in the named gap at the named position. The gap splits as for `insert_task`, and the gap between the two new nodes is empty, so the project holds no node and no branch. If the gap lies inside projects, the new project nests in the innermost. Log: `created`, "Created above <lower node title>."
 
-The window's `Add project above <node>` and `Add project below <node>` issue this command at the positions `Add task above` and `Add task below` use, so the pair lands immediately above or below the node, outside anything attached there. A node has an `Add project above` or `Add project below` item exactly where it has the matching `Add task` item.
+The window's `Add project above <node>` issues this command at the position `Add task above` uses, so the pair lands immediately above the node, outside anything attached there; a node has the item exactly where it has `Add task above`.
 
 Refusals as for `insert_task`.
 
@@ -194,7 +194,7 @@ Refusals. `bad_arguments`: "The argument is a begin node; a task moves with `mov
 
 Tier read-write. Undoable. Subject: the new start node. Creates a branch workflow of a start node carrying `title` (which may be empty and, when not, is made unique) and a finish node, with one empty gap between them, and appends its id outermost on the named side of the named gap's branch point. The branch is open. If the gap lies inside projects, the branch is part of the innermost. Log: `created`, "Opened off <lower node title> on the <side>."
 
-The window's `Add branch above <node>` issues this for the gap above the node; `Add branch below <node>` for the gap below it; the side is the one the menu names, or the pointer's side when opened by a gesture.
+The window's `Add branch above <node>` issues this for the gap above the node, which reaches every junction point, so there is no `Add branch below`; the side is the one the menu names, or the pointer's side when opened by a gesture.
 
 Refusals. `not_found`: "No gap <id>." `bad_arguments`: "A side is left or right."
 
