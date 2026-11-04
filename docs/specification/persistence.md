@@ -127,7 +127,7 @@ The worked instance of the structural model, section 8, in canonical form:
         {
           "id": "e_mrtwgppt02", "at": "2026-09-02T18:04:11.212Z",
           "author": { "kind": "system", "name": "pensa-forma" },
-          "origin": "system", "event": "created", "text": "Created above \"the close of Build\"."
+          "origin": "system", "event": "created", "text": "Created above the close of “Build” (n_e1)."
         }
       ]
     },

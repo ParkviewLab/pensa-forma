@@ -483,6 +483,12 @@ The window offers no menu item that moves a node: `Move up`, `Move down`, `Move 
 
 `Add task below`, `Add project below`, and `Add branch below` are withdrawn from every right-click menu; `Add task above`, `Add project above`, and `Add branch above` remain. A branch leaves from the junction point between two nodes, so adding one below a node attaches it where adding one above the next node down already does, and every junction point is reached from the node directly above it. A task node or a project added above a node lands below the branches attached in that gap; the one placement the menus no longer reach in a click, between those branches and the node above them, is reached by adding the node and dragging it there. The finish node's menu therefore has no add items, and a workflow is extended at its top from its topmost node. Agents are unaffected: `add_task`, `add_project`, and `add_branch` still take above or below, and `insert_task`, `insert_project`, and `open_branch` take any exact position.
 
+### D57. A log entry names a node by its title and its id
+
+*2026-11-03.*
+
+A placeholder in a `system` entry's text names its node as a person reads it, with the node's id in brackets after it: `“<title>” (<id>)`, `the close of “<project title>” (<id>)` for an end node, and `untitled (<id>)` for an untitled node. A log entry is stored as written, so a name alone goes stale after a rename and an id alone tells a person nothing; both together serve the person reading the log now and the agent that a person asks, when the logs have grown long, to read and work with them. Refusal messages keep their own rule, the title or the id when the title is empty.
+
 ## Proposed
 
 None at present.
