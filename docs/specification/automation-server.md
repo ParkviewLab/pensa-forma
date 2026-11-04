@@ -70,7 +70,7 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 
 | Tool | Wraps |
 | --- | --- |
-| `list_domains()` | `list_domains` |
+| `list_domains()` | `list_domains`, each domain as `{ id, name, path }` |
 | `read_domain(domain?, include_notes?)` | `read_domain` |
 | `read_workflow(workflow, include_notes?)` | `read_workflow` |
 | `read_project(begin, include_notes?)` | `read_project` |

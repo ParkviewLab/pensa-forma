@@ -60,7 +60,7 @@ State commands (title, flag, here mark, note text, log entries) write no `system
 
 ## 2. Domains
 
-These three act on the library rather than on a record, so they take no `revision` and fill no undo slot.
+These three act on the library rather than on a record, so they take no `revision`, fill no undo slot, and return no workflows. Each returns the domain as `list_domains` lists it, `{ id, name, path }`: `create_domain` the new domain, `rename_domain` the domain after its rename, its path re-derived with its label, and `delete_domain` the domain as it was before it moved to the Trash.
 
 ### `create_domain(name)`
 
