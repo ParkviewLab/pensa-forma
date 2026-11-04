@@ -261,11 +261,9 @@ Tier destructive. Undoable. Subject: none. What is removed depends on the kind, 
 - A **begin node**: the project's whole extent, its end node, its contents, and every branch that is part of it, with those branches' own descendants. To remove the pair and keep the contents, use `unwrap_project`.
 - A **start node**: the whole workflow, its finish node, its contents, and every descendant branch. A main workflow leaves `mains`; a branch workflow leaves its departure and return lists, which close up.
 
-Note files of removed nodes stay in the domain's `notes/` directory as orphans; only `delete_note` while the node exists, or `delete_domain`, removes one. The window confirms before every deletion whose extent holds more than the node itself.
+Note files of removed nodes stay in the domain's `notes/` directory as orphans; only `delete_note` while the node exists, or `delete_domain`, removes one. The window confirms before every deletion whose extent holds more than the node itself, by its own dialog (UI chrome, section 7), and sends the command only once the person has confirmed; the command itself never refuses a deletion for its size, from either caller.
 
-Refusals. `bad_arguments`: "A finish node and an end node are one half of a pair and have no life of their own; delete the workflow by its start node, or the project by its begin node." `refused`: "Deleting <title> would remove
-<n> nodes; confirm." (issued to the window only, which turns it into the
-dialog; an agent's call carries no confirmation and proceeds.)
+Refusals. `bad_arguments`: "A finish node and an end node are one half of a pair and have no life of their own; delete the workflow by its start node, or the project by its begin node."
 
 ### `paste(clip, target?)`
 
