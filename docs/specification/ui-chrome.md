@@ -151,7 +151,7 @@ Between every pair of consecutive nodes is a gap, with a branch point below and 
 
 A flagged node is one marked (by double-click) for the flagged-only review mode; the flag is stored on the node and shared, unlike the toggle itself.
 
-`Wrap as project` acts on a contiguous run of the clicked node's workflow: the clicked node is the run's base, and the submenu offers each legal top, from `Just this one` upward; a run is legal while it neither straddles a project boundary nor cuts a branch's scope, and the submenu ends where legality does. `Unwrap…` removes a project's begin and end pair and leaves its contents in place.
+`Wrap as project` acts on a contiguous run of the clicked node's workflow: the clicked node is the run's base, and the submenu offers each legal top, from `Just this one` upward; a run is legal while it neither straddles a project boundary nor cuts a branch's scope, and the submenu ends where legality does. `Remove project wrapper…` removes a project's begin and end pair and leaves its contents in place. `Add project above` and `Add project below` add an empty project, a begin and end pair, immediately above or below the clicked node. No menu item changes a node's kind.
 
 A branch's departure and return are moved, or a return attached, only by dragging the branch's start node or finish node (interaction, section 7). `Detach return`, on a branch's finish card, leaves the branch open.
 
@@ -167,12 +167,11 @@ Every editing item routes through the command layer: the operation runs against 
 | --- | --- |
 | Status ▸ To do / In progress / Completed / Cancelled | `set_status` |
 | Make here / Clear here | `set_here` / `clear_here` |
-| Make project | `convert_task_to_project` |
-| Make task | `convert_project_to_task` |
 | Wrap as project ▸ `Just this one` / `Up to “<title>”` | `wrap_run` |
-| Unwrap… | `unwrap_project` |
+| Remove project wrapper… | `unwrap_project` |
 | Rename… | `set_title` |
 | Add task above / below | `insert_task` |
+| Add project above / below | `insert_project` |
 | Add branch above / below ▸ Left / Right | `open_branch` |
 | Detach return | `detach_return` |
 | Expand / Collapse | fold state (client-local; no command) |
@@ -217,12 +216,13 @@ Right-click on a task card. Items in order; an empty condition column means alwa
 | --- | --- |
 | `Status` ▸ `To do` / `In progress` / `Completed` / `Cancelled` | the current status row is checked |
 | `Clear here` or `Make here` | `Clear here` when this task carries the here mark |
-| `Make project` | |
 | `Wrap as project` ▸ | legal runs exist; first entry `Just this one`, then `Up to “<title>”` per node further up (an end node shown as `the close of “<project>”`, an empty title as `untitled`) |
 | `Rename…` | |
 | separator | |
 | `Add task above` | |
 | `Add task below` | |
+| `Add project above` | |
+| `Add project below` | |
 | `Add branch above` ▸ `Left` / `Right` | |
 | `Add branch below` ▸ `Left` / `Right` | |
 | separator | |
@@ -234,21 +234,21 @@ Right-click on a task card. Items in order; an empty condition column means alwa
 
 ### 6.3 The begin-card menu
 
-Same builder, with these differences: no `Status` submenu and no here items (a begin node has neither); `Make project` becomes `Make task`; after the Wrap item it gains `Unwrap…`, then `Expand` or `Collapse` (by current fold state) and `Export to Markdown…`. Its `Delete…` deletes the whole project.
+Same builder, with these differences: no `Status` submenu and no here items (a begin node has neither); after the Wrap item it gains `Remove project wrapper…`, then `Expand` or `Collapse` (by current fold state) and `Export to Markdown…`. Its `Delete…` deletes the whole project.
 
-Folded-scope withholdings: when the project is folded, `Add task above` and `Add branch above` are absent (not disabled), because anything added on the gap above a folded begin node would land invisibly inside the fold; expanding restores them.
+Folded-scope withholdings: when the project is folded, `Add task above`, `Add project above`, and `Add branch above` are absent (not disabled), because anything added on the gap above a folded begin node would land invisibly inside the fold; expanding restores them.
 
 ### 6.4 The end-card menu
 
-Right-click on a project's close. It has no title, status, here mark, note, or log, so the menu is short: `Add task above`, `Add task below`, `Add branch above` ▸, `Add branch below` ▸, then a separator, then `Expand` or `Collapse` (resolved against the begin node the close pairs with, so either end of the pair acts identically). No `Delete…`: an end node is deleted with its begin node.
+Right-click on a project's close. It has no title, status, here mark, note, or log, so the menu is short: `Add task above`, `Add task below`, `Add project above`, `Add project below`, `Add branch above` ▸, `Add branch below` ▸, then a separator, then `Expand` or `Collapse` (resolved against the begin node the close pairs with, so either end of the pair acts identically). No `Delete…`: an end node is deleted with its begin node.
 
 ### 6.5 The start-card menu
 
-Right-click on a workflow's start node: `Rename…`; `Expand` or `Collapse` (by current fold state; D15 as amended); a separator; `Add task above` and `Add branch above` ▸, both absent while the workflow is folded, since anything added on the gap above a folded start node would land invisibly inside the fold; a separator; for a main workflow `Copy`, then `Export to Markdown…`; `Edit note…`, `Delete note…` when a note exists, `Activity log…`; a separator; `Delete…`, which deletes the whole workflow.
+Right-click on a workflow's start node: `Rename…`; `Expand` or `Collapse` (by current fold state; D15 as amended); a separator; `Add task above`, `Add project above`, and `Add branch above` ▸, all three absent while the workflow is folded, since anything added on the gap above a folded start node would land invisibly inside the fold; a separator; for a main workflow `Copy`, then `Export to Markdown…`; `Edit note…`, `Delete note…` when a note exists, `Activity log…`; a separator; `Delete…`, which deletes the whole workflow.
 
 ### 6.6 The finish-card menu
 
-Right-click on a workflow's close: for a branch workflow, `Detach return` when it returns (D18); `Add task below` and `Add branch below` ▸, both absent while the workflow is folded; a separator; `Expand` or `Collapse` (resolved against the start node the close pairs with). A finish node carries no note and no log, so there are no note or log items. A main workflow's finish card omits `Detach return`. No `Delete…`.
+Right-click on a workflow's close: for a branch workflow, `Detach return` when it returns (D18); `Add task below`, `Add project below`, and `Add branch below` ▸, all three absent while the workflow is folded; a separator; `Expand` or `Collapse` (resolved against the start node the close pairs with). A finish node carries no note and no log, so there are no note or log items. A main workflow's finish card omits `Detach return`. No `Delete…`.
 
 ### 6.7 The canvas menu
 
@@ -284,6 +284,7 @@ A dialog raised while the note editor is open must render above the editor. The 
 | New workflow | `New workflow` | `Workflow name` | empty | accepted (an untitled workflow) |
 | Rename node | `Rename task` / `Rename project` / `Rename workflow` by kind | `Title` | current title | accepted (title cleared; the node is then untitled) |
 | Add task | `Add task above` / `Add task below` | `Title` | empty | accepted; the task is titled `New task`, suffixed if taken |
+| Add project | `Add project above` / `Add project below` | `Title` | empty | accepted; the project is titled `New project`, suffixed if taken |
 | Add branch | `Add branch above` / `Add branch below` | `Branch name` | empty | accepted (an untitled branch) |
 | Wrap as project | `Wrap as project` | `Name` | `<from>` or `<from> to <to>` (an end node reads `the close of “<project>”`) | accepted; the project is titled `New project`, suffixed if taken |
 | Add bookmark | `Add bookmark` | `Name` | empty | aborts (after trim) |
@@ -300,7 +301,7 @@ Only Cancel/Escape distinguishes abandonment; OK with an empty field resolves th
 | Delete a task | no dialog; deletes immediately | | |
 | Delete a project | `Delete “<title>”` | `Delete this project and everything in it, including its branches?` | `Cancel` (null) · `Delete project` (danger) |
 | Delete a workflow | `Delete “<title>”` | `Delete this workflow and everything in it, including its branches?` | `Cancel` · `Delete workflow` (danger) |
-| Unwrap a project | `Unwrap “<title>”` | `Remove the project’s begin and end and keep its contents in place? The begin node’s note and activity log are removed with it.` | `Cancel` · `Unwrap` (danger) |
+| Remove a project wrapper | `Remove project wrapper “<title>”` | `Remove the project’s begin and end and keep its contents in place? The begin node’s note and activity log are removed with it.` | `Cancel` · `Remove wrapper` (danger) |
 | Delete a note | `Delete note` | `Delete the note on “<title>”? The text is not recoverable.` (wherever a dialog quotes a title, an empty one reads `untitled`) | `Cancel` · `Delete note` (danger) |
 | Delete a log entry | `Delete entry` | `Delete this activity-log entry?` | `Cancel` · `Delete` (danger) |
 | Delete a bookmark | `Delete bookmark` | `Delete the bookmark “<name>”?` | `Cancel` · `Delete` (danger) |

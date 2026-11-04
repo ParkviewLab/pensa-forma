@@ -74,7 +74,7 @@ A workflow is a *main* workflow when its id appears in its domain's `mains`, and
 | Field | Type | Notes |
 | --- | --- | --- |
 | `id` | id | |
-| `kind` | `start` \| `finish` \| `begin` \| `end` \| `task` | fixed at creation except by the two conversions the catalogue defines |
+| `kind` | `start` \| `finish` \| `begin` \| `end` \| `task` | fixed at creation, except where a drag turns a branch workflow into a project or a project into a branch workflow (the catalogue, `move_workflow` and `move_project`) |
 | `title` | string | `start`, `begin`, and `task` only; may be empty; a non-empty title is unique within the domain (I19) |
 | `endNode` | node id | `begin` only; the id of the project's `end` node |
 | `beginNode` | node id | `end` only; the id of the project's `begin` node |

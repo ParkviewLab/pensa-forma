@@ -349,11 +349,7 @@ A clip is the value `copy_workflow` returns: a main workflow's extent, with ever
 
 ### Conversion
 
-A conversion changes a node's kind, and is the only way a kind changes.
-
-`convert_task_to_project` makes a task the begin node of a new, empty project; `convert_project_to_task` makes a begin node a task and removes its end node.
-
-A drag also converts: a branch workflow dropped onto an edge target in its parent becomes a project, and a project dropped onto a branch target becomes a branch workflow, its begin and end nodes becoming a start and a finish.
+A conversion changes a node's kind, and is the only way a kind changes. Only a drag converts: a branch workflow dropped onto an edge target in its parent becomes a project, and a project dropped onto a branch target becomes a branch workflow, its begin and end nodes becoming a start and a finish.
 
 ### Mutation
 

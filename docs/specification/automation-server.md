@@ -91,13 +91,14 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 | `set_title(node_id, title)` | `set_title` |
 | `insert_task(gap_id, position, title)` | `insert_task` |
 | `add_task(node_id, above_or_below, title)` | `insert_task` at the derived gap and position |
+| `insert_project(gap_id, position, title)` | `insert_project` |
+| `add_project(node_id, above_or_below, title)` | `insert_project` at the derived gap and position |
 | `move_task(task_id, target)` | `move_task` |
 | `set_status(task_id, status)`, `cycle_status(task_id)` | the two status commands |
 | `set_here(task_id)`, `clear_here(task_id)` | the two here-mark commands |
 | `set_flag(node_id, flagged)` | `set_flag` |
 | `wrap_run(from_id, to_id, title)` | `wrap_run` |
 | `unwrap_project(begin_id)` | `unwrap_project` |
-| `convert_task_to_project(task_id)`, `convert_project_to_task(begin_id)` | the two conversions |
 | `move_project(begin_id, target)` | `move_project` |
 | `open_branch(gap_id, side, title)` | `open_branch` |
 | `add_branch(node_id, above_or_below, side, title)` | `open_branch` at the derived gap |

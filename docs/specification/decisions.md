@@ -471,6 +471,12 @@ Every write takes the domain's id and nothing else, as it takes a node's id and 
 
 The window offers no menu item that moves a node: `Move up`, `Move down`, `Move left`, `Move right`, `Move a branch here`, and `Return a branch here` are withdrawn from every right-click menu, and a branch's departure and return are moved, or a return attached, by dragging the branch's start node or finish node. A task node, a project, or a workflow is moved by dragging it, which reaches every position the model allows and shows each legal target before the drop. The application is therefore not usable without a pointer that can drag; keyboard-only use is not a goal. Agents are unaffected: they move nodes through `move_task`, `move_project`, and `move_workflow`.
 
+### D55. Projects are added and removed as pairs; no command converts a task node
+
+*2026-11-03.*
+
+`Make project` and `Make task`, with the commands `convert_task_to_project` and `convert_project_to_task`, are withdrawn. A project is created in one of two ways: `Add project above` or `Add project below` (`insert_project`, and `add_project` for agents) adds an empty begin and end pair immediately above or below a node, at the positions `Add task above` and `Add task below` use; `Wrap as project` puts a pair around a run of existing nodes. `Remove project wrapper…` (`unwrap_project`, formerly the `Unwrap…` item) removes a pair and leaves its contents in place. Adding a pair at a fixed position always yields an empty project with no branch inside, where converting a task node in place had to decide on which side of the branches above it the new end node should go. A task node that turns out to be larger is wrapped, so its note and activity log stay with it inside the new project. The only remaining change of kind is the one a drag makes, a branch workflow becoming a project or a project a branch workflow.
+
 ## Proposed
 
 None at present.

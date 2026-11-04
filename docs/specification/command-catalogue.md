@@ -122,6 +122,14 @@ The window's `Add task above <node>` issues this command for the gap above the n
 
 Refusals. `not_found`: "No gap <id>." `bad_arguments`: "A position is outgoing, middle, or incoming."
 
+### `insert_project(gap, position, title)`
+
+Tier read-write. Undoable. Subject: the new begin node. Creates an empty project: a begin node carrying `title` (`New project` when empty, then made unique) and, immediately above it, its end node, paired with it, the two inserted together in the named gap at the named position. The gap splits as for `insert_task`, and the gap between the two new nodes is empty, so the project holds no node and no branch. If the gap lies inside projects, the new project nests in the innermost. Log: `created`, "Created above <lower node title>."
+
+The window's `Add project above <node>` and `Add project below <node>` issue this command at the positions `Add task above` and `Add task below` use, so the pair lands immediately above or below the node, outside anything attached there. A node has an `Add project above` or `Add project below` item exactly where it has the matching `Add task` item.
+
+Refusals as for `insert_task`.
+
 ### `move_task(task, target)`
 
 Tier read-write. Undoable. Subject: the task. The task travels alone. Onto an edge target, it is spliced in at the stated position and then removed from where it was, its vacated position repaired (the order of a move, section 1); if the target lies inside projects, it becomes part of the innermost. Onto a main target, it becomes the sole task of a new main workflow: a start node with an empty title and a finish node are created around it, and the workflow is inserted at the indicated position. Log: `moved`, "Moved above <lower node title> in <workflow title>" or "Moved into a new workflow."
@@ -163,19 +171,7 @@ Refusals. `bad_arguments`: "A run is bounded by two nodes of one workflow, the l
 
 Tier read-write. Undoable. Subject: none; the begin node is removed. Removes the begin node and its end node, leaving the contents in place on the workflow; the two vacated positions are repaired, and every branch that was part of the project becomes part of the enclosing project, or of none. The begin node's title, note reference, and log are lost with it, which is why the window confirms first. No log entry.
 
-Refusal `bad_arguments`: "The argument is a begin node; a task or a workflow is not unwrapped." Use `convert_project_to_task` to keep the begin node's identity.
-
-### `convert_task_to_project(task)`
-
-Tier read-write. Undoable. Subject: the task, which becomes the begin node. The task's `kind` becomes `begin`; its `status`, `completedAt`, and `here` are dropped; a new end node is inserted immediately above it and paired with it, so the result is an empty project bearing the task's title, note, log, and flag. Log: `converted`, "Became a project."
-
-Refusal `bad_arguments`: "Only a task becomes a project."
-
-### `convert_project_to_task(begin)`
-
-Tier read-write. Undoable. Subject: the begin node, which becomes the task. The begin node's `kind` becomes `task` with `status: todo`; its end node is removed and the vacated position repaired; the project's contents stay in place and its branches become part of the enclosing project, or of none. The node keeps its identity, title, note, log, and flag. Log: `converted`, "Became a task."
-
-Refusal `bad_arguments`: "Only a begin node becomes a task."
+Refusal `bad_arguments`: "The argument is a begin node; a task or a workflow is not unwrapped."
 
 ### `move_project(begin, target)`
 
@@ -315,7 +311,7 @@ No command leaves two nodes with the same non-empty title (I19), and no conversi
 
 A command's subject is the only node whose activity log changes, and only a command whose entry here names a log entry, or one of the three log commands, changes it.
 
-Every field of every node a command moves is preserved, except `kind`, `endNode`, and `beginNode` under the two conversions, `status` and `here` when a task becomes a begin node, and the one appended log entry on the subject.
+Every field of every node a command moves is preserved, except `kind`, `endNode`, and `beginNode` under the two conversions a drag makes (a branch workflow becoming a project, and a project becoming a branch workflow), and the one appended log entry on the subject.
 
 No command creates a return. Only `attach_return` does, and only where the author points.
 
