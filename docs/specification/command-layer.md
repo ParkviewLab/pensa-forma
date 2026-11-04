@@ -52,7 +52,7 @@ Ok       { record, revision, undoable }
 Refused  { code, message }
 ```
 
-`record` is the new record, which the caller renders; the automation server returns it as the agent's new ground truth so an agent never has to guess what its write produced. `revision` is the new revision.
+`record` is the new record, which the window renders. `revision` is the new revision. The automation server does not pass the record to an agent: it returns the compact result its tools define, the id and final title of the subject, the new revision, and the outline of each workflow the write changed (automation server, section 7), which tells the agent what its write produced; an agent that needs more reads it.
 
 Refusal codes are a small closed set, so a caller can branch on the code and show the message.
 
