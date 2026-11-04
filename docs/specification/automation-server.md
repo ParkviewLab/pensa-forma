@@ -62,7 +62,7 @@ The server's `server/discover` response carries these instructions in its `instr
 
 Every read takes an optional `domain`: an id, a name, or a path, and when absent the domain open in the window, or a `not_found` refusal when none is open. Every write takes a required `domain`, the domain's id, which `list_domains` and every read return, since a name can change between a read and a write as a title can; and every write takes an optional `revision`. A write returns `{ id, title, revision, workflows }`: the id of the subject or new object, its final title (which a create, a rename, or a paste may have suffixed), the new revision, and each workflow the write changed, in the record's own form (the catalogue, section 9), one where it changed one and two where it moved something from one workflow to another. The whole record is not returned; an agent that needs more reads it with `read_domain` or `read_workflow`. A refusal is returned as a tool result, not as a protocol error: the result is marked `isError: true`, its text is `<code>: <message>`, and it carries `{ code, message }` as structured content, so the agent reads the rule and the legal alternative and can branch on the code. A JSON-RPC protocol error is kept for a request the server cannot take at all, an unknown method or arguments that do not parse against the tool's schema.
 
-Parameter names follow one rule. On a write, a parameter that takes a node of any kind is `node_id`, and one that takes a particular kind names it (`task_id`, `begin_id`, `start_id`, `workflow_id`); on a read, the same parameters drop the `_id` suffix (`node`, `workflow`, `begin`) and take an id or a non-empty title. A gap is `gap_id`; a position is `target`, in the catalogue's grammar; a second node in a relation keeps its role name (`from_id`, `to_id`). A tool is named for the command it wraps, and a tool that takes one kind says so in its description and refuses the rest naming the tool that accepts them.
+Parameter names follow one rule. On a write, a parameter that takes a node of any kind is `node_id`, and one that takes a particular kind names it (`task_id`, `begin_id`); a parameter that names a workflow as a whole is `workflow_id` and takes the workflow's `w_` id, as the record's `mains` and gap side lists hold it; on a read, the same parameters drop the `_id` suffix (`node`, `workflow`, `begin`) and take an id or a non-empty title. A gap is `gap_id`; a position is `target`, in the catalogue's grammar; a second node in a relation keeps its role name (`from_id`, `to_id`). A tool is named for the command it wraps, and a tool that takes one kind says so in its description and refuses the rest naming the tool that accepts them.
 
 A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D11 as amended); `read_note`, `read_log`, `set_note`, `delete_note`, `set_flag`, and the three log tools refuse a finish or end node with the catalogue's message.
 
@@ -78,7 +78,7 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 | `read_note(node)` | `read_note` |
 | `read_log(node)` | `read_log` |
 | `find_flagged(domain?)` | `find_flagged` |
-| `copy_workflow(start)` | `copy_workflow`, returning a clip of a main workflow for `paste` |
+| `copy_workflow(workflow)` | `copy_workflow`, returning a clip of a main workflow for `paste` |
 
 ### Read-write
 
@@ -87,7 +87,7 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 | `create_domain(name)` | `create_domain` |
 | `rename_domain(domain, name)` | `rename_domain` |
 | `create_workflow(title, target?)` | `create_workflow` |
-| `move_workflow(start_id, target)` | `move_workflow` |
+| `move_workflow(workflow_id, target)` | `move_workflow` |
 | `set_title(node_id, title)` | `set_title` |
 | `insert_task(gap_id, position, title)` | `insert_task` |
 | `add_task(node_id, above_or_below, title)` | `insert_task` at the derived gap and position |
@@ -102,8 +102,8 @@ A note, a flag, and a log belong to start nodes, begin nodes, and tasks only (D1
 | `move_project(begin_id, target)` | `move_project` |
 | `open_branch(gap_id, side, title)` | `open_branch` |
 | `add_branch(node_id, above_or_below, side, title)` | `open_branch` at the derived gap |
-| `attach_return(start_id, gap_id)` | `attach_return` |
-| `detach_return(start_id)` | `detach_return` |
+| `attach_return(workflow_id, gap_id)` | `attach_return` |
+| `detach_return(workflow_id)` | `detach_return` |
 | `set_note(node_id, text)` | `set_note` |
 | `add_log_entry(node_id, text)`, `edit_log_entry(node_id, entry_id, text)`, `delete_log_entry(node_id, entry_id)` | the three log commands |
 | `paste(clip, target?)` | `paste`, as a new main workflow |

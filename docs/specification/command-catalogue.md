@@ -13,7 +13,7 @@ Vocabulary is the [glossary](glossary.md)'s; structure and invariants are the [s
 
 ## 1. Conventions
 
-**Arguments.** Every argument of a write that names an object takes an id and nothing else, the domain included: titles change under a caller between its read and its write, so a title is never an address on a write. A read's node argument takes an id or a non-empty title, since a non-empty title names exactly one node (structural model, I19); a title that names no node refuses `not_found`. A `node` argument accepts a node of any kind unless the command says which; a command that takes one kind refuses the rest and names the command that would accept them.
+**Arguments.** Every argument of a write that names an object takes an id and nothing else, the domain included: titles change under a caller between its read and its write, so a title is never an address on a write. A read's node argument takes an id or a non-empty title, since a non-empty title names exactly one node (structural model, I19); a title that names no node refuses `not_found`. A `node` argument accepts a node of any kind unless the command says which; a command that takes one kind refuses the rest and names the command that would accept them. An argument that names a workflow as a whole (`workflow`, `branch`) takes the workflow's own `w_` id, the id the record holds in `mains` and in every gap's side lists, so that an id read from the record is passed as it stands; a read's `workflow` argument also takes the workflow's title, which is its start node's. The start node's own id is for what belongs to that node, its title, note, log, and flag, and for `delete_node`, which removes a workflow when given its start node.
 
 **Positions.** Several commands place something. They share one target grammar:
 
@@ -297,9 +297,9 @@ Reads take the lock, read the record, and answer from it with the domain's `revi
 | `read_note(node)` | the note's text, or empty when the node has none |
 | `read_log(node)` | the node's activity log, newest first |
 | `find_flagged(domain)` | every flagged node with its kind, title, workflow, and innermost project |
-| `copy_workflow(start)` | a clip of a main workflow for `paste` |
+| `copy_workflow(workflow)` | a clip of a main workflow for `paste` |
 
-`copy_workflow` takes the start node of a main workflow and refuses any other node with `bad_arguments`: "Only a main workflow is copied; name its start node."
+`copy_workflow` takes a main workflow and refuses a branch workflow with `bad_arguments`: "Only a main workflow is copied; a branch workflow is copied with the main workflow it belongs to."
 
 Every read, every write result, and every clip uses the record's own form (persistence, section 3), the canonical JSON the file is written in; there is no second written form. A workflow in that form is its entry from `workflows`, with the entries of its nodes from `nodes` and of its gaps from `gaps`. Its `nodes` and `gaps` lists give the order from start to finish, a project's contents are the nodes between its begin and end, and a branch's attachment is its id in a gap's side lists, so every node and gap is addressed by the id it carries.
 
